@@ -1,0 +1,11 @@
+# Set up pages for errors
+ErrorDocument 404 /new404.html
+
+# Protect the .htaccess file
+<Files .htaccess>
+	Order Allow,Deny
+	Deny from all
+</Files>
+
+# Disable directory browsing
+Options All -Indexes
