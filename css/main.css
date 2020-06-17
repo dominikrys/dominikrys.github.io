@@ -1,31 +1,31 @@
-*{
-    font-family: 'Source Sans Pro', sans-serif;
-    text-align: center;
+* {
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
 }
 
 h1 {
-    font-size: 80px
+  font-size: 80px;
 }
 
 #separator {
-    height: 20px
+  height: 20px;
 }
 
 .fab {
-    font-size: 80px;
-    flex: 1;
-    padding-left: 30px;
-    padding-right: 30px;
+  font-size: 80px;
+  flex: 1;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .fa-linkedin {
-    color: #0e76a8
+  color: #0e76a8;
 }
 
 .fa-github {
-    color: black
+  color: black;
 }
 
 .icon-container {
-    display: flex;
+  display: flex;
 }
