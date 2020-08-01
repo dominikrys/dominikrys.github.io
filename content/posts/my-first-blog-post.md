@@ -3,6 +3,7 @@ title: "My First Blog Post"
 date: 2020-08-01T15:16:16+01:00
 draft: false
 toc: false
+comments: true
 images:
 tags:
   - personal
