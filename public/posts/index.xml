@@ -1,0 +1,39 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Dominik Rys</title>
+        <link>https://dominikrys.com/posts/</link>
+        <description>Recent content in Posts on Dominik Rys</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-GB</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Sat, 01 Aug 2020 15:16:16 +0100</lastBuildDate>
+        <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>My First Blog Post</title>
+            <link>https://dominikrys.com/posts/2020/08/my-first-blog-post/</link>
+            <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2020/08/my-first-blog-post/</guid>
+            <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
+My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Starting a blog and having this knowledge elegantly formatted and stored away will hopefully remedy this issue.
+As for the tech stack I used to set up this blog, it&amp;rsquo;s quite straightforward.</description>
+            <content type="html"><![CDATA[<p>Hi, I&rsquo;m Dom. Welcome to my first blog post!</p>
+<p>My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Starting a blog and having this knowledge elegantly formatted and stored away will hopefully remedy this issue.</p>
+<p>As for the tech stack I used to set up this blog, it&rsquo;s quite straightforward. <a href="https://gohugo.io/">Hugo</a> is the static site generator responsible for most of the heavy work, allowing me to write this blog post simply in Markdown. The site is then hosted on GitHub Pages (with <a href="https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/">Jekyll bypassed</a>).</p>
+<p>Alternative static site generators I&rsquo;ve also considered are <a href="https://www.gatsbyjs.org/">Gatsby</a> and <a href="https://jekyllrb.com/">Jekyll</a>:</p>
+<ul>
+<li>
+<p>Gatsby is arguably a more popular solution, however supposedly <a href="https://www.freecodecamp.org/news/gatsby-vs-hugo-a-detailed-comparison-e78d94f640fc/">requires knowledge of React</a>. I was looking for an easily maintainable solution which &ldquo;just works&rdquo;, so Hugo seemed like a winner.</p>
+</li>
+<li>
+<p>Jekyll is used by default on GitHub pages so it felt like the more natural choice. I&rsquo;ve tried to set it up in the past to have a GitHub pages page redirect to another site (which I quickly found I don&rsquo;t need Jekyll for), but the set-up process was horrible. I&rsquo;ve tried it on Windows and Linux, and ran into lots of issues with it requiring certain Ruby versions and specific environment settings. Hugo worked out of the box.</p>
+</li>
+</ul>
+<p>I got the final nudge to get to work with this blog after reading the book <a href="https://www.goodreads.com/book/show/18290401-show-your-work">Show Your Work</a> by Austin Kleon. I highly recommend it as it&rsquo;s super short and packed with plenty of useful advice.</p>
+<p>I hope you find the content on this blog useful!</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>
