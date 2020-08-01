@@ -17,7 +17,7 @@ copyright = "This work is licensed under a Creative Commons Attribution-NonComme
 #contentDir   = "content"
 #dataDir      = "data"
 #layoutDir    = "layouts"
-#publishDir   = "public"
+publishDir   = "docs"
 
 #buildDrafts  = false
 #buildFuture  = false
