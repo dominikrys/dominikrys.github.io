@@ -17,7 +17,7 @@ disqusShortname = "dominikrys"
 #contentDir   = "content"
 #dataDir      = "data"
 #layoutDir    = "layouts"
-publishDir   = "docs"
+publishDir   = "docs" # Changed from "public" to work with GitHub pages
 
 #buildDrafts  = false
 #buildFuture  = false
