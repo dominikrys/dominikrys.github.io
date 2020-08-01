@@ -10,9 +10,9 @@ tags:
 
 Hi, I'm Dom. Welcome to my first blog post!
 
-My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Starting a blog and having this knowledge elegantly formatted and stored away will hopefully remedy this issue.
+My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Writing blog posts to store this knowledge will hopefully remedy this issue.
 
-As for the tech stack I used to set up this blog, it's quite straightforward. [Hugo](https://gohugo.io/) is the static site generator responsible for most of the heavy work, allowing me to write this blog post simply in Markdown. The site is then hosted on GitHub Pages (with [Jekyll bypassed](https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/)).
+The tech stack I used to set up this blog is quite straightforward. [Hugo](https://gohugo.io/) is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown. The site is then hosted on GitHub Pages (with [Jekyll bypassed](https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/)).
 
 Alternative static site generators I've also considered are [Gatsby](https://www.gatsbyjs.org/) and [Jekyll](https://jekyllrb.com/):
 

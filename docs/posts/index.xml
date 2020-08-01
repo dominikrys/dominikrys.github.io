@@ -16,11 +16,11 @@
             
             <guid>https://dominikrys.com/posts/2020/08/my-first-blog-post/</guid>
             <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
-My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Starting a blog and having this knowledge elegantly formatted and stored away will hopefully remedy this issue.
-As for the tech stack I used to set up this blog, it&amp;rsquo;s quite straightforward.</description>
+My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Writing blog posts to store this knowledge will hopefully remedy this issue.
+The tech stack I used to set up this blog is quite straightforward.</description>
             <content type="html"><![CDATA[<p>Hi, I&rsquo;m Dom. Welcome to my first blog post!</p>
-<p>My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Starting a blog and having this knowledge elegantly formatted and stored away will hopefully remedy this issue.</p>
-<p>As for the tech stack I used to set up this blog, it&rsquo;s quite straightforward. <a href="https://gohugo.io/">Hugo</a> is the static site generator responsible for most of the heavy work, allowing me to write this blog post simply in Markdown. The site is then hosted on GitHub Pages (with <a href="https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/">Jekyll bypassed</a>).</p>
+<p>My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Writing blog posts to store this knowledge will hopefully remedy this issue.</p>
+<p>The tech stack I used to set up this blog is quite straightforward. <a href="https://gohugo.io/">Hugo</a> is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown. The site is then hosted on GitHub Pages (with <a href="https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/">Jekyll bypassed</a>).</p>
 <p>Alternative static site generators I&rsquo;ve also considered are <a href="https://www.gatsbyjs.org/">Gatsby</a> and <a href="https://jekyllrb.com/">Jekyll</a>:</p>
 <ul>
 <li>
