@@ -1,23 +1,202 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Posts on Dominik Rys</title>
-        <link>https://dominikrys.com/posts/</link>
-        <description>Recent content in Posts on Dominik Rys</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>en-GB</language>
-        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 15 Aug 2020 16:55:48 +0100</lastBuildDate>
-        <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Dominik Rys ">
+<meta name="description" content="Intro A couple months I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web." />
+<meta name="keywords" content="blog, software, engineering, computer science, emscripten, webassembly, c&#43;&#43;, sdl, programming" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/" />
+
+
+    <title>
         
-        <item>
-            <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
-            <link>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</link>
-            <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
+            Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly :: Dominik Rys 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://dominikrys.com/main.d1ea4af8fd04fb24a4f8b882ea54bd04eb245427ca4baf527c81a5dab071410b.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://dominikrys.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://dominikrys.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://dominikrys.com/favicon-16x16.png">
+    <link rel="manifest" href="https://dominikrys.com/site.webmanifest">
+    <link rel="mask-icon" href="https://dominikrys.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://dominikrys.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly">
+<meta itemprop="description" content="Intro A couple months I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web.">
+<meta itemprop="datePublished" content="2020-08-15T16:55:48+01:00" />
+<meta itemprop="dateModified" content="2020-08-15T16:55:48+01:00" />
+<meta itemprop="wordCount" content="3710">
+<meta itemprop="image" content="https://dominikrys.com"/>
+
+
+
+<meta itemprop="keywords" content="emscripten, webassembly, c&#43;&#43;, sdl, programming," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dominikrys.com"/>
+
+<meta name="twitter:title" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly"/>
+<meta name="twitter:description" content="Intro A couple months I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web."/>
+
+
+
+    <meta property="og:title" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly" />
+<meta property="og:description" content="Intro A couple months I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/" />
+<meta property="og:image" content="https://dominikrys.com"/>
+<meta property="article:published_time" content="2020-08-15T16:55:48+01:00" />
+<meta property="article:modified_time" content="2020-08-15T16:55:48+01:00" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2020-08-15 16:55:48 &#43;0100 BST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://dominikrys.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor" style=
+                  "
+                   background-color:#67a2c9;
+                   animation-duration:2s;">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
             
-            <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
-            <description>Intro A couple months I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
-In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web.</description>
-            <content type="html"><![CDATA[<p><img src="/img/cpp-chip8-emulator-to-webassembly/full-emulator.png" alt="CHIP-8 Emulator"></p>
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://dominikrys.com/about/">About</a></li><li><a href="https://dominikrys.com/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://dominikrys.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://dominikrys.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://dominikrys.com/favicon-16x16.png">
+    <link rel="manifest" href="https://dominikrys.com/site.webmanifest">
+    <link rel="mask-icon" href="https://dominikrys.com/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        18 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/">Compiling a C++ CHIP-8 Emulator to WebAssembly</a>
+      </h1>
+        <hr />
+        <aside id="toc">
+          <div class="toc-title">Table of Contents</div>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#setting-up-emscripten">Setting up Emscripten</a></li>
+    <li><a href="#cmake-and-emscripten">CMake and Emscripten</a>
+      <ul>
+        <li><a href="#potential-cmake-problems">Potential CMake problems</a></li>
+        <li><a href="#adding-emscripten-sections-to-cmakelists">Adding Emscripten sections to CMakeLists</a></li>
+      </ul>
+    </li>
+    <li><a href="#compiling-for-the-first-time">Compiling for the first time</a></li>
+    <li><a href="#debugging-emscripten">Debugging Emscripten</a></li>
+    <li><a href="#file-system">File system</a></li>
+    <li><a href="#emscripten-loops">Emscripten loops</a>
+      <ul>
+        <li><a href="#the-big-rewrite">The big rewrite</a></li>
+        <li><a href="#emterpreter">Emterpreter</a></li>
+        <li><a href="#frame-rate-issues">Frame rate issues</a></li>
+      </ul>
+    </li>
+    <li><a href="#exporting-c-functions-to-call-from-js">Exporting C++ functions to call from JS</a></li>
+    <li><a href="#audio">Audio</a></li>
+    <li><a href="#finishing-touches">Finishing touches</a></li>
+    <li><a href="#the-end">The end</a></li>
+  </ul>
+</nav>
+        </aside>
+        <hr />
+
+      
+
+      <div class="post-content">
+        <p><img src="https://dominikrys.com/img/cpp-chip8-emulator-to-webassembly/full-emulator.png" alt="CHIP-8 Emulator"></p>
 <h2 id="intro">Intro</h2>
 <p>A couple months I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can <a href="https://github.com/dominikrys/chip8">check out the source code</a> or <strong><a href="https://dominikrys.com/chip8">try it out online through the magic of WebAssembly</a></strong>.</p>
 <p>In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web.</p>
@@ -92,9 +271,9 @@ Scanning dependencies of target chip8
 </code></pre></div><p>It&hellip; worked? I hosted the generated page locally with Python</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server
 </code></pre></div><p>And had a look at it in Chrome. I found that the screen was blank, but in the JavaScript console I got the usage of my program printed, followed by an exception.</p>
-<p><img src="/img/cpp-chip8-emulator-to-webassembly/first-compile-error.png" alt="First Compile Error"></p>
+<p><img src="https://dominikrys.com/img/cpp-chip8-emulator-to-webassembly/first-compile-error.png" alt="First Compile Error"></p>
 <p>That makes sense, as natively the emulator expects to be given a ROM to load as a command line argument. After hard-coding a path to Pong and removing my command line argument handling code, I was left with this exception:</p>
-<p><img src="/img/cpp-chip8-emulator-to-webassembly/exception-after-fix.png" alt="Exception after fix"></p>
+<p><img src="https://dominikrys.com/img/cpp-chip8-emulator-to-webassembly/exception-after-fix.png" alt="Exception after fix"></p>
 <p>This time I actually had to work out what the exception is. Time to attempt some debugging!</p>
 <h2 id="debugging-emscripten">Debugging Emscripten</h2>
 <p>Investigating the JavaScript exception isn&rsquo;t particularly useful, as at that point the code has been generated by Emscripten and is very different to the source code. There is a section on debugging in the <a href="https://emscripten.org/docs/porting/Debugging.html">Emscripten docs</a>, but in essence the debugging process isn&rsquo;t particularly expansive and will require some poking around the C/C++ code.</p>
@@ -123,7 +302,7 @@ Scanning dependencies of target chip8
 </ul>
 <p>After packaging the files, they can be accessed with file API calls from your C/C++ code as if the files existed locally.</p>
 <p>Once I packaged the files properly, everything compiled again. I checked the website and there weren&rsquo;t any exceptions there, but the output was blank and the page was frozen:</p>
-<p><img src="/img/cpp-chip8-emulator-to-webassembly/blank-emscripten.png" alt="Blank Emscripten"></p>
+<p><img src="https://dominikrys.com/img/cpp-chip8-emulator-to-webassembly/blank-emscripten.png" alt="Blank Emscripten"></p>
 <p>I also got the following warning:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
 </code></pre></div><p>For the time being, I decided to get rid of the audio handling code and sort it out later.</p>
@@ -235,7 +414,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </ul>
 <h3 id="frame-rate-issues">Frame rate issues</h3>
 <p>I compiled the code after rewriting using an Emscripten loop and this was the result:</p>
-<p><img src="/img/cpp-chip8-emulator-to-webassembly/working-emulator.png" alt="Working Emulator"></p>
+<p><img src="https://dominikrys.com/img/cpp-chip8-emulator-to-webassembly/working-emulator.png" alt="Working Emulator"></p>
 <p>It worked! Although very slowly. I found that this is to do with the <code>requestAnimationFrame</code> method which I mentioned previously that is used to call the Emscripten main loop function.</p>
 <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">Mozilla docs</a> state that <code>requestAnimationFrame</code> gets called &ldquo;usually 60 times per second, but will generally match the display refresh rate in most web browsers&rdquo;. This was a problem, as my main loop simulated <strong>one</strong> CHIP-8 cycle every time it was called. Effectively this meant that my the emulator ran at a frequency of 60Hz when compiled with Emscripten, where most CHIP-8 ROMs run well at 1000-1500Hz.</p>
 <p>To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn&rsquo;t very straightforward, as the frame rate which ran natively didn&rsquo;t directly translate to what ran in Emscripten.</p>
@@ -321,34 +500,124 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 <p>I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there&rsquo;s huge potential in the technology, and can be very useful for computationally expensive tasks which aren&rsquo;t viable to be ran using JavaScript.</p>
 <p>For examples of more sophisticated projects using WebAssembly, have a look at <a href="https://madewithwebassembly.com/">this site</a> which describes how various projects (including popular ones such as <a href="https://madewithwebassembly.com/showcase/opencv">OpenCV</a> and <a href="https://madewithwebassembly.com/showcase/tensorflow">Tensorflow</a>) use WASM.</p>
 <p>Links to the source code and the compiled emulator in WebAssembly are provided at the top of this post.</p>
-]]></content>
-        </item>
-        
-        <item>
-            <title>First Blog Post</title>
-            <link>https://dominikrys.com/posts/2020/08/first-blog-post/</link>
-            <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+        <p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+            <line x1="7" y1="7" x2="7" y2="7"></line>
+          </svg><span class="tag"><a href="https://dominikrys.com/tags/emscripten-webassembly-c&#43;&#43;-sdl-programming/">emscripten, webassembly, c&#43;&#43;, sdl, programming</a></span>
+        </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        3710 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        2020-08-15 16:55 &#43;0100
+      </p>
+    </div>
+
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h"></span>
+          <hr />
+        </div>
+
+        <div class="pagination__buttons">
+          
+
+          
+            <span class="button next">
+              <a href="https://dominikrys.com/posts/2020/08/first-blog-post/">
+                <span class="button__text">First Blog Post</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+
+    
+      
+        <div id="comments">
+          <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "dominikrys" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+      
+    
+
+  </main>
+
+            </div>
+
             
-            <guid>https://dominikrys.com/posts/2020/08/first-blog-post/</guid>
-            <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
-My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this.
-The tech stack I used to set up this blog is quite straightforward. Hugo is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown.</description>
-            <content type="html"><![CDATA[<p>Hi, I&rsquo;m Dom. Welcome to my first blog post!</p>
-<p>My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this.</p>
-<p>The tech stack I used to set up this blog is quite straightforward. <a href="https://gohugo.io/">Hugo</a> is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown. The site is then hosted on GitHub Pages (with <a href="https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/">Jekyll bypassed</a>).</p>
-<p>Alternative static site generators I&rsquo;ve also considered are <a href="https://www.gatsbyjs.org/">Gatsby</a> and <a href="https://jekyllrb.com/">Jekyll</a>:</p>
-<ul>
-<li>
-<p>Gatsby is arguably a more popular solution, however supposedly <a href="https://www.freecodecamp.org/news/gatsby-vs-hugo-a-detailed-comparison-e78d94f640fc/">requires knowledge of React</a>. I was looking for an easily maintainable solution which &ldquo;just works&rdquo;, so Hugo seemed like a winner.</p>
-</li>
-<li>
-<p>Jekyll is used by default on GitHub pages so it felt like the more natural choice. I&rsquo;ve tried to set it up in the past to have a GitHub pages page redirect to another site (which I quickly found I don&rsquo;t need Jekyll for), but the set-up process was horrible. I&rsquo;ve tried it on Windows and Linux, and ran into lots of issues with it requiring certain Ruby versions and specific environment settings. Hugo worked out of the box.</p>
-</li>
-</ul>
-<p>I got the final nudge to get to work with this blog after reading the book <a href="https://www.goodreads.com/book/show/18290401-show-your-work">Show Your Work</a> by Austin Kleon. I highly recommend it as it&rsquo;s short and packed with plenty of useful advice.</p>
-<p>I hope you find the content on this blog useful!</p>
-]]></content>
-        </item>
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://dominikrys.com">Dominik Rys</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://dominikrys.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    
+</footer>
+
+            
+        </div>
+
         
-    </channel>
-</rss>
+
+
+
+
+<script type="text/javascript" src="https://dominikrys.com/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

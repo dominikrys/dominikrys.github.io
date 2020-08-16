@@ -13,14 +13,14 @@
     
     
     <item>
-      <title>My First Blog Post</title>
-      <link>https://dominikrys.com/posts/2020/08/my-first-blog-post/</link>
+      <title>First Blog Post</title>
+      <link>https://dominikrys.com/posts/2020/08/first-blog-post/</link>
       <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2020/08/my-first-blog-post/</guid>
+      <guid>https://dominikrys.com/posts/2020/08/first-blog-post/</guid>
       <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
-My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Writing blog posts to store this knowledge will hopefully remedy this issue.
-The tech stack I used to set up this blog is quite straightforward.</description>
+My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this.
+The tech stack I used to set up this blog is quite straightforward. Hugo is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown.</description>
     </item>
     
   </channel>

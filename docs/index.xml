@@ -7,20 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 01 Aug 2020 15:16:16 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2020 16:55:48 +0100</lastBuildDate>
     
 	<atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>My First Blog Post</title>
-      <link>https://dominikrys.com/posts/2020/08/my-first-blog-post/</link>
+      <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
+      <link>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</link>
+      <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
+      <description>Intro A couple months I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web.</description>
+    </item>
+    
+    <item>
+      <title>First Blog Post</title>
+      <link>https://dominikrys.com/posts/2020/08/first-blog-post/</link>
       <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2020/08/my-first-blog-post/</guid>
+      <guid>https://dominikrys.com/posts/2020/08/first-blog-post/</guid>
       <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
-My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I found that it was difficult to remember certain quirks and details of my past work. Writing blog posts to store this knowledge will hopefully remedy this issue.
-The tech stack I used to set up this blog is quite straightforward.</description>
+My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this.
+The tech stack I used to set up this blog is quite straightforward. Hugo is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown.</description>
     </item>
     
     <item>
