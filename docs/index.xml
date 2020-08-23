@@ -18,8 +18,8 @@
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
-      <description>Intro A couple months I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
-In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web.</description>
+      <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly.</description>
     </item>
     
     <item>

@@ -12,15 +12,15 @@ tags:
 
 ## Intro
 
-A couple months I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can [check out the source code](https://github.com/dominikrys/chip8) or **[try it out online through the magic of WebAssembly](https://dominikrys.com/chip8)**.
+A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can [check out the source code](https://github.com/dominikrys/chip8) or **[try it out online through the magic of WebAssembly](https://dominikrys.com/chip8)**.
 
-In this post I'll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web.
+In this post I'll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly.
 
 My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved. The whole concept of downloading and running programs also felt a bit dated given that these days it's rare that anyone leaves their web browser.
 
 This is where [Emscripten](https://emscripten.org/) came in. Emscripten is a toolchain which uses [LLVM](https://github.com/emscripten-ports/SDL2) to compile C and C++ programs into [WebAssembly](https://webassembly.org/) (Wasm). WebAssembly is a binary instruction format which runs on modern web browsers and allows apps to run at near native speed. In theory, this was the perfect solution to my problem as I could get the emulator running from a web browser.
 
-The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon's work right? Turns out it wasn't that simple. There were many pitfalls in the process, so to help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I'd write this post.
+The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon's work right? Turns out it wasn't that simple. There were a couple of pitfalls in the process, so to help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I'd write this post.
 
 ## Setting up Emscripten
 
@@ -28,7 +28,7 @@ I've set up Emscripten and did all the development described in this post on a W
 
 [Mozilla's article on compiling C/C++ modules to WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm) was a great crash-course for working with Emscripten. I recommend it as a starting point if your goal is to compile a C or C++ program into Webassembly.
 
-> **Note for Windows users:** if you run `emsdk.bat` and nothing happens, check your Python install. Since Microsoft decided to have the `python` command [redirect you to the Microsoft Store](https://devblogs.microsoft.com/python/python-in-the-windows-10-may-2019-update/), this may cause problems as when the command is called from within bath script (as in the case of `emsdk`) you won't get redirected to the store. To fix this you may need to either install Python from the Microsoft Store or [remove the redirect from your app execution aliases](https://superuser.com/a/1461471) if you already have Python installed.
+> **Note for Windows users:** if you run `emsdk.bat` and nothing happens, check your Python install. Since Microsoft decided to have the `python` command [redirect you to the Microsoft Store](https://devblogs.microsoft.com/python/python-in-the-windows-10-may-2019-update/), this may cause problems as when the command is called from within bath script (as in the case of `emsdk`) you won't get redirected to the store. To fix this you may need to either install Python from the Microsoft Store, or [remove the redirect from your app execution aliases](https://superuser.com/a/1461471) if you already have Python installed.
 
 Finally I also installed mingw32-make using `emsdk install mingw-7.1.0-64bit`. I'm unsure if this is needed on Linux or Mac, however if you do need anything extra then a good place to start is to check the tool packages available through Emscripten by calling `emsdk list`.
 

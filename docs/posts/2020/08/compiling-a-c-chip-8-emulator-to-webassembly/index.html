@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Dominik Rys ">
-<meta name="description" content="Intro A couple months I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
-In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web." />
+<meta name="description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly." />
 <meta name="keywords" content="blog, software, engineering, computer science, emscripten, webassembly, c&#43;&#43;, sdl, programming" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -43,11 +43,11 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 
 
 <meta itemprop="name" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly">
-<meta itemprop="description" content="Intro A couple months I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
-In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web.">
+<meta itemprop="description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly.">
 <meta itemprop="datePublished" content="2020-08-15T16:55:48+01:00" />
 <meta itemprop="dateModified" content="2020-08-15T16:55:48+01:00" />
-<meta itemprop="wordCount" content="3730">
+<meta itemprop="wordCount" content="3736">
 <meta itemprop="image" content="https://dominikrys.com"/>
 
 
@@ -58,14 +58,14 @@ In this post I&rsquo;ll explain how I went about compiling the emulator which wa
 <meta name="twitter:image" content="https://dominikrys.com"/>
 
 <meta name="twitter:title" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly"/>
-<meta name="twitter:description" content="Intro A couple months I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
-In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web."/>
+<meta name="twitter:description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly."/>
 
 
 
     <meta property="og:title" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly" />
-<meta property="og:description" content="Intro A couple months I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
-In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web." />
+<meta property="og:description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17 as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
+In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/" />
 <meta property="og:image" content="https://dominikrys.com"/>
@@ -198,16 +198,16 @@ In this post I&rsquo;ll explain how I went about compiling the emulator which wa
       <div class="post-content">
         <p><img src="https://dominikrys.com/img/cpp-chip8-emulator-to-webassembly/full-emulator.png" alt="CHIP-8 Emulator"></p>
 <h2 id="intro">Intro</h2>
-<p>A couple months I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can <a href="https://github.com/dominikrys/chip8">check out the source code</a> or <strong><a href="https://dominikrys.com/chip8">try it out online through the magic of WebAssembly</a></strong>.</p>
-<p>In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web.</p>
+<p>A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can <a href="https://github.com/dominikrys/chip8">check out the source code</a> or <strong><a href="https://dominikrys.com/chip8">try it out online through the magic of WebAssembly</a></strong>.</p>
+<p>In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly.</p>
 <p>My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved. The whole concept of downloading and running programs also felt a bit dated given that these days it&rsquo;s rare that anyone leaves their web browser.</p>
 <p>This is where <a href="https://emscripten.org/">Emscripten</a> came in. Emscripten is a toolchain which uses <a href="https://github.com/emscripten-ports/SDL2">LLVM</a> to compile C and C++ programs into <a href="https://webassembly.org/">WebAssembly</a> (Wasm). WebAssembly is a binary instruction format which runs on modern web browsers and allows apps to run at near native speed. In theory, this was the perfect solution to my problem as I could get the emulator running from a web browser.</p>
-<p>The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon&rsquo;s work right? Turns out it wasn&rsquo;t that simple. There were many pitfalls in the process, so to help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I&rsquo;d write this post.</p>
+<p>The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon&rsquo;s work right? Turns out it wasn&rsquo;t that simple. There were a couple of pitfalls in the process, so to help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I&rsquo;d write this post.</p>
 <h2 id="setting-up-emscripten">Setting up Emscripten</h2>
 <p>I&rsquo;ve set up Emscripten and did all the development described in this post on a Windows 10 machine. The setup will look very similar on other platforms and a lot of the code/configuration I mention <em>should</em> work on Mac and Linux, and if not then with minimal adjustments.</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm">Mozilla&rsquo;s article on compiling C/C++ modules to WebAssembly</a> was a great crash-course for working with Emscripten. I recommend it as a starting point if your goal is to compile a C or C++ program into Webassembly.</p>
 <blockquote>
-<p><strong>Note for Windows users:</strong> if you run <code>emsdk.bat</code> and nothing happens, check your Python install. Since Microsoft decided to have the <code>python</code> command <a href="https://devblogs.microsoft.com/python/python-in-the-windows-10-may-2019-update/">redirect you to the Microsoft Store</a>, this may cause problems as when the command is called from within bath script (as in the case of <code>emsdk</code>) you won&rsquo;t get redirected to the store. To fix this you may need to either install Python from the Microsoft Store or <a href="https://superuser.com/a/1461471">remove the redirect from your app execution aliases</a> if you already have Python installed.</p>
+<p><strong>Note for Windows users:</strong> if you run <code>emsdk.bat</code> and nothing happens, check your Python install. Since Microsoft decided to have the <code>python</code> command <a href="https://devblogs.microsoft.com/python/python-in-the-windows-10-may-2019-update/">redirect you to the Microsoft Store</a>, this may cause problems as when the command is called from within bath script (as in the case of <code>emsdk</code>) you won&rsquo;t get redirected to the store. To fix this you may need to either install Python from the Microsoft Store, or <a href="https://superuser.com/a/1461471">remove the redirect from your app execution aliases</a> if you already have Python installed.</p>
 </blockquote>
 <p>Finally I also installed mingw32-make using <code>emsdk install mingw-7.1.0-64bit</code>. I&rsquo;m unsure if this is needed on Linux or Mac, however if you do need anything extra then a good place to start is to check the tool packages available through Emscripten by calling <code>emsdk list</code>.</p>
 <p>It&rsquo;s worth pointing out there aren&rsquo;t many IDE plugins or integrations for Emscripten. I tried to integrate it as much as I can into CLion, but what I managed to get to work caused issues for me later on. Emscripten relies on its own compilers and linkers a lot, so I would recommend sticking solely to the terminal in order to save yourself some headaches.</p>
@@ -522,7 +522,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        3730 Words
+        3736 Words
       </p>
 
       <p>
