@@ -24,11 +24,11 @@ The idea was simple: compile my emulator using Emscripten, sort out any errors a
 
 ## Setting up Emscripten
 
-I've set up Emscripten and did all the development described in this post on a Windows 10 machine (I'm not proud of this). The setup will look very similar on other platforms and a lot of the code/configuration I mention *should* work on Mac and Linux, and if not then with minimal adjustments.
+I've set up Emscripten and did all the development described in this post on a Windows 10 machine. The setup will look very similar on other platforms and a lot of the code/configuration I mention *should* work on Mac and Linux, and if not then with minimal adjustments.
 
 [Mozilla's article on compiling C/C++ modules to WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm) was a great crash-course for working with Emscripten. I recommend it as a starting point if your goal is to compile a C or C++ program into Webassembly.
 
-> **Note for Windows users:** if you run `emsdk.bat` and nothing happens, check your Python install. Thanks to Microsoft's amazing idea to have the `python` command [redirect you to the Microsoft Store](https://devblogs.microsoft.com/python/python-in-the-windows-10-may-2019-update/), you may need to either install Python from the Microsoft Store or [remove the redirect from your app execution aliases](https://superuser.com/a/1461471) if you already have Python installed.
+> **Note for Windows users:** if you run `emsdk.bat` and nothing happens, check your Python install. Since Microsoft decided to have the `python` command [redirect you to the Microsoft Store](https://devblogs.microsoft.com/python/python-in-the-windows-10-may-2019-update/), this may cause problems as when the command is called from within bath script (as in the case of `emsdk`) you won't get redirected to the store. To fix this you may need to either install Python from the Microsoft Store or [remove the redirect from your app execution aliases](https://superuser.com/a/1461471) if you already have Python installed.
 
 Finally I also installed mingw32-make using `emsdk install mingw-7.1.0-64bit`. I'm unsure if this is needed on Linux or Mac, however if you do need anything extra then a good place to start is to check the tool packages available through Emscripten by calling `emsdk list`.
 
@@ -76,7 +76,7 @@ elseif (WIN32)
 endif ()
 ```
 
-In this case, the Emscripten block won't get executed when compiling with Emscripten as it will go down the `UNIX` branch. This may not be an issue if you're using a Unix based operating system (like a normal person) as you can simply branch on `if (EMSCRIPTEN)`, but could be a problem if you're building something cross-platform as I am. Since I wanted my Emscripten block to come after Windows and Linux, my fixed `CMakeLists.txt` has the following structure:
+In this case, the Emscripten block won't get executed when compiling with Emscripten as it will go down the `UNIX` branch. This may not be an issue if you're only targeting a Unix based system and Emscripten as you could branch on `if (EMSCRIPTEN)`, but could be a problem if you're target non-Unix based systems alongside Emscripten. Since I wanted my Emscripten block to come after Windows and Linux, my fixed `CMakeLists.txt` has the following structure:
 
 ```php
 if (WIN32)
