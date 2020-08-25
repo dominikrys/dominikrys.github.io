@@ -47,7 +47,7 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly.">
 <meta itemprop="datePublished" content="2020-08-15T16:55:48+01:00" />
 <meta itemprop="dateModified" content="2020-08-15T16:55:48+01:00" />
-<meta itemprop="wordCount" content="3736">
+<meta itemprop="wordCount" content="3746">
 <meta itemprop="image" content="https://dominikrys.com"/>
 
 
@@ -324,7 +324,7 @@ Scanning dependencies of target chip8
 <p>My code wasn&rsquo;t designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global at the top of my <code>Main.cpp</code> file to make it accessible from the main loop. It&rsquo;s not a particularly elegant solution, but for such a simple project it sufficed.</p>
 <p>As an effect of writing code this way your IDE may also complain about not being able to catch exceptions from variables with static storage duration - this is not a problem, and Emscripten will still be able to catch them for us if we add the exception handling in Javasript code that was described in the <a href="#debugging-emscripten">debugging section</a>.</p>
 <p>My code went from looking something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Headers
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
     <span style="color:#66d9ef">try</span>
@@ -352,7 +352,7 @@ Scanning dependencies of target chip8
 
                 <span style="color:#66d9ef">if</span> (chip8.drawFlag())
                 {
-                    <span style="color:#75715e">// Rendering code
+                    <span style="color:#75715e">// -- Graphics rendering code --
 </span><span style="color:#75715e"></span>                }
             }
         }
@@ -366,7 +366,7 @@ Scanning dependencies of target chip8
     <span style="color:#66d9ef">return</span> EXIT_SUCCESS;
 }
 </code></pre></div><p>To this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Headers
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
 </span><span style="color:#75715e"></span>
 Config config{};
 Chip8 chip8{config.mode_};
@@ -381,7 +381,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 
     <span style="color:#66d9ef">if</span> (chip8.drawFlag())
     {
-        <span style="color:#75715e">// Rendering code
+        <span style="color:#75715e">// -- Graphics rendering code --
 </span><span style="color:#75715e"></span>    }
 }
 
@@ -522,7 +522,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        3736 Words
+        3746 Words
       </p>
 
       <p>

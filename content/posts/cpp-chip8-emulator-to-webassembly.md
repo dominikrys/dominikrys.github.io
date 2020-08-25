@@ -203,7 +203,7 @@ As an effect of writing code this way your IDE may also complain about not being
 My code went from looking something like this:
 
 ```cpp
-// Headers
+// -- Headers --
 
 int main() {
     try
@@ -231,7 +231,7 @@ int main() {
 
                 if (chip8.drawFlag())
                 {
-                    // Rendering code
+                    // -- Graphics rendering code --
                 }
             }
         }
@@ -249,7 +249,7 @@ int main() {
 To this:
 
 ```cpp
-// Headers
+// -- Headers --
 
 Config config{};
 Chip8 chip8{config.mode_};
@@ -264,7 +264,7 @@ void mainLoop() {
 
     if (chip8.drawFlag())
     {
-        // Rendering code
+        // -- Graphics rendering code --
     }
 }
 
