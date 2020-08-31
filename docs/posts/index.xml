@@ -73,7 +73,7 @@ elseif (EMSCRIPTEN)
   # Emscripten specific commands
 endif ()
 </code></pre></div><p>For my full CMakeLists.txt you can check the source <a href="https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt">here</a>.</p>
-<h2 id="compiling-for-the-first-time">Compiling for the first time</h2>
+<h2 id="initial-compile">Initial compile</h2>
 <p>I was almost ready to compile the code. Since the emulator is using <a href="https://www.libsdl.org/">SDL2</a> for audio and graphics, I also needed to specify the <code>-s USE_SDL=2</code> compiler flag. When this is specified, Emscripten will automatically download the <a href="https://github.com/emscripten-ports/SDL2">SDL2 Emscripten port</a>.</p>
 <p>I compiled the source code, completely unaltered:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">Emscripten Release
@@ -110,7 +110,7 @@ Scanning dependencies of target chip8
 <p><a href="https://emscripten.org/docs/porting/Debugging.html#manual-print-debugging">Manual print statements</a>. Not particularly sophisticated, but works well enough and helped me debug this first exception. Note that you should flush using <code>std::endl</code> or similar when using <code>std::cout</code> statements or else your messages won&rsquo;t get printed (or will get printed when the program terminates).</p>
 </li>
 </ul>
-<h2 id="file-system">File system</h2>
+<h2 id="file-system-access-in-emscripten">File system access in Emscripten</h2>
 <p>The reason for the exception turned out to be simple - it couldn&rsquo;t find the ROM I specified to load. The reason for this is that WebAssembly is designed to be secure and <strong>to run in a sandboxed execution environment</strong> - the file that I was trying to load was present on the &ldquo;server&rdquo;, but not in the WASM sandbox.</p>
 <p>To use files within Emscripten, a <a href="https://emscripten.org/docs/api_reference/Filesystem-API.html">File System API is provided</a> as well as a way to <a href="https://emscripten.org/docs/porting/files/packaging_files.html#packaging-files">package files</a>. Since I already had the C++ code for reading files, I went down the packaging files route. There are two <a href="https://emscripten.org/docs/tools_reference/emcc.html#emcc-preload-file">compiler options</a> that can do this job:</p>
 <ul>
@@ -140,9 +140,9 @@ Scanning dependencies of target chip8
 </code></pre></div><p>Where the full signature of <code>emscripten_set_main_loop</code> is:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(em_callback_func func, <span style="color:#66d9ef">int</span> fps, <span style="color:#66d9ef">int</span> simulate_infinite_loop)
 </code></pre></div><p><code>emscripten_set_main_loop()</code> simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the <a href="https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop">Emscripten docs</a> mention that it&rsquo;s &ldquo;<strong>HIGHLY</strong> recommended&rdquo; to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s <code>requestAnimationFrame</code> method to call the main loop function (more on this later).</p>
-<h3 id="the-big-rewrite">The big rewrite</h3>
-<p>There is a major side effect of having to call a global function on my main loop - every object called within the main loop function either had to be created in that loop, or had to be global itself.</p>
-<p>My code wasn&rsquo;t designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global at the top of my <code>Main.cpp</code> file to make it accessible from the main loop. It&rsquo;s not a particularly elegant solution, but for such a simple project it sufficed.</p>
+<h3 id="major-rewrite">Major rewrite</h3>
+<p>There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.</p>
+<p>My code wasn&rsquo;t designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global at the top of my <code>Main.cpp</code> file to make it accessible from the main loop. It&rsquo;s not a particularly elegant solution, but for this relatively simple project it sufficed.</p>
 <p>As an effect of writing code this way your IDE may also complain about not being able to catch exceptions from variables with static storage duration - this is not a problem, and Emscripten will still be able to catch them for us if we add the exception handling in Javasript code that was described in the <a href="#debugging-emscripten">debugging section</a>.</p>
 <p>My code went from looking something like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
@@ -255,7 +255,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
     emscripten_set_main_loop(mainLoop, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
 }
 </code></pre></div><p>After compiling the emulator again with this change, everything worked as expected. Surprisingly, the keyboard also worked perfectly and didn&rsquo;t require any intervention.</p>
-<h2 id="exporting-c-functions-to-call-from-js">Exporting C++ functions to call from JS</h2>
+<h2 id="exporting-c-functions-to-call-from-javascript">Exporting C++ functions to call from JavaScript</h2>
 <p>To finish this off, I wanted to add a dropdown so it&rsquo;s possible to select a game to load (turns out Pong gets a bit boring after a while). First, I added a function to my C++ code which will get exported so it can be called from JavaScript. There is a page in <a href="https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html">the Emscripted docs</a> which explains this in good detail. The function looked as follows:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadRom</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path, <span style="color:#66d9ef">int</span> cyclesPerFrame_) {
@@ -317,7 +317,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 <h2 id="finishing-touches">Finishing touches</h2>
 <p>That&rsquo;s pretty much it - I managed to compile the emulator into WebAssembly, I added the ability to play different games and to host the emulator online. To finish the emulator off, I added some CSS styling, a start/stop button and instructions on how to play which was easy to do by editing the default Emscripten shell file.</p>
 <p>An extra thing which was worth doing is checking how the site behaved in Firefox. For example, I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded, which is how Chrome works by default. Firefox on the other hand remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.</p>
-<h2 id="the-end">The end</h2>
+<h2 id="end">End</h2>
 <p>I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there&rsquo;s huge potential in the technology, and can be very useful for computationally expensive tasks which aren&rsquo;t viable to be ran using JavaScript.</p>
 <p>For examples of more sophisticated projects using WebAssembly, have a look at <a href="https://madewithwebassembly.com/">this site</a> which describes how various projects (including popular ones such as <a href="https://madewithwebassembly.com/showcase/opencv">OpenCV</a> and <a href="https://madewithwebassembly.com/showcase/tensorflow">Tensorflow</a>) use WASM.</p>
 <p>Links to the source code and the compiled emulator in WebAssembly are provided at the top of this post.</p>

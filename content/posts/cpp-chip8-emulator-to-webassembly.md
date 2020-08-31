@@ -90,7 +90,7 @@ endif ()
 
 For my full CMakeLists.txt you can check the source [here](https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt).
 
-## Compiling for the first time
+## Initial compile
 
 I was almost ready to compile the code. Since the emulator is using [SDL2](https://www.libsdl.org/) for audio and graphics, I also needed to specify the `-s USE_SDL=2` compiler flag. When this is specified, Emscripten will automatically download the [SDL2 Emscripten port](https://github.com/emscripten-ports/SDL2).
 
@@ -140,7 +140,7 @@ The most helpful ways to debug my code I found were:
 
 - [Manual print statements](https://emscripten.org/docs/porting/Debugging.html#manual-print-debugging). Not particularly sophisticated, but works well enough and helped me debug this first exception. Note that you should flush using `std::endl` or similar when using `std::cout` statements or else your messages won't get printed (or will get printed when the program terminates).
 
-## File system
+## File system access in Emscripten
 
 The reason for the exception turned out to be simple - it couldn't find the ROM I specified to load. The reason for this is that WebAssembly is designed to be secure and **to run in a sandboxed execution environment** - the file that I was trying to load was present on the "server", but not in the WASM sandbox.
 
@@ -192,11 +192,11 @@ emscripten_set_main_loop(em_callback_func func, int fps, int simulate_infinite_l
 
 `emscripten_set_main_loop()` simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the [Emscripten docs](https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop) mention that it's "**HIGHLY** recommended" to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s `requestAnimationFrame` method to call the main loop function (more on this later).
 
-### The big rewrite
+### Major rewrite
 
-There is a major side effect of having to call a global function on my main loop - every object called within the main loop function either had to be created in that loop, or had to be global itself.
+There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.
 
-My code wasn't designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global at the top of my `Main.cpp` file to make it accessible from the main loop. It's not a particularly elegant solution, but for such a simple project it sufficed.
+My code wasn't designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global at the top of my `Main.cpp` file to make it accessible from the main loop. It's not a particularly elegant solution, but for this relatively simple project it sufficed.
 
 As an effect of writing code this way your IDE may also complain about not being able to catch exceptions from variables with static storage duration - this is not a problem, and Emscripten will still be able to catch them for us if we add the exception handling in Javasript code that was described in the [debugging section](#debugging-emscripten).
 
@@ -333,7 +333,7 @@ int main() {
 
 After compiling the emulator again with this change, everything worked as expected. Surprisingly, the keyboard also worked perfectly and didn't require any intervention.
 
-## Exporting C++ functions to call from JS
+## Exporting C++ functions to call from JavaScript
 
 To finish this off, I wanted to add a dropdown so it's possible to select a game to load (turns out Pong gets a bit boring after a while). First, I added a function to my C++ code which will get exported so it can be called from JavaScript. There is a page in [the Emscripted docs](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html) which explains this in good detail. The function looked as follows:
 
@@ -414,7 +414,7 @@ That's pretty much it - I managed to compile the emulator into WebAssembly, I ad
 
 An extra thing which was worth doing is checking how the site behaved in Firefox. For example, I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded, which is how Chrome works by default. Firefox on the other hand remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.
 
-## The end
+## End
 
 I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there's huge potential in the technology, and can be very useful for computationally expensive tasks which aren't viable to be ran using JavaScript.
 
