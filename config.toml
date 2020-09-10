@@ -53,7 +53,7 @@ disableHugoGeneratorInject = false
   keywords = "blog, software, engineering, computer science"
   images = [""]
 
-  homeSubtitle = "Computer Science Student at the University of Birmingham"
+  homeSubtitle = "Final Year Computer Science Student at the University of Birmingham"
 
   # Prefix of link to the git commit detail page. GitInfo must be enabled.
   # gitUrl = ""
