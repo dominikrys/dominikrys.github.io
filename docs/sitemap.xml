@@ -3,27 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dominikrys.com/tags/docker-influxdb-grafana-telegraf-monitoring-devops/</loc>
+    <lastmod>2020-09-21T16:52:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dominikrys.com/</loc>
+    <lastmod>2020-09-21T16:52:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</loc>
+    <lastmod>2020-09-21T16:52:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2020-09-21T16:52:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dominikrys.com/tags/</loc>
+    <lastmod>2020-09-21T16:52:48+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</loc>
     <lastmod>2020-08-15T16:55:48+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dominikrys.com/</loc>
-    <lastmod>2020-08-15T16:55:48+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://dominikrys.com/tags/emscripten-webassembly-c&#43;&#43;-sdl-programming/</loc>
-    <lastmod>2020-08-15T16:55:48+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://dominikrys.com/posts/</loc>
-    <lastmod>2020-08-15T16:55:48+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://dominikrys.com/tags/</loc>
     <lastmod>2020-08-15T16:55:48+01:00</lastmod>
   </url>
   

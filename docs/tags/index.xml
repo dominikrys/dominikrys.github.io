@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 15 Aug 2020 16:55:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Sep 2020 16:52:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker, influxdb, grafana, telegraf, monitoring, devops</title>
+      <link>https://dominikrys.com/tags/docker-influxdb-grafana-telegraf-monitoring-devops/</link>
+      <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/docker-influxdb-grafana-telegraf-monitoring-devops/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>emscripten, webassembly, c&#43;&#43;, sdl, programming</title>
       <link>https://dominikrys.com/tags/emscripten-webassembly-c&#43;&#43;-sdl-programming/</link>

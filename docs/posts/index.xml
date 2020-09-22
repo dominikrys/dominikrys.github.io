@@ -6,8 +6,150 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-GB</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 15 Aug 2020 16:55:48 +0100</lastBuildDate>
+        <lastBuildDate>Mon, 21 Sep 2020 16:52:48 +0100</lastBuildDate>
         <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</title>
+            <link>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</link>
+            <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</guid>
+            <description>This post is also hosted on the Corda Blog.
+ Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.
+We recently decided to invest some effort in improving the observability of the overall system so that we could identify regressions and analyse their root cause more efficiently and with less manual work.</description>
+            <content type="html"><![CDATA[<blockquote>
+<p>This post is also hosted on the <a href="https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/">Corda Blog</a>.</p>
+</blockquote>
+<h2 id="intro">Intro</h2>
+<p>Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a <a href="https://docs.corda.net/docs/corda-enterprise/performance-testing/toc-tree.html">performance testing suite</a> that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</p>
+<p>We recently decided to invest some effort in improving the observability of the overall system so that we could identify regressions and analyse their root cause more efficiently and with less manual work. There is <a href="https://docs.corda.net/docs/corda-enterprise/node-metrics.html">a wealth of metrics exposed by Corda nodes via JMX</a> that can be inspected using tools such as <a href="https://hawt.io/">Hawtio</a> (as <a href="https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html">described in the Corda docs</a>). However, this approach requires plenty of manual intervention and the prerequisite of the test actively running during inspection times.</p>
+<p><img src="img/hawtio.png" alt="Corda JMX metrics visible in Hawtio"><em>Corda JMX metrics visible in Hawtio</em></p>
+<p>We had to set up a monitoring infrastructure that would allow us to:</p>
+<ul>
+<li>
+<p>Collect the metrics exposed by our Corda nodes via JMX.</p>
+</li>
+<li>
+<p>Collect the metrics not exposed via JMX, such as disk IO and network activity.</p>
+</li>
+<li>
+<p>Store the collected metrics in a centralised database.</p>
+</li>
+<li>
+<p>Visualise, filter, and compare metrics from different time windows using a front end accessible from a web browser.</p>
+</li>
+</ul>
+<p>Monitoring is a core aspect of operating Corda nodes efficiently. Therefore, in this post we give you a quick overview of the technologies available and their trade-offs. We also walk you through the capabilities and the architecture of our solution. The described work has been performed on Corda 4.5, but the high-level architecture is really version-agnostic. We hope this can help those of you getting started with monitoring!</p>
+<h2 id="hosting-the-monitoring-infrastructure">Hosting the monitoring infrastructure</h2>
+<p>The first step was to decide how to host the monitoring infrastructure, as that would greatly impact the choice of other tools that we could use. Ultimately it came down to either using a third-party managed service or deploying the infrastructure ourselves in the public cloud.</p>
+<h3 id="third-party-managed-services">Third-party managed services</h3>
+<p>This would be a great option if we wanted a scalable solution without us having to spend too much time setting up the infrastructure and managing it, or if it was to support production workloads that would have strict requirements for high availability. Given that we only wanted to monitor the nodes in our cluster and didn’t intend for it to scale beyond that, using a third-party service wouldn’t have been cost-effective as it would have provided many more features than were necessary for us.</p>
+<p>We also wanted the ability to have multiple users access dashboards simultaneously, and the possibility for user authentication. These features were only accessible in the higher tiers of such services, which provide much more storage and bandwidth than we required.</p>
+<h3 id="self-hosting">Self-hosting</h3>
+<p>We ended up going down the path of hosting the monitoring infrastructure ourselves in Microsoft Azure. The most popular tools for setting up monitoring solutions provide open source offerings so this was a viable option. It also has the added benefits of giving us full control over the infrastructure and knowing the exact running costs.</p>
+<h2 id="comparison-of-tools">Comparison of tools</h2>
+<p>As we chose to self-host the monitoring infrastructure, we had the liberty of choosing from the multitude of open source tools available to set up our infrastructure. We carefully considered which tools to use so that the monitoring infrastructure wouldn’t require much effort to maintain in the long run.</p>
+<p>Effectively the monitoring infrastructure can be split up into three parts:</p>
+<ol>
+<li>
+<p>A metric collection agent.</p>
+</li>
+<li>
+<p>A time-series database (TSDB).</p>
+</li>
+<li>
+<p>A front end for visualising and querying the TSDB.</p>
+</li>
+</ol>
+<p>The descriptions of each part below provide details about the tool we chose to use, followed by alternatives that we had also considered.</p>
+<h3 id="metric-collection-agent">Metric collection agent</h3>
+<p><img src="img/telegraf-logo.png" alt="Telegraf logo"></p>
+<p>⭐ <a href="https://www.influxdata.com/time-series-platform/telegraf"><strong>Telegraf</strong></a>— a lightweight open source server agent that <a href="https://docs.influxdata.com/telegraf/latest/plugins/">can collect and write metrics to and from different sources</a>. It’s plug-in driven so we could easily set it up using the provided <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/jolokia2">jolokia2 plug-in</a> to collect the metrics exposed through JMX from our Corda nodes.</p>
+<p>Telegraf also provides plug-ins that allow for monitoring various system metrics which aren’t available through JMX, such as disk IO and networking usage. In our case, it was so convenient to configure that we also deployed it on our <a href="https://docs.corda.net/docs/corda-os/node-database.html">Corda node databases</a> with the relevant <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/postgresql">PostgreSQL</a> and <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver">SQL Server</a> plug-ins.</p>
+<p><strong>Other options</strong> — we also considered <a href="https://github.com/prometheus/jmx_exporter"><strong>Prometheus JMX exporter</strong></a>, <a href="https://github.com/logzio/jmx2graphite"><strong>jmx2graphite</strong></a>, and <a href="https://github.com/jmxtrans/jmxtrans"><strong>jmxtrans</strong></a>. The issue with these is that they are all limited to which metrics they can record and where they can send them to. Telegraf can provide essentially the same functionality as those tools and allows for extensibility, while greatly reducing the number of tools required for maintenance.</p>
+<h3 id="time-series-database">Time-series database</h3>
+<p><img src="img/influxdb-logo.png" alt="InfluxDB logo"></p>
+<p>⭐ <a href="https://www.influxdata.com/products/influxdb-overview/"><strong>InfluxDB</strong></a> — an open source TSDB from InfluxData, who also develop Telegraf. It’s <a href="https://docs.influxdata.com/influxdb/v1.8/introduction/install/">easy to install on many different platforms</a> and can be interacted with using the SQL-like <a href="https://docs.influxdata.com/influxdb/v1.8/query_language/">InfluxQL</a> query language.</p>
+<p>This is the TSDB we ended up using. So far it’s been working well, but a slight gripe with it is that the default query language (InfluxQL) is not quite powerful enough for certain tasks, such as performing calculations on data over different time windows. This is remedied by using InfluxData’s new <a href="https://www.influxdata.com/products/flux">Flux</a> query language, albeit at the cost of convenience due to a lack of simplified GUI for it in TSDB front ends — the queries have to be written in plain text. Before choosing InfluxDB we’d recommend checking <a href="https://github.com/influxdata/influxdb/issues/5930">this aggregate GitHub issue</a> to see if you’d heavily rely on any query operators that have not yet been implemented in InfluxQL.</p>
+<p>Overall, Flux is still significantly more powerful than Prometheus’ and Graphite’s query languages. InfluxDB can be the best option if you don’t mind sacrificing some ease of use sometimes for the ability to write (almost) any query imaginable.</p>
+<p><img src="img/prometheus-logo.png" alt="Prometheus Logo"></p>
+<p><a href="https://prometheus.io"><strong>Prometheus</strong></a> — another popular open source TSDB, which is entirely community-driven. It uses a similar <a href="https://prometheus.io/docs/introduction/comparison/#summary-0">data compression algorithm to InfluxDB</a>. The query language (<a href="https://prometheus.io/docs/prometheus/latest/querying/basics">PromQL</a>) is more robust than InfluxQL so you can do more out of the box, although it doesn’t resemble any particular language so requires learning from scratch.</p>
+<p>One of the biggest differences in Prometheus compared to other TSDBs is that it <a href="https://prometheus.io/docs/introduction/faq/#why-do-you-pull-rather-than-push">pulls instead of pushing metrics</a>. This has some advantages, but also requires additional setting-up on the machines that run your Corda nodes to allow Prometheus to pick up the exported metrics, which entails opening extra ports and setting up firewall rules.</p>
+<p>It was tough choosing between Prometheus and InfluxDB, but ultimately we went with InfluxDB due to it being maintained by the same people as Telegraf, the potential to write complex queries using Flux and requiring less setup to collect metrics from our Corda nodes.</p>
+<p><img src="img/graphite-logo.png" alt="Graphite Logo"></p>
+<p><a href="https://graphiteapp.org"><strong>Graphite</strong></a> — the grandaddy of modern TSDBs. Graphite has been around for longer than Prometheus and InfluxDB, so it’s a mature and tested tool. The query language resembles some programming languages so it’s easy to pick up, and it can do more than InfluxQL and PromQL thanks to the huge selection of functions that have been developed over the years.</p>
+<p>Being the oldest of the bunch has its disadvantages though, most notably that the <a href="https://www.influxdata.com/blog/influxdb-outperforms-graphite-in-time-series-data-metrics-benchmark">performance is lacklustre compared to InfluxDB</a> which would have to be accounted for by using a more powerful host VM. Installing Graphite can also be a pain due to its <a href="https://graphite.readthedocs.io/en/latest/install.html#dependencies">many dependencies</a> if it’s not deployed in Docker (inspiring projects such as <a href="https://github.com/obfuscurity/synthesize/">Synthesize</a> that are meant to make the process easier).</p>
+<h3 id="front-end-for-visualising-and-querying-the-tsdb">Front end for visualising and querying the TSDB</h3>
+<p><img src="img/example-grafana-dashboard.jpg" alt="Example Grafana Dashboard"><em>Example Grafana Dashboard</em></p>
+<p>⭐ <a href="https://grafana.com"><strong>Grafana</strong></a> — an open source tool for interactively visualising data from various data sources. Grafana is by far the most popular tool for interacting with TSDBs with over <a href="https://github.com/grafana/grafana">1200 contributors on GitHub</a> and a very active <a href="https://community.grafana.com/">community forum</a>. There are <a href="https://grafana.com/grafana/plugins">many plug-ins available for it</a>, it integrates well with many other services for <a href="https://grafana.com/docs/grafana/latest/alerting/notifications/">alerting</a> and <a href="https://grafana.com/docs/grafana/latest/auth/overview/">authentication</a>, and it makes creating aesthetically pleasing dashboards a breeze.</p>
+<p><img src="img/example-chronograf-dashboard.png" alt="Example Chronograf Dashboard"><em>Example Chronograf Dashboard</em></p>
+<p><a href="https://www.influxdata.com/time-series-platform/chronograf"><strong>Chronograf</strong></a> — an open source tool for interacting and visualising data from InfluxDB. Chronograf is very well suited for setups where other products from InfluxData are used, as it’s better integrated with them compared to Grafana. This could have been a great option if we also used <a href="https://www.influxdata.com/time-series-platform/kapacitor/">Kapacitor</a> as a real-time streaming data processing engine from InfluxData, to complete their “<a href="https://www.influxdata.com/blog/introduction-to-influxdatas-influxdb-and-tick-stack/">TICK</a>” stack.</p>
+<p>Given that Chronograf has fewer features than Grafana and <a href="https://github.com/influxdata/chronograf/graphs/contributors">is significantly less popular</a>, which can make getting support for it more difficult, we went with Grafana.</p>
+<h2 id="extra-considerations">Extra considerations</h2>
+<h3 id="why-deploy-in-docker">Why deploy in Docker?</h3>
+<p><img src="img/docker-logo.png" alt="Docker Logo"></p>
+<p>As all tools we chose provided official Docker images, we decided to deploy our monitoring infrastructure as a <a href="https://docs.docker.com/compose">Docker Compose</a> application in an Azure VM. This has many benefits:</p>
+<ul>
+<li>
+<p>Deploying the monitoring infrastructure is a one-step process and is easily reproducible.</p>
+</li>
+<li>
+<p>Updating and downgrading individual services is straightforward — just adjust the version of the Docker images!</p>
+</li>
+<li>
+<p>It’s easy to manage each container’s data as it’s kept in separate Docker volumes.</p>
+</li>
+<li>
+<p>The solution can be easily tested locally and will behave the same locally as on a production server.</p>
+</li>
+</ul>
+<h3 id="securing-the-monitoring-infrastructure">Securing the monitoring infrastructure</h3>
+<p><img src="img/traefik-logo.png" alt="Traefik Logo"></p>
+<p>To encrypt the traffic coming in and out of our monitoring infrastructure, we used <a href="https://docs.traefik.io/">Traefik</a> which can automatically renew and obtain TLS certificates for our monitoring infrastructure from <a href="https://letsencrypt.org">Let’s Encrypt</a>. Traefik is an open source edge router that acts as a reverse proxy for our Docker containers. It can be deployed using <a href="https://hub.docker.com/_/traefik">official Docker images</a>, so it integrates perfectly into our Docker Compose application.</p>
+<p>We defined separate Traefik <a href="https://docs.traefik.io/routing/services/">services</a> and <a href="https://docs.traefik.io/routing/routers/">routers</a> for Grafana and InfluxDB that take care of appropriate routing, HTTP/HTTPS redirection, and TLS configuration. This was all done in a declarative way using <a href="https://docs.traefik.io/routing/providers/docker/">labels in our Docker compose file</a>.</p>
+<p>Grafana supports <a href="https://grafana.com/docs/grafana/latest/auth/overview">user authentication</a>, which can be integrated with many different services including Azure and GitHub. This also allows for easy management of permissions of the users accessing our Grafana dashboards.</p>
+<h3 id="deployment-of-telegraf">Deployment of Telegraf</h3>
+<p>Telegraf can be installed on the machines running Corda in a <a href="https://docs.influxdata.com/telegraf/latest/introduction/installation">variety of ways</a> and works as a stand-alone tool. Setting it up is relatively straightforward, so you can choose whichever installation method most suits your setup.</p>
+<h2 id="complete-infrastructure-architecture">Complete infrastructure architecture</h2>
+<p>The complete architecture of our infrastructure looks as follows:</p>
+<p><img src="img/architecture-diagram.png" alt="Architecture Diagram"></p>
+<p>TLS is terminated at our reverse proxy (Traefik). This means that traffic between the proxy and Grafana/InfluxDB is not encrypted, but this isn’t an issue since all these services are running in a single secured machine.</p>
+<h2 id="final-result">Final result</h2>
+<p>We set up a Grafana dashboard with metrics for each Corda node in our cluster. The dashboard features high-level flow metrics first, followed by internal operation metrics (P2P, caches), and finally system-level metrics (JVM, disk IO, network). A part of this dashboard is shown below.</p>
+<p><img src="img/dashboard-1.png" alt="Dashboard 1"></p>
+<p><img src="img/dashboard-1.png" alt="Dashboard 2"></p>
+<p>We also have a dashboard with a summary of the results from our performance testing suite, which helps us inspect the results quickly and identify potential regressions. A part of it that shows throughput numbers for some of our test cases is shown below. This is made possible by sending data from our test suite running JMeter to InfluxDB using the <a href="https://jmeter.apache.org/usermanual/realtime-results.html">JMeter InfluxDB Backend Listener</a>.</p>
+<p><img src="img/jmeter-results-dashboard.png" alt="JMeter Results Dashboard"></p>
+<p>The “Difference” column displays the results of a Flux query performed on our InfluxDB database, repeated for every test case using <a href="https://grafana.com/docs/grafana/latest/variables/repeat-panels-or-rows/">Grafana’s variable feature</a>. It calculates the difference in results of each test case between the currently specified run and a run that happened a certain time ago (in this example 24 hours ago).</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>A complete solution for monitoring Corda nodes can be set up entirely using open source tools without compromises. Many of the tools can be mixed and matched, so it’s possible to adjust the foundation described in this post to better fit your individual needs and existing setup.</p>
+<p>One of the most impactful choices to be made when setting up a monitoring solution for Corda nodes is the choice of TSDB, as that will greatly affect the performance and usability of your dashboards. InfluxDB and Prometheus are strong TSDB options which have many discerning features that can make one more favourable over the other, depending on your requirements.</p>
+<p>For more information on monitoring Corda nodes, check the following articles:</p>
+<ul>
+<li>
+<p><a href="https://www.corda.net/blog/monitoring-corda-nodes-with-prometheus-grafana-and-elk-on-docker-2/">Monitoring Corda Nodes With Prometheus, Grafana and ELK on Docker</a></p>
+</li>
+<li>
+<p><a href="https://www.corda.net/blog/monitoring-corda-nodes-using-prometheus-and-grafana/">Monitoring Corda Nodes using Prometheus and Grafana</a></p>
+</li>
+<li>
+<p><a href="https://www.corda.net/blog/monitoring-corda-nodes-part-1/">Monitoring Corda Nodes (Part 1)</a></p>
+</li>
+</ul>
+<p>The Corda documentation is also an amazing resource:</p>
+<ul>
+<li>
+<p><a href="https://docs.corda.net/docs/corda-enterprise/node-metrics.html">Node metrics</a></p>
+</li>
+<li>
+<p><a href="https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html">Node monitoring and logging</a></p>
+</li>
+</ul>
+<p><strong>Want to learn more about building awesome blockchain applications on Corda? Be sure to visit <a href="http://corda.net/">corda.net</a>, check out our <a href="https://www.corda.net/community/">community page</a> to learn how to connect with other Corda developers, and <a href="https://info.r3.com/email-preferences">sign up</a> for one of our newsletters for the latest updates.</strong></p>
+<p>— Dominik Rys is a Software Engineer Intern at <a href="https://www.r3.com/">R3</a>, an enterprise blockchain software firm working with a global ecosystem of more than 350 participants across multiple industries from both the private and public sectors to develop on Corda, its open source blockchain platform, and Corda Enterprise, a commercial version of Corda for enterprise usage.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
