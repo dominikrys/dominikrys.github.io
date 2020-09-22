@@ -8,7 +8,7 @@ tags:
   - emscripten, webassembly, c++, sdl, programming
 ---
 
-![CHIP-8 Emulator](/img/cpp-chip8-emulator-to-webassembly/full-emulator.png)
+![CHIP-8 Emulator](img/cpp-chip8-emulator-to-webassembly/full-emulator.png)
 
 ## Intro
 
@@ -120,11 +120,11 @@ python3 -m http.server
 
 And had a look at it in Chrome. I found that the screen was blank, but in the JavaScript console I got the usage of my program printed, followed by an exception.
 
-![First Compile Error](/img/cpp-chip8-emulator-to-webassembly/first-compile-error.png)
+![First Compile Error](img/cpp-chip8-emulator-to-webassembly/first-compile-error.png)
 
 That makes sense, as natively the emulator expects to be given a ROM to load as a command line argument. After hard-coding a path to Pong and removing my command line argument handling code, I was left with this exception:
 
-![Exception after fix](/img/cpp-chip8-emulator-to-webassembly/exception-after-fix.png)
+![Exception after fix](img/cpp-chip8-emulator-to-webassembly/exception-after-fix.png)
 
 This time I actually had to work out what the exception is. Time to attempt some debugging!
 
@@ -154,7 +154,7 @@ After packaging the files, they can be accessed with file API calls from your C/
 
 Once I packaged the files properly, everything compiled again. I checked the website and there weren't any exceptions there, but the output was blank and the page was frozen:
 
-![Blank Emscripten](/img/cpp-chip8-emulator-to-webassembly/blank-emscripten.png)
+![Blank Emscripten](img/cpp-chip8-emulator-to-webassembly/blank-emscripten.png)
 
 I also got the following warning:
 
@@ -302,7 +302,7 @@ I gave this a go myself before rewriting my code for `emscripten_set_main_loop()
 
 I compiled the code after rewriting using an Emscripten loop and this was the result:
 
-![Working Emulator](/img/cpp-chip8-emulator-to-webassembly/working-emulator.png)
+![Working Emulator](img/cpp-chip8-emulator-to-webassembly/working-emulator.png)
 
 It worked! Although very slowly. I found that this is to do with the `requestAnimationFrame` method which I mentioned previously that is used to call the Emscripten main loop function.
 
