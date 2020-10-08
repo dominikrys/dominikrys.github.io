@@ -14,13 +14,13 @@ tags:
 
 A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can [check out the source code](https://github.com/dominikrys/chip8) or **[try it out online through the magic of WebAssembly](https://dominikrys.com/chip8)**.
 
-In this post I'll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly.
+In this post I'll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.
 
 My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved. The whole concept of downloading and running programs also felt a bit dated given that these days it's rare that anyone leaves their web browser.
 
 This is where [Emscripten](https://emscripten.org/) came in. Emscripten is a toolchain which uses [LLVM](https://github.com/emscripten-ports/SDL2) to compile C and C++ programs into [WebAssembly](https://webassembly.org/) (Wasm). WebAssembly is a binary instruction format which runs on modern web browsers and allows apps to run at near native speed. In theory, this was the perfect solution to my problem as I could get the emulator running from a web browser.
 
-The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon's work right? Turns out it wasn't that simple. There were a couple of pitfalls in the process, so to help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I'd write this post.
+The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon's work right? Turns out that there were a couple of pitfalls along the way. To help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I'd write this post.
 
 ## Setting up Emscripten
 
@@ -186,6 +186,7 @@ emscripten_set_main_loop(renderFrame, 0, 1);
 ```
 
 Where the full signature of `emscripten_set_main_loop` is:
+
 ```cpp
 emscripten_set_main_loop(em_callback_func func, int fps, int simulate_infinite_loop)
 ```

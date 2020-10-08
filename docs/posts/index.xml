@@ -19,7 +19,7 @@
  Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.
 We recently decided to invest some effort in improving the observability of the overall system so that we could identify regressions and analyse their root cause more efficiently and with less manual work.</description>
             <content type="html"><![CDATA[<blockquote>
-<p>This post is also hosted on the <a href="https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/">Corda Blog</a>.</p>
+<p><strong>This post is also hosted on the <a href="https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/">Corda Blog</a>.</strong></p>
 </blockquote>
 <h2 id="intro">Intro</h2>
 <p>Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a <a href="https://docs.corda.net/docs/corda-enterprise/performance-testing/toc-tree.html">performance testing suite</a> that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</p>
@@ -158,14 +158,14 @@ We recently decided to invest some effort in improving the observability of the 
             
             <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
             <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
-In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly.</description>
+In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.</description>
             <content type="html"><![CDATA[<p><img src="img/cpp-chip8-emulator-to-webassembly/full-emulator.png" alt="CHIP-8 Emulator"></p>
 <h2 id="intro">Intro</h2>
 <p>A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can <a href="https://github.com/dominikrys/chip8">check out the source code</a> or <strong><a href="https://dominikrys.com/chip8">try it out online through the magic of WebAssembly</a></strong>.</p>
-<p>In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows and Linux, to also run on the web using WebAssembly.</p>
+<p>In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.</p>
 <p>My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved. The whole concept of downloading and running programs also felt a bit dated given that these days it&rsquo;s rare that anyone leaves their web browser.</p>
 <p>This is where <a href="https://emscripten.org/">Emscripten</a> came in. Emscripten is a toolchain which uses <a href="https://github.com/emscripten-ports/SDL2">LLVM</a> to compile C and C++ programs into <a href="https://webassembly.org/">WebAssembly</a> (Wasm). WebAssembly is a binary instruction format which runs on modern web browsers and allows apps to run at near native speed. In theory, this was the perfect solution to my problem as I could get the emulator running from a web browser.</p>
-<p>The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon&rsquo;s work right? Turns out it wasn&rsquo;t that simple. There were a couple of pitfalls in the process, so to help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I&rsquo;d write this post.</p>
+<p>The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon&rsquo;s work right? Turns out that there were a couple of pitfalls along the way. To help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I&rsquo;d write this post.</p>
 <h2 id="setting-up-emscripten">Setting up Emscripten</h2>
 <p>I&rsquo;ve set up Emscripten and did all the development described in this post on a Windows 10 machine. The setup will look very similar on other platforms and a lot of the code/configuration I mention <em>should</em> work on Mac and Linux, and if not then with minimal adjustments.</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm">Mozilla&rsquo;s article on compiling C/C++ modules to WebAssembly</a> was a great crash-course for working with Emscripten. I recommend it as a starting point if your goal is to compile a C or C++ program into Webassembly.</p>
