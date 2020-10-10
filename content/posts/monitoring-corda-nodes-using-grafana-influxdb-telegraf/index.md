@@ -8,7 +8,7 @@ tags:
   - docker, influxdb, grafana, telegraf, monitoring, devops
 ---
 
-> **This post is also hosted on the [Corda Blog](https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/).**
+> **This post is also hosted on the [Corda Blog](https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/).** The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I've done during my summer internship at R3.
 
 ## Intro
 
