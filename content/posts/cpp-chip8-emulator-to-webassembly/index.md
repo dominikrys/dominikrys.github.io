@@ -16,7 +16,7 @@ A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn a
 
 In this post I'll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.
 
-My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved. The whole concept of downloading and running programs also felt a bit dated given that these days it's rare that anyone leaves their web browser.
+My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved.
 
 This is where [Emscripten](https://emscripten.org/) came in. Emscripten is a toolchain which uses [LLVM](https://github.com/emscripten-ports/SDL2) to compile C and C++ programs into [WebAssembly](https://webassembly.org/) (Wasm). WebAssembly is a binary instruction format which runs on modern web browsers and allows apps to run at near native speed. In theory, this was the perfect solution to my problem as I could get the emulator running from a web browser.
 
@@ -197,7 +197,7 @@ emscripten_set_main_loop(em_callback_func func, int fps, int simulate_infinite_l
 
 There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.
 
-My code wasn't designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global at the top of my `Main.cpp` file to make it accessible from the main loop. It's not a particularly elegant solution, but for this relatively simple project it sufficed.
+My code wasn't designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global in my small `Main.cpp` file to make it accessible from the main loop. It's not a particularly elegant solution, but for this relatively simple project it sufficed.
 
 As an effect of writing code this way your IDE may also complain about not being able to catch exceptions from variables with static storage duration - this is not a problem, and Emscripten will still be able to catch them for us if we add the exception handling in Javasript code that was described in the [debugging section](#debugging-emscripten).
 
@@ -403,17 +403,17 @@ Next, I made some changes to the `shell.html` file:
 
 ## Audio
 
-I mentioned that I'd come back to audio earlier in this post. In my emulator I coded the audio as a sine wave (all I wanted was a simple "beep" sound so no need for an audio file) which gets played on a separate thread. To compile the code I had to add some extra compiler flags as described in the [Emscripten Pthreads support page](https://emscripten.org/docs/porting/pthreads.html) to allow for multithreading in Emscripten.
+I mentioned that I'd come back to audio earlier in this post. In my emulator I coded the audio as a sine wave (all I wanted was a simple "beep" sound so I didn't necessarily need an audio file) which gets played on a separate thread. To compile the code I had to add some extra compiler flags as described in the [Emscripten Pthreads support page](https://emscripten.org/docs/porting/pthreads.html) to allow for multithreading in Emscripten.
 
-I compiled the code with the audio enabled and checked how Chrome treats it. The audio played when it should, however it ended up being a horrible high pitched noise which changed frequency and didn't stop, where it should have been a short "beep" sound. Changing various settings didn't seem to have an effect on the noise produced. I also gave it a go in Firefox, which required me to enable a flag as the support in Firefox for Webassembly pthreads is currently experimental. Once the flag was enabled, Firefox had various issues with the audio device and I didn't see pursuing this any further worthwhile.
+I compiled the code with the audio enabled and checked how Chrome treats it. The audio played when it should, however it ended up being a high pitched noise of varying frequencies which didn't stop - not exactly what I wanted. Changing various settings didn't seem to have an effect on the noise produced. I also gave it a go in Firefox, which required me to enable a flag as the support in Firefox for Webassembly pthreads is currently experimental. Once the flag was enabled, Firefox had various issues with the audio device and I didn't see pursuing this any further worthwhile.
 
-In order to make this work, I think the best way would be to handle the audio entirely from JavaScript and query the emulator for when a sound should play. Since I didn't see much value in adding sound to the emulator, I left it out.
+In order to make this work, I a good way would be to handle the audio entirely in JavaScript and query the emulator for when a sound should play. Since I didn't see much value in adding sound to the emulator, I left it out.
 
 ## Finishing touches
 
 That's pretty much it - I managed to compile the emulator into WebAssembly, I added the ability to play different games and to host the emulator online. To finish the emulator off, I added some CSS styling, a start/stop button and instructions on how to play which was easy to do by editing the default Emscripten shell file.
 
-An extra thing which was worth doing is checking how the site behaved in Firefox. For example, I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded, which is how Chrome works by default. Firefox on the other hand remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.
+An extra thing which was worth doing is checking how the site behaved in different web browsers. For example in Firefox, I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded, which is how Chrome works by default. Firefox on the other hand remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.
 
 ## End
 

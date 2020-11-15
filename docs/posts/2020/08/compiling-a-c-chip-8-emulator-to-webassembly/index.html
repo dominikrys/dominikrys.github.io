@@ -51,7 +51,7 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.">
 <meta itemprop="datePublished" content="2020-08-15T16:55:48+01:00" />
 <meta itemprop="dateModified" content="2020-08-15T16:55:48+01:00" />
-<meta itemprop="wordCount" content="3735">
+<meta itemprop="wordCount" content="3708">
 <meta itemprop="image" content="https://dominikrys.com"/>
 
 
@@ -204,7 +204,7 @@ In this post I&rsquo;ll explain how I went about compiling the emulator which wa
 <h2 id="intro">Intro</h2>
 <p>A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can <a href="https://github.com/dominikrys/chip8">check out the source code</a> or <strong><a href="https://dominikrys.com/chip8">try it out online through the magic of WebAssembly</a></strong>.</p>
 <p>In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.</p>
-<p>My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved. The whole concept of downloading and running programs also felt a bit dated given that these days it&rsquo;s rare that anyone leaves their web browser.</p>
+<p>My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved.</p>
 <p>This is where <a href="https://emscripten.org/">Emscripten</a> came in. Emscripten is a toolchain which uses <a href="https://github.com/emscripten-ports/SDL2">LLVM</a> to compile C and C++ programs into <a href="https://webassembly.org/">WebAssembly</a> (Wasm). WebAssembly is a binary instruction format which runs on modern web browsers and allows apps to run at near native speed. In theory, this was the perfect solution to my problem as I could get the emulator running from a web browser.</p>
 <p>The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon&rsquo;s work right? Turns out that there were a couple of pitfalls along the way. To help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I&rsquo;d write this post.</p>
 <h2 id="setting-up-emscripten">Setting up Emscripten</h2>
@@ -325,7 +325,7 @@ Scanning dependencies of target chip8
 </code></pre></div><p><code>emscripten_set_main_loop()</code> simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the <a href="https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop">Emscripten docs</a> mention that it&rsquo;s &ldquo;<strong>HIGHLY</strong> recommended&rdquo; to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s <code>requestAnimationFrame</code> method to call the main loop function (more on this later).</p>
 <h3 id="major-rewrite">Major rewrite</h3>
 <p>There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.</p>
-<p>My code wasn&rsquo;t designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global at the top of my <code>Main.cpp</code> file to make it accessible from the main loop. It&rsquo;s not a particularly elegant solution, but for this relatively simple project it sufficed.</p>
+<p>My code wasn&rsquo;t designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global in my small <code>Main.cpp</code> file to make it accessible from the main loop. It&rsquo;s not a particularly elegant solution, but for this relatively simple project it sufficed.</p>
 <p>As an effect of writing code this way your IDE may also complain about not being able to catch exceptions from variables with static storage duration - this is not a problem, and Emscripten will still be able to catch them for us if we add the exception handling in Javasript code that was described in the <a href="#debugging-emscripten">debugging section</a>.</p>
 <p>My code went from looking something like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
@@ -494,12 +494,12 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </li>
 </ul>
 <h2 id="audio">Audio</h2>
-<p>I mentioned that I&rsquo;d come back to audio earlier in this post. In my emulator I coded the audio as a sine wave (all I wanted was a simple &ldquo;beep&rdquo; sound so no need for an audio file) which gets played on a separate thread. To compile the code I had to add some extra compiler flags as described in the <a href="https://emscripten.org/docs/porting/pthreads.html">Emscripten Pthreads support page</a> to allow for multithreading in Emscripten.</p>
-<p>I compiled the code with the audio enabled and checked how Chrome treats it. The audio played when it should, however it ended up being a horrible high pitched noise which changed frequency and didn&rsquo;t stop, where it should have been a short &ldquo;beep&rdquo; sound. Changing various settings didn&rsquo;t seem to have an effect on the noise produced. I also gave it a go in Firefox, which required me to enable a flag as the support in Firefox for Webassembly pthreads is currently experimental. Once the flag was enabled, Firefox had various issues with the audio device and I didn&rsquo;t see pursuing this any further worthwhile.</p>
-<p>In order to make this work, I think the best way would be to handle the audio entirely from JavaScript and query the emulator for when a sound should play. Since I didn&rsquo;t see much value in adding sound to the emulator, I left it out.</p>
+<p>I mentioned that I&rsquo;d come back to audio earlier in this post. In my emulator I coded the audio as a sine wave (all I wanted was a simple &ldquo;beep&rdquo; sound so I didn&rsquo;t necessarily need an audio file) which gets played on a separate thread. To compile the code I had to add some extra compiler flags as described in the <a href="https://emscripten.org/docs/porting/pthreads.html">Emscripten Pthreads support page</a> to allow for multithreading in Emscripten.</p>
+<p>I compiled the code with the audio enabled and checked how Chrome treats it. The audio played when it should, however it ended up being a high pitched noise of varying frequencies which didn&rsquo;t stop - not exactly what I wanted. Changing various settings didn&rsquo;t seem to have an effect on the noise produced. I also gave it a go in Firefox, which required me to enable a flag as the support in Firefox for Webassembly pthreads is currently experimental. Once the flag was enabled, Firefox had various issues with the audio device and I didn&rsquo;t see pursuing this any further worthwhile.</p>
+<p>In order to make this work, I a good way would be to handle the audio entirely in JavaScript and query the emulator for when a sound should play. Since I didn&rsquo;t see much value in adding sound to the emulator, I left it out.</p>
 <h2 id="finishing-touches">Finishing touches</h2>
 <p>That&rsquo;s pretty much it - I managed to compile the emulator into WebAssembly, I added the ability to play different games and to host the emulator online. To finish the emulator off, I added some CSS styling, a start/stop button and instructions on how to play which was easy to do by editing the default Emscripten shell file.</p>
-<p>An extra thing which was worth doing is checking how the site behaved in Firefox. For example, I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded, which is how Chrome works by default. Firefox on the other hand remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.</p>
+<p>An extra thing which was worth doing is checking how the site behaved in different web browsers. For example in Firefox, I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded, which is how Chrome works by default. Firefox on the other hand remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.</p>
 <h2 id="end">End</h2>
 <p>I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there&rsquo;s huge potential in the technology, and can be very useful for computationally expensive tasks which aren&rsquo;t viable to be ran using JavaScript.</p>
 <p>For examples of more sophisticated projects using WebAssembly, have a look at <a href="https://madewithwebassembly.com/">this site</a> which describes how various projects (including popular ones such as <a href="https://madewithwebassembly.com/showcase/opencv">OpenCV</a> and <a href="https://madewithwebassembly.com/showcase/tensorflow">Tensorflow</a>) use WASM.</p>
@@ -529,7 +529,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        3735 Words
+        3708 Words
       </p>
 
       <p>

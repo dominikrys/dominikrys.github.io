@@ -16,7 +16,7 @@
       <guid>https://dominikrys.com/posts/2020/08/first-blog-post/</guid>
       <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
 My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this.
-The tech stack I used to set up this blog is quite straightforward. Hugo is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown.</description>
+The tech stack I used to set up this blog is quite straightforward. Hugo is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown and then rapidly generate the web pages.</description>
     </item>
     
   </channel>
