@@ -122,7 +122,7 @@ And had a look at it in Chrome. I found that the screen was blank, but in the Ja
 
 ![First Compile Error](img/cpp-chip8-emulator-to-webassembly/first-compile-error.png)
 
-That makes sense, as natively the emulator expects to be given a ROM to load as a command line argument. After hard-coding a path to Pong and removing my command line argument handling code, I was left with this exception:
+This is expected, as natively the emulator expects to be given a ROM to load as a command line argument. After hard-coding a path to Pong and removing my command line argument handling code, I was left with this exception:
 
 ![Exception after fix](img/cpp-chip8-emulator-to-webassembly/exception-after-fix.png)
 
@@ -307,11 +307,11 @@ I compiled the code after rewriting using an Emscripten loop and this was the re
 
 It worked! Although very slowly. I found that this is to do with the `requestAnimationFrame` method which I mentioned previously that is used to call the Emscripten main loop function.
 
-The [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) state that `requestAnimationFrame` gets called "usually 60 times per second, but will generally match the display refresh rate in most web browsers". This was a problem, as my main loop simulated **one** CHIP-8 cycle every time it was called. Effectively this meant that my the emulator ran at a frequency of 60Hz when compiled with Emscripten, where most CHIP-8 ROMs run well at 1000-1500Hz.
+The [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) state that `requestAnimationFrame` gets called "usually 60 times per second, but will generally match the display refresh rate in most web browsers". This was a problem, as my main loop simulated **one** CHIP-8 cycle every time it was called. Effectively this meant that my the emulator ran at a frequency of 60Hz when compiled with Emscripten, where most CHIP-8 ROMs run well at 1000-1500Hz depending on the game (this isn't something that can be determined on the fly, as in ordinary game loops).
 
 To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn't very straightforward, as the frame rate which ran natively didn't directly translate to what ran in Emscripten.
 
-For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles I should emulate every frame in an Emscripten loop, which is around 17 in this case. This didn't appear to be the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn't seem to be a good way to calculate this value upfront.
+For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles to emulate between every frame in an Emscripten loop, which is around 17 in this case. This didn't appear to be the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn't seem to be a good way to calculate this difference upfront.
 
 Also it's worth nothing that not every screen will refresh at 60 frames a second, which is something to consider if you want the program to run at the same speed for everyone.
 

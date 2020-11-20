@@ -26,7 +26,7 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 
 
 
-<link rel="stylesheet" href="https://dominikrys.com/main.7adb1ada842883bb414903e271251c6bfc988efaf22b6b1ff15a5fbdf2e12d43.css">
+<link rel="stylesheet" href="https://dominikrys.com/main.832d186275c7032430572203e6eded68c0cb99065428b04589005f820e866175.css">
 
 
     
@@ -51,7 +51,7 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.">
 <meta itemprop="datePublished" content="2020-08-15T16:55:48+01:00" />
 <meta itemprop="dateModified" content="2020-08-15T16:55:48+01:00" />
-<meta itemprop="wordCount" content="3708">
+<meta itemprop="wordCount" content="3727">
 <meta itemprop="image" content="https://dominikrys.com"/>
 
 
@@ -276,7 +276,7 @@ Scanning dependencies of target chip8
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server
 </code></pre></div><p>And had a look at it in Chrome. I found that the screen was blank, but in the JavaScript console I got the usage of my program printed, followed by an exception.</p>
 <p><img src="img/cpp-chip8-emulator-to-webassembly/first-compile-error.png" alt="First Compile Error"></p>
-<p>That makes sense, as natively the emulator expects to be given a ROM to load as a command line argument. After hard-coding a path to Pong and removing my command line argument handling code, I was left with this exception:</p>
+<p>This is expected, as natively the emulator expects to be given a ROM to load as a command line argument. After hard-coding a path to Pong and removing my command line argument handling code, I was left with this exception:</p>
 <p><img src="img/cpp-chip8-emulator-to-webassembly/exception-after-fix.png" alt="Exception after fix"></p>
 <p>This time I actually had to work out what the exception is. Time to attempt some debugging!</p>
 <h2 id="debugging-emscripten">Debugging Emscripten</h2>
@@ -420,9 +420,9 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 <p>I compiled the code after rewriting using an Emscripten loop and this was the result:</p>
 <p><img src="img/cpp-chip8-emulator-to-webassembly/working-emulator.png" alt="Working Emulator"></p>
 <p>It worked! Although very slowly. I found that this is to do with the <code>requestAnimationFrame</code> method which I mentioned previously that is used to call the Emscripten main loop function.</p>
-<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">Mozilla docs</a> state that <code>requestAnimationFrame</code> gets called &ldquo;usually 60 times per second, but will generally match the display refresh rate in most web browsers&rdquo;. This was a problem, as my main loop simulated <strong>one</strong> CHIP-8 cycle every time it was called. Effectively this meant that my the emulator ran at a frequency of 60Hz when compiled with Emscripten, where most CHIP-8 ROMs run well at 1000-1500Hz.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">Mozilla docs</a> state that <code>requestAnimationFrame</code> gets called &ldquo;usually 60 times per second, but will generally match the display refresh rate in most web browsers&rdquo;. This was a problem, as my main loop simulated <strong>one</strong> CHIP-8 cycle every time it was called. Effectively this meant that my the emulator ran at a frequency of 60Hz when compiled with Emscripten, where most CHIP-8 ROMs run well at 1000-1500Hz depending on the game (this isn&rsquo;t something that can be determined on the fly, as in ordinary game loops).</p>
 <p>To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn&rsquo;t very straightforward, as the frame rate which ran natively didn&rsquo;t directly translate to what ran in Emscripten.</p>
-<p>For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles I should emulate every frame in an Emscripten loop, which is around 17 in this case. This didn&rsquo;t appear to be the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn&rsquo;t seem to be a good way to calculate this value upfront.</p>
+<p>For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles to emulate between every frame in an Emscripten loop, which is around 17 in this case. This didn&rsquo;t appear to be the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn&rsquo;t seem to be a good way to calculate this difference upfront.</p>
 <p>Also it&rsquo;s worth nothing that not every screen will refresh at 60 frames a second, which is something to consider if you want the program to run at the same speed for everyone.</p>
 <p>The logic for emulating a set amount of cycles per frame looked as follows:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> cyclesPerFrame <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
@@ -529,7 +529,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        3708 Words
+        3727 Words
       </p>
 
       <p>
