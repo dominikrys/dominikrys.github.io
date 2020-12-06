@@ -3,27 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dominikrys.com/tags/docker-influxdb-grafana-traefik-monitoring-devops-security/</loc>
+    <lastmod>2020-12-01T12:51:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dominikrys.com/</loc>
+    <lastmod>2020-12-01T12:51:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2020-12-01T12:51:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</loc>
+    <lastmod>2020-12-01T12:51:48+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dominikrys.com/tags/</loc>
+    <lastmod>2020-12-01T12:51:48+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dominikrys.com/tags/docker-influxdb-grafana-telegraf-monitoring-devops/</loc>
     <lastmod>2020-09-21T16:52:48+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dominikrys.com/</loc>
-    <lastmod>2020-09-21T16:52:48+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</loc>
-    <lastmod>2020-09-21T16:52:48+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://dominikrys.com/posts/</loc>
-    <lastmod>2020-09-21T16:52:48+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://dominikrys.com/tags/</loc>
     <lastmod>2020-09-21T16:52:48+01:00</lastmod>
   </url>
   
