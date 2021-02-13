@@ -8,6 +8,8 @@ tags:
   - docker, influxdb, grafana, telegraf, monitoring, devops
 ---
 
+![Header](img/header.png)
+
 > **This post is also hosted on the [Corda Blog](https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/).** The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I've done during my summer internship at R3.
 
 ## Intro
@@ -16,17 +18,17 @@ Here at R3, we have a cluster of Corda nodes that we use for performance testing
 
 We recently decided to invest some effort in improving the observability of the overall system so that we could identify regressions and analyse their root cause more efficiently and with less manual work. There is [a wealth of metrics exposed by Corda nodes via JMX](https://docs.corda.net/docs/corda-enterprise/node-metrics.html) that can be inspected using tools such as [Hawtio](https://hawt.io/) (as [described in the Corda docs](https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html)). However, this approach requires plenty of manual intervention and the prerequisite of the test actively running during inspection times.
 
-![Corda JMX metrics visible in Hawtio](img/hawtio.png)*Corda JMX metrics visible in Hawtio*
+![Corda JMX metrics visible in Hawtio](img/hawtio.png)_Corda JMX metrics visible in Hawtio_
 
 We had to set up a monitoring infrastructure that would allow us to:
 
-* Collect the metrics exposed by our Corda nodes via JMX.
+- Collect the metrics exposed by our Corda nodes via JMX.
 
-* Collect the metrics not exposed via JMX, such as disk IO and network activity.
+- Collect the metrics not exposed via JMX, such as disk IO and network activity.
 
-* Store the collected metrics in a centralised database.
+- Store the collected metrics in a centralised database.
 
-* Visualise, filter, and compare metrics from different time windows using a front end accessible from a web browser.
+- Visualise, filter, and compare metrics from different time windows using a front end accessible from a web browser.
 
 Monitoring is a core aspect of operating Corda nodes efficiently. Therefore, in this post we give you a quick overview of the technologies available and their trade-offs. We also walk you through the capabilities and the architecture of our solution. The described work has been performed on Corda 4.5, but the high-level architecture is really version-agnostic. We hope this can help those of you getting started with monitoring!
 
@@ -94,11 +96,11 @@ Being the oldest of the bunch has its disadvantages though, most notably that th
 
 ### Front end for visualising and querying the TSDB
 
-![Example Grafana Dashboard](img/example-grafana-dashboard.jpg)*Example Grafana Dashboard*
+![Example Grafana Dashboard](img/example-grafana-dashboard.jpg)_Example Grafana Dashboard_
 
 ⭐ [**Grafana**](https://grafana.com) — an open source tool for interactively visualising data from various data sources. Grafana is by far the most popular tool for interacting with TSDBs with over [1200 contributors on GitHub](https://github.com/grafana/grafana) and a very active [community forum](https://community.grafana.com/). There are [many plug-ins available for it](https://grafana.com/grafana/plugins), it integrates well with many other services for [alerting](https://grafana.com/docs/grafana/latest/alerting/notifications/) and [authentication](https://grafana.com/docs/grafana/latest/auth/overview/), and it makes creating aesthetically pleasing dashboards a breeze.
 
-![Example Chronograf Dashboard](img/example-chronograf-dashboard.png)*Example Chronograf Dashboard*
+![Example Chronograf Dashboard](img/example-chronograf-dashboard.png)_Example Chronograf Dashboard_
 
 [**Chronograf**](https://www.influxdata.com/time-series-platform/chronograf) — an open source tool for interacting and visualising data from InfluxDB. Chronograf is very well suited for setups where other products from InfluxData are used, as it’s better integrated with them compared to Grafana. This could have been a great option if we also used [Kapacitor](https://www.influxdata.com/time-series-platform/kapacitor/) as a real-time streaming data processing engine from InfluxData, to complete their “[TICK](https://www.influxdata.com/blog/introduction-to-influxdatas-influxdb-and-tick-stack/)” stack.
 
@@ -112,13 +114,13 @@ Given that Chronograf has fewer features than Grafana and [is significantly less
 
 As all tools we chose provided official Docker images, we decided to deploy our monitoring infrastructure as a [Docker Compose](https://docs.docker.com/compose) application in an Azure VM. This has many benefits:
 
-* Deploying the monitoring infrastructure is a one-step process and is easily reproducible.
+- Deploying the monitoring infrastructure is a one-step process and is easily reproducible.
 
-* Updating and downgrading individual services is straightforward — just adjust the version of the Docker images!
+- Updating and downgrading individual services is straightforward — just adjust the version of the Docker images!
 
-* It’s easy to manage each container’s data as it’s kept in separate Docker volumes.
+- It’s easy to manage each container’s data as it’s kept in separate Docker volumes.
 
-* The solution can be easily tested locally and will behave the same locally as on a production server.
+- The solution can be easily tested locally and will behave the same locally as on a production server.
 
 ### Securing the monitoring infrastructure
 
@@ -164,17 +166,17 @@ One of the most impactful choices to be made when setting up a monitoring soluti
 
 For more information on monitoring Corda nodes, check the following articles:
 
-* [Monitoring Corda Nodes With Prometheus, Grafana and ELK on Docker](https://www.corda.net/blog/monitoring-corda-nodes-with-prometheus-grafana-and-elk-on-docker-2/)
+- [Monitoring Corda Nodes With Prometheus, Grafana and ELK on Docker](https://www.corda.net/blog/monitoring-corda-nodes-with-prometheus-grafana-and-elk-on-docker-2/)
 
-* [Monitoring Corda Nodes using Prometheus and Grafana](https://www.corda.net/blog/monitoring-corda-nodes-using-prometheus-and-grafana/)
+- [Monitoring Corda Nodes using Prometheus and Grafana](https://www.corda.net/blog/monitoring-corda-nodes-using-prometheus-and-grafana/)
 
-* [Monitoring Corda Nodes (Part 1)](https://www.corda.net/blog/monitoring-corda-nodes-part-1/)
+- [Monitoring Corda Nodes (Part 1)](https://www.corda.net/blog/monitoring-corda-nodes-part-1/)
 
 The Corda documentation is also an amazing resource:
 
-* [Node metrics](https://docs.corda.net/docs/corda-enterprise/node-metrics.html)
+- [Node metrics](https://docs.corda.net/docs/corda-enterprise/node-metrics.html)
 
-* [Node monitoring and logging](https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html)
+- [Node monitoring and logging](https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html)
 
 **Want to learn more about building awesome blockchain applications on Corda? Be sure to visit [corda.net](http://corda.net/), check out our [community page](https://www.corda.net/community/) to learn how to connect with other Corda developers, and [sign up](https://info.r3.com/email-preferences) for one of our newsletters for the latest updates.**
 

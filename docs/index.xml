@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 01 Dec 2020 12:51:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Debug srsLTE</title>
+      <link>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</link>
+      <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
+      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C++ programs.
+How to debug the code Your first attempt at debugging must have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
+    </item>
+    
     <item>
       <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik</title>
       <link>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</link>
@@ -55,7 +65,9 @@ The tech stack I used to set up this blog is quite straightforward. Hugo is the 
       
       <guid>https://dominikrys.com/about/</guid>
       <description>I&amp;rsquo;m a final year Computer Science student at the University of Birmingham.
-Opinions expressed on this blog are solely my own and do not express the views or opinions of my employer.</description>
+Opinions expressed on this blog are solely my own and do not express the views or opinions of my employer.
+ Blog generated using Hugo with the Hello Friend NG theme by Djordje Atlialp.
+ </description>
     </item>
     
   </channel>

@@ -6,8 +6,44 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-GB</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 01 Dec 2020 12:51:48 +0100</lastBuildDate>
+        <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate>
         <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How to Debug srsLTE</title>
+            <link>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</link>
+            <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
+            <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C++ programs.
+How to debug the code Your first attempt at debugging must have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
+            <content type="html"><![CDATA[<p><img src="img/srslte-logo.png" alt="srsLTE Logo"></p>
+<p>I&rsquo;ve recently been working extensively with <a href="https://github.com/srsLTE/srsLTE">srsLTE</a> for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C++ programs.</p>
+<h2 id="how-to-debug-the-code">How to debug the code</h2>
+<p>Your first attempt at debugging must have been to compile with the <code>Debug</code> CMake flag, and then executing the binaries using GDB or another debugger:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Debug
+</code></pre></div><p>This may work for srsEPC, but you may have trouble with srsENB and srsUE as the code most likely won&rsquo;t get past the Random Access Procedure (RAP). Due to how time-sensitive the RAP is, binaries in Debug mode are too slow and are unable to complete the procedure. If what you need to debug occurs before the RAP, this method will most likely be sufficient.</p>
+<p>To (more) successfully debug the code, it needs to be built in <strong>release with debug info</strong> mode:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>RelWithDebInfo
+</code></pre></div><p>This will reliably get past the RAP. An issue with this is that plenty of code will be optimised out, so you may not hit the breakpoints you need. Sporadic segmentation faults may also occur, so your mileage may vary.</p>
+<p>As an extra caveat, <strong>using SDRs while running srsLTE may not be possible</strong> due to the extra latency introduced by the debugger. I&rsquo;ve tried using the Ettus Research USRP B200 and B210 while debugging, and the UHD driver constantly times out for both. Instead, the <a href="https://docs.srslte.com/en/latest/app_notes/source/zeromq/source/">ZeroMQ</a> driver will most likely need to be used while debugging.</p>
+<h2 id="if-relwithdebinfo-doesnt-work">If RelWithDebInfo doesn&rsquo;t work</h2>
+<p>For many issues, I had to resort to print statements. This is just about good enough for most issues, especially combined with srsLTE logging if it&rsquo;s cranked up to the <code>debug</code> level.</p>
+<p>Increasing <code>all_hex_limit</code> inside the <code>.conf</code> files from 32 to something greater can also help if you&rsquo;re inspecting various messages/objects, as it will allow for more hex to be printed in the logs.</p>
+<p>The following code can also be included as a quick hack to print objects as hex in the console:</p>
+<p><code>log_filter.cc</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> log_filter<span style="color:#f92672">::</span>console_hex(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size)
+{
+  console(hex_string(hex, size).c_str());
+}
+</code></pre></div><p><code>log.h</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">console_hex</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</code></pre></div><p><code>log_filter.h</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">console_hex</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size);
+</code></pre></div><h2 id="last-resort">Last resort</h2>
+<p>If debugging is <em>really</em> necessary, as a last resort a VM can be used. I found that it&rsquo;s possible there to get past the RAP with srsLTE built in <code>Debug</code> mode. Note that SDRs will most likely not work due to the latency introduced by the VM, so the srsLTE ZeroMQ driver will need to be used instead.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik</title>
@@ -250,7 +286,8 @@
             <guid>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</guid>
             <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
  Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
-            <content type="html"><![CDATA[<blockquote>
+            <content type="html"><![CDATA[<p><img src="img/header.png" alt="Header"></p>
+<blockquote>
 <p><strong>This post is also hosted on the <a href="https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/">Corda Blog</a>.</strong> The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&rsquo;ve done during my summer internship at R3.</p>
 </blockquote>
 <h2 id="intro">Intro</h2>
@@ -408,8 +445,8 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 <p>It&rsquo;s worth pointing out there aren&rsquo;t many IDE plugins or integrations for Emscripten. I tried to integrate it as much as I can into CLion, but what I managed to get to work caused issues for me later on. Emscripten relies on its own compilers and linkers a lot, so I would recommend sticking solely to the terminal in order to save yourself some headaches.</p>
 <h2 id="cmake-and-emscripten">CMake and Emscripten</h2>
 <p>Since my emulator is a not a single file as in the Mozilla examples mentioned in the section above, the most appropriate way to compile the emulator was to use CMake. I took the compiler flags mentioned in the Mozilla examples and added them to my <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>CMAKE_CXX_FLAGS<span style="color:#e6db74">}</span><span style="color:#e6db74"> -s WASM=1 --shell-file </span><span style="color:#e6db74">${</span>CMAKE_CURRENT_LIST_DIR<span style="color:#e6db74">}</span><span style="color:#e6db74">/web/shell_minimal.html&#34;</span>)
-</code></pre></div><p>Next I created a sub-directory in my root project directory for my CMake output (called <code>cmake-build-emscripten</code>) and called the following from it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">set(<span style="color:#e6db74">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;${CMAKE_CXX_FLAGS} -s WASM=1 --shell-file ${CMAKE_CURRENT_LIST_DIR}/web/shell_minimal.html&#34;</span>)<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Next I created a sub-directory in my root project directory for my CMake output (called <code>cmake-build-emscripten</code>) and called the following from it:</p>
 <ul>
 <li>
 <p>To generate the project build system:</p>
@@ -431,22 +468,22 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 </ul>
 <h3 id="adding-emscripten-sections-to-cmakelists">Adding Emscripten sections to CMakeLists</h3>
 <p>I wanted to maintain the ability to compile my code natively as well as being able to compile it using Emscripten. <strong>The CMake <code>EMSCRIPTEN</code> variable solves this problem, as it&rsquo;s set to true when compiling with Emscripten</strong>. I already had sections for building on Windows and Linux in my <code>CMakeLists.txt</code>, but there was a small quirk involved in adding Emscripten to it too: the CMake <code>UNIX</code> variable will be true when compiling using Emscripten. This can be a problem if your <code>CMakeLists.txt</code> logic looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">UNIX</span>)
-  <span style="color:#75715e"># Linux specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">elseif</span> (<span style="color:#a6e22e">EMSCRIPTEN</span>)
-  <span style="color:#75715e"># Emscripten specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">elseif</span> (<span style="color:#a6e22e">WIN32</span>)
-  <span style="color:#75715e"># Windows specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">endif</span> ()
-</code></pre></div><p>In this case, the Emscripten block won&rsquo;t get executed when compiling with Emscripten as it will go down the <code>UNIX</code> branch. This may not be an issue if you&rsquo;re only targeting a Unix based system and Emscripten as you could branch on <code>if (EMSCRIPTEN)</code>, but could be a problem if you&rsquo;re target non-Unix based systems alongside Emscripten. Since I wanted my Emscripten block to come after Windows and Linux, my fixed <code>CMakeLists.txt</code> has the following structure:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">WIN32</span>)
-  <span style="color:#75715e"># Windows specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">elseif</span> (<span style="color:#a6e22e">UNIX</span> <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">NOT</span> <span style="color:#a6e22e">EMSCRIPTEN</span>)
-  <span style="color:#75715e"># Linux specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">elseif</span> (<span style="color:#a6e22e">EMSCRIPTEN</span>)
-  <span style="color:#75715e"># Emscripten specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">endif</span> ()
-</code></pre></div><p>For my full CMakeLists.txt you can check the source <a href="https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt">here</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">if (<span style="color:#e6db74">UNIX</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Linux specific commands
+</span><span style="color:#75715e"></span>elseif (<span style="color:#e6db74">EMSCRIPTEN</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Emscripten specific commands
+</span><span style="color:#75715e"></span>elseif (<span style="color:#e6db74">WIN32</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Windows specific commands
+</span><span style="color:#75715e"></span>endif ()<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>In this case, the Emscripten block won&rsquo;t get executed when compiling with Emscripten as it will go down the <code>UNIX</code> branch. This may not be an issue if you&rsquo;re only targeting a Unix based system and Emscripten as you could branch on <code>if (EMSCRIPTEN)</code>, but could be a problem if you&rsquo;re target non-Unix based systems alongside Emscripten. Since I wanted my Emscripten block to come after Windows and Linux, my fixed <code>CMakeLists.txt</code> has the following structure:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">if (<span style="color:#e6db74">WIN32</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Windows specific commands
+</span><span style="color:#75715e"></span>elseif (<span style="color:#e6db74">UNIX</span> <span style="color:#e6db74">AND</span> <span style="color:#e6db74">NOT</span> <span style="color:#e6db74">EMSCRIPTEN</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Linux specific commands
+</span><span style="color:#75715e"></span>elseif (<span style="color:#e6db74">EMSCRIPTEN</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Emscripten specific commands
+</span><span style="color:#75715e"></span>endif ()<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>For my full CMakeLists.txt you can check the source <a href="https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt">here</a>.</p>
 <h2 id="initial-compile">Initial compile</h2>
 <p>I was almost ready to compile the code. Since the emulator is using <a href="https://www.libsdl.org/">SDL2</a> for audio and graphics, I also needed to specify the <code>-s USE_SDL=2</code> compiler flag. When this is specified, Emscripten will automatically download the <a href="https://github.com/emscripten-ports/SDL2">SDL2 Emscripten port</a>.</p>
 <p>I compiled the source code, completely unaltered:</p>
@@ -641,10 +678,10 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 }
 </code></pre></div><p>The function is wrapped in <code>extern &quot;C&quot;</code> to prevent C++ name mangling. I also added a <code>cyclesPerFrame_</code> parameter as many CHIP-8 ROMs need to have their frame rate adjusted to run at an appropriate speed.</p>
 <p>Next, I exported the function to enable it to be called from JavaScript. In order to call a C++ function from JavaScript, I also need to export the runtime <code>ccall</code> and/or <code>cwrap</code> methods which are called on the <code>Module</code> JavaScript object which <a href="https://emscripten.org/docs/api_reference/module.html">the Emscripten-generated code calls at various points in its execution</a>. To do this, I added the following to my compiler flags:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">-</span><span style="color:#a6e22e">s</span> <span style="color:#a6e22e">EXPORTED_FUNCTIONS</span><span style="color:#f92672">=</span><span style="color:#a6e22e">\</span><span style="color:#e6db74">&#34;[&#39;_main&#39;, &#39;_loadRom&#39;]</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> \
-</span><span style="color:#e6db74">-s EXPORTED_RUNTIME_METHODS=</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">[&#39;ccall&#39;, &#39;cwrap&#39;]</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> \
-</span><span style="color:#e6db74">-s ALLOW_MEMORY_GROWTH=1 \
-</span><span style="color:#e6db74">--no-heap-copy \
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake"><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_FUNCTIONS=\&#34;[&#39;_main&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;_loadRom&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_RUNTIME_METHODS=\&#34;[&#39;ccall&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;cwrap&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">ALLOW_MEMORY_GROWTH=1</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">--no-heap-copy</span> <span style="color:#960050;background-color:#1e0010">\
 </span></code></pre></div><p>Note that I also exported <code>main</code> as I want to be able to call the main function myself and not start it automatically when the page is loaded. The <code>-s ALLOW_MEMORY_GROWTH=1</code> and <code>--no-heap-copy</code> flags are necessary as the memory used by the WASM code will increase when we load a game. This shouldn&rsquo;t <a href="https://emscripten.org/docs/optimizing/Optimizing-Code.html#memory-growth">have any overhead</a> when compiling to WebAssembly.</p>
 <p>Next, I made some changes to the <code>shell.html</code> file:</p>
 <ul>
@@ -655,7 +692,9 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 <p>Added a dropdown for selecting which ROM to load. Each option includes a path to a ROM to load and specifies the amount of cycles to emulate per frame.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;emscripten&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;menu&#34;</span>&gt;
   &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rom-dropdown&#34;</span>&gt;
-    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;name&#34;: &#34;games/Pong (1 player).ch8&#34;,&#34;cyclesPerFrame&#34;:10}&#39;</span>&gt;PONG&lt;/<span style="color:#f92672">option</span>&gt;
+    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;name&#34;: &#34;games/Pong (1 player).ch8&#34;,&#34;cyclesPerFrame&#34;:10}&#39;</span>&gt;
+      PONG
+    &lt;/<span style="color:#f92672">option</span>&gt;
     <span style="color:#75715e">&lt;!-- More ROMs --&gt;</span>
   &lt;/<span style="color:#f92672">select</span>&gt;
 &lt;/<span style="color:#f92672">div</span>&gt;

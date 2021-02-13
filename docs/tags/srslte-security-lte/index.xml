@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>srslte, security, lte on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/srslte-security-lte/</link>
+    <description>Recent content in srslte, security, lte on Dominik Rys</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-GB</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/srslte-security-lte/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Debug srsLTE</title>
+      <link>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</link>
+      <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
+      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C++ programs.
+How to debug the code Your first attempt at debugging must have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
+    </item>
+    
+  </channel>
+</rss>

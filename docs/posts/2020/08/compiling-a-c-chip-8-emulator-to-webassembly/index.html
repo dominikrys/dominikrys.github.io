@@ -26,7 +26,7 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 
 
 
-<link rel="stylesheet" href="https://dominikrys.com/main.ba30f486fbc15ab706ecba84d7afd9bc60e4ff52dce6e6d48c3f8e9d9e4056fb.css">
+<link rel="stylesheet" href="https://dominikrys.com/main.d7bdd8ee18bfbf4c605488a7e5b1b92cd980dfeed2bdaeab4dd5e931a7a78bc0.css">
 
 
     
@@ -51,7 +51,7 @@ In this post I&amp;rsquo;ll explain how I went about compiling the emulator whic
 In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.">
 <meta itemprop="datePublished" content="2020-08-15T16:55:48+01:00" />
 <meta itemprop="dateModified" content="2020-08-15T16:55:48+01:00" />
-<meta itemprop="wordCount" content="3727">
+<meta itemprop="wordCount" content="3729">
 <meta itemprop="image" content="https://dominikrys.com"/>
 
 
@@ -215,8 +215,8 @@ In this post I&rsquo;ll explain how I went about compiling the emulator which wa
 <p>It&rsquo;s worth pointing out there aren&rsquo;t many IDE plugins or integrations for Emscripten. I tried to integrate it as much as I can into CLion, but what I managed to get to work caused issues for me later on. Emscripten relies on its own compilers and linkers a lot, so I would recommend sticking solely to the terminal in order to save yourself some headaches.</p>
 <h2 id="cmake-and-emscripten">CMake and Emscripten</h2>
 <p>Since my emulator is a not a single file as in the Mozilla examples mentioned in the section above, the most appropriate way to compile the emulator was to use CMake. I took the compiler flags mentioned in the Mozilla examples and added them to my <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>CMAKE_CXX_FLAGS<span style="color:#e6db74">}</span><span style="color:#e6db74"> -s WASM=1 --shell-file </span><span style="color:#e6db74">${</span>CMAKE_CURRENT_LIST_DIR<span style="color:#e6db74">}</span><span style="color:#e6db74">/web/shell_minimal.html&#34;</span>)
-</code></pre></div><p>Next I created a sub-directory in my root project directory for my CMake output (called <code>cmake-build-emscripten</code>) and called the following from it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">set(<span style="color:#e6db74">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;${CMAKE_CXX_FLAGS} -s WASM=1 --shell-file ${CMAKE_CURRENT_LIST_DIR}/web/shell_minimal.html&#34;</span>)<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Next I created a sub-directory in my root project directory for my CMake output (called <code>cmake-build-emscripten</code>) and called the following from it:</p>
 <ul>
 <li>
 <p>To generate the project build system:</p>
@@ -238,22 +238,22 @@ In this post I&rsquo;ll explain how I went about compiling the emulator which wa
 </ul>
 <h3 id="adding-emscripten-sections-to-cmakelists">Adding Emscripten sections to CMakeLists</h3>
 <p>I wanted to maintain the ability to compile my code natively as well as being able to compile it using Emscripten. <strong>The CMake <code>EMSCRIPTEN</code> variable solves this problem, as it&rsquo;s set to true when compiling with Emscripten</strong>. I already had sections for building on Windows and Linux in my <code>CMakeLists.txt</code>, but there was a small quirk involved in adding Emscripten to it too: the CMake <code>UNIX</code> variable will be true when compiling using Emscripten. This can be a problem if your <code>CMakeLists.txt</code> logic looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">UNIX</span>)
-  <span style="color:#75715e"># Linux specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">elseif</span> (<span style="color:#a6e22e">EMSCRIPTEN</span>)
-  <span style="color:#75715e"># Emscripten specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">elseif</span> (<span style="color:#a6e22e">WIN32</span>)
-  <span style="color:#75715e"># Windows specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">endif</span> ()
-</code></pre></div><p>In this case, the Emscripten block won&rsquo;t get executed when compiling with Emscripten as it will go down the <code>UNIX</code> branch. This may not be an issue if you&rsquo;re only targeting a Unix based system and Emscripten as you could branch on <code>if (EMSCRIPTEN)</code>, but could be a problem if you&rsquo;re target non-Unix based systems alongside Emscripten. Since I wanted my Emscripten block to come after Windows and Linux, my fixed <code>CMakeLists.txt</code> has the following structure:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">WIN32</span>)
-  <span style="color:#75715e"># Windows specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">elseif</span> (<span style="color:#a6e22e">UNIX</span> <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">NOT</span> <span style="color:#a6e22e">EMSCRIPTEN</span>)
-  <span style="color:#75715e"># Linux specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">elseif</span> (<span style="color:#a6e22e">EMSCRIPTEN</span>)
-  <span style="color:#75715e"># Emscripten specific commands
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">endif</span> ()
-</code></pre></div><p>For my full CMakeLists.txt you can check the source <a href="https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt">here</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">if (<span style="color:#e6db74">UNIX</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Linux specific commands
+</span><span style="color:#75715e"></span>elseif (<span style="color:#e6db74">EMSCRIPTEN</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Emscripten specific commands
+</span><span style="color:#75715e"></span>elseif (<span style="color:#e6db74">WIN32</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Windows specific commands
+</span><span style="color:#75715e"></span>endif ()<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>In this case, the Emscripten block won&rsquo;t get executed when compiling with Emscripten as it will go down the <code>UNIX</code> branch. This may not be an issue if you&rsquo;re only targeting a Unix based system and Emscripten as you could branch on <code>if (EMSCRIPTEN)</code>, but could be a problem if you&rsquo;re target non-Unix based systems alongside Emscripten. Since I wanted my Emscripten block to come after Windows and Linux, my fixed <code>CMakeLists.txt</code> has the following structure:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">if (<span style="color:#e6db74">WIN32</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Windows specific commands
+</span><span style="color:#75715e"></span>elseif (<span style="color:#e6db74">UNIX</span> <span style="color:#e6db74">AND</span> <span style="color:#e6db74">NOT</span> <span style="color:#e6db74">EMSCRIPTEN</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Linux specific commands
+</span><span style="color:#75715e"></span>elseif (<span style="color:#e6db74">EMSCRIPTEN</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e"># Emscripten specific commands
+</span><span style="color:#75715e"></span>endif ()<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>For my full CMakeLists.txt you can check the source <a href="https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt">here</a>.</p>
 <h2 id="initial-compile">Initial compile</h2>
 <p>I was almost ready to compile the code. Since the emulator is using <a href="https://www.libsdl.org/">SDL2</a> for audio and graphics, I also needed to specify the <code>-s USE_SDL=2</code> compiler flag. When this is specified, Emscripten will automatically download the <a href="https://github.com/emscripten-ports/SDL2">SDL2 Emscripten port</a>.</p>
 <p>I compiled the source code, completely unaltered:</p>
@@ -448,10 +448,10 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 }
 </code></pre></div><p>The function is wrapped in <code>extern &quot;C&quot;</code> to prevent C++ name mangling. I also added a <code>cyclesPerFrame_</code> parameter as many CHIP-8 ROMs need to have their frame rate adjusted to run at an appropriate speed.</p>
 <p>Next, I exported the function to enable it to be called from JavaScript. In order to call a C++ function from JavaScript, I also need to export the runtime <code>ccall</code> and/or <code>cwrap</code> methods which are called on the <code>Module</code> JavaScript object which <a href="https://emscripten.org/docs/api_reference/module.html">the Emscripten-generated code calls at various points in its execution</a>. To do this, I added the following to my compiler flags:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">-</span><span style="color:#a6e22e">s</span> <span style="color:#a6e22e">EXPORTED_FUNCTIONS</span><span style="color:#f92672">=</span><span style="color:#a6e22e">\</span><span style="color:#e6db74">&#34;[&#39;_main&#39;, &#39;_loadRom&#39;]</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> \
-</span><span style="color:#e6db74">-s EXPORTED_RUNTIME_METHODS=</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">[&#39;ccall&#39;, &#39;cwrap&#39;]</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> \
-</span><span style="color:#e6db74">-s ALLOW_MEMORY_GROWTH=1 \
-</span><span style="color:#e6db74">--no-heap-copy \
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake"><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_FUNCTIONS=\&#34;[&#39;_main&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;_loadRom&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_RUNTIME_METHODS=\&#34;[&#39;ccall&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;cwrap&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">ALLOW_MEMORY_GROWTH=1</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">--no-heap-copy</span> <span style="color:#960050;background-color:#1e0010">\
 </span></code></pre></div><p>Note that I also exported <code>main</code> as I want to be able to call the main function myself and not start it automatically when the page is loaded. The <code>-s ALLOW_MEMORY_GROWTH=1</code> and <code>--no-heap-copy</code> flags are necessary as the memory used by the WASM code will increase when we load a game. This shouldn&rsquo;t <a href="https://emscripten.org/docs/optimizing/Optimizing-Code.html#memory-growth">have any overhead</a> when compiling to WebAssembly.</p>
 <p>Next, I made some changes to the <code>shell.html</code> file:</p>
 <ul>
@@ -462,7 +462,9 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 <p>Added a dropdown for selecting which ROM to load. Each option includes a path to a ROM to load and specifies the amount of cycles to emulate per frame.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;emscripten&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;menu&#34;</span>&gt;
   &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rom-dropdown&#34;</span>&gt;
-    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;name&#34;: &#34;games/Pong (1 player).ch8&#34;,&#34;cyclesPerFrame&#34;:10}&#39;</span>&gt;PONG&lt;/<span style="color:#f92672">option</span>&gt;
+    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;name&#34;: &#34;games/Pong (1 player).ch8&#34;,&#34;cyclesPerFrame&#34;:10}&#39;</span>&gt;
+      PONG
+    &lt;/<span style="color:#f92672">option</span>&gt;
     <span style="color:#75715e">&lt;!-- More ROMs --&gt;</span>
   &lt;/<span style="color:#f92672">select</span>&gt;
 &lt;/<span style="color:#f92672">div</span>&gt;
@@ -527,7 +529,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        3727 Words
+        3729 Words
       </p>
 
       <p>
@@ -615,13 +617,8 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
     <div class="footer__inner">
         <div class="footer__content">
             <span>&copy; 2021</span>
-            
-                <span><a href="https://dominikrys.com">Dominik Rys</a></span>
-            
-            
-                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
-            
-            <span> <a href="https://dominikrys.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            <span><a href="https://dominikrys.com">Dominik Rys</a></span>
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span><span><a href="https://dominikrys.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
         </div>
     </div>
     

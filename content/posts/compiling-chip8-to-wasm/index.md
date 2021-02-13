@@ -24,7 +24,7 @@ The idea was simple: compile my emulator using Emscripten, sort out any errors a
 
 ## Setting up Emscripten
 
-I've set up Emscripten and did all the development described in this post on a Windows 10 machine. The setup will look very similar on other platforms and a lot of the code/configuration I mention *should* work on Mac and Linux, and if not then with minimal adjustments.
+I've set up Emscripten and did all the development described in this post on a Windows 10 machine. The setup will look very similar on other platforms and a lot of the code/configuration I mention _should_ work on Mac and Linux, and if not then with minimal adjustments.
 
 [Mozilla's article on compiling C/C++ modules to WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm) was a great crash-course for working with Emscripten. I recommend it as a starting point if your goal is to compile a C or C++ program into Webassembly.
 
@@ -38,7 +38,7 @@ It's worth pointing out there aren't many IDE plugins or integrations for Emscri
 
 Since my emulator is a not a single file as in the Mozilla examples mentioned in the section above, the most appropriate way to compile the emulator was to use CMake. I took the compiler flags mentioned in the Mozilla examples and added them to my `CMakeLists.txt`:
 
-```php
+```cmake
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s WASM=1 --shell-file ${CMAKE_CURRENT_LIST_DIR}/web/shell_minimal.html")
 ```
 
@@ -66,7 +66,7 @@ Next I created a sub-directory in my root project directory for my CMake output 
 
 I wanted to maintain the ability to compile my code natively as well as being able to compile it using Emscripten. **The CMake `EMSCRIPTEN` variable solves this problem, as it's set to true when compiling with Emscripten**. I already had sections for building on Windows and Linux in my `CMakeLists.txt`, but there was a small quirk involved in adding Emscripten to it too: the CMake `UNIX` variable will be true when compiling using Emscripten. This can be a problem if your `CMakeLists.txt` logic looks like this:
 
-```php
+```cmake
 if (UNIX)
   # Linux specific commands
 elseif (EMSCRIPTEN)
@@ -78,7 +78,7 @@ endif ()
 
 In this case, the Emscripten block won't get executed when compiling with Emscripten as it will go down the `UNIX` branch. This may not be an issue if you're only targeting a Unix based system and Emscripten as you could branch on `if (EMSCRIPTEN)`, but could be a problem if you're target non-Unix based systems alongside Emscripten. Since I wanted my Emscripten block to come after Windows and Linux, my fixed `CMakeLists.txt` has the following structure:
 
-```php
+```cmake
 if (WIN32)
   # Windows specific commands
 elseif (UNIX AND NOT EMSCRIPTEN)
@@ -353,7 +353,7 @@ The function is wrapped in `extern "C"` to prevent C++ name mangling. I also add
 
 Next, I exported the function to enable it to be called from JavaScript. In order to call a C++ function from JavaScript, I also need to export the runtime `ccall` and/or `cwrap` methods which are called on the `Module` JavaScript object which [the Emscripten-generated code calls at various points in its execution](https://emscripten.org/docs/api_reference/module.html). To do this, I added the following to my compiler flags:
 
-```php
+```cmake
 -s EXPORTED_FUNCTIONS=\"['_main', '_loadRom']\" \
 -s EXPORTED_RUNTIME_METHODS=\"['ccall', 'cwrap']\" \
 -s ALLOW_MEMORY_GROWTH=1 \
@@ -371,7 +371,9 @@ Next, I made some changes to the `shell.html` file:
   ```html
   <div class="emscripten" id="menu">
     <select id="rom-dropdown">
-      <option value='{"name": "games/Pong (1 player).ch8","cyclesPerFrame":10}'>PONG</option>
+      <option value='{"name": "games/Pong (1 player).ch8","cyclesPerFrame":10}'>
+        PONG
+      </option>
       <!-- More ROMs -->
     </select>
   </div>

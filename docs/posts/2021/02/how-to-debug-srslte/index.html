@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Dominik Rys ">
+<meta name="description" content="I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C&#43;&#43; programs.
+How to debug the code Your first attempt at debugging must have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:" />
+<meta name="keywords" content="blog, software, engineering, software engineering, devops, software development, computer science, srslte, security, lte" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://dominikrys.com/posts/2021/02/how-to-debug-srslte/" />
+
+
+    <title>
+        
+            How to Debug srsLTE :: Dominik Rys 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://dominikrys.com/main.d7bdd8ee18bfbf4c605488a7e5b1b92cd980dfeed2bdaeab4dd5e931a7a78bc0.css">
+
+
+    
+        <link rel="stylesheet" type="text/css" href="assets/scss/_prism.scss">
+    
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://dominikrys.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://dominikrys.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://dominikrys.com/favicon-16x16.png">
+    <link rel="manifest" href="https://dominikrys.com/site.webmanifest">
+    <link rel="mask-icon" href="https://dominikrys.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://dominikrys.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="How to Debug srsLTE">
+<meta itemprop="description" content="I&rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C&#43;&#43; programs.
+How to debug the code Your first attempt at debugging must have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:">
+<meta itemprop="datePublished" content="2021-02-13T10:34:48+01:00" />
+<meta itemprop="dateModified" content="2021-02-13T10:34:48+01:00" />
+<meta itemprop="wordCount" content="445">
+<meta itemprop="image" content="https://dominikrys.com"/>
+
+
+
+<meta itemprop="keywords" content="srslte, security, lte," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dominikrys.com"/>
+
+<meta name="twitter:title" content="How to Debug srsLTE"/>
+<meta name="twitter:description" content="I&rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C&#43;&#43; programs.
+How to debug the code Your first attempt at debugging must have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:"/>
+
+
+
+
+    <meta property="og:title" content="How to Debug srsLTE" />
+<meta property="og:description" content="I&rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C&#43;&#43; programs.
+How to debug the code Your first attempt at debugging must have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dominikrys.com/posts/2021/02/how-to-debug-srslte/" />
+<meta property="og:image" content="https://dominikrys.com"/>
+<meta property="article:published_time" content="2021-02-13T10:34:48+01:00" />
+<meta property="article:modified_time" content="2021-02-13T10:34:48+01:00" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2021-02-13 10:34:48 &#43;0100 &#43;0100" />
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://dominikrys.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor" style=
+                  "
+                   background-color:#67a2c9;
+                   animation-duration:2s;">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+            <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://dominikrys.com/about/">About</a></li><li><a href="https://dominikrys.com/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+            <span class="menu-trigger">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+            </span>
+            
+        </span>
+    </span>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://dominikrys.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://dominikrys.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://dominikrys.com/favicon-16x16.png">
+    <link rel="manifest" href="https://dominikrys.com/site.webmanifest">
+    <link rel="mask-icon" href="https://dominikrys.com/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</header>
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        3 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://dominikrys.com/posts/2021/02/how-to-debug-srslte/">How to Debug srsLTE</a>
+      </h1>
+
+      
+
+      
+
+      <div class="post-content">
+        <p><img src="img/srslte-logo.png" alt="srsLTE Logo"></p>
+<p>I&rsquo;ve recently been working extensively with <a href="https://github.com/srsLTE/srsLTE">srsLTE</a> for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C++ programs.</p>
+<h2 id="how-to-debug-the-code">How to debug the code</h2>
+<p>Your first attempt at debugging must have been to compile with the <code>Debug</code> CMake flag, and then executing the binaries using GDB or another debugger:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Debug
+</code></pre></div><p>This may work for srsEPC, but you may have trouble with srsENB and srsUE as the code most likely won&rsquo;t get past the Random Access Procedure (RAP). Due to how time-sensitive the RAP is, binaries in Debug mode are too slow and are unable to complete the procedure. If what you need to debug occurs before the RAP, this method will most likely be sufficient.</p>
+<p>To (more) successfully debug the code, it needs to be built in <strong>release with debug info</strong> mode:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>RelWithDebInfo
+</code></pre></div><p>This will reliably get past the RAP. An issue with this is that plenty of code will be optimised out, so you may not hit the breakpoints you need. Sporadic segmentation faults may also occur, so your mileage may vary.</p>
+<p>As an extra caveat, <strong>using SDRs while running srsLTE may not be possible</strong> due to the extra latency introduced by the debugger. I&rsquo;ve tried using the Ettus Research USRP B200 and B210 while debugging, and the UHD driver constantly times out for both. Instead, the <a href="https://docs.srslte.com/en/latest/app_notes/source/zeromq/source/">ZeroMQ</a> driver will most likely need to be used while debugging.</p>
+<h2 id="if-relwithdebinfo-doesnt-work">If RelWithDebInfo doesn&rsquo;t work</h2>
+<p>For many issues, I had to resort to print statements. This is just about good enough for most issues, especially combined with srsLTE logging if it&rsquo;s cranked up to the <code>debug</code> level.</p>
+<p>Increasing <code>all_hex_limit</code> inside the <code>.conf</code> files from 32 to something greater can also help if you&rsquo;re inspecting various messages/objects, as it will allow for more hex to be printed in the logs.</p>
+<p>The following code can also be included as a quick hack to print objects as hex in the console:</p>
+<p><code>log_filter.cc</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> log_filter<span style="color:#f92672">::</span>console_hex(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size)
+{
+  console(hex_string(hex, size).c_str());
+}
+</code></pre></div><p><code>log.h</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">console_hex</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</code></pre></div><p><code>log_filter.h</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">console_hex</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size);
+</code></pre></div><h2 id="last-resort">Last resort</h2>
+<p>If debugging is <em>really</em> necessary, as a last resort a VM can be used. I found that it&rsquo;s possible there to get past the RAP with srsLTE built in <code>Debug</code> mode. Note that SDRs will most likely not work due to the latency introduced by the VM, so the srsLTE ZeroMQ driver will need to be used instead.</p>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://dominikrys.com/tags/srslte-security-lte/">srslte, security, lte</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        445 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2021-02-13 09:34 &#43;0000
+        
+
+         
+          
+        
+      </p>
+    </div>
+
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h"></span>
+          <hr />
+        </div>
+
+        <div class="pagination__buttons">
+          
+
+          
+            <span class="button next">
+              <a href="https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/">
+                <span class="button__text">Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+
+    
+      
+        <div id="comments">
+          <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "dominikrys" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+      
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2021</span>
+            <span><a href="https://dominikrys.com">Dominik Rys</a></span>
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span><span><a href="https://dominikrys.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="https://dominikrys.com/bundle.min.af435e44374f1e99a669ea8cd5bb9a2fceed80588941a451bfddb66b86a67c9f40b0f417e9543a763f809aa7e9300d7b1d69bf99615810ba02ac70396d50fad5.js" integrity="sha512-r0NeRDdPHpmmaeqM1buaL87tgFiJQaRRv922a4amfJ9AsPQX6VQ6dj&#43;AmqfpMA17HWm/mWFYELoCrHA5bVD61Q=="></script>
+
+
+
+    </body>
+</html>
