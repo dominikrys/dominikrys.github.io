@@ -38,6 +38,8 @@ For many issues, I had to resort to print statements. This is just about good en
 
 Increasing `all_hex_limit` inside the `.conf` files from 32 to something greater can also help if you're inspecting various messages/objects, as it will allow for more hex to be printed in the logs.
 
+### Printing hex in the console
+
 The following code can also be included as a quick hack to print objects as hex in the console:
 
 `log_filter.cc`:
@@ -61,6 +63,12 @@ virtual void console_hex(const uint8_t* hex, int size) = 0;
 void console_hex(const uint8_t* hex, int size);
 ```
 
-## Last resort
+The hex can then be printed by calling:
 
-If debugging is _really_ necessary, as a last resort a VM can be used. I found that it's possible there to get past the RAP with srsLTE built in `Debug` mode. Note that SDRs will most likely not work due to the latency introduced by the VM, so the srsLTE ZeroMQ driver will need to be used instead.
+```cpp
+log->console_hex(pdu->msg, pdu->N_bytes);
+```
+
+## Successful debugging in a VM
+
+If debugging is _really_ necessary, A VM can be used as a last resort. I found that it's possible there to get past the RAP with srsLTE built in `Debug` mode. Note that SDRs will most likely not work due to the latency introduced by the VM, so the srsLTE ZeroMQ driver will need to be used instead which works well.

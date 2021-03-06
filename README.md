@@ -4,6 +4,6 @@ Available at: **[dominikrys.com](https://dominikrys.com/)**
 
 ## Notes
 
-- Hosted on [GitHub Pages](https://pages.github.com/)
+Hosted on [GitHub Pages](https://pages.github.com/)
 
-  - Website deployed from the `docs` folder. This has the benefits of keeping the generated website and the raw markdown in one repo. Currently only deployments from the `docs` directory and root [are supported by GitHub Pages](https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+> Website deployed from the `docs` folder, so that the generated website and raw markdown is kept in one repo. `docs` is used as it's [the only deployment directory supported by GitHub Pages apart from root](https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).

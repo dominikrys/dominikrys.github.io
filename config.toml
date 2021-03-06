@@ -110,6 +110,10 @@ disableHugoGeneratorInject = false
     name = "linkedin"
     url  = "https://www.linkedin.com/in/dominikrys/"
 
+  [[params.social]]
+    name = "email"
+    url  = "mailto:dominik.j.rys@gmail.com"
+
 [taxonomies]
   tag      = "tags"
   category = "categories"

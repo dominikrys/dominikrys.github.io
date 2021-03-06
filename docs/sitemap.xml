@@ -1,82 +1,50 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://dominikrys.com/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/posts/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/tags/srslte-security-lte/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/tags/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/tags/docker-influxdb-grafana-traefik-monitoring-devops-security/</loc>
     <lastmod>2020-12-01T12:51:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</loc>
     <lastmod>2020-12-01T12:51:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/tags/docker-influxdb-grafana-telegraf-monitoring-devops/</loc>
     <lastmod>2020-09-21T16:52:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</loc>
     <lastmod>2020-09-21T16:52:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</loc>
     <lastmod>2020-08-15T16:55:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/tags/emscripten-webassembly-c&#43;&#43;-sdl-programming/</loc>
     <lastmod>2020-08-15T16:55:48+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/posts/2020/08/first-blog-post/</loc>
     <lastmod>2020-08-01T15:16:16+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/tags/personal/</loc>
     <lastmod>2020-08-01T15:16:16+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/about/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://dominikrys.com/series/</loc>
   </url>
-  
 </urlset>
