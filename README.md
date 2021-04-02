@@ -13,7 +13,7 @@ git clone --recurse-submodules git@github.com:dominikrys/dominikrys.github.io.gi
 Deployment:
 
 ```zsh
-bash build.sh
+./build.sh
 ```
 
 Local testing:

@@ -55,9 +55,16 @@ My main motivation for getting the emulator working on the web was that in its c
       
       <guid>https://dominikrys.com/about/</guid>
       <description>I&amp;rsquo;m a final year Computer Science student at the University of Birmingham.
-Opinions expressed on this blog are solely my own and do not express the views or opinions of my employer.
- Blog generated using Hugo with the Hello Friend NG theme by Djordje Atlialp.
- </description>
+Opinions expressed on this blog are solely my own and do not express the views or opinions of my employer.</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>https://dominikrys.com/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/projects/</guid>
+      <description></description>
     </item>
     
   </channel>
