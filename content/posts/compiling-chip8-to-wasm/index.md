@@ -5,7 +5,11 @@ draft: false
 toc: true
 comments: true
 tags:
-  - emscripten, webassembly, c++, sdl, programming
+  - software engineering
+  - webassembly
+  - c++
+  - emscripten
+  - sdl
 ---
 
 ![CHIP-8 Emulator](img/full-emulator.png)

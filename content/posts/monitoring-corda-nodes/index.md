@@ -5,7 +5,12 @@ draft: false
 toc: true
 comments: true
 tags:
-  - docker, influxdb, grafana, telegraf, monitoring, devops
+  - devops
+  - security
+  - docker
+  - influxdb
+  - grafana
+  - traefik
 ---
 
 ![Header](img/header.png)

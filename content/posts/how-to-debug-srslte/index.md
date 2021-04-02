@@ -5,7 +5,11 @@ draft: false
 toc: true
 comments: true
 tags:
-  - srslte, security, lte
+  - security
+  - software engineering
+  - c++
+  - srslte
+  - lte
 ---
 
 ![srsLTE Logo](img/srslte-logo.png)

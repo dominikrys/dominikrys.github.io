@@ -5,7 +5,12 @@ draft: false
 toc: true
 comments: true
 tags:
-  - docker, influxdb, grafana, traefik, monitoring, devops, security
+  - devops
+  - security
+  - docker
+  - influxdb
+  - grafana
+  - traefik
 ---
 
 ![Architecture Diagram](img/diagram.png)
