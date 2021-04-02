@@ -14,8 +14,9 @@
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
-      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short blog post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them. This post assumes you know how to debug ordinary C/C++ programs.
-How to debug the code Your first attempt at debugging must have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
+      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
+Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
     </item>
     
     <item>
@@ -24,7 +25,7 @@ How to debug the code Your first attempt at debugging must have been to compile 
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</guid>
-      <description>Motivation During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog-post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
+      <description>Motivation During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
     </item>
     
     <item>
@@ -43,8 +44,8 @@ How to debug the code Your first attempt at debugging must have been to compile 
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
-      <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can check out the source code or try it out online through the magic of WebAssembly.
-In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.</description>
+      <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
     </item>
     
     <item>

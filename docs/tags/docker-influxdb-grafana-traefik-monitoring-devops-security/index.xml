@@ -14,7 +14,7 @@
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</guid>
-      <description>Motivation During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog-post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
+      <description>Motivation During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
     </item>
     
   </channel>

@@ -12,13 +12,13 @@ tags:
 
 ## Motivation
 
-During my last internship, I've been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog-post detailing high-level choices about it which you can check out [here]({{< ref "/content/posts/monitoring-corda-nodes/index.md" >}} "Monitoring Corda Nodes"). The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with [Grafana](https://grafana.com/) and [InfluxDB](https://www.influxdata.com/products/influxdb/) as the front-end and time-series database, respectively.
+During my last internship, I've been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out [here]({{< ref "/content/posts/monitoring-corda-nodes/index.md" >}} "Monitoring Corda Nodes"). The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with [Grafana](https://grafana.com/) and [InfluxDB](https://www.influxdata.com/products/influxdb/) as the front-end and time-series database, respectively.
 
-I found it was relatively straightforward to write and deploy a Docker compose application with just Grafana and InfluxDB. There are many ready-made `docker-compose.yml` files that can be found online, as well as various tutorials and blog posts which explain the details. The main difficulty was in getting the application secured by issuing and renewing TLS certificates. My initial idea was to manually issue and set TLS certificates as described e.g. in the [InfluxDB documentation](https://docs.influxdata.com/influxdb/v1.7/administration/https_setup/), but this kind of approach wouldn't be maintainable in the long run.
+It's relatively straightforward to write and deploy a Docker compose application with just Grafana and InfluxDB. There are many ready-made `docker-compose.yml` files that can be found online, as well as various tutorials and blog posts which explain the details. The main difficulty was in getting the application secured by issuing and renewing TLS certificates. My initial idea was to manually issue and set TLS certificates as described e.g. in the [InfluxDB documentation](https://docs.influxdata.com/influxdb/v1.7/administration/https_setup/), but this kind of approach wouldn't be maintainable in the long run.
 
-This is where [Traefik](https://traefik.io/traefik/) came in - it's an edge router which acts as a reverse proxy into your Docker compose application. More importantly, it's capable of **automatically issuing and renewing TLS certificates from [Let's Encrypt](https://letsencrypt.org/)!** I'll describe how to set it up in this post.
+This is where [Traefik](https://traefik.io/traefik/) came in - it's an edge router which acts as a reverse proxy into your Docker compose application. More importantly, it aims to "make networking boring", which in our case is achieved by **automatically issuing and renewing TLS certificates from [Let's Encrypt](https://letsencrypt.org/)** - perfect! I'll describe how to set it up in this post.
 
-Throughout the post, I'll also describe small improvements that could be made to the deployment I describe, as well as describe small quirks I found when working with the described tools. Note that Traefik works with all Docker containers, so this post can still apply if you for example use [Prometheus](https://prometheus.io/) instead of InfluxDB as your TSDB.
+Throughout the post, I'll also describe small improvements that could be made to the deployment I describe, as well as describe small quirks I found when working with the described tools. Note that Traefik works with all Docker containers, so this post can still apply if you for example use [Prometheus](https://prometheus.io/) instead of InfluxDB as your time-series database.
 
 For the finished all-in-one deployment of Grafana, InfluxDB and Traefik that this post will build up to, I've provided this GitHub repo: [Secure Monitoring Solution in Docker](https://github.com/dominikrys/docker-influxdb-grafana-traefik).
 
@@ -86,17 +86,21 @@ The database specified by the `INFLUXDB_DB` environment variable will be created
 
 The admin account details are provided in the `docker-compose.yml` above and should be changed to something secure. For ideas on how to store them securely, I recommend looking at [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) or [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html).
 
+### Additional configuration
+
 I've decided to use the `alpine` image variant for InfluxDB, mostly due to its smaller footprint. It'll be sufficient for most uses. Grafana uses an Alpine base image by default, and that's also the one that's [recommended](https://grafana.com/docs/grafana/latest/installation/docker/#alpine-image-recommended). The "Image Variants" section of the [InfluxDB docker image documentation](https://hub.docker.com/_/influxdb) explains the image variants in more depth.
 
 This kind of configuration is the foundation of your Grafana and InfluxDB monitoring setup. For now, feel free to change any settings using the appropriate environment variables - I found this way of configuring containers to be much cleaner than mounting a config file into the container, especially once we add Traefik with its labels to the deployment.
 
-- For InfluxDB, the format for the environment variables is `INFLUXDB_SECTION_NAME`, and all dashes (`-`) are replaced with underscores (`_`). Certain settings don't have sections, in which case the section part can be omitted.
+To configure Grafana and InfluxDB using environment variables:
 
-- For Grafana, the format for the environment variables is `GF_SECTION_NAME`, where full stops (`.`) and dashes (`-`) should be replaced by underscores (`_`).
+- **InfluxDB:** the format for the environment variables is `INFLUXDB_SECTION_NAME`, and all dashes (`-`) are replaced with underscores (`_`). Certain settings don't have sections, in which case the section part can be omitted.
+
+- **Grafana:** the format for the environment variables is `GF_SECTION_NAME`, where full stops (`.`) and dashes (`-`) should be replaced by underscores (`_`).
 
 ## Securing containers using Traefik
 
-Initially, I found how to secure the described Docker compose deployment with Traefik from [Jan Grzegorowski's blog post](https://www.grzegorowski.com/secure-docker-grafana-container-with-ssl-through-traefik-proxy). I highly recommend reading his post if something is not clear here.
+Initially, I found how to secure the described Docker compose deployment with Traefik from [Jan Grzegorowski's blog post](https://www.grzegorowski.com/secure-docker-grafana-container-with-ssl-through-traefik-proxy). I highly recommend reading his post if anything is not clear here (I won't be offended).
 
 As described already, Traefik is a cloud-native edge router which will serve as a reverse proxy in our Docker compose application. It will automatically issue and renew TLS certificates, so the traffic to and from our Docker containers will be encrypted. Luckily it's also quite straightforward to configure using [labels](https://doc.traefik.io/traefik/providers/docker/), and the entire configuration can be kept inside one `docker-compose.yml` file.
 
@@ -185,45 +189,25 @@ volumes:
 
 There's quite a lot going on here! I'll try to break it down bit by bit.
 
-First, notice that the ports for the Grafana and InfluxDB containers have been moved to the Traefik container. This is because Traefik will now act as an entry point for our Docker compose application, and will route traffic to other containers.
+Notice that the ports for the Grafana and InfluxDB containers have been moved to the Traefik container. This is because Traefik will now act as an entry point for our Docker compose application, and will route traffic to other containers.
 
-Next, we create some labels in the InfluxDB container for our Traefik configuration.
+### Traefik labels
 
-```yml
-- "traefik.http.routers.influxdb-ssl.entryPoints=influxdb-port"
-```
+We create some labels in the InfluxDB container for our Traefik configuration:
 
-This label sets the container's "entrypoint" using a [Traefik router](https://doc.traefik.io/traefik/routing/routers/). It corresponds to the appropriate label in the Traefik container - here I called it `influxdb-port`. The fourth part of the label can have any arbitrary name (here I chose `influxdb-ssl`).
+- `- "traefik.http.routers.influxdb-ssl.entryPoints=influxdb-port"`: set the container's "entrypoint" using a [Traefik router](https://doc.traefik.io/traefik/routing/routers/). It corresponds to the appropriate label in the Traefik container - here I called it `influxdb-port`. The fourth part of the label can have any arbitrary name (here I chose `influxdb-ssl`).
 
-```yml
-- "traefik.http.routers.influxdb-ssl.rule=host(`YOUR_DOMAIN`)"
-```
+- ``- "traefik.http.routers.influxdb-ssl.rule=host(`YOUR_DOMAIN`)"``: the start of the TLS configuration - fill in the domain of where this application will be hosted. If you're testing locally, it can be set to `localhost` or variations of it (e.g. `monitoring.docker.localhost`).
 
-The start of the TLS configuration - fill in the domain of where this application will be hosted. If you're testing this locally, it can be set to `localhost` or variations of it (e.g. `monitoring.docker.localhost`).
+- `- "traefik.http.routers.influxdb-ssl.tls=true"`: flag for enabling TLS for this container. Changing this to `false` can be useful when you're testing the deployment locally, and want to send data to InfluxDB from applications that can't be set to ignore TLS certificates. This is because TLS certificates can't be issued for `localhost` domains by Traefik as they don't end with a valid top-level domain.
 
-```yml
-- "traefik.http.routers.influxdb-ssl.tls=true"
-```
+- `- "traefik.http.routers.influxdb-ssl.tls.certResolver=lets-encrypt-ssl"`: the name of the certificate resolver - make sure it matches the name of the certificate resolver set in the Traefik container.
 
-Flag for enabling TLS for this container. Changing this to `false` can be useful when you're testing the deployment locally, and want to send data to InfluxDB from applications that can't be set to ignore TLS certificates. This is because TLS certificates can't be issued for `localhost` domains by Traefik as they don't end with a valid top-level domain.
+- `- "traefik.http.routers.influxdb-ssl.service=influxdb-ssl"`: set the name of the [Traefik service](https://doc.traefik.io/traefik/routing/services/) for this container. This will be the name that the other labels in this container have been given.
 
-```yml
-- "traefik.http.routers.influxdb-ssl.tls.certResolver=lets-encrypt-ssl"
-```
+- `- "traefik.http.services.influxdb-ssl.loadBalancer.server.port=8086"`: sets any ports that Traefik should route traffic to for this container. This is done using a [Traefik service](https://doc.traefik.io/traefik/routing/services/), and is effectively a way to tell Traefik how to reach the service. This will be specified by the container's Docker image, so be sure to check which port to use for any other images.
 
-The name of the certificate resolver - make sure it matches the name of the certificate resolver set in the Traefik container.
-
-```yml
-- "traefik.http.routers.influxdb-ssl.service=influxdb-ssl"
-```
-
-Set the name of the [Traefik service](https://doc.traefik.io/traefik/routing/services/) for this container. This will be the name that the other labels in this container have been given.
-
-```yml
-- "traefik.http.services.influxdb-ssl.loadBalancer.server.port=8086"
-```
-
-Sets any ports that Traefik should route traffic to for this container. This is done using a [Traefik service](https://doc.traefik.io/traefik/routing/services/), and is effectively a way to tell Traefik how to reach the service. This will be specified by the container's Docker image, so be sure to check which port to use for any other images.
+### Traefik with other containers
 
 The Grafana TLS configuration is largely the same, with the appropriate port numbers and router names changed.
 
@@ -238,6 +222,8 @@ Since we want Grafana to show up when the domain is visited, the following label
 ```
 
 Here we set up [Traefik middlewares](https://doc.traefik.io/traefik/middlewares/overview/) which are a means to tweak requests (e.g. redirect from one port to another) before it gets passed to the Traefik service. The configuration is fairly straightforward.
+
+### Traefik container configuration
 
 Finally, we set up the actual Traefik container:
 
@@ -288,7 +274,7 @@ The `email` label is necessary so that Let's Encrypt can contact you about [expi
 
 That's it! Your Docker containers are now secured, and traffic that will be sent to and from them will be encrypted.
 
-## Further Improvements
+## Further improvements
 
 There are a couple of small improvements that can be made to the Docker application at this point. Many of the improvements have been implemented in the mentioned [GitHub repository](https://github.com/dominikrys/docker-influxdb-grafana-traefik) mentioned at the start of this post.
 

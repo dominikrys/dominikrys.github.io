@@ -12,27 +12,23 @@ tags:
 
 ## Intro
 
-A couple of months ago I wrote a CHIP-8 emulator in C++17 as I wanted to learn about emulation and expand my C++ knowledge outside of work. You can [check out the source code](https://github.com/dominikrys/chip8) or **[try it out online through the magic of WebAssembly](https://dominikrys.com/chip8)**.
+A couple of months ago I wrote a [CHIP-8 emulator](https://github.com/dominikrys/chip8) in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I'll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result **[here](https://dominikrys.com/chip8)**.
 
-In this post I'll explain how I went about compiling the emulator which was designed to run natively on Windows, Linux and macOS, to also run on the web using WebAssembly.
+My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running. I could send someone the pre-compiled binary or give building instructions, but those aren't guaranteed to work on every platform. Ideally, I wanted a solution that can be hosted on the web, and I recently heard about this cool new "WebAssembly" thing that seemed like the perfect solution.
 
-My main motivation for getting this working on the web was that it was difficult download and get it running; I could send someone a pre-compiled binary or give building instructions, but neither of those options are guaranteed to work without extra effort involved.
+[WebAssembly](https://webassembly.org/) is a binary instruction format that runs on modern web browsers and allows apps to run at "near-native speed". In reality, there is a [performance hit of about 50% relative to their native counterparts](https://www.usenix.org/conference/atc19/presentation/jangda) so it won't be great at running AI or HFT algorithms in your web browser, but it will be good enough to play Space Invaders.
 
-This is where [Emscripten](https://emscripten.org/) came in. Emscripten is a toolchain which uses [LLVM](https://github.com/emscripten-ports/SDL2) to compile C and C++ programs into [WebAssembly](https://webassembly.org/) (Wasm). WebAssembly is a binary instruction format which runs on modern web browsers and allows apps to run at near native speed. In theory, this was the perfect solution to my problem as I could get the emulator running from a web browser.
+To get our Wasm output, [Emscripten](https://emscripten.org/) can be used. It's a toolchain that can compile C, C++, and any language which uses LLVM into WebAssembly.
 
-The idea was simple: compile my emulator using Emscripten, sort out any errors and deploy it on a website. An afternoon's work right? Turns out that there were a couple of pitfalls along the way. To help anyone else embarking on a similar journey of compiling a loop-based C++ program running into WebAssembly, I thought I'd write this post.
+Armed with these tools, the idea was simple: compile my emulator using Emscripten, sort out any errors, and deploy it on a website. An afternoon's work, right? ...not quite. Turns out that there were a couple of pitfalls along the way, so I thought I'd document my journey of compiling a loop-based C++ program running into WebAssembly for future me's reference once WebAssembly takes over the world, or for anyone else that may be attempting a similar task themselves
 
 ## Setting up Emscripten
 
-I've set up Emscripten and did all the development described in this post on a Windows 10 machine. The setup will look very similar on other platforms and a lot of the code/configuration I mention _should_ work on Mac and Linux, and if not then with minimal adjustments.
+I've set up Emscripten and did all the development described in this post on a Windows 10 machine (Unix fanboys, please stay with me - mentions of Windows end here). The setup will look very similar on other platforms and a lot of the code/configuration I mention _should_ work on Mac and Linux, and if not then with minimal adjustments.
 
-[Mozilla's article on compiling C/C++ modules to WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm) was a great crash-course for working with Emscripten. I recommend it as a starting point if your goal is to compile a C or C++ program into Webassembly.
+[Mozilla's article on compiling C/C++ modules to WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm) was a great crash-course for setting up and starting to work with Emscripten. I recommend it as a starting point for anything WebAssembly related.
 
-> **Note for Windows users:** if you run `emsdk.bat` and nothing happens, check your Python install. Since Microsoft decided to have the `python` command [redirect you to the Microsoft Store](https://devblogs.microsoft.com/python/python-in-the-windows-10-may-2019-update/), this may cause problems as when the command is called from within bath script (as in the case of `emsdk`) you won't get redirected to the store. To fix this you may need to either install Python from the Microsoft Store, or [remove the redirect from your app execution aliases](https://superuser.com/a/1461471) if you already have Python installed.
-
-Finally I also installed mingw32-make using `emsdk install mingw-7.1.0-64bit`. I'm unsure if this is needed on Linux or Mac, however if you do need anything extra then a good place to start is to check the tool packages available through Emscripten by calling `emsdk list`.
-
-It's worth pointing out there aren't many IDE plugins or integrations for Emscripten. I tried to integrate it as much as I can into CLion, but what I managed to get to work caused issues for me later on. Emscripten relies on its own compilers and linkers a lot, so I would recommend sticking solely to the terminal in order to save yourself some headaches.
+It's worth pointing out there aren't many IDE plugins or integrations for Emscripten as of writing this post. I tried to hack as much integration as I could into CLion, but what I managed to get to work caused issues for me later on. Emscripten relies on its own compilers and linkers a lot, so I would recommend sticking solely to the terminal to save yourself some headaches.
 
 ## CMake and Emscripten
 
@@ -56,45 +52,21 @@ Next I created a sub-directory in my root project directory for my CMake output 
   mingw32-make
   ```
 
-### Potential CMake problems
+### Potential CMake problem
 
-- If you're using C++17 features, you may get `No such file or directory` errors referencing certain headers. This can be caused by accidentally compiling the code outside of Emscripten either by yourself or by your IDE. The sure-fire way to fix these is to clear the CMake project build system directory and re-create it.
-
-- If you have some sort of shell in your `PATH`, you may get the error: `For MinGW make to work correctly sh.exe must NOT be in your path`. To fix this, add `-DCMAKE_SH="CMAKE_SH-NOTFOUND"` to the `emcmake cmake` command.
+If you're using C++17 features, you may get `No such file or directory` errors referencing certain headers. This can be caused by accidentally compiling the code outside of Emscripten either by yourself or by your IDE. The sure-fire way to fix these is to clear the CMake project build system directory and re-create it.
 
 ### Adding Emscripten sections to CMakeLists
 
-I wanted to maintain the ability to compile my code natively as well as being able to compile it using Emscripten. **The CMake `EMSCRIPTEN` variable solves this problem, as it's set to true when compiling with Emscripten**. I already had sections for building on Windows and Linux in my `CMakeLists.txt`, but there was a small quirk involved in adding Emscripten to it too: the CMake `UNIX` variable will be true when compiling using Emscripten. This can be a problem if your `CMakeLists.txt` logic looks like this:
+I wanted to maintain the ability to compile my code natively as well as being able to compile it using Emscripten. The CMake `EMSCRIPTEN` variable solves this problem, as it's set to true when compiling with Emscripten. Note that when compiling with Emscripten, the CMake `UNIX` variable will also be `true`, so make sure your branching logic is correct.
 
-```cmake
-if (UNIX)
-  # Linux specific commands
-elseif (EMSCRIPTEN)
-  # Emscripten specific commands
-elseif (WIN32)
-  # Windows specific commands
-endif ()
-```
-
-In this case, the Emscripten block won't get executed when compiling with Emscripten as it will go down the `UNIX` branch. This may not be an issue if you're only targeting a Unix based system and Emscripten as you could branch on `if (EMSCRIPTEN)`, but could be a problem if you're target non-Unix based systems alongside Emscripten. Since I wanted my Emscripten block to come after Windows and Linux, my fixed `CMakeLists.txt` has the following structure:
-
-```cmake
-if (WIN32)
-  # Windows specific commands
-elseif (UNIX AND NOT EMSCRIPTEN)
-  # Linux specific commands
-elseif (EMSCRIPTEN)
-  # Emscripten specific commands
-endif ()
-```
-
-For my full CMakeLists.txt you can check the source [here](https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt).
+For the full `CMakeLists.txt` that I ended up using, look [here](https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt).
 
 ## Initial compile
 
 I was almost ready to compile the code. Since the emulator is using [SDL2](https://www.libsdl.org/) for audio and graphics, I also needed to specify the `-s USE_SDL=2` compiler flag. When this is specified, Emscripten will automatically download the [SDL2 Emscripten port](https://github.com/emscripten-ports/SDL2).
 
-I compiled the source code, completely unaltered:
+I hardcoded a ROM to the path, and compiled the source otherwise unaltered:
 
 ```plaintext
 Emscripten Release
@@ -118,31 +90,27 @@ It... worked? I hosted the generated page locally with Python
 python3 -m http.server
 ```
 
-And had a look at it in Chrome. I found that the screen was blank, but in the JavaScript console I got the usage of my program printed, followed by an exception.
-
-![First Compile Error](img/first-compile-error.png)
-
-This is expected, as natively the emulator expects to be given a ROM to load as a command line argument. After hard-coding a path to Pong and removing my command line argument handling code, I was left with this exception:
+And had a look at it in Chrome. I found that the screen was blank, but there was an exception in the JavaScript console:
 
 ![Exception after fix](img/exception-after-fix.png)
 
-This time I actually had to work out what the exception is. Time to attempt some debugging!
+Time to attempt some debugging!
 
 ## Debugging Emscripten
 
-Investigating the JavaScript exception isn't particularly useful, as at that point the code has been generated by Emscripten and is very different to the source code. There is a section on debugging in the [Emscripten docs](https://emscripten.org/docs/porting/Debugging.html), but in essence the debugging process isn't particularly expansive and will require some poking around the C/C++ code.
+Investigating the JavaScript exception isn't particularly useful, as at that point the code has been generated by Emscripten and is very different to the source code. There is a section on debugging in the [Emscripten docs](https://emscripten.org/docs/porting/Debugging.html), but in essence the debugging tools aren't currently particularly robust and will require modifying the program's original source code.
 
-The most helpful ways to debug my code I found were:
+The most helpful ways to debug Emscripten code that I found are:
 
-- Setting the `ASSERTIONS=2` compiler flag. This gives you a better idea of what's going on, but isn't particularly useful by itself. I also found this flag to crop up with red herrings sometimes which got me debugging issues that were either fine to ignore, or went away by themselves as I developed more of the code.
+- Setting the `ASSERTIONS=2` compiler flag. This catches some potential issues, but isn't particularly useful by itself. I also found this flag to crop up with red herrings sometimes which got me debugging issues that were either fine to ignore, or went away by themselves as I developed more of the code.
 
 - [Handling C++ exceptions from JavaScript](https://emscripten.org/docs/porting/Debugging.html#handling-c-exceptions-from-javascript). This requires some extra compiler and linker arguments and some extra code, but will give you readable exceptions in the JavaScript console. Very useful if you know which function is throwing exceptions.
 
-- [Manual print statements](https://emscripten.org/docs/porting/Debugging.html#manual-print-debugging). Not particularly sophisticated, but works well enough and helped me debug this first exception. Note that you should flush using `std::endl` or similar when using `std::cout` statements or else your messages won't get printed (or will get printed when the program terminates).
+- [Manual print statements](https://emscripten.org/docs/porting/Debugging.html#manual-print-debugging). Not particularly sophisticated, but works well enough and helped me debug this first exception. Note that you should flush using `std::endl` or `"\n"` when using `std::cout` statements or else your messages won't get printed while your program is running, and only when it terminates.
 
 ## File system access in Emscripten
 
-The reason for the exception turned out to be simple - it couldn't find the ROM I specified to load. The reason for this is that WebAssembly is designed to be secure and **to run in a sandboxed execution environment** - the file that I was trying to load was present on the "server", but not in the WASM sandbox.
+The reason for the exception turned out to be simple - it couldn't find the ROM I specified to load. The reason for this is that WebAssembly is designed to be secure and **to run in a sandboxed execution environment** - the file that I was trying to load not in the Wasm sandbox.
 
 To use files within Emscripten, a [File System API is provided](https://emscripten.org/docs/api_reference/Filesystem-API.html) as well as a way to [package files](https://emscripten.org/docs/porting/files/packaging_files.html#packaging-files). Since I already had the C++ code for reading files, I went down the packaging files route. There are two [compiler options](https://emscripten.org/docs/tools_reference/emcc.html#emcc-preload-file) that can do this job:
 
@@ -162,11 +130,11 @@ I also got the following warning:
 The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
 ```
 
-For the time being, I decided to get rid of the audio handling code and sort it out later.
+For the time being, I decided to get rid of the audio handling code and sort this out later.
 
 ## Emscripten loops
 
-To get the screen buffer to update and not freeze the tab, I had to change the current loop that my current emulator runs on into an [Emscripten loop](https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop). The reasoning for this is that the web browser event model uses co-operative multitasking, so each event gets a turn to run and has to return control to the browser. My code was blocking and never gave control back to the browser, which is why the tab froze and the display didn't update.
+To get the screen buffer to update and not freeze the tab, I had to change the current loop that my current emulator runs on into an [Emscripten loop](https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop). This is because the web browser event model uses co-operative multitasking, so each event gets a turn to run and has to return control to the browser. My code was blocking and never gave control back to the browser, so the tab froze and the display didn't update.
 
 After a quick Google looking for some real-world examples on how to write an Emscripten loop, I found [James MacKenzie's blog](https://www.jamesfmackenzie.com/2019/12/03/webassembly-emscripten-loops/) which has been a huge help on getting this to work.
 
@@ -191,9 +159,9 @@ Where the full signature of `emscripten_set_main_loop` is:
 emscripten_set_main_loop(em_callback_func func, int fps, int simulate_infinite_loop)
 ```
 
-`emscripten_set_main_loop()` simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the [Emscripten docs](https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop) mention that it's "**HIGHLY** recommended" to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s `requestAnimationFrame` method to call the main loop function (more on this later).
+`emscripten_set_main_loop()` simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the [Emscripten docs](https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop) mention that it's "**HIGHLY** recommended" to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s `requestAnimationFrame` method to call the main loop function which we will revisit later.
 
-### Major rewrite
+### Rewriting for a global function in the main loop
 
 There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.
 
@@ -276,7 +244,7 @@ int main() {
 }
 ```
 
-At this point I've also added a separate `Main.cpp` file just for Emscripten and added rules to pick up the right one in `CMakeLists.txt` depending on the compiler. The code has diverged a lot from my original `Main.cpp`, and adding preprocessor directives wasn't a good solution any more as they made the code difficult to trace through.
+At this point I've also added a separate `Main.cpp` file just for Emscripten and added rules to pick up the right one in `CMakeLists.txt` depending on the compiler. The code has diverged a lot from my original `Main.cpp`, and adding preprocessor made the code difficult to trace through.
 
 ### Emterpreter
 
@@ -301,17 +269,15 @@ I gave this a go myself before rewriting my code for `emscripten_set_main_loop()
 
 ### Frame rate issues
 
-I compiled the code after rewriting using an Emscripten loop and this was the result:
+I compiled the code after rewriting using an Emscripten loop and I got the emulator working!
 
 ![Working Emulator](img/working-emulator.png)
 
-It worked! Although very slowly. I found that this is to do with the `requestAnimationFrame` method which I mentioned previously that is used to call the Emscripten main loop function.
+The emulator was very slow, however. I found that this is to do with the `requestAnimationFrame` method which I mentioned previously that is used to call the Emscripten main loop function.
 
 The [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) state that `requestAnimationFrame` gets called "usually 60 times per second, but will generally match the display refresh rate in most web browsers". This was a problem, as my main loop simulated **one** CHIP-8 cycle every time it was called. Effectively this meant that my the emulator ran at a frequency of 60Hz when compiled with Emscripten, where most CHIP-8 ROMs run well at 1000-1500Hz depending on the game (this isn't something that can be determined on the fly, as in ordinary game loops).
 
-To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn't very straightforward, as the frame rate which ran natively didn't directly translate to what ran in Emscripten.
-
-For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles to emulate between every frame in an Emscripten loop, which is around 17 in this case. This didn't appear to be the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn't seem to be a good way to calculate this difference upfront.
+To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn't very straightforward, as the frame rate which ran natively didn't directly translate to what ran in Emscripten. For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles to emulate between every frame in an Emscripten loop - around 17 in this case. This wasn't the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn't seem to be a good way to calculate this difference upfront.
 
 Also it's worth nothing that not every screen will refresh at 60 frames a second, which is something to consider if you want the program to run at the same speed for everyone.
 
@@ -366,7 +332,7 @@ Next, I made some changes to the `shell.html` file:
 
 - I set `noInitialRun` to `true` in the JavaScript `Module` object so it doesn't automatically run the emulator when the page loads.
 
-- Added a dropdown for selecting which ROM to load. Each option includes a path to a ROM to load and specifies the amount of cycles to emulate per frame.
+- Added a dropdown for selecting which ROM to load. Each option includes a path to a ROM to load and specifies the amount of cycles to emulate per frame, which differs per game.
 
   ```html
   <div class="emscripten" id="menu">
@@ -405,9 +371,9 @@ Next, I made some changes to the `shell.html` file:
 
 ## Audio
 
-I mentioned that I'd come back to audio earlier in this post. In my emulator I coded the audio as a sine wave (all I wanted was a simple "beep" sound so I didn't necessarily need an audio file) which gets played on a separate thread. To compile the code I had to add some extra compiler flags as described in the [Emscripten Pthreads support page](https://emscripten.org/docs/porting/pthreads.html) to allow for multithreading in Emscripten.
+I mentioned that I'd come back to audio earlier in this post. The only audio in the emulator is a simple "beep", implemented as a sine wave that which gets played on a separate thread. To compile the code I had to add some extra compiler flags as described in the [Emscripten Pthreads support page](https://emscripten.org/docs/porting/pthreads.html) to allow for multithreading in Emscripten.
 
-I compiled the code with the audio enabled and checked how Chrome treats it. The audio played when it should, however it ended up being a high pitched noise of varying frequencies which didn't stop - not exactly what I wanted. Changing various settings didn't seem to have an effect on the noise produced. I also gave it a go in Firefox, which required me to enable a flag as the support in Firefox for Webassembly pthreads is currently experimental. Once the flag was enabled, Firefox had various issues with the audio device and I didn't see pursuing this any further worthwhile.
+I compiled the code with the audio enabled and checked how Chrome treats it. The audio played when it should, however it ended up being a high pitched noise of varying frequencies which didn't stop - not exactly what I wanted. Changing various settings didn't seem to have an effect on the noise produced. I also gave it a go in Firefox, which required me to enable a flag as the support in Firefox for Webassembly `pthread`s is currently experimental. Once the flag was enabled, Firefox had various issues with the audio device and I didn't see pursuing this any further worthwhile.
 
 In order to make this work, I a good way would be to handle the audio entirely in JavaScript and query the emulator for when a sound should play. Since I didn't see much value in adding sound to the emulator, I left it out.
 
@@ -415,12 +381,10 @@ In order to make this work, I a good way would be to handle the audio entirely i
 
 That's pretty much it - I managed to compile the emulator into WebAssembly, I added the ability to play different games and to host the emulator online. To finish the emulator off, I added some CSS styling, a start/stop button and instructions on how to play which was easy to do by editing the default Emscripten shell file.
 
-An extra thing which was worth doing is checking how the site behaved in different web browsers. For example in Firefox, I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded, which is how Chrome works by default. Firefox on the other hand remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.
+An extra thing which was worth doing is checking how the site behaved in different web browsers. For example I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded. This held for Chrome, but not for Firefox which remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.
 
-## End
+## The end
 
-I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there's huge potential in the technology, and can be very useful for computationally expensive tasks which aren't viable to be ran using JavaScript.
-
-For examples of more sophisticated projects using WebAssembly, have a look at [this site](https://madewithwebassembly.com/) which describes how various projects (including popular ones such as [OpenCV](https://madewithwebassembly.com/showcase/opencv) and [Tensorflow](https://madewithwebassembly.com/showcase/tensorflow)) use WASM.
+I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there's huge potential in the technology, and can be very useful for computationally expensive tasks which aren't viable to be ran using JavaScript. For examples of more sophisticated projects using WebAssembly and some inspiration, I recommend having a look [Made with WebAssembly](https://madewithwebassembly.com/) 
 
 Links to the source code and the compiled emulator in WebAssembly are provided at the top of this post.
