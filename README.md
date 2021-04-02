@@ -4,11 +4,27 @@ Available at **[dominikrys.com](https://dominikrys.com/)**
 
 ## Cloning
 
-```bash
+```zsh
 git clone --recurse-submodules git@github.com:dominikrys/dominikrys.github.io.git
 ```
 
+## Building
+
+Deployment:
+
+```zsh
+bash build.sh
+```
+
+Local testing:
+
+```zsh
+hugo serve
+```
+
 ## Notes
+
+- Built with [Hugo](https://gohugo.io/) using the [Hello friend NG theme](https://github.com/rhazdon/hugo-theme-hello-friend-ng)
 
 - Hosted on [GitHub Pages](https://pages.github.com/)
 
