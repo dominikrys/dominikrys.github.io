@@ -740,30 +740,5 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 ]]></content>
         </item>
         
-        <item>
-            <title>First Blog Post</title>
-            <link>https://dominikrys.com/posts/2020/08/first-blog-post/</link>
-            <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
-            
-            <guid>https://dominikrys.com/posts/2020/08/first-blog-post/</guid>
-            <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
-My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this.
-The tech stack I used to set up this blog is quite straightforward. Hugo is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown and then rapidly generate the web pages.</description>
-            <content type="html"><![CDATA[<p>Hi, I&rsquo;m Dom. Welcome to my first blog post!</p>
-<p>My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this.</p>
-<p>The tech stack I used to set up this blog is quite straightforward. <a href="https://gohugo.io/">Hugo</a> is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown and then rapidly generate the web pages. The site is then hosted on GitHub Pages (with <a href="https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/">Jekyll bypassed</a>).</p>
-<p>Alternative static site generators I&rsquo;ve also considered are <a href="https://www.gatsbyjs.org/">Gatsby</a> and <a href="https://jekyllrb.com/">Jekyll</a>:</p>
-<ul>
-<li>
-<p>Gatsby is another popular solution, however I didn&rsquo;t see it as being easily maintainable <a href="https://www.freecodecamp.org/news/gatsby-vs-hugo-a-detailed-comparison-e78d94f640fc/">as it may require some tinkering with React</a>.</p>
-</li>
-<li>
-<p>Jekyll is used by default on GitHub pages so it felt like the more natural choice. I&rsquo;ve tried to set it up in the past, but ran into many issues on the way stemming from Ruby dependencies on both Windows and Mac. Hugo worked out of the box and I found it to be a more modern framework.</p>
-</li>
-</ul>
-<p>I hope you find the content on this blog useful!</p>
-]]></content>
-        </item>
-        
     </channel>
 </rss>
