@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "> Clearing docs directory"
+echo "==> Clearing docs directory"
 rm -rf docs
 
-echo "> Running Hugo"
+echo "==> Running Hugo"
 hugo
