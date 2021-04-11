@@ -46,9 +46,7 @@ Increasing `all_hex_limit` inside the `.conf` files from 32 to something greater
 
 #### Printing hex in the console
 
-The following code can also be included as a quick hack to print objects as hex in the console:
-
-`log_filter.cc`:
+To ease debugging, a quick hack can be added to srsLTE for allowing objects to be printed in the console. This is particularly useful for printing certain PDUs of interest. To achieve this in srsLTE 20.04.2, add following code to `log_filter.cc`:
 
 ```cpp
 void log_filter::console_hex(const uint8_t* hex, int size)
@@ -57,19 +55,7 @@ void log_filter::console_hex(const uint8_t* hex, int size)
 }
 ```
 
-`log.h`:
-
-```cpp
-virtual void console_hex(const uint8_t* hex, int size) = 0;
-```
-
-`log_filter.h`:
-
-```cpp
-void console_hex(const uint8_t* hex, int size);
-```
-
-The hex can then be printed by calling:
+The appropriate headers will also need to be changed in `log.h` and `log_filter.h`. Objects can then by printed as hex by calling:
 
 ```cpp
 log->console_hex(pdu->msg, pdu->N_bytes);
