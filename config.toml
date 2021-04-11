@@ -49,7 +49,7 @@ disableHugoGeneratorInject = false
   dateformNumTime = "2006-01-02 15:04 -0700"
 
   # Metadata mostly used in document's head
-  description = "Dominik Rys's Blog"
+  description = "Dominik Rys"
   keywords = "blog, software, engineering, software engineering, devops, software development, computer science"
   images = [""]
 
@@ -132,9 +132,9 @@ disableHugoGeneratorInject = false
   #   name       = "About"
   #   url        = "about/"
   [[menu.main]]
-    identifier = "blog"
+    identifier = "posts"
     name       = "Blog"
-    url        = "blog/"
+    url        = "posts/"
   # [[menu.main]]
   #   identifier = "projects"
   #   name       = "Projects"

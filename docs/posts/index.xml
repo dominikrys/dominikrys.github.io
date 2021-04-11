@@ -1,0 +1,724 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Dominik Rys</title>
+        <link>https://dominikrys.com/posts/</link>
+        <description>Recent content in Posts on Dominik Rys</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-GB</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate>
+        <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How to Debug srsLTE</title>
+            <link>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</link>
+            <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
+            <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
+Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
+            <content type="html"><![CDATA[<p><img src="img/srslte-logo.png" alt="srsLTE Logo"></p>
+<p>I&rsquo;ve recently been working extensively with <a href="https://github.com/srsLTE/srsLTE">srsLTE</a> for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.</p>
+<p>I&rsquo;ll assume you know how to debug ordinary C/C++ programs (I&rsquo;ll patiently wait here if you need to have a look into that).</p>
+<h2 id="compiling-srslte-in-debug-mode">Compiling srsLTE in debug mode</h2>
+<p>Your first attempt at debugging may have been to compile with the <code>Debug</code> CMake flag, and then executing the binaries using GDB or another debugger:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Debug
+</code></pre></div><p><strong>This will probably work for srsEPC</strong>, but you may have trouble with srsENB and srsUE as the code most likely won&rsquo;t get past the Random Access Procedure (RAP). Due to how time-sensitive the RAP is, binaries in <code>Debug</code> mode are too slow and are unable to complete the procedure. However, if what you need to debug occurs before the RAP, this method will most likely be sufficient.</p>
+<p>Alternatively, srsLTE can be built in <strong>release with debug info</strong> mode, which will reliably get past the RAP:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>RelWithDebInfo
+</code></pre></div><p>An issue with this is that plenty of code will be optimised out, so you may not hit the breakpoints you need. Sporadic segmentation faults may also occur, so your mileage may vary.</p>
+<p>As an extra caveat, <strong>using SDRs while running srsLTE may not be possible</strong> due to the extra latency introduced by the debugger. I&rsquo;ve tried using the Ettus Research USRP B200 and B210 while debugging, and the UHD driver constantly times out for both. Instead, the <a href="https://docs.srslte.com/en/latest/app_notes/source/zeromq/source/">ZeroMQ</a> driver will most likely need to be used while debugging.</p>
+<h3 id="when-release-with-debug-info-doesnt-work">When Release With Debug Info doesn&rsquo;t work</h3>
+<p>For many issues, I had to resort to print statements. This is just about good enough for most issues, especially combined with srsLTE logging if it&rsquo;s cranked up to the <code>debug</code> level.</p>
+<p>Increasing <code>all_hex_limit</code> inside the <code>.conf</code> files from 32 to something greater can also help if you&rsquo;re inspecting various messages/objects, as it will allow for more hex to be printed in the logs.</p>
+<h4 id="printing-hex-in-the-console">Printing hex in the console</h4>
+<p>To ease debugging, a quick hack can be added to srsLTE for allowing objects to be printed in the console. This is particularly useful for printing certain PDUs of interest. To achieve this in srsLTE 20.04.2, add following code to <code>log_filter.cc</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> log_filter<span style="color:#f92672">::</span>console_hex(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size)
+{
+  console(hex_string(hex, size).c_str());
+}
+</code></pre></div><p>The appropriate headers will also need to be changed in <code>log.h</code> and <code>log_filter.h</code>. Objects can then by printed as hex by calling:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">log<span style="color:#f92672">-&gt;</span>console_hex(pdu<span style="color:#f92672">-&gt;</span>msg, pdu<span style="color:#f92672">-&gt;</span>N_bytes);
+</code></pre></div><h2 id="successful-debugging-in-a-vm">Successful debugging in a VM</h2>
+<p>If debugging in debug mode is <em>really</em> necessary, A VM can be used as a last resort. I found that it&rsquo;s possible there to get past the RAP with srsLTE built in <code>Debug</code> mode. Note that SDRs will most likely not work due to the latency introduced by the VM, in which case the srsLTE ZeroMQ driver will need to be used instead.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik</title>
+            <link>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</link>
+            <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</guid>
+            <description>Motivation During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
+            <content type="html"><![CDATA[<p><img src="img/diagram.png" alt="Architecture Diagram"></p>
+<h2 id="motivation">Motivation</h2>
+<p>During my last internship, I&rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out <a href="https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/" title="Monitoring Corda Nodes">here</a>. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with <a href="https://grafana.com/">Grafana</a> and <a href="https://www.influxdata.com/products/influxdb/">InfluxDB</a> as the front-end and time-series database, respectively.</p>
+<p>It&rsquo;s relatively straightforward to write and deploy a Docker compose application with just Grafana and InfluxDB. There are many ready-made <code>docker-compose.yml</code> files that can be found online, as well as various tutorials and blog posts which explain the details. The main difficulty was in getting the application secured by issuing and renewing TLS certificates. My initial idea was to manually issue and set TLS certificates as described e.g. in the <a href="https://docs.influxdata.com/influxdb/v1.7/administration/https_setup/">InfluxDB documentation</a>, but this kind of approach wouldn&rsquo;t be maintainable in the long run.</p>
+<p>This is where <a href="https://traefik.io/traefik/">Traefik</a> came in - it&rsquo;s an edge router which acts as a reverse proxy into your Docker compose application. More importantly, it aims to &ldquo;make networking boring&rdquo;, which in our case is achieved by <strong>automatically issuing and renewing TLS certificates from <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a></strong> - perfect! I&rsquo;ll describe how to set it up in this post.</p>
+<p>Throughout the post, I&rsquo;ll also describe small improvements that could be made to the deployment I describe, as well as describe small quirks I found when working with the described tools. Note that Traefik works with all Docker containers, so this post can still apply if you for example use <a href="https://prometheus.io/">Prometheus</a> instead of InfluxDB as your time-series database.</p>
+<p>For the finished all-in-one deployment of Grafana, InfluxDB and Traefik that this post will build up to, I&rsquo;ve provided this GitHub repo: <a href="https://github.com/dominikrys/docker-influxdb-grafana-traefik">Secure Monitoring Solution in Docker</a>.</p>
+<h2 id="setting-up-grafana-and-influxdb">Setting up Grafana and InfluxDB</h2>
+<p>Setting up Grafana and InfluxDB on Docker is pretty straightforward. Here&rsquo;s a <code>docker-compose.yml</code> that will do just that:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+
+<span style="color:#f92672">services</span>:
+    <span style="color:#f92672">influxdb</span>:
+        <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">influxdb</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">influxdb:1.8.3-alpine</span>
+        <span style="color:#f92672">ports</span>:
+            - <span style="color:#ae81ff">8086</span>:<span style="color:#ae81ff">8086</span>
+        <span style="color:#f92672">volumes</span>:
+            - <span style="color:#ae81ff">influxdb-data:/var/lib/influxdb</span>
+        <span style="color:#f92672">environment</span>:
+            <span style="color:#f92672">INFLUXDB_DB</span>: <span style="color:#ae81ff">example_db</span>
+
+            <span style="color:#f92672">INFLUXDB_ADMIN_USER</span>: <span style="color:#ae81ff">admin</span>
+            <span style="color:#f92672">INFLUXDB_ADMIN_PASSWORD</span>: <span style="color:#ae81ff">influxdb-admin</span>
+        <span style="color:#f92672">networks</span>:
+            - <span style="color:#ae81ff">monitoring</span>
+
+    <span style="color:#f92672">grafana</span>:
+        <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">grafana</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">grafana/grafana:7.3.4</span>
+        <span style="color:#f92672">ports</span>:
+            - <span style="color:#ae81ff">3000</span>:<span style="color:#ae81ff">3000</span>
+        <span style="color:#f92672">volumes</span>:
+          - <span style="color:#ae81ff">grafana-data:/var/lib/grafana</span>
+        <span style="color:#f92672">environment</span>:
+            <span style="color:#f92672">GF_SECURITY_ADMIN_USER</span>: <span style="color:#ae81ff">grafana</span>
+            <span style="color:#f92672">GF_SECURITY_ADMIN_PASSWORD</span>: <span style="color:#ae81ff">grafana-admin</span>
+        <span style="color:#f92672">networks</span>:
+            - <span style="color:#ae81ff">monitoring</span>
+        <span style="color:#f92672">depends_on</span>:
+            - <span style="color:#ae81ff">influxdb</span>
+
+<span style="color:#f92672">networks</span>:
+    <span style="color:#f92672">monitoring</span>:
+        <span style="color:#f92672">driver</span>: <span style="color:#ae81ff">bridge</span>
+
+<span style="color:#f92672">volumes</span>:
+    <span style="color:#f92672">influxdb-data</span>:
+        <span style="color:#f92672">external</span>: <span style="color:#66d9ef">false</span>
+
+    <span style="color:#f92672">grafana-data</span>:
+        <span style="color:#f92672">external</span>: <span style="color:#66d9ef">false</span>
+</code></pre></div><p>This simple Docker compose application creates Grafana and InfluxDB containers, creates persistent volumes for them so data will be saved if they&rsquo;re restarted, and sets up a networking bridge so the containers can communicate between each other (in favour of the legacy <a href="https://docs.docker.com/network/links/"><code>links</code></a> command that some old setups use).</p>
+<p>To start up the containers, run:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose up
+</code></pre></div><p>Grafana can then be accessed at <a href="http://localhost:3000/"><code>http://localhost:3000</code></a> and InfluxDB at <a href="http://localhost:8086/"><code>http://localhost:8086</code></a>. You can go ahead and send some data to InfluxDB (e.g. with <a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a>) to make sure it works. InfluxDB will need to be set up as a data source manually in Grafana, however it can be automated as I&rsquo;ll describe later.</p>
+<p>The database specified by the <code>INFLUXDB_DB</code> environment variable will be created when InfluxDB is initialised. This is poorly documented sadly, but most of the details are included in <a href="https://github.com/influxdata/influxdata-docker/pull/102">this InfluxDB PR</a>.</p>
+<p>The admin account details are provided in the <code>docker-compose.yml</code> above and should be changed to something secure. For ideas on how to store them securely, I recommend looking at <a href="https://docs.docker.com/engine/swarm/secrets/">Docker secrets</a> or <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">Ansible Vault</a>.</p>
+<h3 id="additional-configuration">Additional configuration</h3>
+<p>I&rsquo;ve decided to use the <code>alpine</code> image variant for InfluxDB, mostly due to its smaller footprint. It&rsquo;ll be sufficient for most uses. Grafana uses an Alpine base image by default, and that&rsquo;s also the one that&rsquo;s <a href="https://grafana.com/docs/grafana/latest/installation/docker/#alpine-image-recommended">recommended</a>. The &ldquo;Image Variants&rdquo; section of the <a href="https://hub.docker.com/_/influxdb">InfluxDB docker image documentation</a> explains the image variants in more depth.</p>
+<p>This kind of configuration is the foundation of your Grafana and InfluxDB monitoring setup. For now, feel free to change any settings using the appropriate environment variables - I found this way of configuring containers to be much cleaner than mounting a config file into the container, especially once we add Traefik with its labels to the deployment.</p>
+<p>To configure Grafana and InfluxDB using environment variables:</p>
+<ul>
+<li>
+<p><strong>InfluxDB:</strong> the format for the environment variables is <code>INFLUXDB_SECTION_NAME</code>, and all dashes (<code>-</code>) are replaced with underscores (<code>_</code>). Certain settings don&rsquo;t have sections, in which case the section part can be omitted.</p>
+</li>
+<li>
+<p><strong>Grafana:</strong> the format for the environment variables is <code>GF_SECTION_NAME</code>, where full stops (<code>.</code>) and dashes (<code>-</code>) should be replaced by underscores (<code>_</code>).</p>
+</li>
+</ul>
+<h2 id="securing-containers-using-traefik">Securing containers using Traefik</h2>
+<p>Initially, I found how to secure the described Docker compose deployment with Traefik from <a href="https://www.grzegorowski.com/secure-docker-grafana-container-with-ssl-through-traefik-proxy">Jan Grzegorowski&rsquo;s blog post</a>. I highly recommend reading his post if anything is not clear here (I won&rsquo;t be offended).</p>
+<p>As described already, Traefik is a cloud-native edge router which will serve as a reverse proxy in our Docker compose application. It will automatically issue and renew TLS certificates, so the traffic to and from our Docker containers will be encrypted. Luckily it&rsquo;s also quite straightforward to configure using <a href="https://doc.traefik.io/traefik/providers/docker/">labels</a>, and the entire configuration can be kept inside one <code>docker-compose.yml</code> file.</p>
+<p>Adapting the above example <code>docker-compose.yml</code> to work with Traefik, we get:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+
+<span style="color:#f92672">services</span>:
+    <span style="color:#f92672">influxdb</span>:
+        <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">influxdb</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">influxdb:1.8.3-alpine</span>
+        <span style="color:#f92672">volumes</span>:
+            - <span style="color:#ae81ff">influxdb-data:/var/lib/influxdb</span>
+        <span style="color:#f92672">networks</span>:
+            - <span style="color:#ae81ff">monitoring</span>
+        <span style="color:#f92672">labels</span>:
+            - <span style="color:#e6db74">&#34;traefik.http.routers.influxdb-ssl.entryPoints=influxdb-port&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.influxdb-ssl.rule=host(`YOUR_DOMAIN`)&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.influxdb-ssl.tls=true&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.influxdb-ssl.tls.certResolver=lets-encrypt-ssl&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.influxdb-ssl.service=influxdb-ssl&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.services.influxdb-ssl.loadBalancer.server.port=8086&#34;</span>
+
+    <span style="color:#f92672">grafana</span>:
+        <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">grafana</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">grafana/grafana:7.3.4</span>
+        <span style="color:#f92672">volumes</span>:
+          - <span style="color:#ae81ff">grafana-data:/var/lib/grafana</span>
+        <span style="color:#f92672">networks</span>:
+            - <span style="color:#ae81ff">monitoring</span>
+        <span style="color:#f92672">depends_on</span>:
+            - <span style="color:#ae81ff">influxdb</span>
+        <span style="color:#f92672">labels</span>:
+            - <span style="color:#e6db74">&#34;traefik.http.routers.grafana.entryPoints=port80&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.grafana.rule=host(`YOUR_DOMAIN`)&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.grafana.middlewares=grafana-redirect&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.middlewares.grafana-redirect.redirectScheme.scheme=https&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.middlewares.grafana-redirect.redirectScheme.permanent=true&#34;</span>
+
+            - <span style="color:#e6db74">&#34;traefik.http.routers.grafana-ssl.entryPoints=port443&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.grafana-ssl.rule=host(`YOUR_DOMAIN`)&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.grafana-ssl.tls=true&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.grafana-ssl.tls.certResolver=lets-encrypt-ssl&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.routers.grafana-ssl.service=grafana-ssl&#34;</span>
+            - <span style="color:#e6db74">&#34;traefik.http.services.grafana-ssl.loadBalancer.server.port=3000&#34;</span>
+
+    <span style="color:#f92672">traefik</span>:
+        <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">traefik</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">traefik:v2.3.4</span>
+        <span style="color:#f92672">volumes</span>:
+            - <span style="color:#ae81ff">traefik-data:/letsencrypt</span>
+            - <span style="color:#ae81ff">/var/run/docker.sock:/var/run/docker.sock</span>
+        <span style="color:#f92672">networks</span>:
+            - <span style="color:#ae81ff">monitoring</span>
+        <span style="color:#f92672">ports</span>:
+            - <span style="color:#e6db74">&#34;80:80&#34;</span>
+            - <span style="color:#e6db74">&#34;443:443&#34;</span>
+            - <span style="color:#e6db74">&#34;8086:8086&#34;</span>
+        <span style="color:#f92672">command</span>:
+            - <span style="color:#e6db74">&#34;--providers.docker=true&#34;</span>
+
+            - <span style="color:#e6db74">&#34;--entryPoints.port443.address=:443&#34;</span>
+            - <span style="color:#e6db74">&#34;--entryPoints.port80.address=:80&#34;</span>
+            - <span style="color:#e6db74">&#34;--entryPoints.influxdb-port.address=:8086&#34;</span>
+
+            - <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.tlsChallenge=true&#34;</span>
+            - <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.storage=/letsencrypt/acme.json&#34;</span>
+            - <span style="color:#e6db74">&#34;--certificatesresolvers.lets-encrypt-ssl.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory&#34;</span>
+            - <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.email=YOUR-EMAIL@website.com&#34;</span>
+
+<span style="color:#f92672">networks</span>:
+    <span style="color:#f92672">monitoring</span>:
+        <span style="color:#f92672">driver</span>: <span style="color:#ae81ff">bridge</span>
+
+<span style="color:#f92672">volumes</span>:
+    <span style="color:#f92672">influxdb-data</span>:
+        <span style="color:#f92672">external</span>: <span style="color:#66d9ef">false</span>
+
+    <span style="color:#f92672">grafana-data</span>:
+        <span style="color:#f92672">external</span>: <span style="color:#66d9ef">false</span>
+
+    <span style="color:#f92672">traefik-data</span>:
+        <span style="color:#f92672">external</span>: <span style="color:#66d9ef">false</span>
+</code></pre></div><p>There&rsquo;s quite a lot going on here! I&rsquo;ll try to break it down bit by bit.</p>
+<p>Notice that the ports for the Grafana and InfluxDB containers have been moved to the Traefik container. This is because Traefik will now act as an entry point for our Docker compose application, and will route traffic to other containers.</p>
+<h3 id="traefik-labels">Traefik labels</h3>
+<p>We create some labels in the InfluxDB container for our Traefik configuration:</p>
+<ul>
+<li>
+<p><code>- &quot;traefik.http.routers.influxdb-ssl.entryPoints=influxdb-port&quot;</code>: set the container&rsquo;s &ldquo;entrypoint&rdquo; using a <a href="https://doc.traefik.io/traefik/routing/routers/">Traefik router</a>. It corresponds to the appropriate label in the Traefik container - here I called it <code>influxdb-port</code>. The fourth part of the label can have any arbitrary name (here I chose <code>influxdb-ssl</code>).</p>
+</li>
+<li>
+<p><code>- &quot;traefik.http.routers.influxdb-ssl.rule=host(`YOUR_DOMAIN`)&quot;</code>: the start of the TLS configuration - fill in the domain of where this application will be hosted. If you&rsquo;re testing locally, it can be set to <code>localhost</code> or variations of it (e.g. <code>monitoring.docker.localhost</code>).</p>
+</li>
+<li>
+<p><code>- &quot;traefik.http.routers.influxdb-ssl.tls=true&quot;</code>: flag for enabling TLS for this container. Changing this to <code>false</code> can be useful when you&rsquo;re testing the deployment locally, and want to send data to InfluxDB from applications that can&rsquo;t be set to ignore TLS certificates. This is because TLS certificates can&rsquo;t be issued for <code>localhost</code> domains by Traefik as they don&rsquo;t end with a valid top-level domain.</p>
+</li>
+<li>
+<p><code>- &quot;traefik.http.routers.influxdb-ssl.tls.certResolver=lets-encrypt-ssl&quot;</code>: the name of the certificate resolver - make sure it matches the name of the certificate resolver set in the Traefik container.</p>
+</li>
+<li>
+<p><code>- &quot;traefik.http.routers.influxdb-ssl.service=influxdb-ssl&quot;</code>: set the name of the <a href="https://doc.traefik.io/traefik/routing/services/">Traefik service</a> for this container. This will be the name that the other labels in this container have been given.</p>
+</li>
+<li>
+<p><code>- &quot;traefik.http.services.influxdb-ssl.loadBalancer.server.port=8086&quot;</code>: sets any ports that Traefik should route traffic to for this container. This is done using a <a href="https://doc.traefik.io/traefik/routing/services/">Traefik service</a>, and is effectively a way to tell Traefik how to reach the service. This will be specified by the container&rsquo;s Docker image, so be sure to check which port to use for any other images.</p>
+</li>
+</ul>
+<h3 id="traefik-with-other-containers">Traefik with other containers</h3>
+<p>The Grafana TLS configuration is largely the same, with the appropriate port numbers and router names changed.</p>
+<p>Since we want Grafana to show up when the domain is visited, the following labels handle HTTP to HTTPS redirection using Traefik:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;traefik.http.routers.grafana.entryPoints=port80&#34;</span>
+- <span style="color:#e6db74">&#34;traefik.http.routers.grafana.rule=host(`YOUR_DOMAIN`)&#34;</span>
+- <span style="color:#e6db74">&#34;traefik.http.routers.grafana.middlewares=grafana-redirect&#34;</span>
+- <span style="color:#e6db74">&#34;traefik.http.middlewares.grafana-redirect.redirectScheme.scheme=https&#34;</span>
+- <span style="color:#e6db74">&#34;traefik.http.middlewares.grafana-redirect.redirectScheme.permanent=true&#34;</span>
+</code></pre></div><p>Here we set up <a href="https://doc.traefik.io/traefik/middlewares/overview/">Traefik middlewares</a> which are a means to tweak requests (e.g. redirect from one port to another) before it gets passed to the Traefik service. The configuration is fairly straightforward.</p>
+<h3 id="traefik-container-configuration">Traefik container configuration</h3>
+<p>Finally, we set up the actual Traefik container:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">traefik</span>:
+    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">traefik</span>
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">traefik:v2.3.4</span>
+    <span style="color:#f92672">volumes</span>:
+        - <span style="color:#ae81ff">traefik-data:/letsencrypt</span>
+        - <span style="color:#ae81ff">/var/run/docker.sock:/var/run/docker.sock</span>
+    <span style="color:#f92672">networks</span>:
+        - <span style="color:#ae81ff">monitoring</span>
+    <span style="color:#f92672">ports</span>:
+        - <span style="color:#e6db74">&#34;80:80&#34;</span>
+        - <span style="color:#e6db74">&#34;443:443&#34;</span>
+        - <span style="color:#e6db74">&#34;8086:8086&#34;</span>
+</code></pre></div><p>First, we set up a persistent volume for the <code>/letencrypt</code> directory which will store any TLS certificates that Traefik obtains from Let&rsquo;s Encrypt. This is important so that certificates don&rsquo;t have to be reissued when the container is restarted.</p>
+<p>Next, we need to mount the Docker socket into the container so that Traefik can get <a href="https://docs.traefik.io/providers/docker/#docker-api-access">Docker&rsquo;s dynamic configuration</a>.</p>
+<p>We also open all the ports whose traffic we want to route through Traefik.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">command</span>:
+    - <span style="color:#e6db74">&#34;--providers.docker=true&#34;</span>
+
+    - <span style="color:#e6db74">&#34;--entryPoints.port443.address=:443&#34;</span>
+    - <span style="color:#e6db74">&#34;--entryPoints.port80.address=:80&#34;</span>
+    - <span style="color:#e6db74">&#34;--entryPoints.influxdb-port.address=:8086&#34;</span>
+</code></pre></div><p>We set the <code>providers.docker</code> command to true since we&rsquo;re using Docker. We also set up some <a href="https://doc.traefik.io/traefik/routing/entrypoints/">Traefik entrypoints</a> to open connections for incoming requests, which correspond to the ports we&rsquo;ve opened in the container.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.tlsChallenge=true&#34;</span>
+- <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.storage=/letsencrypt/acme.json&#34;</span>
+- <span style="color:#e6db74">&#34;--certificatesresolvers.lets-encrypt-ssl.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory&#34;</span>
+- <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.email=YOUR-EMAIL@website.com&#34;</span>
+</code></pre></div><p>Finally we set up the certificate resolver that will renew and issue our TLS certificates. Note that the second part of these labels can be set to any arbitrary name, and isn&rsquo;t used anywhere.</p>
+<p>The <code>caServer</code> label determines which Certificate Authority to request TLS certificates from. Since we&rsquo;re getting them from <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a>, this can either be set to Let&rsquo;s Encrypt&rsquo;s staging (<code>https://acme-staging-v02.api.letsencrypt.org/directory</code>) server or production (<code>https://acme-v02.api.letsencrypt.org/directory</code>) server. There is a <a href="https://letsencrypt.org/docs/rate-limits/">limit of 5 certificates per week from Let&rsquo;s Encrypt&rsquo;s production server</a>, so it may be a good idea to use the staging server for testing. For more info on the Let&rsquo;s Encrypt staging environment and Traefik, check the note under <a href="https://doc.traefik.io/traefik/v2.0/user-guides/docker-compose/acme-tls/#setup">this Traefik docs page</a>.</p>
+<p>The <code>email</code> label is necessary so that Let&rsquo;s Encrypt can contact you about <a href="https://cert-manager.io/docs/configuration/acme/#creating-a-basic-acme-issuer">expiring certificates and any issues related to your account</a>.</p>
+<p>That&rsquo;s it! Your Docker containers are now secured, and traffic that will be sent to and from them will be encrypted.</p>
+<h2 id="further-improvements">Further improvements</h2>
+<p>There are a couple of small improvements that can be made to the Docker application at this point. Many of the improvements have been implemented in the mentioned <a href="https://github.com/dominikrys/docker-influxdb-grafana-traefik">GitHub repository</a> mentioned at the start of this post.</p>
+<ul>
+<li>
+<p><code>volumes</code> configurations can be expanded to their verbose form for better readability. This can help with understanding what kind of mount is used, as it&rsquo;s not immediately obvious with the <a href="https://docs.docker.com/compose/compose-file/#short-syntax-3">short syntax</a>.</p>
+</li>
+<li>
+<p>An <code>.env</code> file can be added alongside the <code>docker-compose.yml</code> file to store some common variables which are used throughout the <code>docker-compose.yml</code>, to avoid repetition.</p>
+</li>
+<li>
+<p><code>restart: always</code> can be added to the Docker containers so that they&rsquo;re restarted on boot.</p>
+</li>
+<li>
+<p>Grafana can automatically set up data sources specified under <code>grafana/provisioning/datasources</code>. Other aspects can also be provisioned in a similar manner, including plugins, dashboards, and alert notification channels. For more info, see <a href="https://grafana.com/docs/grafana/latest/administration/provisioning/">Grafana provisoning</a>.</p>
+</li>
+<li>
+<p>InfluxDB will run shell scripts located in the <code>docker-entrypoint-initdb.d</code> directory on startup. InfluxQL <code>.iql</code> files can also be included there, but I wouldn&rsquo;t recommend it as they&rsquo;re much less flexible than shell scripts and can lead to non-obvious issues.</p>
+</li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</title>
+            <link>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</link>
+            <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</guid>
+            <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
+ Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
+            <content type="html"><![CDATA[<p><img src="img/header.png" alt="Header"></p>
+<blockquote>
+<p><strong>This post is also hosted on the <a href="https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/">Corda Blog</a>.</strong> The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&rsquo;ve done during my summer internship at R3.</p>
+</blockquote>
+<h2 id="intro">Intro</h2>
+<p>Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a <a href="https://docs.corda.net/docs/corda-enterprise/performance-testing/toc-tree.html">performance testing suite</a> that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</p>
+<p>We recently decided to invest some effort in improving the observability of the overall system so that we could identify regressions and analyse their root cause more efficiently and with less manual work. There is <a href="https://docs.corda.net/docs/corda-enterprise/node-metrics.html">a wealth of metrics exposed by Corda nodes via JMX</a> that can be inspected using tools such as <a href="https://hawt.io/">Hawtio</a> (as <a href="https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html">described in the Corda docs</a>). However, this approach requires plenty of manual intervention and the prerequisite of the test actively running during inspection times.</p>
+<p><img src="img/hawtio.png" alt="Corda JMX metrics visible in Hawtio"><em>Corda JMX metrics visible in Hawtio</em></p>
+<p>We had to set up a monitoring infrastructure that would allow us to:</p>
+<ul>
+<li>
+<p>Collect the metrics exposed by our Corda nodes via JMX.</p>
+</li>
+<li>
+<p>Collect the metrics not exposed via JMX, such as disk IO and network activity.</p>
+</li>
+<li>
+<p>Store the collected metrics in a centralised database.</p>
+</li>
+<li>
+<p>Visualise, filter, and compare metrics from different time windows using a front end accessible from a web browser.</p>
+</li>
+</ul>
+<p>Monitoring is a core aspect of operating Corda nodes efficiently. Therefore, in this post we give you a quick overview of the technologies available and their trade-offs. We also walk you through the capabilities and the architecture of our solution. The described work has been performed on Corda 4.5, but the high-level architecture is really version-agnostic. We hope this can help those of you getting started with monitoring!</p>
+<h2 id="hosting-the-monitoring-infrastructure">Hosting the monitoring infrastructure</h2>
+<p>The first step was to decide how to host the monitoring infrastructure, as that would greatly impact the choice of other tools that we could use. Ultimately it came down to either using a third-party managed service or deploying the infrastructure ourselves in the public cloud.</p>
+<h3 id="third-party-managed-services">Third-party managed services</h3>
+<p>This would be a great option if we wanted a scalable solution without us having to spend too much time setting up the infrastructure and managing it, or if it was to support production workloads that would have strict requirements for high availability. Given that we only wanted to monitor the nodes in our cluster and didn’t intend for it to scale beyond that, using a third-party service wouldn’t have been cost-effective as it would have provided many more features than were necessary for us.</p>
+<p>We also wanted the ability to have multiple users access dashboards simultaneously, and the possibility for user authentication. These features were only accessible in the higher tiers of such services, which provide much more storage and bandwidth than we required.</p>
+<h3 id="self-hosting">Self-hosting</h3>
+<p>We ended up going down the path of hosting the monitoring infrastructure ourselves in Microsoft Azure. The most popular tools for setting up monitoring solutions provide open source offerings so this was a viable option. It also has the added benefits of giving us full control over the infrastructure and knowing the exact running costs.</p>
+<h2 id="comparison-of-tools">Comparison of tools</h2>
+<p>As we chose to self-host the monitoring infrastructure, we had the liberty of choosing from the multitude of open source tools available to set up our infrastructure. We carefully considered which tools to use so that the monitoring infrastructure wouldn’t require much effort to maintain in the long run.</p>
+<p>Effectively the monitoring infrastructure can be split up into three parts:</p>
+<ol>
+<li>
+<p>A metric collection agent.</p>
+</li>
+<li>
+<p>A time-series database (TSDB).</p>
+</li>
+<li>
+<p>A front end for visualising and querying the TSDB.</p>
+</li>
+</ol>
+<p>The descriptions of each part below provide details about the tool we chose to use, followed by alternatives that we had also considered.</p>
+<h3 id="metric-collection-agent">Metric collection agent</h3>
+<p><img src="img/telegraf-logo.png" alt="Telegraf logo"></p>
+<p>⭐ <a href="https://www.influxdata.com/time-series-platform/telegraf"><strong>Telegraf</strong></a>— a lightweight open source server agent that <a href="https://docs.influxdata.com/telegraf/latest/plugins/">can collect and write metrics to and from different sources</a>. It’s plug-in driven so we could easily set it up using the provided <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/jolokia2">jolokia2 plug-in</a> to collect the metrics exposed through JMX from our Corda nodes.</p>
+<p>Telegraf also provides plug-ins that allow for monitoring various system metrics which aren’t available through JMX, such as disk IO and networking usage. In our case, it was so convenient to configure that we also deployed it on our <a href="https://docs.corda.net/docs/corda-os/node-database.html">Corda node databases</a> with the relevant <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/postgresql">PostgreSQL</a> and <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver">SQL Server</a> plug-ins.</p>
+<p><strong>Other options</strong> — we also considered <a href="https://github.com/prometheus/jmx_exporter"><strong>Prometheus JMX exporter</strong></a>, <a href="https://github.com/logzio/jmx2graphite"><strong>jmx2graphite</strong></a>, and <a href="https://github.com/jmxtrans/jmxtrans"><strong>jmxtrans</strong></a>. The issue with these is that they are all limited to which metrics they can record and where they can send them to. Telegraf can provide essentially the same functionality as those tools and allows for extensibility, while greatly reducing the number of tools required for maintenance.</p>
+<h3 id="time-series-database">Time-series database</h3>
+<p><img src="img/influxdb-logo.png" alt="InfluxDB logo"></p>
+<p>⭐ <a href="https://www.influxdata.com/products/influxdb-overview/"><strong>InfluxDB</strong></a> — an open source TSDB from InfluxData, who also develop Telegraf. It’s <a href="https://docs.influxdata.com/influxdb/v1.8/introduction/install/">easy to install on many different platforms</a> and can be interacted with using the SQL-like <a href="https://docs.influxdata.com/influxdb/v1.8/query_language/">InfluxQL</a> query language.</p>
+<p>This is the TSDB we ended up using. So far it’s been working well, but a slight gripe with it is that the default query language (InfluxQL) is not quite powerful enough for certain tasks, such as performing calculations on data over different time windows. This is remedied by using InfluxData’s new <a href="https://www.influxdata.com/products/flux">Flux</a> query language, albeit at the cost of convenience due to a lack of simplified GUI for it in TSDB front ends — the queries have to be written in plain text. Before choosing InfluxDB we’d recommend checking <a href="https://github.com/influxdata/influxdb/issues/5930">this aggregate GitHub issue</a> to see if you’d heavily rely on any query operators that have not yet been implemented in InfluxQL.</p>
+<p>Overall, Flux is still significantly more powerful than Prometheus’ and Graphite’s query languages. InfluxDB can be the best option if you don’t mind sacrificing some ease of use sometimes for the ability to write (almost) any query imaginable.</p>
+<p><img src="img/prometheus-logo.png" alt="Prometheus Logo"></p>
+<p><a href="https://prometheus.io"><strong>Prometheus</strong></a> — another popular open source TSDB, which is entirely community-driven. It uses a similar <a href="https://prometheus.io/docs/introduction/comparison/#summary-0">data compression algorithm to InfluxDB</a>. The query language (<a href="https://prometheus.io/docs/prometheus/latest/querying/basics">PromQL</a>) is more robust than InfluxQL so you can do more out of the box, although it doesn’t resemble any particular language so requires learning from scratch.</p>
+<p>One of the biggest differences in Prometheus compared to other TSDBs is that it <a href="https://prometheus.io/docs/introduction/faq/#why-do-you-pull-rather-than-push">pulls instead of pushing metrics</a>. This has some advantages, but also requires additional setting-up on the machines that run your Corda nodes to allow Prometheus to pick up the exported metrics, which entails opening extra ports and setting up firewall rules.</p>
+<p>It was tough choosing between Prometheus and InfluxDB, but ultimately we went with InfluxDB due to it being maintained by the same people as Telegraf, the potential to write complex queries using Flux and requiring less setup to collect metrics from our Corda nodes.</p>
+<p><img src="img/graphite-logo.png" alt="Graphite Logo"></p>
+<p><a href="https://graphiteapp.org"><strong>Graphite</strong></a> — the grandaddy of modern TSDBs. Graphite has been around for longer than Prometheus and InfluxDB, so it’s a mature and tested tool. The query language resembles some programming languages so it’s easy to pick up, and it can do more than InfluxQL and PromQL thanks to the huge selection of functions that have been developed over the years.</p>
+<p>Being the oldest of the bunch has its disadvantages though, most notably that the <a href="https://www.influxdata.com/blog/influxdb-outperforms-graphite-in-time-series-data-metrics-benchmark">performance is lacklustre compared to InfluxDB</a> which would have to be accounted for by using a more powerful host VM. Installing Graphite can also be a pain due to its <a href="https://graphite.readthedocs.io/en/latest/install.html#dependencies">many dependencies</a> if it’s not deployed in Docker (inspiring projects such as <a href="https://github.com/obfuscurity/synthesize/">Synthesize</a> that are meant to make the process easier).</p>
+<h3 id="front-end-for-visualising-and-querying-the-tsdb">Front end for visualising and querying the TSDB</h3>
+<p><img src="img/example-grafana-dashboard.jpg" alt="Example Grafana Dashboard"><em>Example Grafana Dashboard</em></p>
+<p>⭐ <a href="https://grafana.com"><strong>Grafana</strong></a> — an open source tool for interactively visualising data from various data sources. Grafana is by far the most popular tool for interacting with TSDBs with over <a href="https://github.com/grafana/grafana">1200 contributors on GitHub</a> and a very active <a href="https://community.grafana.com/">community forum</a>. There are <a href="https://grafana.com/grafana/plugins">many plug-ins available for it</a>, it integrates well with many other services for <a href="https://grafana.com/docs/grafana/latest/alerting/notifications/">alerting</a> and <a href="https://grafana.com/docs/grafana/latest/auth/overview/">authentication</a>, and it makes creating aesthetically pleasing dashboards a breeze.</p>
+<p><img src="img/example-chronograf-dashboard.png" alt="Example Chronograf Dashboard"><em>Example Chronograf Dashboard</em></p>
+<p><a href="https://www.influxdata.com/time-series-platform/chronograf"><strong>Chronograf</strong></a> — an open source tool for interacting and visualising data from InfluxDB. Chronograf is very well suited for setups where other products from InfluxData are used, as it’s better integrated with them compared to Grafana. This could have been a great option if we also used <a href="https://www.influxdata.com/time-series-platform/kapacitor/">Kapacitor</a> as a real-time streaming data processing engine from InfluxData, to complete their “<a href="https://www.influxdata.com/blog/introduction-to-influxdatas-influxdb-and-tick-stack/">TICK</a>” stack.</p>
+<p>Given that Chronograf has fewer features than Grafana and <a href="https://github.com/influxdata/chronograf/graphs/contributors">is significantly less popular</a>, which can make getting support for it more difficult, we went with Grafana.</p>
+<h2 id="extra-considerations">Extra considerations</h2>
+<h3 id="why-deploy-in-docker">Why deploy in Docker?</h3>
+<p><img src="img/docker-logo.png" alt="Docker Logo"></p>
+<p>As all tools we chose provided official Docker images, we decided to deploy our monitoring infrastructure as a <a href="https://docs.docker.com/compose">Docker Compose</a> application in an Azure VM. This has many benefits:</p>
+<ul>
+<li>
+<p>Deploying the monitoring infrastructure is a one-step process and is easily reproducible.</p>
+</li>
+<li>
+<p>Updating and downgrading individual services is straightforward — just adjust the version of the Docker images!</p>
+</li>
+<li>
+<p>It’s easy to manage each container’s data as it’s kept in separate Docker volumes.</p>
+</li>
+<li>
+<p>The solution can be easily tested locally and will behave the same locally as on a production server.</p>
+</li>
+</ul>
+<h3 id="securing-the-monitoring-infrastructure">Securing the monitoring infrastructure</h3>
+<p><img src="img/traefik-logo.png" alt="Traefik Logo"></p>
+<p>To encrypt the traffic coming in and out of our monitoring infrastructure, we used <a href="https://docs.traefik.io/">Traefik</a> which can automatically renew and obtain TLS certificates for our monitoring infrastructure from <a href="https://letsencrypt.org">Let’s Encrypt</a>. Traefik is an open source edge router that acts as a reverse proxy for our Docker containers. It can be deployed using <a href="https://hub.docker.com/_/traefik">official Docker images</a>, so it integrates perfectly into our Docker Compose application.</p>
+<p>We defined separate Traefik <a href="https://docs.traefik.io/routing/services/">services</a> and <a href="https://docs.traefik.io/routing/routers/">routers</a> for Grafana and InfluxDB that take care of appropriate routing, HTTP/HTTPS redirection, and TLS configuration. This was all done in a declarative way using <a href="https://docs.traefik.io/routing/providers/docker/">labels in our Docker compose file</a>.</p>
+<p>Grafana supports <a href="https://grafana.com/docs/grafana/latest/auth/overview">user authentication</a>, which can be integrated with many different services including Azure and GitHub. This also allows for easy management of permissions of the users accessing our Grafana dashboards.</p>
+<h3 id="deployment-of-telegraf">Deployment of Telegraf</h3>
+<p>Telegraf can be installed on the machines running Corda in a <a href="https://docs.influxdata.com/telegraf/latest/introduction/installation">variety of ways</a> and works as a stand-alone tool. Setting it up is relatively straightforward, so you can choose whichever installation method most suits your setup.</p>
+<h2 id="complete-infrastructure-architecture">Complete infrastructure architecture</h2>
+<p>The complete architecture of our infrastructure looks as follows:</p>
+<p><img src="img/architecture-diagram.png" alt="Architecture Diagram"></p>
+<p>TLS is terminated at our reverse proxy (Traefik). This means that traffic between the proxy and Grafana/InfluxDB is not encrypted, but this isn’t an issue since all these services are running in a single secured machine.</p>
+<h2 id="final-result">Final result</h2>
+<p>We set up a Grafana dashboard with metrics for each Corda node in our cluster. The dashboard features high-level flow metrics first, followed by internal operation metrics (P2P, caches), and finally system-level metrics (JVM, disk IO, network). A part of this dashboard is shown below.</p>
+<p><img src="img/dashboard-1.png" alt="Dashboard 1"></p>
+<p><img src="img/dashboard-1.png" alt="Dashboard 2"></p>
+<p>We also have a dashboard with a summary of the results from our performance testing suite, which helps us inspect the results quickly and identify potential regressions. A part of it that shows throughput numbers for some of our test cases is shown below. This is made possible by sending data from our test suite running JMeter to InfluxDB using the <a href="https://jmeter.apache.org/usermanual/realtime-results.html">JMeter InfluxDB Backend Listener</a>.</p>
+<p><img src="img/jmeter-results-dashboard.png" alt="JMeter Results Dashboard"></p>
+<p>The “Difference” column displays the results of a Flux query performed on our InfluxDB database, repeated for every test case using <a href="https://grafana.com/docs/grafana/latest/variables/repeat-panels-or-rows/">Grafana’s variable feature</a>. It calculates the difference in results of each test case between the currently specified run and a run that happened a certain time ago (in this example 24 hours ago).</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>A complete solution for monitoring Corda nodes can be set up entirely using open source tools without compromises. Many of the tools can be mixed and matched, so it’s possible to adjust the foundation described in this post to better fit your individual needs and existing setup.</p>
+<p>One of the most impactful choices to be made when setting up a monitoring solution for Corda nodes is the choice of TSDB, as that will greatly affect the performance and usability of your dashboards. InfluxDB and Prometheus are strong TSDB options which have many discerning features that can make one more favourable over the other, depending on your requirements.</p>
+<p>For more information on monitoring Corda nodes, check the following articles:</p>
+<ul>
+<li>
+<p><a href="https://www.corda.net/blog/monitoring-corda-nodes-with-prometheus-grafana-and-elk-on-docker-2/">Monitoring Corda Nodes With Prometheus, Grafana and ELK on Docker</a></p>
+</li>
+<li>
+<p><a href="https://www.corda.net/blog/monitoring-corda-nodes-using-prometheus-and-grafana/">Monitoring Corda Nodes using Prometheus and Grafana</a></p>
+</li>
+<li>
+<p><a href="https://www.corda.net/blog/monitoring-corda-nodes-part-1/">Monitoring Corda Nodes (Part 1)</a></p>
+</li>
+</ul>
+<p>The Corda documentation is also an amazing resource:</p>
+<ul>
+<li>
+<p><a href="https://docs.corda.net/docs/corda-enterprise/node-metrics.html">Node metrics</a></p>
+</li>
+<li>
+<p><a href="https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html">Node monitoring and logging</a></p>
+</li>
+</ul>
+<p><strong>Want to learn more about building awesome blockchain applications on Corda? Be sure to visit <a href="http://corda.net/">corda.net</a>, check out our <a href="https://www.corda.net/community/">community page</a> to learn how to connect with other Corda developers, and <a href="https://info.r3.com/email-preferences">sign up</a> for one of our newsletters for the latest updates.</strong></p>
+<p>— Dominik Rys is a Software Engineer Intern at <a href="https://www.r3.com/">R3</a>, an enterprise blockchain software firm working with a global ecosystem of more than 350 participants across multiple industries from both the private and public sectors to develop on Corda, its open source blockchain platform, and Corda Enterprise, a commercial version of Corda for enterprise usage.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
+            <link>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</link>
+            <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
+            <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
+            <content type="html"><![CDATA[<p><img src="img/full-emulator.png" alt="CHIP-8 Emulator"></p>
+<h2 id="intro">Intro</h2>
+<p>A couple of months ago I wrote a <a href="https://github.com/dominikrys/chip8">CHIP-8 emulator</a> in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result <strong><a href="https://dominikrys.com/chip8">here</a></strong>.</p>
+<p>My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running. I could send someone the pre-compiled binary or give building instructions, but those aren&rsquo;t guaranteed to work on every platform. Ideally, I wanted a solution that can be hosted on the web, and I recently heard about this cool new &ldquo;WebAssembly&rdquo; thing that seemed like the perfect solution.</p>
+<p><a href="https://webassembly.org/">WebAssembly</a> is a binary instruction format that runs on modern web browsers and allows apps to run at &ldquo;near-native speed&rdquo;. In reality, there is a <a href="https://www.usenix.org/conference/atc19/presentation/jangda">performance hit of about 50% relative to their native counterparts</a> so it won&rsquo;t be great at running AI or HFT algorithms in your web browser, but it will be good enough to play Space Invaders.</p>
+<p>To get our Wasm output, <a href="https://emscripten.org/">Emscripten</a> can be used. It&rsquo;s a toolchain that can compile C, C++, and any language which uses LLVM into WebAssembly.</p>
+<p>Armed with these tools, the idea was simple: compile my emulator using Emscripten, sort out any errors, and deploy it on a website. An afternoon&rsquo;s work, right? &hellip;not quite. Turns out that there were a couple of pitfalls along the way, so I thought I&rsquo;d document my journey of compiling a loop-based C++ program running into WebAssembly for future me&rsquo;s reference once WebAssembly takes over the world, or for anyone else that may be attempting a similar task themselves</p>
+<h2 id="setting-up-emscripten">Setting up Emscripten</h2>
+<p>I&rsquo;ve set up Emscripten and did all the development described in this post on a Windows 10 machine (Unix fanboys, please stay with me - mentions of Windows end here). The setup will look very similar on other platforms and a lot of the code/configuration I mention <em>should</em> work on Mac and Linux, and if not then with minimal adjustments.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm">Mozilla&rsquo;s article on compiling C/C++ modules to WebAssembly</a> was a great crash-course for setting up and starting to work with Emscripten. I recommend it as a starting point for anything WebAssembly related.</p>
+<p>It&rsquo;s worth pointing out there aren&rsquo;t many IDE plugins or integrations for Emscripten as of writing this post. I tried to hack as much integration as I could into CLion, but what I managed to get to work caused issues for me later on. Emscripten relies on its own compilers and linkers a lot, so I would recommend sticking solely to the terminal to save yourself some headaches.</p>
+<h2 id="cmake-and-emscripten">CMake and Emscripten</h2>
+<p>Since my emulator is a not a single file as in the Mozilla examples mentioned in the section above, the most appropriate way to compile the emulator was to use CMake. I took the compiler flags mentioned in the Mozilla examples and added them to my <code>CMakeLists.txt</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">set(<span style="color:#e6db74">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;${CMAKE_CXX_FLAGS} -s WASM=1 --shell-file ${CMAKE_CURRENT_LIST_DIR}/web/shell_minimal.html&#34;</span>)<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Next I created a sub-directory in my root project directory for my CMake output (called <code>cmake-build-emscripten</code>) and called the following from it:</p>
+<ul>
+<li>
+<p>To generate the project build system:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">emcmake cmake -G <span style="color:#e6db74">&#34;CodeBlocks - MinGW Makefiles&#34;</span> ..
+</code></pre></div></li>
+<li>
+<p>To compile the code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mingw32-make
+</code></pre></div></li>
+</ul>
+<h3 id="potential-cmake-problem">Potential CMake problem</h3>
+<p>If you&rsquo;re using C++17 features, you may get <code>No such file or directory</code> errors referencing certain headers. This can be caused by accidentally compiling the code outside of Emscripten either by yourself or by your IDE. The sure-fire way to fix these is to clear the CMake project build system directory and re-create it.</p>
+<h3 id="adding-emscripten-sections-to-cmakelists">Adding Emscripten sections to CMakeLists</h3>
+<p>I wanted to maintain the ability to compile my code natively as well as being able to compile it using Emscripten. The CMake <code>EMSCRIPTEN</code> variable solves this problem, as it&rsquo;s set to true when compiling with Emscripten. Note that when compiling with Emscripten, the CMake <code>UNIX</code> variable will also be <code>true</code>, so make sure your branching logic is correct.</p>
+<p>For the full <code>CMakeLists.txt</code> that I ended up using, look <a href="https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt">here</a>.</p>
+<h2 id="initial-compile">Initial compile</h2>
+<p>I was almost ready to compile the code. Since the emulator is using <a href="https://www.libsdl.org/">SDL2</a> for audio and graphics, I also needed to specify the <code>-s USE_SDL=2</code> compiler flag. When this is specified, Emscripten will automatically download the <a href="https://github.com/emscripten-ports/SDL2">SDL2 Emscripten port</a>.</p>
+<p>I hardcoded a ROM to the path, and compiled the source otherwise unaltered:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">Emscripten Release
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/dev/git/chip8/cmake-build-emscripten
+Scanning dependencies of target chip8
+[ 14%] Building CXX object CMakeFiles/chip8.dir/src/Chip8.cpp.o
+[ 28%] Building CXX object CMakeFiles/chip8.dir/src/Renderer.cpp.o
+[ 42%] Building CXX object CMakeFiles/chip8.dir/src/KeyboardHandler.cpp.o
+[ 57%] Building CXX object CMakeFiles/chip8.dir/src/Configurator.cpp.o
+[ 71%] Building CXX object CMakeFiles/chip8.dir/src/Audio.cpp.o
+[ 85%] Building CXX object CMakeFiles/chip8.dir/src/Main.cpp.o
+[100%] Linking CXX executable chip8.js
+[100%] Built target chip8
+</code></pre></div><p>It&hellip; worked? I hosted the generated page locally with Python</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server
+</code></pre></div><p>And had a look at it in Chrome. I found that the screen was blank, but there was an exception in the JavaScript console:</p>
+<p><img src="img/exception-after-fix.png" alt="Exception after fix"></p>
+<p>Time to attempt some debugging!</p>
+<h2 id="debugging-emscripten">Debugging Emscripten</h2>
+<p>Investigating the JavaScript exception isn&rsquo;t particularly useful, as at that point the code has been generated by Emscripten and is very different to the source code. There is a section on debugging in the <a href="https://emscripten.org/docs/porting/Debugging.html">Emscripten docs</a>, but in essence the debugging tools aren&rsquo;t currently particularly robust and will require modifying the program&rsquo;s original source code.</p>
+<p>The most helpful ways to debug Emscripten code that I found are:</p>
+<ul>
+<li>
+<p>Setting the <code>ASSERTIONS=2</code> compiler flag. This catches some potential issues, but isn&rsquo;t particularly useful by itself. I also found this flag to crop up with red herrings sometimes which got me debugging issues that were either fine to ignore, or went away by themselves as I developed more of the code.</p>
+</li>
+<li>
+<p><a href="https://emscripten.org/docs/porting/Debugging.html#handling-c-exceptions-from-javascript">Handling C++ exceptions from JavaScript</a>. This requires some extra compiler and linker arguments and some extra code, but will give you readable exceptions in the JavaScript console. Very useful if you know which function is throwing exceptions.</p>
+</li>
+<li>
+<p><a href="https://emscripten.org/docs/porting/Debugging.html#manual-print-debugging">Manual print statements</a>. Not particularly sophisticated, but works well enough and helped me debug this first exception. Note that you should flush using <code>std::endl</code> or <code>&quot;\n&quot;</code> when using <code>std::cout</code> statements or else your messages won&rsquo;t get printed while your program is running, and only when it terminates.</p>
+</li>
+</ul>
+<h2 id="file-system-access-in-emscripten">File system access in Emscripten</h2>
+<p>The reason for the exception turned out to be simple - it couldn&rsquo;t find the ROM I specified to load. The reason for this is that WebAssembly is designed to be secure and <strong>to run in a sandboxed execution environment</strong> - the file that I was trying to load not in the Wasm sandbox.</p>
+<p>To use files within Emscripten, a <a href="https://emscripten.org/docs/api_reference/Filesystem-API.html">File System API is provided</a> as well as a way to <a href="https://emscripten.org/docs/porting/files/packaging_files.html#packaging-files">package files</a>. Since I already had the C++ code for reading files, I went down the packaging files route. There are two <a href="https://emscripten.org/docs/tools_reference/emcc.html#emcc-preload-file">compiler options</a> that can do this job:</p>
+<ul>
+<li>
+<p><code>--preload-file &lt;name&gt;</code>: allows you to pre-load a file or directory before running the compiled code asynchronously. The result is a <code>.data</code> file alongside your generated <code>.html</code> and <code>.js</code> which contains the preloaded files. This is the option I went with.</p>
+</li>
+<li>
+<p><code>--embed-file &lt;file&gt;</code>: allows you to embed a file or path into the generated script. The result is that the files will be embedded inside your generated <code>.js</code> file. This is less efficient than pre-loading and should only be used when there are few files to load.</p>
+</li>
+</ul>
+<p>After packaging the files, they can be accessed with file API calls from your C/C++ code as if the files existed locally.</p>
+<p>Once I packaged the files properly, everything compiled again. I checked the website and there weren&rsquo;t any exceptions there, but the output was blank and the page was frozen:</p>
+<p><img src="img/blank-emscripten.png" alt="Blank Emscripten"></p>
+<p>I also got the following warning:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
+</code></pre></div><p>For the time being, I decided to get rid of the audio handling code and sort this out later.</p>
+<h2 id="emscripten-loops">Emscripten loops</h2>
+<p>To get the screen buffer to update and not freeze the tab, I had to change the current loop that my current emulator runs on into an <a href="https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop">Emscripten loop</a>. This is because the web browser event model uses co-operative multitasking, so each event gets a turn to run and has to return control to the browser. My code was blocking and never gave control back to the browser, so the tab froze and the display didn&rsquo;t update.</p>
+<p>After a quick Google looking for some real-world examples on how to write an Emscripten loop, I found <a href="https://www.jamesfmackenzie.com/2019/12/03/webassembly-emscripten-loops/">James MacKenzie&rsquo;s blog</a> which has been a huge help on getting this to work.</p>
+<p>A traditional loop in a C++ program using SDL looks like the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
+    renderFrame();
+    SDL_Delay(timeToNextFrame());
+}
+</code></pre></div><p>And once rewritten to use Emscripten loops look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(renderFrame, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>);
+</code></pre></div><p>Where the full signature of <code>emscripten_set_main_loop</code> is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(em_callback_func func, <span style="color:#66d9ef">int</span> fps, <span style="color:#66d9ef">int</span> simulate_infinite_loop)
+</code></pre></div><p><code>emscripten_set_main_loop()</code> simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the <a href="https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop">Emscripten docs</a> mention that it&rsquo;s &ldquo;<strong>HIGHLY</strong> recommended&rdquo; to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s <code>requestAnimationFrame</code> method to call the main loop function which we will revisit later.</p>
+<h3 id="rewriting-for-a-global-function-in-the-main-loop">Rewriting for a global function in the main loop</h3>
+<p>There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.</p>
+<p>My code wasn&rsquo;t designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global in my small <code>Main.cpp</code> file to make it accessible from the main loop. It&rsquo;s not a particularly elegant solution, but for this relatively simple project it sufficed.</p>
+<p>As an effect of writing code this way your IDE may also complain about not being able to catch exceptions from variables with static storage duration - this is not a problem, and Emscripten will still be able to catch them for us if we add the exception handling in Javasript code that was described in the <a href="#debugging-emscripten">debugging section</a>.</p>
+<p>My code went from looking something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">try</span>
+    {
+        Config config{};
+
+        Chip8 chip8{config.mode_};
+        chip8.loadRom(config.romPath_);
+
+        KeyboardHandler keyboardHandler(chip8.keys());
+        Renderer renderer{<span style="color:#e6db74">&#34;CHIP-8 Emulator&#34;</span>, VIDEO_WIDTH, VIDEO_HEIGHT, config.videoScale_};
+
+        <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> cycleDelay <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> config.cpuFrequency_) <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000000</span>;
+        Timer cycleTimer(cycleDelay);
+
+        <span style="color:#66d9ef">bool</span> quit <span style="color:#f92672">=</span> false;
+
+        <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>quit)
+        {
+            quit <span style="color:#f92672">=</span> keyboardHandler.handle();
+
+            <span style="color:#66d9ef">if</span> (cycleTimer.intervalElapsed())
+            {
+                chip8.cycle();
+
+                <span style="color:#66d9ef">if</span> (chip8.drawFlag())
+                {
+                    <span style="color:#75715e">// -- Graphics rendering code --
+</span><span style="color:#75715e"></span>                }
+            }
+        }
+    }
+    <span style="color:#66d9ef">catch</span> (<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>exception <span style="color:#f92672">&amp;</span>e)
+    {
+        std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> e.what();
+        std<span style="color:#f92672">::</span>exit(EXIT_FAILURE);
+    }
+
+    <span style="color:#66d9ef">return</span> EXIT_SUCCESS;
+}
+</code></pre></div><p>To this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
+</span><span style="color:#75715e"></span>
+Config config{};
+Chip8 chip8{config.mode_};
+KeyboardHandler <span style="color:#a6e22e">keyboardHandler</span>(chip8.keys());
+Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</span>, VIDEO_WIDTH, VIDEO_HEIGHT, <span style="color:#ae81ff">13</span>};
+<span style="color:#66d9ef">int</span> cyclesPerFrame <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mainLoop</span>() {
+    keyboardHandler.handle();
+
+    chip8.cycle();
+
+    <span style="color:#66d9ef">if</span> (chip8.drawFlag())
+    {
+        <span style="color:#75715e">// -- Graphics rendering code --
+</span><span style="color:#75715e"></span>    }
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    emscripten_set_main_loop(mainLoop, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+
+    <span style="color:#66d9ef">return</span> EXIT_SUCCESS;
+}
+</code></pre></div><p>At this point I&rsquo;ve also added a separate <code>Main.cpp</code> file just for Emscripten and added rules to pick up the right one in <code>CMakeLists.txt</code> depending on the compiler. The code has diverged a lot from my original <code>Main.cpp</code>, and adding preprocessor made the code difficult to trace through.</p>
+<h3 id="emterpreter">Emterpreter</h3>
+<p>Due to the amount of effort that may be required to rewrite traditional loops into Emscripten loops, depending on your project, Emscripten also provides <a href="https://github.com/emscripten-core/emscripten/wiki/Emterpreter">Emterpreter</a>. This allow you to keep traditional loops by adding <code>emscripten_sleep()</code> calls to your code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
+    renderFrame();
+    emscripten_sleep(timeToNextFrame());
+}
+</code></pre></div><p>I gave this a go myself before rewriting my code for <code>emscripten_set_main_loop()</code> as I thought this could be a nice way to get things working quickly, but I found it to be a cumbersome process for a couple of reasons:</p>
+<ul>
+<li>
+<p>Emterpreter is not available on the default LLVM backend that Emscripten uses. It&rsquo;s necessary to switch to the <code>fastcomp</code> backend, which is considered a legacy backend by Emscripten.</p>
+</li>
+<li>
+<p>When compiling the code, you get various messages mentioning that code compiled using Emterpreter may run slowly.</p>
+</li>
+<li>
+<p>Emterpreter seems to only be recommended to be used when absolutely necessary by the <a href="https://github.com/emscripten-core/emscripten/issues/8561">Emscripten devs</a>, and even then only by certain parts of your program.</p>
+</li>
+<li>
+<p>It simply didn&rsquo;t work for my project. I got various errors and decided to switch back and to it the &ldquo;proper&rdquo; way, as also more support would be available for doing things that way.</p>
+</li>
+</ul>
+<h3 id="frame-rate-issues">Frame rate issues</h3>
+<p>I compiled the code after rewriting using an Emscripten loop and I got the emulator working!</p>
+<p><img src="img/working-emulator.png" alt="Working Emulator"></p>
+<p>The emulator was very slow, however. I found that this is to do with the <code>requestAnimationFrame</code> method which I mentioned previously that is used to call the Emscripten main loop function.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">Mozilla docs</a> state that <code>requestAnimationFrame</code> gets called &ldquo;usually 60 times per second, but will generally match the display refresh rate in most web browsers&rdquo;. This was a problem, as my main loop simulated <strong>one</strong> CHIP-8 cycle every time it was called. Effectively this meant that my the emulator ran at a frequency of 60Hz when compiled with Emscripten, where most CHIP-8 ROMs run well at 1000-1500Hz depending on the game (this isn&rsquo;t something that can be determined on the fly, as in ordinary game loops).</p>
+<p>To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn&rsquo;t very straightforward, as the frame rate which ran natively didn&rsquo;t directly translate to what ran in Emscripten. For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles to emulate between every frame in an Emscripten loop - around 17 in this case. This wasn&rsquo;t the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn&rsquo;t seem to be a good way to calculate this difference upfront.</p>
+<p>Also it&rsquo;s worth nothing that not every screen will refresh at 60 frames a second, which is something to consider if you want the program to run at the same speed for everyone.</p>
+<p>The logic for emulating a set amount of cycles per frame looked as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> cyclesPerFrame <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mainLoop</span>() {
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> cyclesPerFrame; i<span style="color:#f92672">++</span>)
+    {
+        chip8.cycle();
+    }
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    emscripten_set_main_loop(mainLoop, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+}
+</code></pre></div><p>After compiling the emulator again with this change, everything worked as expected. Surprisingly, the keyboard also worked perfectly and didn&rsquo;t require any intervention.</p>
+<h2 id="exporting-c-functions-to-call-from-javascript">Exporting C++ functions to call from JavaScript</h2>
+<p>To finish this off, I wanted to add a dropdown so it&rsquo;s possible to select a game to load (turns out Pong gets a bit boring after a while). First, I added a function to my C++ code which will get exported so it can be called from JavaScript. There is a page in <a href="https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html">the Emscripted docs</a> which explains this in good detail. The function looked as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadRom</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path, <span style="color:#66d9ef">int</span> cyclesPerFrame_) {
+    cyclesPerFrame <span style="color:#f92672">=</span> cyclesPerFrame_;
+
+    chip8.reset();
+    chip8.loadRom(path);
+}
+}
+</code></pre></div><p>The function is wrapped in <code>extern &quot;C&quot;</code> to prevent C++ name mangling. I also added a <code>cyclesPerFrame_</code> parameter as many CHIP-8 ROMs need to have their frame rate adjusted to run at an appropriate speed.</p>
+<p>Next, I exported the function to enable it to be called from JavaScript. In order to call a C++ function from JavaScript, I also need to export the runtime <code>ccall</code> and/or <code>cwrap</code> methods which are called on the <code>Module</code> JavaScript object which <a href="https://emscripten.org/docs/api_reference/module.html">the Emscripten-generated code calls at various points in its execution</a>. To do this, I added the following to my compiler flags:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake"><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_FUNCTIONS=\&#34;[&#39;_main&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;_loadRom&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_RUNTIME_METHODS=\&#34;[&#39;ccall&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;cwrap&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">ALLOW_MEMORY_GROWTH=1</span> <span style="color:#960050;background-color:#1e0010">\
+</span><span style="color:#960050;background-color:#1e0010">--no-heap-copy</span> <span style="color:#960050;background-color:#1e0010">\
+</span></code></pre></div><p>Note that I also exported <code>main</code> as I want to be able to call the main function myself and not start it automatically when the page is loaded. The <code>-s ALLOW_MEMORY_GROWTH=1</code> and <code>--no-heap-copy</code> flags are necessary as the memory used by the WASM code will increase when we load a game. This shouldn&rsquo;t <a href="https://emscripten.org/docs/optimizing/Optimizing-Code.html#memory-growth">have any overhead</a> when compiling to WebAssembly.</p>
+<p>Next, I made some changes to the <code>shell.html</code> file:</p>
+<ul>
+<li>
+<p>I set <code>noInitialRun</code> to <code>true</code> in the JavaScript <code>Module</code> object so it doesn&rsquo;t automatically run the emulator when the page loads.</p>
+</li>
+<li>
+<p>Added a dropdown for selecting which ROM to load. Each option includes a path to a ROM to load and specifies the amount of cycles to emulate per frame, which differs per game.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;emscripten&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;menu&#34;</span>&gt;
+  &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rom-dropdown&#34;</span>&gt;
+    &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;name&#34;: &#34;games/Pong (1 player).ch8&#34;,&#34;cyclesPerFrame&#34;:10}&#39;</span>&gt;
+      PONG
+    &lt;/<span style="color:#f92672">option</span>&gt;
+    <span style="color:#75715e">&lt;!-- More ROMs --&gt;</span>
+  &lt;/<span style="color:#f92672">select</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div></li>
+<li>
+<p>Added a JavaScript listener to check for changes in the dropdown when the WebAssembly code has loaded, and call the exported C++ function:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getRomOptionsFromDropdown</span>(<span style="color:#a6e22e">optionText</span>) {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">romOptions</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">optionText</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">romName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">romOptions</span>[<span style="color:#e6db74">&#34;name&#34;</span>];
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">romPath</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bin/roms/revival/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">romName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\0&#34;</span>;
+
+  <span style="color:#a6e22e">selectedRomUInt8Array</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">TextEncoder</span>().<span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">romPath</span>);
+  <span style="color:#a6e22e">cyclesPerFrame</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">romOptions</span>[<span style="color:#e6db74">&#34;cyclesPerFrame&#34;</span>];
+
+  <span style="color:#a6e22e">Module</span>.<span style="color:#a6e22e">ccall</span>( <span style="color:#e6db74">&#34;loadRom&#34;</span>, <span style="color:#e6db74">&#34;null&#34;</span>, [<span style="color:#e6db74">&#34;array&#34;</span>, <span style="color:#e6db74">&#34;number&#34;</span>], [<span style="color:#a6e22e">selectedRomUInt8Array</span>, <span style="color:#a6e22e">cyclesPerFrame</span>] );
+}
+
+<span style="color:#a6e22e">Module</span>[<span style="color:#e6db74">&#34;onRuntimeInitialized&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">getRomOptionsFromDropdown</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;#rom-dropdown&#34;</span>).<span style="color:#a6e22e">value</span>);
+
+  document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;#rom-dropdown&#34;</span>).<span style="color:#a6e22e">onchange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">event</span>) {
+    <span style="color:#a6e22e">getRomOptionsFromDropdown</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>);
+  };
+</code></pre></div><ul>
+<li>Note that JavaScript strings are not null terminated. Since we&rsquo;re passing the string with the ROM path from JavaScript to C++ code, we have to append a null character manually as C and C++ strings must be null-terminated. If the string is not null-terminated, then certain C++ functions which rely on the string being null-terminated won&rsquo;t work as expected.</li>
+</ul>
+</li>
+</ul>
+<h2 id="audio">Audio</h2>
+<p>I mentioned that I&rsquo;d come back to audio earlier in this post. The only audio in the emulator is a simple &ldquo;beep&rdquo;, implemented as a sine wave that which gets played on a separate thread. To compile the code I had to add some extra compiler flags as described in the <a href="https://emscripten.org/docs/porting/pthreads.html">Emscripten Pthreads support page</a> to allow for multithreading in Emscripten.</p>
+<p>I compiled the code with the audio enabled and checked how Chrome treats it. The audio played when it should, however it ended up being a high pitched noise of varying frequencies which didn&rsquo;t stop - not exactly what I wanted. Changing various settings didn&rsquo;t seem to have an effect on the noise produced. I also gave it a go in Firefox, which required me to enable a flag as the support in Firefox for Webassembly <code>pthread</code>s is currently experimental. Once the flag was enabled, Firefox had various issues with the audio device and I didn&rsquo;t see pursuing this any further worthwhile.</p>
+<p>In order to make this work, I a good way would be to handle the audio entirely in JavaScript and query the emulator for when a sound should play. Since I didn&rsquo;t see much value in adding sound to the emulator, I left it out.</p>
+<h2 id="finishing-touches">Finishing touches</h2>
+<p>That&rsquo;s pretty much it - I managed to compile the emulator into WebAssembly, I added the ability to play different games and to host the emulator online. To finish the emulator off, I added some CSS styling, a start/stop button and instructions on how to play which was easy to do by editing the default Emscripten shell file.</p>
+<p>An extra thing which was worth doing is checking how the site behaved in different web browsers. For example I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded. This held for Chrome, but not for Firefox which remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.</p>
+<h2 id="the-end">The end</h2>
+<p>I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there&rsquo;s huge potential in the technology, and can be very useful for computationally expensive tasks which aren&rsquo;t viable to be ran using JavaScript. For examples of more sophisticated projects using WebAssembly and some inspiration, I recommend having a look <a href="https://madewithwebassembly.com/">Made with WebAssembly</a></p>
+<p>Links to the source code and the compiled emulator in WebAssembly are provided at the top of this post.</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

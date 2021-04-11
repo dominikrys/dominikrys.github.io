@@ -10,19 +10,19 @@
     <lastBuildDate>Tue, 01 Dec 2020 12:51:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik</title>
-      <link>https://dominikrys.com/blog/setting-up-tls-secured-monitoring-docker/</link>
+      <link>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
-      <guid>https://dominikrys.com/blog/setting-up-tls-secured-monitoring-docker/</guid>
+      <guid>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</guid>
       <description>Motivation During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
     </item>
     
     <item>
       <title>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</title>
-      <link>https://dominikrys.com/blog/monitoring-corda-nodes/</link>
+      <link>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</link>
       <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
       
-      <guid>https://dominikrys.com/blog/monitoring-corda-nodes/</guid>
+      <guid>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</guid>
       <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
  Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
     </item>
