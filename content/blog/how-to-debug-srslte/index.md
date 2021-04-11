@@ -38,7 +38,7 @@ An issue with this is that plenty of code will be optimised out, so you may not 
 
 As an extra caveat, **using SDRs while running srsLTE may not be possible** due to the extra latency introduced by the debugger. I've tried using the Ettus Research USRP B200 and B210 while debugging, and the UHD driver constantly times out for both. Instead, the [ZeroMQ](https://docs.srslte.com/en/latest/app_notes/source/zeromq/source/) driver will most likely need to be used while debugging.
 
-### If RelWithDebInfo doesn't work
+### When Release With Debug Info doesn't work
 
 For many issues, I had to resort to print statements. This is just about good enough for most issues, especially combined with srsLTE logging if it's cranked up to the `debug` level.
 

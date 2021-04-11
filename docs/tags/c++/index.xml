@@ -10,10 +10,10 @@
     <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Debug srsLTE</title>
-      <link>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</link>
+      <link>https://dominikrys.com/blog/how-to-debug-srslte/</link>
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
+      <guid>https://dominikrys.com/blog/how-to-debug-srslte/</guid>
       <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
@@ -21,10 +21,10 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
     
     <item>
       <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
-      <link>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</link>
+      <link>https://dominikrys.com/blog/compiling-chip8-to-wasm/</link>
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
+      <guid>https://dominikrys.com/blog/compiling-chip8-to-wasm/</guid>
       <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
     </item>

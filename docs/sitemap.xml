@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://dominikrys.com/blog/</loc>
+    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
+  </url><url>
     <loc>https://dominikrys.com/tags/c&#43;&#43;/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</loc>
+    <loc>https://dominikrys.com/blog/how-to-debug-srslte/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/lte/</loc>
-    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/posts/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/security/</loc>
@@ -41,16 +41,16 @@
     <loc>https://dominikrys.com/tags/influxdb/</loc>
     <lastmod>2020-12-01T12:51:48+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</loc>
+    <loc>https://dominikrys.com/blog/setting-up-tls-secured-monitoring-docker/</loc>
     <lastmod>2020-12-01T12:51:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/traefik/</loc>
     <lastmod>2020-12-01T12:51:48+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</loc>
+    <loc>https://dominikrys.com/blog/monitoring-corda-nodes/</loc>
     <lastmod>2020-09-21T16:52:48+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</loc>
+    <loc>https://dominikrys.com/blog/compiling-chip8-to-wasm/</loc>
     <lastmod>2020-08-15T16:55:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/emscripten/</loc>

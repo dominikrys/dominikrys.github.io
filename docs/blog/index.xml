@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>security on Dominik Rys</title>
-    <link>https://dominikrys.com/tags/security/</link>
-    <description>Recent content in security on Dominik Rys</description>
+    <title>Blogs on Dominik Rys</title>
+    <link>https://dominikrys.com/blog/</link>
+    <description>Recent content in Blogs on Dominik Rys</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Debug srsLTE</title>
       <link>https://dominikrys.com/blog/how-to-debug-srslte/</link>
@@ -36,6 +36,16 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
       <guid>https://dominikrys.com/blog/monitoring-corda-nodes/</guid>
       <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
  Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
+    </item>
+    
+    <item>
+      <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
+      <link>https://dominikrys.com/blog/compiling-chip8-to-wasm/</link>
+      <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/blog/compiling-chip8-to-wasm/</guid>
+      <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
     </item>
     
   </channel>
