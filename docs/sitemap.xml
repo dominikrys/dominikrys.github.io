@@ -2,10 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dominikrys.com/tags/c&#43;&#43;/</loc>
-    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
+    <loc>https://dominikrys.com/tags/devops/</loc>
+    <lastmod>2021-04-16T10:08:45+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/</loc>
+    <lastmod>2021-04-16T10:08:45+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/2021/04/how-to-configure-squid-as-a-transparent-proxy-in-2021/</loc>
+    <lastmod>2021-04-16T10:08:45+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2021-04-16T10:08:45+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/security/</loc>
+    <lastmod>2021-04-16T10:08:45+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/</loc>
+    <lastmod>2021-04-16T10:08:45+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/c&#43;&#43;/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</loc>
@@ -14,23 +29,11 @@
     <loc>https://dominikrys.com/tags/lte/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/</loc>
-    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/security/</loc>
-    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/tags/software-engineering/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/srslte/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/</loc>
-    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/devops/</loc>
-    <lastmod>2020-12-01T12:51:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/docker/</loc>
     <lastmod>2020-12-01T12:51:48+01:00</lastmod>

@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Apr 2021 10:08:45 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>devops</title>
+      <link>https://dominikrys.com/tags/devops/</link>
+      <pubDate>Fri, 16 Apr 2021 10:08:45 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>https://dominikrys.com/tags/security/</link>
+      <pubDate>Fri, 16 Apr 2021 10:08:45 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/security/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>c&#43;&#43;</title>
       <link>https://dominikrys.com/tags/c&#43;&#43;/</link>
@@ -27,15 +45,6 @@
     </item>
     
     <item>
-      <title>security</title>
-      <link>https://dominikrys.com/tags/security/</link>
-      <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/tags/security/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>software engineering</title>
       <link>https://dominikrys.com/tags/software-engineering/</link>
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
@@ -50,15 +59,6 @@
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/tags/srslte/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>devops</title>
-      <link>https://dominikrys.com/tags/devops/</link>
-      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/tags/devops/</guid>
       <description></description>
     </item>
     
