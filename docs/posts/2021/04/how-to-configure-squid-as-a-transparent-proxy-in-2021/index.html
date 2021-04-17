@@ -44,9 +44,9 @@ With the hopes of saving someone some time that may be embarking on a similar jo
 
 <meta itemprop="name" content="How to Configure Squid as a Transparent Proxy in 2021">
 <meta itemprop="description" content="I&rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
-With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&rsquo;d write this post."><meta itemprop="datePublished" content="2021-04-16T10:08:45&#43;01:00" />
-<meta itemprop="dateModified" content="2021-04-16T10:08:45&#43;01:00" />
-<meta itemprop="wordCount" content="741"><meta itemprop="image" content="https://dominikrys.com"/>
+With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&rsquo;d write this post."><meta itemprop="datePublished" content="2021-04-10T10:08:45&#43;01:00" />
+<meta itemprop="dateModified" content="2021-04-10T10:08:45&#43;01:00" />
+<meta itemprop="wordCount" content="747"><meta itemprop="image" content="https://dominikrys.com"/>
 <meta itemprop="keywords" content="devops,security," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://dominikrys.com"/>
@@ -63,8 +63,8 @@ With the hopes of saving someone some time that may be embarking on a similar jo
 With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&rsquo;d write this post." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://dominikrys.com/posts/2021/04/how-to-configure-squid-as-a-transparent-proxy-in-2021/" /><meta property="og:image" content="https://dominikrys.com"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-04-16T10:08:45&#43;01:00" />
-<meta property="article:modified_time" content="2021-04-16T10:08:45&#43;01:00" />
+<meta property="article:published_time" content="2021-04-10T10:08:45&#43;01:00" />
+<meta property="article:modified_time" content="2021-04-10T10:08:45&#43;01:00" />
 
 
 
@@ -72,7 +72,7 @@ With the hopes of saving someone some time that may be embarking on a similar jo
 
 
 
-    <meta property="article:published_time" content="2021-04-16 10:08:45 &#43;0100 BST" />
+    <meta property="article:published_time" content="2021-04-10 10:08:45 &#43;0100 BST" />
 
 
 
@@ -214,7 +214,7 @@ http_port 3128 intercept
 </code></pre></div><h2 id="closing-notes---https-support-gateway-setup-spoofed-requests">Closing Notes - HTTPS Support, Gateway Setup, Spoofed Requests</h2>
 <p>You should now have a minimal Squid transparent proxy running. Make sure to configure the machine as the default gateway for whichever machines you&rsquo;d like to transparently proxy data for.</p>
 <p>To enable transparent proxying of HTTPS traffic, I recommend <a href="https://dev.to/suntong/squid-proxy-and-ssl-interception-1oa4">suntong&rsquo;s guide</a>.</p>
-<p>Note that Squid is unable to resolve the original destination of packets that have had their destination IP spoofed (<a href="http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html">source</a>). To resolve those properly, I&rsquo;ve had luck using <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a>.</p>
+<p>Note that Squid is unable to resolve the original destination of packets that have had their destination IP spoofed (<a href="http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html">source</a>). To resolve those properly, I&rsquo;ve had luck using <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a> as I describe in <a href="https://dominikrys.com/posts/2021/04/transparently-proxy-ip-packets-with-spoofed-destinations/" title="Transparently Proxy IP Packets With Spoofed Destinations">this post</a>.</p>
 <p>Thanks for reading, and I hope that this post helped anyone struggling with Squid!</p>
 
       </div>
@@ -242,7 +242,7 @@ http_port 3128 intercept
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        741 Words
+        747 Words
       </p>
 
       <p>
@@ -253,7 +253,7 @@ http_port 3128 intercept
           <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
         
-          2021-04-16 10:08 &#43;0100
+          2021-04-10 10:08 &#43;0100
         
 
          
@@ -270,6 +270,13 @@ http_port 3128 intercept
         </div>
 
         <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://dominikrys.com/posts/2021/04/transparently-proxy-ip-packets-with-spoofed-destinations/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">Transparently Proxy IP Packets With Spoofed Destinations</span>
+                </a>
+            </span>
             
 
             

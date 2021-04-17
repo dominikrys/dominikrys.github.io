@@ -6,13 +6,56 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-GB</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 16 Apr 2021 10:08:45 +0100</lastBuildDate>
+        <lastBuildDate>Sat, 17 Apr 2021 10:44:53 +0100</lastBuildDate>
         <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Transparently Proxy IP Packets With Spoofed Destinations</title>
+            <link>https://dominikrys.com/posts/2021/04/transparently-proxy-ip-packets-with-spoofed-destinations/</link>
+            <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2021/04/transparently-proxy-ip-packets-with-spoofed-destinations/</guid>
+            <description>I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
+            <content type="html"><![CDATA[<p><img src="img/privoxy-logo.png" alt="Privoxy Logo"></p>
+<p>I&rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is <strong>not</strong> the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</p>
+<p>In this post, I will explain how it&rsquo;s possible to proxy such HTTP traffic by redirecting it to the correct destination.</p>
+<h2 id="why-cant-spoofed-dns-packets-be-proxied-using-normal-tools">Why can&rsquo;t spoofed DNS packets be proxied using normal tools?</h2>
+<p>When an IP packet with a spoofed destination IP reaches its destination server, the server will handle it like any other IP packet that has been destined for it. Ordinary transparent proxying tools such as <a href="http://www.squid-cache.org/">Squid</a> are usually configured as internet gateways, so they are not the final destination of the IP packets that pass through them. Since the final destination is known, these tools can easily send packets to their destination. If the final destination <strong>is</strong> the proxy, as it would be in the case of spoofed destination IPs, this software simply has no support for resolving the correct destination.</p>
+<h2 id="how-to-reclaim-the-original-destination">How to reclaim the original destination?</h2>
+<p>To reclaim the original destination, the <code>Host</code> header can be used which is <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host">required by HTTP/1.1</a>. The <code>Host</code> header contains the domain name that the client wants to access. In the case of spoofed destination IPs, this header will be intact and pointing to the un-spoofed destination.</p>
+<p>To reclaim the original destination, proxy software is needed that can do a DNS lookup on the <code>Host</code> header and send traffic to the destination resulting from the lookup. Sadly, in this case, the most popular transparent proxy software won&rsquo;t work. I tried extensively to make this work with Squid, but there are some reasons why it&rsquo;s not possible (more <a href="http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html">here</a> and <a href="http://squid-web-proxy-cache.1019090.n4.nabble.com/Force-squid-use-dns-query-result-as-the-destination-server-in-squid-tproxy-td4664036.html">here</a>).</p>
+<p>It&rsquo;s also worth mentioning that since this proxy will change the destination IP of the packet, it stops being &ldquo;transparent&rdquo;, and is now an &ldquo;intercepting&rdquo; proxy. I thought that this term is reserved for slightly more involved proxies such as <a href="https://portswigger.net/burp/documentation/desktop/tools/proxy/getting-started">Burp</a>, but it also applies in this case.</p>
+<p>To resolve packets according to their <code>Host</code> header, I used <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a>, which I will explain how to configure.</p>
+<h2 id="how-to-configure-privoxy-to-resolve-spoofed-ip-packets">How to configure Privoxy to resolve spoofed IP packets?</h2>
+<p>Luckily the configuration for Privoxy is very simple. First, install it using your operating system&rsquo;s package manager. Next, modify its configuration file under <code>etc/privoxy/config</code> with the following details, where <code>INTERFACE_IP</code> is the IP of the interface that you want Privoxy to listen at:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">listen-address INTERFACE_IP:3128
+accept-intercepted-requests 1
+debug 1
+</code></pre></div><p>Note that <code>debug 1</code> is not strictly needed, but it will allow us to see if requests are coming through to the server. <code>accept-intercepted-requests 1</code> is the important part, which enabled the &ldquo;intercepting&rdquo; mode of Privoxy.</p>
+<p>Next, restart privoxy:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart privoxy
+</code></pre></div><p>Finally, add an <code>iptables</code> rule to redirect traffic from the HTTP port to the port that Privoxy is listening at:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">8118</span>
+</code></pre></div><p>You can modify the above rule or add additional ones if you have other interfaces apart from <code>eth0</code> that you&rsquo;d like to forward traffic from.</p>
+<p>Now you can send some spoofed requests to the server and check if you can see them in the logs:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo tail -f /var/log/privoxy/logfile
+
+2021-04-15 15:06:24.434 7f39feffd700 Request: scratchpads.org/
+2021-04-15 15:06:24.789 7f39feffd700 Request: scratchpads.org/css/main.css
+2021-04-15 15:06:24.795 7f39dffff700 Request: scratchpads.org/css/index.css
+2021-04-15 15:06:24.931 7f39ff7fe700 Request: work.a-poster.info:25000/
+2021-04-15 15:06:26.503 7f39dffff700 Request: scratchpads.org/assets/why/accordion.js
+2021-04-15 15:06:26.554 7f39feffd700 Request: scratchpads.org/assets/index.js
+</code></pre></div><h2 id="https-support">HTTPS support?</h2>
+<p>The method described in this post won&rsquo;t work for HTTPS requests, since the HTTP header will be encrypted and the <code>Host</code> header won&rsquo;t be able to be read. As far as I know there are no tools available that would be able to do this. In theory, it&rsquo;s possible to make this work with HTTPS in a transparent manner, but with substantial engineering effort.</p>
+<p>I&rsquo;m envisioning a solution where the spoofing DNS server redirects each request to a different machine, where each machine knows about the original destination of the packets. The machines can then redirect packets to their correct destinations. The contents will still be encrypted, so it&rsquo;s questionable whether something like this would be worth doing at all.</p>
+]]></content>
+        </item>
         
         <item>
             <title>How to Configure Squid as a Transparent Proxy in 2021</title>
             <link>https://dominikrys.com/posts/2021/04/how-to-configure-squid-as-a-transparent-proxy-in-2021/</link>
-            <pubDate>Fri, 16 Apr 2021 10:08:45 +0100</pubDate>
+            <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
             
             <guid>https://dominikrys.com/posts/2021/04/how-to-configure-squid-as-a-transparent-proxy-in-2021/</guid>
             <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
@@ -56,7 +99,7 @@ http_port 3128 intercept
 </code></pre></div><h2 id="closing-notes---https-support-gateway-setup-spoofed-requests">Closing Notes - HTTPS Support, Gateway Setup, Spoofed Requests</h2>
 <p>You should now have a minimal Squid transparent proxy running. Make sure to configure the machine as the default gateway for whichever machines you&rsquo;d like to transparently proxy data for.</p>
 <p>To enable transparent proxying of HTTPS traffic, I recommend <a href="https://dev.to/suntong/squid-proxy-and-ssl-interception-1oa4">suntong&rsquo;s guide</a>.</p>
-<p>Note that Squid is unable to resolve the original destination of packets that have had their destination IP spoofed (<a href="http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html">source</a>). To resolve those properly, I&rsquo;ve had luck using <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a>.</p>
+<p>Note that Squid is unable to resolve the original destination of packets that have had their destination IP spoofed (<a href="http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html">source</a>). To resolve those properly, I&rsquo;ve had luck using <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a> as I describe in <a href="https://dominikrys.com/posts/2021/04/transparently-proxy-ip-packets-with-spoofed-destinations/" title="Transparently Proxy IP Packets With Spoofed Destinations">this post</a>.</p>
 <p>Thanks for reading, and I hope that this post helped anyone struggling with Squid!</p>
 ]]></content>
         </item>

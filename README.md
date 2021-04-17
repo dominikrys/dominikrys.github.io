@@ -8,7 +8,7 @@ Available at **[dominikrys.com](https://dominikrys.com/)**
 git clone --recurse-submodules git@github.com:dominikrys/dominikrys.github.io.git
 ```
 
-## Building
+## Building and Usage
 
 Deployment:
 
@@ -19,7 +19,13 @@ Deployment:
 Local testing:
 
 ```zsh
-hugo serve
+hugo serve [-D]
+```
+
+Add a new post:
+
+```zsh
+hugo new posts/<POST NAME>/index.md
 ```
 
 ## Notes
