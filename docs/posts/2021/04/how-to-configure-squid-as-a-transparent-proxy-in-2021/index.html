@@ -214,7 +214,7 @@ http_port 3128 intercept
 </code></pre></div><h2 id="closing-notes---https-support-gateway-setup-spoofed-requests">Closing Notes - HTTPS Support, Gateway Setup, Spoofed Requests</h2>
 <p>You should now have a minimal Squid transparent proxy running. Make sure to configure the machine as the default gateway for whichever machines you&rsquo;d like to transparently proxy data for.</p>
 <p>To enable transparent proxying of HTTPS traffic, I recommend <a href="https://dev.to/suntong/squid-proxy-and-ssl-interception-1oa4">suntong&rsquo;s guide</a>.</p>
-<p>Note that Squid is unable to resolve the original destination of packets that have had their destination IP spoofed (<a href="http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html">source</a>). To resolve those properly, I&rsquo;ve had luck using <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a> as I describe in <a href="https://dominikrys.com/posts/2021/04/transparently-proxy-ip-packets-with-spoofed-destinations/" title="Transparently Proxy IP Packets With Spoofed Destinations">this post</a>.</p>
+<p>Note that Squid is unable to resolve the original destination of packets that have had their destination IP spoofed (<a href="http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html">source</a>). To resolve those properly, I&rsquo;ve had luck using <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a> as I describe in <a href="https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/" title="Transparently Proxy IP Packets With Spoofed Destinations">this post</a>.</p>
 <p>Thanks for reading, and I hope that this post helped anyone struggling with Squid!</p>
 
       </div>
@@ -272,9 +272,9 @@ http_port 3128 intercept
         <div class="pagination__buttons">
             
             <span class="button previous">
-                <a href="https://dominikrys.com/posts/2021/04/transparently-proxy-ip-packets-with-spoofed-destinations/">
+                <a href="https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/">
                     <span class="button__icon">←</span>
-                    <span class="button__text">Transparently Proxy IP Packets With Spoofed Destinations</span>
+                    <span class="button__text">How to Transparently Proxy IP Packets With Spoofed Destinations</span>
                 </a>
             </span>
             
