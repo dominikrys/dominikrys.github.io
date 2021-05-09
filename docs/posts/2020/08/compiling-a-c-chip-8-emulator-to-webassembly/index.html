@@ -26,7 +26,7 @@ My main motivation for getting the emulator working on the web was that in its c
 
 
 
-<link rel="stylesheet" href="https://dominikrys.com/main.eaf4f2571fc0260b30532ce37bc0e1c2107885bfec3b592755f30dba7741301e.css">
+<link rel="stylesheet" href="https://dominikrys.com/main.c46cbca46fa76c0fcd3da8313ecf4adee5fb3ffb0288c0902d7e90aead220d79.css">
 
 
 
@@ -46,7 +46,7 @@ My main motivation for getting the emulator working on the web was that in its c
 <meta itemprop="description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running."><meta itemprop="datePublished" content="2020-08-15T16:55:48&#43;01:00" />
 <meta itemprop="dateModified" content="2020-08-15T16:55:48&#43;01:00" />
-<meta itemprop="wordCount" content="3399"><meta itemprop="image" content="https://dominikrys.com"/>
+<meta itemprop="wordCount" content="3380"><meta itemprop="image" content="https://dominikrys.com"/>
 <meta itemprop="keywords" content="software engineering,webassembly,c&#43;&#43;,emscripten,sdl," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://dominikrys.com"/>
@@ -181,11 +181,13 @@ My main motivation for getting the emulator working on the web was that in its c
     <li><a href="#exporting-c-functions-to-call-from-javascript">Exporting C++ functions to call from JavaScript</a></li>
     <li><a href="#audio">Audio</a></li>
     <li><a href="#finishing-touches">Finishing touches</a></li>
-    <li><a href="#the-end">The end</a></li>
+    <li><a href="#the-end">The end!</a></li>
   </ul>
 </nav>
         </aside>
         <hr />
+
+      
 
       <div class="post-content">
         <p><img src="img/full-emulator.png" alt="CHIP-8 Emulator"></p>
@@ -461,9 +463,8 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 <h2 id="finishing-touches">Finishing touches</h2>
 <p>That&rsquo;s pretty much it - I managed to compile the emulator into WebAssembly, I added the ability to play different games and to host the emulator online. To finish the emulator off, I added some CSS styling, a start/stop button and instructions on how to play which was easy to do by editing the default Emscripten shell file.</p>
 <p>An extra thing which was worth doing is checking how the site behaved in different web browsers. For example I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded. This held for Chrome, but not for Firefox which remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.</p>
-<h2 id="the-end">The end</h2>
-<p>I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there&rsquo;s huge potential in the technology, and can be very useful for computationally expensive tasks which aren&rsquo;t viable to be ran using JavaScript. For examples of more sophisticated projects using WebAssembly and some inspiration, I recommend having a look <a href="https://madewithwebassembly.com/">Made with WebAssembly</a></p>
-<p>Links to the source code and the compiled emulator in WebAssembly are provided at the top of this post.</p>
+<h2 id="the-end">The end!</h2>
+<p>I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there&rsquo;s huge potential in the technology, and can be very useful for computationally expensive tasks which aren&rsquo;t viable to be ran using JavaScript. For examples of more sophisticated projects using WebAssembly and some inspiration, I recommend having a look <a href="https://madewithwebassembly.com/">Made with WebAssembly</a>.</p>
 
       </div>
     </article>
@@ -493,7 +494,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        3399 Words
+        3380 Words
       </p>
 
       <p>

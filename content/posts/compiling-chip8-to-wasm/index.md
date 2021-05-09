@@ -387,8 +387,6 @@ That's pretty much it - I managed to compile the emulator into WebAssembly, I ad
 
 An extra thing which was worth doing is checking how the site behaved in different web browsers. For example I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded. This held for Chrome, but not for Firefox which remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.
 
-## The end
+## The end!
 
-I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there's huge potential in the technology, and can be very useful for computationally expensive tasks which aren't viable to be ran using JavaScript. For examples of more sophisticated projects using WebAssembly and some inspiration, I recommend having a look [Made with WebAssembly](https://madewithwebassembly.com/) 
-
-Links to the source code and the compiled emulator in WebAssembly are provided at the top of this post.
+I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there's huge potential in the technology, and can be very useful for computationally expensive tasks which aren't viable to be ran using JavaScript. For examples of more sophisticated projects using WebAssembly and some inspiration, I recommend having a look [Made with WebAssembly](https://madewithwebassembly.com/).
