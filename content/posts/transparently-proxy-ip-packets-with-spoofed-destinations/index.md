@@ -7,6 +7,8 @@ images:
 tags:
   - security
   - devops
+  - networking
+  - linux
 ---
 
 ![Privoxy Logo](img/privoxy-logo.png)
@@ -15,9 +17,9 @@ I've recently worked on a security project which required me to transparently/in
 
 In this post, I will explain how it's possible to proxy such HTTP traffic by redirecting it to the correct destination.
 
-## Why can't spoofed DNS packets be proxied using normal tools?
+## Why can't spoofed DNS packets be proxied using an ordinary transparent proxy?
 
-When an IP packet with a spoofed destination IP reaches its destination server, the server will handle it like any other IP packet that has been destined for it. Ordinary transparent proxying tools such as [Squid](http://www.squid-cache.org/) are usually configured as internet gateways, so they are not the final destination of the IP packets that pass through them. Since the final destination is known, these tools can easily send packets to their destination. If the final destination **is** the proxy, as it would be in the case of spoofed destination IPs, this software simply has no support for resolving the correct destination.
+When an IP packet with a spoofed destination IP reaches its destination server, the server will handle it like any other IP packet that has been destined for it. Ordinary transparent proxying tools such as [Squid](http://www.squid-cache.org/) are usually configured as internet gateways, so they are not the final destination of the IP packets that pass through them. Since the final destination IP of each packet is known in such setups, these tools can easily send packets to their destination. If the destination IP **is** the proxy, as it would be in the case of spoofed destination IPs, the transparent proxy would need to additionally resolve the original destination IP. Most such tools don't have support for this.
 
 ## How to reclaim the original destination?
 

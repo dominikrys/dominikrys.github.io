@@ -18,6 +18,24 @@
     </item>
     
     <item>
+      <title>linux</title>
+      <link>https://dominikrys.com/tags/linux/</link>
+      <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>networking</title>
+      <link>https://dominikrys.com/tags/networking/</link>
+      <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>security</title>
       <link>https://dominikrys.com/tags/security/</link>
       <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
@@ -77,24 +95,6 @@
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/tags/grafana/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>influxdb</title>
-      <link>https://dominikrys.com/tags/influxdb/</link>
-      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/tags/influxdb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>traefik</title>
-      <link>https://dominikrys.com/tags/traefik/</link>
-      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/tags/traefik/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/linux/</link>
+    <description>Recent content in linux on Dominik Rys</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-GB</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 17 Apr 2021 10:44:53 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Transparently Proxy IP Packets With Spoofed Destinations</title>
+      <link>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</link>
+      <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</guid>
+      <description>I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
+    </item>
+    
+  </channel>
+</rss>
