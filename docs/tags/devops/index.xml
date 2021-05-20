@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 17 Apr 2021 10:44:53 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 May 2021 12:37:22 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Disable UDP Checksum Checking in Linux</title>
+      <link>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/</link>
+      <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/</guid>
+      <description>I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&amp;rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&amp;rsquo;s possible without recompiling the kernel. In this short post, I&amp;rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets.</description>
+    </item>
+    
     <item>
       <title>How to Transparently Proxy IP Packets With Spoofed Destinations</title>
       <link>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</link>

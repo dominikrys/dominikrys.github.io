@@ -1,7 +1,7 @@
 ---
 title: "How to Disable UDP Checksum Checking in Linux"
 date: 2021-05-20T12:37:22+01:00
-draft: true
+draft: false
 toc: false
 images:
 tags:

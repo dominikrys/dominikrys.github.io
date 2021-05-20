@@ -6,8 +6,61 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-GB</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 17 Apr 2021 10:44:53 +0100</lastBuildDate>
+        <lastBuildDate>Thu, 20 May 2021 12:37:22 +0100</lastBuildDate>
         <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How to Disable UDP Checksum Checking in Linux</title>
+            <link>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/</link>
+            <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/</guid>
+            <description>I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&amp;rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&amp;rsquo;s possible without recompiling the kernel. In this short post, I&amp;rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets.</description>
+            <content type="html"><![CDATA[<p>I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.</p>
+<h2 id="check-if-your-machine-can-receive-packets-with-broken-udp-checksums">Check if your machine can receive packets with broken UDP checksums</h2>
+<p>Firstly, we need to check if your machine can already accept packets with invalid UDP checksums. Testing this is easy - send packets with broken UDP checksums from one machine (machine 1) to the machine that you want to disable validation on (machine 2), and check the traffic using <code>tcpdump</code>. I&rsquo;ll outline how I&rsquo;ve done this below.</p>
+<ol>
+<li>
+<p>Run <code>tcpdump</code> on machine 1, listening to internet traffic at port 53:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo tcpdump -i &lt;NETWORK INTERFACE&gt; dst port <span style="color:#ae81ff">53</span> -vv
+</code></pre></div><p>To get the network interface names, you can run <code>ip link show</code>.</p>
+</li>
+<li>
+<p>Disable transmit checksum offloading on machine 1. This is so that any invalid checksums won&rsquo;t be corrected by the hardware. In some cases, it may not be possible to disable this, so another machine may need to be used. To disable transmit checksum offloading on Linux, run:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ethtool --offload &lt;NETWORK INTERFACE&gt; tx off
+</code></pre></div></li>
+<li>
+<p>Download and run <a href="https://github.com/secdev/scapy">Scapy</a> on machine 2.</p>
+</li>
+<li>
+<p>Craft a DNS packet with a broken UDP checksum using Scapy on machine 2:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bad_packet <span style="color:#f92672">=</span> IP<span style="color:#f92672">(</span>dst<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&lt;MACHINE 1 IP&gt;&#39;</span><span style="color:#f92672">)</span> / UDP<span style="color:#f92672">()</span> / DNS<span style="color:#f92672">(</span>rd<span style="color:#f92672">=</span>1, qd<span style="color:#f92672">=</span>DNSQR<span style="color:#f92672">(</span>qname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;www.example.com&#34;</span><span style="color:#f92672">))</span>
+</code></pre></div><p>Make sure to replace <code>&lt;MACHINE 1 IP&gt;</code> with the IP of machine 1.</p>
+</li>
+<li>
+<p>Send the packet with a broken checksum from machine 2 to machine 1:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">send<span style="color:#f92672">(</span>bad_packet<span style="color:#f92672">)</span>
+</code></pre></div></li>
+<li>
+<p>Check the <code>tcpdump</code> logs on machine 1. If the packet is received stating <code>bad udp cksum</code> in the logs, the machine can receive packets with broken UDP checksums. We can then continue with adding rules to ignore the checksums.</p>
+</li>
+</ol>
+<h3 id="what-if-my-machine-doesnt-receive-packets-with-invalid-udp-checksums">What if my machine doesn&rsquo;t receive packets with invalid UDP checksums?</h3>
+<p>A router between your machines could discard the packet due to an incorrect UDP checksum. Such an issue can be hard to diagnose, so it may be circumvented by sending packets from another machine.</p>
+<p>If the packet is <em>still</em> not received, the kernel may be rejecting packets with invalid UDP checksums. In such case, the <a href="https://leapster.org/linux/kernel/udp/#udp_recvmsg"><code>udp_recvmsg()</code></a> function in the kernel would need to be modified to not return errors when the checksum validation fails. However, changes to the kernel were not needed on the machines that I have tested this on (Ubuntu 18.04 in Microsoft Azure, Ubuntu 20.10 in DigitalOcean, and Arch Linux with kernel version 5.11.11).</p>
+<h2 id="ignoring-udp-checksums-with-nftables">Ignoring UDP checksums with nftables</h2>
+<p>So far, we&rsquo;ve confirmed that packets with broken UDP checksums can be received by our machine. However, these packets won&rsquo;t get accepted by any target applications due to the invalid checksum. We can fix this using <code>nftables</code>.</p>
+<p>We can configure <code>nftables</code> rules that set the UDP checksum of received packets to 0 before they&rsquo;re passed to any applications. Packets with UDP checksums of 0 will not have their checksums validated, effectively disabling UDP checksum validation.</p>
+<p>To set this up, first install <code>nftables</code> with your favourite package manager. Next, add the following <code>nftables</code> rule:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nft add table input_table
+sudo nft <span style="color:#e6db74">&#39;add chain input_table input {type filter hook input priority -300;}&#39;</span>
+sudo nft <span style="color:#e6db74">&#39;add rule input_table input ip protocol udp udp checksum set 0&#39;</span>
+</code></pre></div><p>This rule will set the UDP checksum of every received IP UDP packet to 0. Your machine will now ignore UDP checksums of received packets! Feel free to test it using Scapy.</p>
+<p>To make the rule persistent across reboots, I&rsquo;d recommend reading through  <a href="https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes">this short guide on <code>nftables</code></a>.</p>
+<h2 id="ignoring-udp-checksums-using-socket-options">Ignoring UDP checksums using socket options</h2>
+<p>If you have the source code of the application that you want to send the packets with broken UDP checksums to, it may be possible by using socket options. To do so, the <code>SO_NO_CHECK</code> option would need to be declared with the UDP socket file descriptor, as described <a href="https://linux-tips.com/t/how-to-disable-udp-checksum-control-in-kernel/362">here</a>.</p>
+]]></content>
+        </item>
         
         <item>
             <title>How to Transparently Proxy IP Packets With Spoofed Destinations</title>
