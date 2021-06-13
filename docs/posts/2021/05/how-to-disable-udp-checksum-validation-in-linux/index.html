@@ -5,16 +5,16 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Dominik Rys ">
-<meta name="description" content="I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&amp;rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&amp;rsquo;s possible without recompiling the kernel. In this short post, I&amp;rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets." />
+<meta name="description" content="I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&amp;rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&amp;rsquo;s possible without recompiling the kernel. In this short post, I&amp;rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets." />
 <meta name="keywords" content="blog, software, engineering, software engineering, devops, software development, computer science, security, devops, linux, networking" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
-<link rel="canonical" href="https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/" />
+<link rel="canonical" href="https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/" />
 
 
     <title>
         
-            How to Disable UDP Checksum Checking in Linux :: Dominik Rys 
+            How to Disable UDP Checksum Validation in Linux :: Dominik Rys 
         
     </title>
 
@@ -41,24 +41,24 @@
 
 
 
-<meta itemprop="name" content="How to Disable UDP Checksum Checking in Linux">
-<meta itemprop="description" content="I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets."><meta itemprop="datePublished" content="2021-05-20T12:37:22&#43;01:00" />
+<meta itemprop="name" content="How to Disable UDP Checksum Validation in Linux">
+<meta itemprop="description" content="I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets."><meta itemprop="datePublished" content="2021-05-20T12:37:22&#43;01:00" />
 <meta itemprop="dateModified" content="2021-05-20T12:37:22&#43;01:00" />
 <meta itemprop="wordCount" content="705"><meta itemprop="image" content="https://dominikrys.com"/>
 <meta itemprop="keywords" content="security,devops,linux,networking," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://dominikrys.com"/>
 
-<meta name="twitter:title" content="How to Disable UDP Checksum Checking in Linux"/>
-<meta name="twitter:description" content="I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets."/>
+<meta name="twitter:title" content="How to Disable UDP Checksum Validation in Linux"/>
+<meta name="twitter:description" content="I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets."/>
 
 
 
 
-    <meta property="og:title" content="How to Disable UDP Checksum Checking in Linux" />
-<meta property="og:description" content="I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets." />
+    <meta property="og:title" content="How to Disable UDP Checksum Validation in Linux" />
+<meta property="og:description" content="I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/" /><meta property="og:image" content="https://dominikrys.com"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/" /><meta property="og:image" content="https://dominikrys.com"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-05-20T12:37:22&#43;01:00" />
 <meta property="article:modified_time" content="2021-05-20T12:37:22&#43;01:00" />
 
@@ -145,7 +145,7 @@
 
     <article>
       <h1 class="post-title">
-        <a href="https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/">How to Disable UDP Checksum Checking in Linux</a>
+        <a href="https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/">How to Disable UDP Checksum Validation in Linux</a>
       </h1>
 
       
@@ -155,7 +155,7 @@
       
 
       <div class="post-content">
-        <p>I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.</p>
+        <p>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.</p>
 <h2 id="check-if-your-machine-can-receive-packets-with-broken-udp-checksums">Check if your machine can receive packets with broken UDP checksums</h2>
 <p>Firstly, we need to check if your machine can already accept packets with invalid UDP checksums. Testing this is easy - send packets with broken UDP checksums from one machine (machine 1) to the machine that you want to disable validation on (machine 2), and check the traffic using <code>tcpdump</code>. I&rsquo;ll outline how I&rsquo;ve done this below.</p>
 <ol>

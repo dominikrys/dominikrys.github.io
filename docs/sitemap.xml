@@ -8,7 +8,7 @@
     <loc>https://dominikrys.com/</loc>
     <lastmod>2021-05-20T12:37:22+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/</loc>
+    <loc>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/</loc>
     <lastmod>2021-05-20T12:37:22+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/linux/</loc>
@@ -29,7 +29,7 @@
     <loc>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</loc>
     <lastmod>2021-04-17T10:44:53+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/2021/04/how-to-configure-squid-as-a-transparent-proxy-in-2021/</loc>
+    <loc>https://dominikrys.com/posts/2021/04/a-modern-way-to-configure-squid-as-a-transparent-proxy/</loc>
     <lastmod>2021-04-10T10:08:45+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/c&#43;&#43;/</loc>

@@ -10,13 +10,13 @@
         <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>How to Disable UDP Checksum Checking in Linux</title>
-            <link>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/</link>
+            <title>How to Disable UDP Checksum Validation in Linux</title>
+            <link>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/</link>
             <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
             
-            <guid>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-checking-in-linux/</guid>
-            <description>I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&amp;rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&amp;rsquo;s possible without recompiling the kernel. In this short post, I&amp;rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets.</description>
-            <content type="html"><![CDATA[<p>I recently needed to disable the checking of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.</p>
+            <guid>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/</guid>
+            <description>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&amp;rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&amp;rsquo;s possible without recompiling the kernel. In this short post, I&amp;rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets.</description>
+            <content type="html"><![CDATA[<p>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&rsquo;s possible without recompiling the kernel. In this short post, I&rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.</p>
 <h2 id="check-if-your-machine-can-receive-packets-with-broken-udp-checksums">Check if your machine can receive packets with broken UDP checksums</h2>
 <p>Firstly, we need to check if your machine can already accept packets with invalid UDP checksums. Testing this is easy - send packets with broken UDP checksums from one machine (machine 1) to the machine that you want to disable validation on (machine 2), and check the traffic using <code>tcpdump</code>. I&rsquo;ll outline how I&rsquo;ve done this below.</p>
 <ol>
@@ -106,11 +106,11 @@ debug 1
         </item>
         
         <item>
-            <title>How to Configure Squid as a Transparent Proxy in 2021</title>
-            <link>https://dominikrys.com/posts/2021/04/how-to-configure-squid-as-a-transparent-proxy-in-2021/</link>
+            <title>A Modern Way to Configure Squid as a Transparent Proxy</title>
+            <link>https://dominikrys.com/posts/2021/04/a-modern-way-to-configure-squid-as-a-transparent-proxy/</link>
             <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
             
-            <guid>https://dominikrys.com/posts/2021/04/how-to-configure-squid-as-a-transparent-proxy-in-2021/</guid>
+            <guid>https://dominikrys.com/posts/2021/04/a-modern-way-to-configure-squid-as-a-transparent-proxy/</guid>
             <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
 With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&amp;rsquo;d write this post.</description>
             <content type="html"><![CDATA[<p><img src="img/squid-logo.png" alt="Squid Logo"></p>
