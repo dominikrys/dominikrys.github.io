@@ -1,7 +1,7 @@
 ---
 title: "How I Started Learning Rust"
 date: 2021-06-16T18:56:21+01:00
-draft: true
+draft: false
 toc: true
 images:
 tags:
@@ -9,45 +9,50 @@ tags:
   - rust
 ---
 
-I've been wanting to learn Rust for a while. This is partially to see to what extent it solves the memory-safety gripes of C and C++, and partially to see what all the hype is about.
+I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.
 
-I wanted to write a post talking about how I started learning Rust. This is partially to point anyone wanting to learn Rust to some useful resources, and partially for my own reflection and to document what worked well and what didn't.
+In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped. I hope this will be useful to anyone that's also curious about Rust.
 
-Overall, I started learning Rust by first working through the official [**Rust book**](https://doc.rust-lang.org/book/), then working through the [**Rust Exercism exercises**](https://exercism.io/my/tracks/rust), and finally **working on a project**. I will describe each of the mentioned resources in further depth, how I used them, and any pointers which would have helped me when I was starting out. I hope you enjoy the post!
+Overall, I started learning Rust by first working through the official [**Rust book**](https://doc.rust-lang.org/book/), then working through the [**Rust Exercism exercises**](https://exercism.io/my/tracks/rust), and finally **working on a project**. In this post, I will describe each of the mentioned resources in further depth. I hope you enjoy the post!
 
 ## The Rust Book
 
-When researching a starting point for learning Rust, I found that the [near-unanimous answer](https://www.reddit.com/r/rust/comments/en3wjg/best_way_to_start_learning_rust/) is to read the [Rust Programming Language](https://doc.rust-lang.org/book/) book. Although this book is available in physical and e-book forms, the most common way to read it is to check the linked official website which has the book available as a web page.  
+When researching a starting point for learning Rust, I found that the [near-unanimous answer](https://www.reddit.com/r/rust/comments/en3wjg/best_way_to_start_learning_rust/) is to read the [Rust Programming Language](https://doc.rust-lang.org/book/) book. Although this book is available in physical and e-book forms, the most popular way to read it is in a website format.
 
-The book contains information which is up-to-date with stable Rust and gets actively updated. It covers the most important concepts of the language, and even includes some projects within it which helps with getting your feet wet.
+![The Rust Book Screenshot](img/book.png)
 
-Overall the book was a great introduction to Rust and is very approachable. It allowed me to get the core concepts of the language down. However, the book covers a lot of information and takes some time to go through if you work through the entirety. Personally I found that I spent too much time reading about the theory in the book, and not enough time using the knowledge or assimilating it in any meaningful manner.
+The book contains up-to-date information with stable Rust and is actively updated. It covers the most important concepts of the language and even includes some projects within it, which helps with getting hands-on experience.
+
+Overall the book was a great introduction to Rust and is very approachable. However, the book covers plenty of information and can take some time to work through. Personally, I found that I spent too much time reading about the theory and not enough time using the knowledge or assimilating it in any meaningful manner. Therefore, I'd recommend not dwelling too hard on some of the less common concepts and starting on projects instead.
 
 ## Exercism
 
-After finishing the book, I started the [Exercism Rust track](https://exercism.io/my/tracks/rust). I've been told about Exercism by a co-worker and have been eager to try out since.
+After finishing the Rust book, I started the [Exercism Rust track](https://exercism.io/my/tracks/rust). I've been told about Exercism by a co-worker and have been eager to try it out since.
 
-Effectively, Exercism is a site which provides lots of programming puzzles in increasing difficulty, structured into "tracks". Many languages are supported, one of which is Rust. The site provides a testing framework which you set up locally (it's quick and easy) and then use to download exercises and upload solutions to the website.
+![Exercism Screenshot](img/exercism.png)
 
-On Exercism, a track contains "core" and "extra" exercises which you work through in "mentored" or "practice" mode. In mentored mode (which is recommended) you complete the core exercises one by one. Then, a mentor gives  feedback on your answers which allows you to then progress to the next exercise. When you complete a core exercise you also unlock some of the extra exercises, which mentors can also give feedback on (but I found they rarely do). In practice mode everything is unlocked outright, but mentor feedback is disabled.
+### Overview
 
-I found this to be a great transition from the Rust book, as it requires you to know the basics of the language that you are coding in. This was a great starting point for me to do my own research on the language and learn it in a more autonomous manner.
-  
+Effectively, Exercism provides programming puzzles in increasing difficulty, structured into "tracks". Many languages are supported, one of which is Rust. The site provides a testing framework that you set up locally, which you then use to download exercises and upload solutions to the website.
 
+On Exercism, a track contains **core** and **extra** exercises that you can work through in **mentored** or **practice** mode. In **mentored** mode (which is recommended), you complete the core exercises one by one. Then, a mentor gives feedback on your answers and allows you to then progress to the next exercise. When you complete a **core** exercise you also unlock some of the **extra** exercises, which mentors can also give feedback on (but I found they rarely do). In **practice** mode everything is unlocked outright, but mentor feedback is disabled. Also, when you finish a question in either mode you can publish your answer for others to check out and comment on.
 
-  - You can also get inspiration from other people's solutions which massively helped me with learning how to write idiomatic Rust.
-  - solutions can be posted for other people to see and comment on. Personally i found that the "rating" feature was somewhat broken as the top-rated solutions are usually the oldest and hence outdated and dont work.
-  - I found posting my solutions so be very beneficial as people asked some very good questions and suggested nice improvements to some questions. Easily the best part of the website for me.
-  - I've read that mentored mode is supposedly not very good as it may take a while for a mentor to assess your answer. I found this to vary - sometimes i could receive feedback on the same day, and sometimes after a couple of days. The actual mentor feedback also varied depending on the mentor. Usually once I came up with my own solution and then reviewed other people's, the mentors didn't have much feedback to say. The most useful ones were when the mentor benchmarked my code, as that really made me delve deep into the performance of my code and what rust was doing under the hood.
-  - some extra exercises are good, but some are pretty poor quality.
-  - rust by erxample helped herE: https://doc.rust-lang.org/rust-by-example/
+### Personal Experience
 
-- project
-  - i checked out the build-your-own-x repo for tutorials which use Rust. . It has become somewhat of a one-stop shop for when i want to learn something.
-  - I wrote a DNS server in Rust using this guy's tutorial.
-  - Used some of my experience from the book and exercism to make it more modern and tidy the code.
-  - really helped with how to structure rust projects which is not what i could get from exercism
+I found this to be a great transition from the Rust book as it requires you to know the basics of the language that you are coding in. To complete each exercise successfully independent research is required, which allows you to learn the language in an autonomous manner.
 
-- still lots more to learn, rust is a very interesting and complex language. This was a great start and I'm hoping to learn more by doing other projects
+As to the website's features, I found being able to see other people's solutions very useful. After I came up with a solution, I checked other people's to get inspiration from and used them to improve my own. This also greatly helped with learning how to write idiomatic Rust. Posting my own solutions was also massively beneficial. I had many people comment on my solutions, prompting interesting conversations and making me think about my code at a deeper level.
 
-- add screenshots of each method
+I read some criticisms of people saying that it takes a long time to received feedback in **mentored** mode and to switch to **practice** mode instead. Personally, I found this to not entirely be the case. Sometimes I could get feedback a couple of hours after submitting my solution, and in the worst case, I had to wait 2-3 days. The actual mentor feedback varied greatly in quality, however. Many mentors suggested improvements that I could find by briefly looking at other people's solutions. If I already implemented improvements inspired by other solutions, many mentors didn't have much to comment on. The best mentors benchmarked my solution against other solutions and suggested areas of improvement. I could then delve deep into the performance of my code and what Rust was doing under the hood
+
+Overall, this was a good next step after reading the Rust book. It allowed me to do a lot of my own research on Rust with less hand-holding than the Rust book. While solving the exercises, I could also use many of the concepts described in [Rust by Example](https://doc.rust-lang.org/rust-by-example/).
+
+## Project
+
+After finishing many Exercism exercises, I applied my knowledge to a project. I did this by checking the [build-your-own-x](https://github.com/danistefanovic/build-your-own-x) GitHub repo which contains a wealth of tutorials and guides for different projects. There are a couple of interesting projects using Rust there, from which I chose [Emil Hernvall's guide on writing a DNS server in Rust](https://github.com/EmilHernvall/dnsguide/blob/master/README.md).
+
+The guide taught me mostly how to properly structure and work on a Rust project. It also allowed me to get familiar with Rust tooling (e.g. testing and linting). I found applying what I learned from Exercism to improve upon the code in the guide particularly redeeming.
+
+## What Next?
+
+I still have a lot of Rust to learn, and I'm hoping to expand my knowledge by working on other projects. So far, I thoroughly enjoyed learning the language, even despite its somewhat steep learning curve. Nevertheless, I'm excited to see it being [adopted more in industry on major projects](https://www.zdnet.com/article/google-backs-effort-to-bring-rust-to-the-linux-kernel/), especially with claims that it can be [as productive as higher-level languages](https://ferrous-systems.com/blog/rust-as-productive-as-kotlin/).

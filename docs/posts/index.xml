@@ -6,8 +6,43 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-GB</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 20 May 2021 12:37:22 +0100</lastBuildDate>
+        <lastBuildDate>Wed, 16 Jun 2021 18:56:21 +0100</lastBuildDate>
         <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How I Started Learning Rust</title>
+            <link>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</link>
+            <pubDate>Wed, 16 Jun 2021 18:56:21 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</guid>
+            <description>I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.
+In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped.</description>
+            <content type="html"><![CDATA[<p>I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.</p>
+<p>In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped. I hope this will be useful to anyone that&rsquo;s also curious about Rust.</p>
+<p>Overall, I started learning Rust by first working through the official <a href="https://doc.rust-lang.org/book/"><strong>Rust book</strong></a>, then working through the <a href="https://exercism.io/my/tracks/rust"><strong>Rust Exercism exercises</strong></a>, and finally <strong>working on a project</strong>. In this post, I will describe each of the mentioned resources in further depth. I hope you enjoy the post!</p>
+<h2 id="the-rust-book">The Rust Book</h2>
+<p>When researching a starting point for learning Rust, I found that the <a href="https://www.reddit.com/r/rust/comments/en3wjg/best_way_to_start_learning_rust/">near-unanimous answer</a> is to read the <a href="https://doc.rust-lang.org/book/">Rust Programming Language</a> book. Although this book is available in physical and e-book forms, the most popular way to read it is in a website format.</p>
+<p><img src="img/book.png" alt="The Rust Book Screenshot"></p>
+<p>The book contains up-to-date information with stable Rust and is actively updated. It covers the most important concepts of the language and even includes some projects within it, which helps with getting hands-on experience.</p>
+<p>Overall the book was a great introduction to Rust and is very approachable. However, the book covers plenty of information and can take some time to work through. Personally, I found that I spent too much time reading about the theory and not enough time using the knowledge or assimilating it in any meaningful manner. Therefore, I&rsquo;d recommend not dwelling too hard on some of the less common concepts and starting on projects instead.</p>
+<h2 id="exercism">Exercism</h2>
+<p>After finishing the Rust book, I started the <a href="https://exercism.io/my/tracks/rust">Exercism Rust track</a>. I&rsquo;ve been told about Exercism by a co-worker and have been eager to try it out since.</p>
+<p><img src="img/exercism.png" alt="Exercism Screenshot"></p>
+<h3 id="overview">Overview</h3>
+<p>Effectively, Exercism provides programming puzzles in increasing difficulty, structured into &ldquo;tracks&rdquo;. Many languages are supported, one of which is Rust. The site provides a testing framework that you set up locally, which you then use to download exercises and upload solutions to the website.</p>
+<p>On Exercism, a track contains <strong>core</strong> and <strong>extra</strong> exercises that you can work through in <strong>mentored</strong> or <strong>practice</strong> mode. In <strong>mentored</strong> mode (which is recommended), you complete the core exercises one by one. Then, a mentor gives feedback on your answers and allows you to then progress to the next exercise. When you complete a <strong>core</strong> exercise you also unlock some of the <strong>extra</strong> exercises, which mentors can also give feedback on (but I found they rarely do). In <strong>practice</strong> mode everything is unlocked outright, but mentor feedback is disabled. Also, when you finish a question in either mode you can publish your answer for others to check out and comment on.</p>
+<h3 id="personal-experience">Personal Experience</h3>
+<p>I found this to be a great transition from the Rust book as it requires you to know the basics of the language that you are coding in. To complete each exercise successfully independent research is required, which allows you to learn the language in an autonomous manner.</p>
+<p>As to the website&rsquo;s features, I found being able to see other people&rsquo;s solutions very useful. After I came up with a solution, I checked other people&rsquo;s to get inspiration from and used them to improve my own. This also greatly helped with learning how to write idiomatic Rust. Posting my own solutions was also massively beneficial. I had many people comment on my solutions, prompting interesting conversations and making me think about my code at a deeper level.</p>
+<p>I read some criticisms of people saying that it takes a long time to received feedback in <strong>mentored</strong> mode and to switch to <strong>practice</strong> mode instead. Personally, I found this to not entirely be the case. Sometimes I could get feedback a couple of hours after submitting my solution, and in the worst case, I had to wait 2-3 days. The actual mentor feedback varied greatly in quality, however. Many mentors suggested improvements that I could find by briefly looking at other people&rsquo;s solutions. If I already implemented improvements inspired by other solutions, many mentors didn&rsquo;t have much to comment on. The best mentors benchmarked my solution against other solutions and suggested areas of improvement. I could then delve deep into the performance of my code and what Rust was doing under the hood</p>
+<p>Overall, this was a good next step after reading the Rust book. It allowed me to do a lot of my own research on Rust with less hand-holding than the Rust book. While solving the exercises, I could also use many of the concepts described in <a href="https://doc.rust-lang.org/rust-by-example/">Rust by Example</a>.</p>
+<h2 id="project">Project</h2>
+<p>After finishing many Exercism exercises, I applied my knowledge to a project. I did this by checking the <a href="https://github.com/danistefanovic/build-your-own-x">build-your-own-x</a> GitHub repo which contains a wealth of tutorials and guides for different projects. There are a couple of interesting projects using Rust there, from which I chose <a href="https://github.com/EmilHernvall/dnsguide/blob/master/README.md">Emil Hernvall&rsquo;s guide on writing a DNS server in Rust</a>.</p>
+<p>The guide taught me mostly how to properly structure and work on a Rust project. It also allowed me to get familiar with Rust tooling (e.g. testing and linting). I found applying what I learned from Exercism to improve upon the code in the guide particularly redeeming.</p>
+<h2 id="what-next">What Next?</h2>
+<p>I still have a lot of Rust to learn, and I&rsquo;m hoping to expand my knowledge by working on other projects. So far, I thoroughly enjoyed learning the language, even despite its somewhat steep learning curve. Nevertheless, I&rsquo;m excited to see it being <a href="https://www.zdnet.com/article/google-backs-effort-to-bring-rust-to-the-linux-kernel/">adopted more in industry on major projects</a>, especially with claims that it can be <a href="https://ferrous-systems.com/blog/rust-as-productive-as-kotlin/">as productive as higher-level languages</a>.</p>
+]]></content>
+        </item>
         
         <item>
             <title>How to Disable UDP Checksum Validation in Linux</title>

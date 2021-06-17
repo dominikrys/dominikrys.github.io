@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rust on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/rust/</link>
+    <description>Recent content in rust on Dominik Rys</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-GB</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 16 Jun 2021 18:56:21 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How I Started Learning Rust</title>
+      <link>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</link>
+      <pubDate>Wed, 16 Jun 2021 18:56:21 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</guid>
+      <description>I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.
+In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped.</description>
+    </item>
+    
+  </channel>
+</rss>
