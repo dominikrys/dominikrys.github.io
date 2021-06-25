@@ -61,6 +61,14 @@ disableHugoGeneratorInject = false
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
 
+  # Enable theme toggle
+  # 
+  # This options enables the theme toggle for the theme. 
+  # Per default, this option is off. 
+  # The theme is respecting the prefers-color-scheme of the operating systeme. 
+  # With this option on, the page user is able to set the scheme he wants. 
+  enableThemeToggle = true
+
   # Sharing buttons
   # There are a lot of buttons preconfigured. If you want to change them,
   # generate the buttons here: https://sharingbuttons.io
@@ -86,6 +94,7 @@ disableHugoGeneratorInject = false
     theme = "#252627"
 
   [params.logo]
+    logoMark     = ">"
     logoText     = "$ cd /home/"
     logoHomeLink = "/"
     # Set true to remove the logo cursor entirely.
@@ -100,6 +109,15 @@ disableHugoGeneratorInject = false
     path     = "/img/portrait.jpg"
     alt      = "Portrait"
     maxWidth = "200px"
+
+  [params.footer]
+    trademark = true
+    rss = true
+    copyright = true
+    author = true
+
+    topText = []
+    bottomText = []
 
   # Social icons
   [[params.social]]
