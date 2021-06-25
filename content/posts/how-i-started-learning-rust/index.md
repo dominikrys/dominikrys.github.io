@@ -21,9 +21,9 @@ When researching a starting point for learning Rust, I found that the [near-unan
 
 ![The Rust Book Screenshot](img/book.png)
 
-The book contains up-to-date information with stable Rust and is actively updated. It covers the most important concepts of the language and even includes some projects within it, which helps with getting hands-on experience.
+The book contains up-to-date information with stable Rust and is actively updated. It covers the most important concepts of the language and even includes some projects within it, which massively helps with getting hands-on experience.
 
-Overall the book was a great introduction to Rust and is very approachable. However, the book covers plenty of information and can take some time to work through. Personally, I found that I spent too much time reading about the theory and not enough time using the knowledge or assimilating it in any meaningful manner. Therefore, I'd recommend not dwelling too hard on some of the less common concepts and starting on projects instead.
+Overall the book was a great introduction to Rust and is very approachable. However, the book covers plenty of information and can take some time to work through. Personally, I found that I spent too much time reading about the theory and not enough time using the knowledge or assimilating it in any meaningful manner. Therefore, I feel that I shouldn't have dwelled too hard on some of the less common concepts and started on projects sooner instead.
 
 ## Exercism
 
@@ -43,6 +43,8 @@ I found this to be a great transition from the Rust book as it requires you to k
 
 As to the website's features, I found being able to see other people's solutions very useful. After I came up with a solution, I checked other people's to get inspiration from and used them to improve my own. This also greatly helped with learning how to write idiomatic Rust. Posting my own solutions was also massively beneficial. I had many people comment on my solutions, prompting interesting conversations and making me think about my code at a deeper level.
 
+Since exercises are pulled down and solved locally, Exercism exercises lend themselves to creating a sort of "solution bank". This allows for setting up Git in your Exercism directory, allowing for version control as you improve your answers. It also provides a great source of reference - for example, my solutions are available as a [repo on my GitHub](https://github.com/dominikrys/rust-exercism), which I found myself revisiting when working on other projects.
+
 I read some criticisms of people saying that it takes a long time to received feedback in **mentored** mode and to switch to **practice** mode instead. Personally, I found this to not entirely be the case. Sometimes I could get feedback a couple of hours after submitting my solution, and in the worst case, I had to wait 2-3 days. The actual mentor feedback varied greatly in quality, however. Many mentors suggested improvements that I could find by briefly looking at other people's solutions. If I already implemented improvements inspired by other solutions, many mentors didn't have much to comment on. The best mentors benchmarked my solution against other solutions and suggested areas of improvement. I could then delve deep into the performance of my code and what Rust was doing under the hood
 
 Overall, this was a good next step after reading the Rust book. It allowed me to do a lot of my own research on Rust with less hand-holding than the Rust book. While solving the exercises, I could also use many of the concepts described in [Rust by Example](https://doc.rust-lang.org/rust-by-example/).
@@ -51,7 +53,9 @@ Overall, this was a good next step after reading the Rust book. It allowed me to
 
 After finishing many Exercism exercises, I applied my knowledge to a project. I did this by checking the [build-your-own-x](https://github.com/danistefanovic/build-your-own-x) GitHub repo which contains a wealth of tutorials and guides for different projects. There are a couple of interesting projects using Rust there, from which I chose [Emil Hernvall's guide on writing a DNS server in Rust](https://github.com/EmilHernvall/dnsguide/blob/master/README.md).
 
-The guide taught me mostly how to properly structure and work on a Rust project. It also allowed me to get familiar with Rust tooling (e.g. testing and linting). I found applying what I learned from Exercism to improve upon the code in the guide particularly redeeming.
+Compared to Exercism and the Rust book, I learned a lot about how to structure and work on a Rust project from this guide. It also allowed me to get familiar with Rust tooling (e.g. testing and linting). Furthermore, there was plenty that could be improved upon the code in the guide as it was written a couple of years ago, and overall describes a fairly simple and bare-bones DNS server implementation. I found applying what I learned from Exercism exercises to improve upon the code in the guide particularly redeeming.
+
+The final DNS server I wrote is [available on my GitHub](https://github.com/dominikrys/dns-server).
 
 ## What Next?
 
