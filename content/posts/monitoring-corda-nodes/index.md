@@ -159,9 +159,7 @@ We set up a Grafana dashboard with metrics for each Corda node in our cluster. T
 
 We also have a dashboard with a summary of the results from our performance testing suite, which helps us inspect the results quickly and identify potential regressions. A part of it that shows throughput numbers for some of our test cases is shown below. This is made possible by sending data from our test suite running JMeter to InfluxDB using the [JMeter InfluxDB Backend Listener](https://jmeter.apache.org/usermanual/realtime-results.html).
 
-![JMeter Results Dashboard](img/jmeter-results-dashboard.png)
-
-{{< image src="img/full-emulator.png" alt="CHIP-8 Emulator" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/jmeter-results-dashboard.png" alt="JMeter Results Dashboard" position="center" style="border-radius: 0.5em;" >}}
 
 The “Difference” column displays the results of a Flux query performed on our InfluxDB database, repeated for every test case using [Grafana’s variable feature](https://grafana.com/docs/grafana/latest/variables/repeat-panels-or-rows/). It calculates the difference in results of each test case between the currently specified run and a run that happened a certain time ago (in this example 24 hours ago).
 
