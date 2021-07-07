@@ -67,7 +67,7 @@ The descriptions of each part below provide details about the tool we chose to u
 
 ### Metric collection agent
 
-{{< image src="img/telegraf-logo.png" alt="Telegraf Logo" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/telegraf-logo.png" alt="Telegraf Logo" position="center" style="border-radius: 0.5em; background: white;" >}}
 
 ⭐ [**Telegraf**](https://www.influxdata.com/time-series-platform/telegraf)— a lightweight open source server agent that [can collect and write metrics to and from different sources](https://docs.influxdata.com/telegraf/latest/plugins/). It’s plug-in driven so we could easily set it up using the provided [jolokia2 plug-in](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/jolokia2) to collect the metrics exposed through JMX from our Corda nodes.
 
@@ -77,7 +77,7 @@ Telegraf also provides plug-ins that allow for monitoring various system metrics
 
 ### Time-series database
 
-{{< image src="img/influxdb-logo.png" alt="InfluxDB Logo" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/influxdb-logo.png" alt="InfluxDB Logo" position="center" style="border-radius: 0.5em; background: white;" >}}
 
 ⭐ [**InfluxDB**](https://www.influxdata.com/products/influxdb-overview/) — an open source TSDB from InfluxData, who also develop Telegraf. It’s [easy to install on many different platforms](https://docs.influxdata.com/influxdb/v1.8/introduction/install/) and can be interacted with using the SQL-like [InfluxQL](https://docs.influxdata.com/influxdb/v1.8/query_language/) query language.
 
@@ -85,7 +85,7 @@ This is the TSDB we ended up using. So far it’s been working well, but a sligh
 
 Overall, Flux is still significantly more powerful than Prometheus’ and Graphite’s query languages. InfluxDB can be the best option if you don’t mind sacrificing some ease of use sometimes for the ability to write (almost) any query imaginable.
 
-{{< image src="img/prometheus-logo.png" alt="Prometheus Logo" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/prometheus-logo.png" alt="Prometheus Logo" position="center" style="border-radius: 0.5em; background: white; padding: 10px;" >}}
 
 [**Prometheus**](https://prometheus.io) — another popular open source TSDB, which is entirely community-driven. It uses a similar [data compression algorithm to InfluxDB](https://prometheus.io/docs/introduction/comparison/#summary-0). The query language ([PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics)) is more robust than InfluxQL so you can do more out of the box, although it doesn’t resemble any particular language so requires learning from scratch.
 
@@ -93,7 +93,7 @@ One of the biggest differences in Prometheus compared to other TSDBs is that it 
 
 It was tough choosing between Prometheus and InfluxDB, but ultimately we went with InfluxDB due to it being maintained by the same people as Telegraf, the potential to write complex queries using Flux and requiring less setup to collect metrics from our Corda nodes.
 
-{{< image src="img/graphite-logo.png" alt="Graphite Logo" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/graphite-logo.png" alt="Graphite Logo" position="center" style="border-radius: 0.5em; background: white; padding: 10px;" >}}
 
 [**Graphite**](https://graphiteapp.org) — the grandaddy of modern TSDBs. Graphite has been around for longer than Prometheus and InfluxDB, so it’s a mature and tested tool. The query language resembles some programming languages so it’s easy to pick up, and it can do more than InfluxQL and PromQL thanks to the huge selection of functions that have been developed over the years.
 
@@ -115,7 +115,7 @@ Given that Chronograf has fewer features than Grafana and [is significantly less
 
 ### Why deploy in Docker?
 
-{{< image src="img/docker-logo.png" alt="Docker Logo" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/docker-logo.png" alt="Docker Logo" position="center" style="border-radius: 0.5em; background: white; padding: 10px;" >}}
 
 As all tools we chose provided official Docker images, we decided to deploy our monitoring infrastructure as a [Docker Compose](https://docs.docker.com/compose) application in an Azure VM. This has many benefits:
 
@@ -129,7 +129,7 @@ As all tools we chose provided official Docker images, we decided to deploy our 
 
 ### Securing the monitoring infrastructure
 
-{{< image src="img/traefik-logo.png" alt="Traefik Logo" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/traefik-logo.png" alt="Traefik Logo" position="center" style="border-radius: 0.5em; background: white;" >}}
 
 To encrypt the traffic coming in and out of our monitoring infrastructure, we used [Traefik](https://docs.traefik.io/) which can automatically renew and obtain TLS certificates for our monitoring infrastructure from [Let’s Encrypt](https://letsencrypt.org). Traefik is an open source edge router that acts as a reverse proxy for our Docker containers. It can be deployed using [official Docker images](https://hub.docker.com/_/traefik), so it integrates perfectly into our Docker Compose application.
 

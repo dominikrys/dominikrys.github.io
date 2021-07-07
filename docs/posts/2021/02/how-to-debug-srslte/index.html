@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Dominik Rys ">
-<meta name="description" content="I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+<meta name="description" content="I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C&#43;&#43; programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:" />
 <meta name="keywords" content="blog, software, engineering, software engineering, devops, software development, computer science, security, software engineering, c&#43;&#43;, srslte, lte" />
@@ -44,7 +44,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 
 
 <meta itemprop="name" content="How to Debug srsLTE">
-<meta itemprop="description" content="I&rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+<meta itemprop="description" content="I&rsquo;ve recently been working extensively with srsLTE for my bachelor&rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&rsquo;ll assume you know how to debug ordinary C/C&#43;&#43; programs (I&rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:"><meta itemprop="datePublished" content="2021-02-13T10:34:48+01:00" />
 <meta itemprop="dateModified" content="2021-02-13T10:34:48+01:00" />
@@ -54,7 +54,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 <meta name="twitter:image" content="https://dominikrys.com"/>
 
 <meta name="twitter:title" content="How to Debug srsLTE"/>
-<meta name="twitter:description" content="I&rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+<meta name="twitter:description" content="I&rsquo;ve recently been working extensively with srsLTE for my bachelor&rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&rsquo;ll assume you know how to debug ordinary C/C&#43;&#43; programs (I&rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:"/>
 
@@ -62,7 +62,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 
 
     <meta property="og:title" content="How to Debug srsLTE" />
-<meta property="og:description" content="I&rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+<meta property="og:description" content="I&rsquo;ve recently been working extensively with srsLTE for my bachelor&rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&rsquo;ll assume you know how to debug ordinary C/C&#43;&#43; programs (I&rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:" />
 <meta property="og:type" content="article" />
@@ -186,8 +186,11 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
       
 
       <div class="post-content">
-        <p><img src="img/srslte-logo.png" alt="srsLTE Logo"></p>
-<p>I&rsquo;ve recently been working extensively with <a href="https://github.com/srsLTE/srsLTE">srsLTE</a> for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.</p>
+        
+    <img src="img/srslte-logo.png"  alt="srsLTE Logo"  class="center"  style="border-radius: 0.5em;"  />
+
+
+<p>I&rsquo;ve recently been working extensively with <a href="https://github.com/srsLTE/srsLTE">srsLTE</a> for my bachelor&rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.</p>
 <p>I&rsquo;ll assume you know how to debug ordinary C/C++ programs (I&rsquo;ll patiently wait here if you need to have a look into that).</p>
 <h2 id="compiling-srslte-in-debug-mode">Compiling srsLTE in debug mode</h2>
 <p>Your first attempt at debugging may have been to compile with the <code>Debug</code> CMake flag, and then executing the binaries using GDB or another debugger:</p>

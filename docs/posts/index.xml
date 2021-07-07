@@ -22,12 +22,18 @@ In this post, I describe how I went about learning Rust and what resources I use
 <p>Overall, I started learning Rust by first working through the official <a href="https://doc.rust-lang.org/book/"><strong>Rust book</strong></a>, then working through the <a href="https://exercism.io/my/tracks/rust"><strong>Rust Exercism exercises</strong></a>, and finally <strong>working on a project</strong>. In this post, I will describe each of the mentioned resources in further depth. I hope you enjoy the post!</p>
 <h2 id="the-rust-book">The Rust Book</h2>
 <p>When researching a starting point for learning Rust, I found that the <a href="https://www.reddit.com/r/rust/comments/en3wjg/best_way_to_start_learning_rust/">near-unanimous answer</a> is to read the <a href="https://doc.rust-lang.org/book/">Rust Programming Language</a> book. Although this book is available in physical and e-book forms, the most popular way to read it is in a website format.</p>
-<p><img src="img/book.png" alt="The Rust Book Screenshot"></p>
+
+    <img src="img/book.png"  alt="The Rust Book Screenshot"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <p>The book contains up-to-date information with stable Rust and is actively updated. It covers the most important concepts of the language and even includes some projects within it, which massively helps with getting hands-on experience.</p>
 <p>Overall the book was a great introduction to Rust and is very approachable. However, the book covers plenty of information and can take some time to work through. Personally, I found that I spent too much time reading about the theory and not enough time using the knowledge or assimilating it in any meaningful manner. Therefore, I feel that I shouldn&rsquo;t have dwelled too hard on some of the less common concepts and started on projects sooner instead.</p>
 <h2 id="exercism">Exercism</h2>
 <p>After finishing the Rust book, I started the <a href="https://exercism.io/my/tracks/rust">Exercism Rust track</a>. I&rsquo;ve been told about Exercism by a co-worker and have been eager to try it out since.</p>
-<p><img src="img/exercism.png" alt="Exercism Screenshot"></p>
+
+    <img src="img/exercism.png"  alt="Exercism Screenshot"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <h3 id="overview">Overview</h3>
 <p>Effectively, Exercism provides programming puzzles in increasing difficulty, structured into &ldquo;tracks&rdquo;. Many languages are supported, one of which is Rust. The site provides a testing framework that you set up locally, which you then use to download exercises and upload solutions to the website.</p>
 <p>On Exercism, a track contains <strong>core</strong> and <strong>extra</strong> exercises that you can work through in <strong>mentored</strong> or <strong>practice</strong> mode. In <strong>mentored</strong> mode (which is recommended), you complete the core exercises one by one. Then, a mentor gives feedback on your answers and allows you to then progress to the next exercise. When you complete a <strong>core</strong> exercise you also unlock some of the <strong>extra</strong> exercises, which mentors can also give feedback on (but I found they rarely do). In <strong>practice</strong> mode everything is unlocked outright, but mentor feedback is disabled. Also, when you finish a question in either mode you can publish your answer for others to check out and comment on.</p>
@@ -106,7 +112,10 @@ sudo nft <span style="color:#e6db74">&#39;add rule input_table input ip protocol
             
             <guid>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</guid>
             <description>I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
-            <content type="html"><![CDATA[<p><img src="img/privoxy-logo.png" alt="Privoxy Logo"></p>
+            <content type="html"><![CDATA[
+    <img src="img/privoxy-logo.png"  alt="Privoxy Logo"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <p>I&rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is <strong>not</strong> the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</p>
 <p>In this post, I will explain how it&rsquo;s possible to proxy such HTTP traffic by redirecting it to the correct destination.</p>
 <h2 id="why-cant-spoofed-dns-packets-be-proxied-using-an-ordinary-transparent-proxy">Why can&rsquo;t spoofed DNS packets be proxied using an ordinary transparent proxy?</h2>
@@ -148,9 +157,11 @@ debug 1
             <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
             
             <guid>https://dominikrys.com/posts/2021/04/a-modern-way-to-configure-squid-as-a-transparent-proxy/</guid>
-            <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
-With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&amp;rsquo;d write this post.</description>
-            <content type="html"><![CDATA[<p><img src="img/squid-logo.png" alt="Squid Logo"></p>
+            <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.</description>
+            <content type="html"><![CDATA[
+    <img src="img/squid-logo.png"  alt="Squid Logo"  class="center"  style="border-radius: 0.5em; background: white; padding: 5px;"  />
+
+
 <p>I&rsquo;ve recently set up <a href="http://www.squid-cache.org/">Squid</a> as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.</p>
 <p>With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&rsquo;d write this post. We discuss HTTP transparent proxying at the start, but provide resources for allowing support for HTTPS.</p>
 <p>The following instructions have been tested on Ubuntu 18.04 deployed in Azure, and Ubuntu 20.04 on DigitalOcean.</p>
@@ -200,11 +211,14 @@ http_port 3128 intercept
             <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
             
             <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
-            <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+            <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
-            <content type="html"><![CDATA[<p><img src="img/srslte-logo.png" alt="srsLTE Logo"></p>
-<p>I&rsquo;ve recently been working extensively with <a href="https://github.com/srsLTE/srsLTE">srsLTE</a> for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.</p>
+            <content type="html"><![CDATA[
+    <img src="img/srslte-logo.png"  alt="srsLTE Logo"  class="center"  style="border-radius: 0.5em;"  />
+
+
+<p>I&rsquo;ve recently been working extensively with <a href="https://github.com/srsLTE/srsLTE">srsLTE</a> for my bachelor&rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.</p>
 <p>I&rsquo;ll assume you know how to debug ordinary C/C++ programs (I&rsquo;ll patiently wait here if you need to have a look into that).</p>
 <h2 id="compiling-srslte-in-debug-mode">Compiling srsLTE in debug mode</h2>
 <p>Your first attempt at debugging may have been to compile with the <code>Debug</code> CMake flag, and then executing the binaries using GDB or another debugger:</p>
@@ -237,7 +251,10 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
             
             <guid>https://dominikrys.com/posts/2020/12/setting-up-a-tls-secured-monitoring-solution-in-docker-using-influxdb-grafana-and-traefik/</guid>
             <description>Motivation During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
-            <content type="html"><![CDATA[<p><img src="img/diagram.png" alt="Architecture Diagram"></p>
+            <content type="html"><![CDATA[
+    <img src="img/diagram.png"  alt="Architecture Diagram"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <h2 id="motivation">Motivation</h2>
 <p>During my last internship, I&rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out <a href="https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/" title="Monitoring Corda Nodes">here</a>. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with <a href="https://grafana.com/">Grafana</a> and <a href="https://www.influxdata.com/products/influxdb/">InfluxDB</a> as the front-end and time-series database, respectively.</p>
 <p>It&rsquo;s relatively straightforward to write and deploy a Docker compose application with just Grafana and InfluxDB. There are many ready-made <code>docker-compose.yml</code> files that can be found online, as well as various tutorials and blog posts which explain the details. The main difficulty was in getting the application secured by issuing and renewing TLS certificates. My initial idea was to manually issue and set TLS certificates as described e.g. in the <a href="https://docs.influxdata.com/influxdb/v1.7/administration/https_setup/">InfluxDB documentation</a>, but this kind of approach wouldn&rsquo;t be maintainable in the long run.</p>
@@ -484,14 +501,20 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
             <guid>https://dominikrys.com/posts/2020/09/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/</guid>
             <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
  Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
-            <content type="html"><![CDATA[<p><img src="img/header.png" alt="Header"></p>
+            <content type="html"><![CDATA[
+    <img src="img/header.png"  alt="Header"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <blockquote>
 <p><strong>This post is also hosted on the <a href="https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/">Corda Blog</a>.</strong> The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&rsquo;ve done during my summer internship at R3.</p>
 </blockquote>
 <h2 id="intro">Intro</h2>
 <p>Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a <a href="https://docs.corda.net/docs/corda-enterprise/performance-testing/toc-tree.html">performance testing suite</a> that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</p>
 <p>We recently decided to invest some effort in improving the observability of the overall system so that we could identify regressions and analyse their root cause more efficiently and with less manual work. There is <a href="https://docs.corda.net/docs/corda-enterprise/node-metrics.html">a wealth of metrics exposed by Corda nodes via JMX</a> that can be inspected using tools such as <a href="https://hawt.io/">Hawtio</a> (as <a href="https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html">described in the Corda docs</a>). However, this approach requires plenty of manual intervention and the prerequisite of the test actively running during inspection times.</p>
-<p><img src="img/hawtio.png" alt="Corda JMX metrics visible in Hawtio"><em>Corda JMX metrics visible in Hawtio</em></p>
+<p>
+    <img src="img/hawtio.png"  alt="Corda JMX metrics visible in Hawtio"  class="center"  style="border-radius: 0.5em;"  />
+
+ <em>&gt; Corda JMX metrics visible in Hawtio</em></p>
 <p>We had to set up a monitoring infrastructure that would allow us to:</p>
 <ul>
 <li>
@@ -531,31 +554,52 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 </ol>
 <p>The descriptions of each part below provide details about the tool we chose to use, followed by alternatives that we had also considered.</p>
 <h3 id="metric-collection-agent">Metric collection agent</h3>
-<p><img src="img/telegraf-logo.png" alt="Telegraf logo"></p>
+
+    <img src="img/telegraf-logo.png"  alt="Telegraf Logo"  class="center"  style="border-radius: 0.5em; background: white;"  />
+
+
 <p>⭐ <a href="https://www.influxdata.com/time-series-platform/telegraf"><strong>Telegraf</strong></a>— a lightweight open source server agent that <a href="https://docs.influxdata.com/telegraf/latest/plugins/">can collect and write metrics to and from different sources</a>. It’s plug-in driven so we could easily set it up using the provided <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/jolokia2">jolokia2 plug-in</a> to collect the metrics exposed through JMX from our Corda nodes.</p>
 <p>Telegraf also provides plug-ins that allow for monitoring various system metrics which aren’t available through JMX, such as disk IO and networking usage. In our case, it was so convenient to configure that we also deployed it on our <a href="https://docs.corda.net/docs/corda-os/node-database.html">Corda node databases</a> with the relevant <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/postgresql">PostgreSQL</a> and <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver">SQL Server</a> plug-ins.</p>
 <p><strong>Other options</strong> — we also considered <a href="https://github.com/prometheus/jmx_exporter"><strong>Prometheus JMX exporter</strong></a>, <a href="https://github.com/logzio/jmx2graphite"><strong>jmx2graphite</strong></a>, and <a href="https://github.com/jmxtrans/jmxtrans"><strong>jmxtrans</strong></a>. The issue with these is that they are all limited to which metrics they can record and where they can send them to. Telegraf can provide essentially the same functionality as those tools and allows for extensibility, while greatly reducing the number of tools required for maintenance.</p>
 <h3 id="time-series-database">Time-series database</h3>
-<p><img src="img/influxdb-logo.png" alt="InfluxDB logo"></p>
+
+    <img src="img/influxdb-logo.png"  alt="InfluxDB Logo"  class="center"  style="border-radius: 0.5em; background: white;"  />
+
+
 <p>⭐ <a href="https://www.influxdata.com/products/influxdb-overview/"><strong>InfluxDB</strong></a> — an open source TSDB from InfluxData, who also develop Telegraf. It’s <a href="https://docs.influxdata.com/influxdb/v1.8/introduction/install/">easy to install on many different platforms</a> and can be interacted with using the SQL-like <a href="https://docs.influxdata.com/influxdb/v1.8/query_language/">InfluxQL</a> query language.</p>
 <p>This is the TSDB we ended up using. So far it’s been working well, but a slight gripe with it is that the default query language (InfluxQL) is not quite powerful enough for certain tasks, such as performing calculations on data over different time windows. This is remedied by using InfluxData’s new <a href="https://www.influxdata.com/products/flux">Flux</a> query language, albeit at the cost of convenience due to a lack of simplified GUI for it in TSDB front ends — the queries have to be written in plain text. Before choosing InfluxDB we’d recommend checking <a href="https://github.com/influxdata/influxdb/issues/5930">this aggregate GitHub issue</a> to see if you’d heavily rely on any query operators that have not yet been implemented in InfluxQL.</p>
 <p>Overall, Flux is still significantly more powerful than Prometheus’ and Graphite’s query languages. InfluxDB can be the best option if you don’t mind sacrificing some ease of use sometimes for the ability to write (almost) any query imaginable.</p>
-<p><img src="img/prometheus-logo.png" alt="Prometheus Logo"></p>
+
+    <img src="img/prometheus-logo.png"  alt="Prometheus Logo"  class="center"  style="border-radius: 0.5em; background: white; padding: 10px;"  />
+
+
 <p><a href="https://prometheus.io"><strong>Prometheus</strong></a> — another popular open source TSDB, which is entirely community-driven. It uses a similar <a href="https://prometheus.io/docs/introduction/comparison/#summary-0">data compression algorithm to InfluxDB</a>. The query language (<a href="https://prometheus.io/docs/prometheus/latest/querying/basics">PromQL</a>) is more robust than InfluxQL so you can do more out of the box, although it doesn’t resemble any particular language so requires learning from scratch.</p>
 <p>One of the biggest differences in Prometheus compared to other TSDBs is that it <a href="https://prometheus.io/docs/introduction/faq/#why-do-you-pull-rather-than-push">pulls instead of pushing metrics</a>. This has some advantages, but also requires additional setting-up on the machines that run your Corda nodes to allow Prometheus to pick up the exported metrics, which entails opening extra ports and setting up firewall rules.</p>
 <p>It was tough choosing between Prometheus and InfluxDB, but ultimately we went with InfluxDB due to it being maintained by the same people as Telegraf, the potential to write complex queries using Flux and requiring less setup to collect metrics from our Corda nodes.</p>
-<p><img src="img/graphite-logo.png" alt="Graphite Logo"></p>
+
+    <img src="img/graphite-logo.png"  alt="Graphite Logo"  class="center"  style="border-radius: 0.5em; background: white; padding: 10px;"  />
+
+
 <p><a href="https://graphiteapp.org"><strong>Graphite</strong></a> — the grandaddy of modern TSDBs. Graphite has been around for longer than Prometheus and InfluxDB, so it’s a mature and tested tool. The query language resembles some programming languages so it’s easy to pick up, and it can do more than InfluxQL and PromQL thanks to the huge selection of functions that have been developed over the years.</p>
 <p>Being the oldest of the bunch has its disadvantages though, most notably that the <a href="https://www.influxdata.com/blog/influxdb-outperforms-graphite-in-time-series-data-metrics-benchmark">performance is lacklustre compared to InfluxDB</a> which would have to be accounted for by using a more powerful host VM. Installing Graphite can also be a pain due to its <a href="https://graphite.readthedocs.io/en/latest/install.html#dependencies">many dependencies</a> if it’s not deployed in Docker (inspiring projects such as <a href="https://github.com/obfuscurity/synthesize/">Synthesize</a> that are meant to make the process easier).</p>
 <h3 id="front-end-for-visualising-and-querying-the-tsdb">Front end for visualising and querying the TSDB</h3>
-<p><img src="img/example-grafana-dashboard.jpg" alt="Example Grafana Dashboard"><em>Example Grafana Dashboard</em></p>
+<p>
+    <img src="img/example-grafana-dashboard.png"  alt="Example Grafana Dashboard"  class="center"  style="border-radius: 0.5em;"  />
+
+ <em>&gt; Example Grafana Dashboard</em></p>
 <p>⭐ <a href="https://grafana.com"><strong>Grafana</strong></a> — an open source tool for interactively visualising data from various data sources. Grafana is by far the most popular tool for interacting with TSDBs with over <a href="https://github.com/grafana/grafana">1200 contributors on GitHub</a> and a very active <a href="https://community.grafana.com/">community forum</a>. There are <a href="https://grafana.com/grafana/plugins">many plug-ins available for it</a>, it integrates well with many other services for <a href="https://grafana.com/docs/grafana/latest/alerting/notifications/">alerting</a> and <a href="https://grafana.com/docs/grafana/latest/auth/overview/">authentication</a>, and it makes creating aesthetically pleasing dashboards a breeze.</p>
-<p><img src="img/example-chronograf-dashboard.png" alt="Example Chronograf Dashboard"><em>Example Chronograf Dashboard</em></p>
+<p>
+    <img src="img/example-chronograf-dashboard.png"  alt="Example Chronograf Dashboard"  class="center"  style="border-radius: 0.5em;"  />
+
+ <em>&gt; Example Chronograf Dashboard</em></p>
 <p><a href="https://www.influxdata.com/time-series-platform/chronograf"><strong>Chronograf</strong></a> — an open source tool for interacting and visualising data from InfluxDB. Chronograf is very well suited for setups where other products from InfluxData are used, as it’s better integrated with them compared to Grafana. This could have been a great option if we also used <a href="https://www.influxdata.com/time-series-platform/kapacitor/">Kapacitor</a> as a real-time streaming data processing engine from InfluxData, to complete their “<a href="https://www.influxdata.com/blog/introduction-to-influxdatas-influxdb-and-tick-stack/">TICK</a>” stack.</p>
 <p>Given that Chronograf has fewer features than Grafana and <a href="https://github.com/influxdata/chronograf/graphs/contributors">is significantly less popular</a>, which can make getting support for it more difficult, we went with Grafana.</p>
 <h2 id="extra-considerations">Extra considerations</h2>
 <h3 id="why-deploy-in-docker">Why deploy in Docker?</h3>
-<p><img src="img/docker-logo.png" alt="Docker Logo"></p>
+
+    <img src="img/docker-logo.png"  alt="Docker Logo"  class="center"  style="border-radius: 0.5em; background: white; padding: 10px;"  />
+
+
 <p>As all tools we chose provided official Docker images, we decided to deploy our monitoring infrastructure as a <a href="https://docs.docker.com/compose">Docker Compose</a> application in an Azure VM. This has many benefits:</p>
 <ul>
 <li>
@@ -572,7 +616,10 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 </li>
 </ul>
 <h3 id="securing-the-monitoring-infrastructure">Securing the monitoring infrastructure</h3>
-<p><img src="img/traefik-logo.png" alt="Traefik Logo"></p>
+
+    <img src="img/traefik-logo.png"  alt="Traefik Logo"  class="center"  style="border-radius: 0.5em; background: white;"  />
+
+
 <p>To encrypt the traffic coming in and out of our monitoring infrastructure, we used <a href="https://docs.traefik.io/">Traefik</a> which can automatically renew and obtain TLS certificates for our monitoring infrastructure from <a href="https://letsencrypt.org">Let’s Encrypt</a>. Traefik is an open source edge router that acts as a reverse proxy for our Docker containers. It can be deployed using <a href="https://hub.docker.com/_/traefik">official Docker images</a>, so it integrates perfectly into our Docker Compose application.</p>
 <p>We defined separate Traefik <a href="https://docs.traefik.io/routing/services/">services</a> and <a href="https://docs.traefik.io/routing/routers/">routers</a> for Grafana and InfluxDB that take care of appropriate routing, HTTP/HTTPS redirection, and TLS configuration. This was all done in a declarative way using <a href="https://docs.traefik.io/routing/providers/docker/">labels in our Docker compose file</a>.</p>
 <p>Grafana supports <a href="https://grafana.com/docs/grafana/latest/auth/overview">user authentication</a>, which can be integrated with many different services including Azure and GitHub. This also allows for easy management of permissions of the users accessing our Grafana dashboards.</p>
@@ -580,14 +627,26 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 <p>Telegraf can be installed on the machines running Corda in a <a href="https://docs.influxdata.com/telegraf/latest/introduction/installation">variety of ways</a> and works as a stand-alone tool. Setting it up is relatively straightforward, so you can choose whichever installation method most suits your setup.</p>
 <h2 id="complete-infrastructure-architecture">Complete infrastructure architecture</h2>
 <p>The complete architecture of our infrastructure looks as follows:</p>
-<p><img src="img/architecture-diagram.png" alt="Architecture Diagram"></p>
+
+    <img src="img/architecture-diagram.png"  alt="Architecture Diagram"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <p>TLS is terminated at our reverse proxy (Traefik). This means that traffic between the proxy and Grafana/InfluxDB is not encrypted, but this isn’t an issue since all these services are running in a single secured machine.</p>
 <h2 id="final-result">Final result</h2>
 <p>We set up a Grafana dashboard with metrics for each Corda node in our cluster. The dashboard features high-level flow metrics first, followed by internal operation metrics (P2P, caches), and finally system-level metrics (JVM, disk IO, network). A part of this dashboard is shown below.</p>
-<p><img src="img/dashboard-1.png" alt="Dashboard 1"></p>
-<p><img src="img/dashboard-1.png" alt="Dashboard 2"></p>
+
+    <img src="img/dashboard-1.png"  alt="Dashboard 1"  class="center"  style="border-radius: 0.5em;"  />
+
+
+
+    <img src="img/dashboard-2.png"  alt="Dashboard 2"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <p>We also have a dashboard with a summary of the results from our performance testing suite, which helps us inspect the results quickly and identify potential regressions. A part of it that shows throughput numbers for some of our test cases is shown below. This is made possible by sending data from our test suite running JMeter to InfluxDB using the <a href="https://jmeter.apache.org/usermanual/realtime-results.html">JMeter InfluxDB Backend Listener</a>.</p>
-<p><img src="img/jmeter-results-dashboard.png" alt="JMeter Results Dashboard"></p>
+
+    <img src="img/jmeter-results-dashboard.png"  alt="JMeter Results Dashboard"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <p>The “Difference” column displays the results of a Flux query performed on our InfluxDB database, repeated for every test case using <a href="https://grafana.com/docs/grafana/latest/variables/repeat-panels-or-rows/">Grafana’s variable feature</a>. It calculates the difference in results of each test case between the currently specified run and a run that happened a certain time ago (in this example 24 hours ago).</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>A complete solution for monitoring Corda nodes can be set up entirely using open source tools without compromises. Many of the tools can be mixed and matched, so it’s possible to adjust the foundation described in this post to better fit your individual needs and existing setup.</p>
@@ -626,7 +685,10 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
             <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
             <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
-            <content type="html"><![CDATA[<p><img src="img/full-emulator.png" alt="CHIP-8 Emulator"></p>
+            <content type="html"><![CDATA[
+    <img src="img/full-emulator.png"  alt="CHIP-8 Emulator"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <h2 id="intro">Intro</h2>
 <p>A couple of months ago I wrote a <a href="https://github.com/dominikrys/chip8">CHIP-8 emulator</a> in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result <strong><a href="https://dominikrys.com/chip8">here</a></strong>.</p>
 <p>My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running. I could send someone the pre-compiled binary or give building instructions, but those aren&rsquo;t guaranteed to work on every platform. Ideally, I wanted a solution that can be hosted on the web, and I recently heard about this cool new &ldquo;WebAssembly&rdquo; thing that seemed like the perfect solution.</p>
@@ -675,7 +737,10 @@ Scanning dependencies of target chip8
 </code></pre></div><p>It&hellip; worked? I hosted the generated page locally with Python</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server
 </code></pre></div><p>And had a look at it in Chrome. I found that the screen was blank, but there was an exception in the JavaScript console:</p>
-<p><img src="img/exception-after-fix.png" alt="Exception after fix"></p>
+
+    <img src="img/exception-after-fix.png"  alt="Exception after fix"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <p>Time to attempt some debugging!</p>
 <h2 id="debugging-emscripten">Debugging Emscripten</h2>
 <p>Investigating the JavaScript exception isn&rsquo;t particularly useful, as at that point the code has been generated by Emscripten and is very different to the source code. There is a section on debugging in the <a href="https://emscripten.org/docs/porting/Debugging.html">Emscripten docs</a>, but in essence the debugging tools aren&rsquo;t currently particularly robust and will require modifying the program&rsquo;s original source code.</p>
@@ -704,7 +769,10 @@ Scanning dependencies of target chip8
 </ul>
 <p>After packaging the files, they can be accessed with file API calls from your C/C++ code as if the files existed locally.</p>
 <p>Once I packaged the files properly, everything compiled again. I checked the website and there weren&rsquo;t any exceptions there, but the output was blank and the page was frozen:</p>
-<p><img src="img/blank-emscripten.png" alt="Blank Emscripten"></p>
+
+    <img src="img/blank-emscripten.png"  alt="Blank Emscripten"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <p>I also got the following warning:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
 </code></pre></div><p>For the time being, I decided to get rid of the audio handling code and sort this out later.</p>
@@ -816,7 +884,10 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </ul>
 <h3 id="frame-rate-issues">Frame rate issues</h3>
 <p>I compiled the code after rewriting using an Emscripten loop and I got the emulator working!</p>
-<p><img src="img/working-emulator.png" alt="Working Emulator"></p>
+
+    <img src="img/working-emulator.png"  alt="Working Emulator"  class="center"  style="border-radius: 0.5em;"  />
+
+
 <p>The emulator was very slow, however. I found that this is to do with the <code>requestAnimationFrame</code> method which I mentioned previously that is used to call the Emscripten main loop function.</p>
 <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">Mozilla docs</a> state that <code>requestAnimationFrame</code> gets called &ldquo;usually 60 times per second, but will generally match the display refresh rate in most web browsers&rdquo;. This was a problem, as my main loop simulated <strong>one</strong> CHIP-8 cycle every time it was called. Effectively this meant that my the emulator ran at a frequency of 60Hz when compiled with Emscripten, where most CHIP-8 ROMs run well at 1000-1500Hz depending on the game (this isn&rsquo;t something that can be determined on the fly, as in ordinary game loops).</p>
 <p>To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn&rsquo;t very straightforward, as the frame rate which ran natively didn&rsquo;t directly translate to what ran in Emscripten. For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles to emulate between every frame in an Emscripten loop - around 17 in this case. This wasn&rsquo;t the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn&rsquo;t seem to be a good way to calculate this difference upfront.</p>
