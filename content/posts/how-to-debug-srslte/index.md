@@ -12,9 +12,9 @@ tags:
   - lte
 ---
 
-![srsLTE Logo](img/srslte-logo.png)
+{{< image src="img/srslte-logo.png" alt="srsLTE Logo" position="center" style="border-radius: 0.5em;" >}}
 
-I've recently been working extensively with [srsLTE](https://github.com/srsLTE/srsLTE) for my university dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+I've recently been working extensively with [srsLTE](https://github.com/srsLTE/srsLTE) for my bachelor's dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 
 I'll assume you know how to debug ordinary C/C++ programs (I'll patiently wait here if you need to have a look into that).
 

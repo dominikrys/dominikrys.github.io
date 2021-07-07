@@ -12,7 +12,7 @@ tags:
   - sdl
 ---
 
-![CHIP-8 Emulator](img/full-emulator.png)
+{{< image src="img/full-emulator.png" alt="CHIP-8 Emulator" position="center" style="border-radius: 0.5em;" >}}
 
 ## Intro
 
@@ -96,7 +96,7 @@ python3 -m http.server
 
 And had a look at it in Chrome. I found that the screen was blank, but there was an exception in the JavaScript console:
 
-![Exception after fix](img/exception-after-fix.png)
+{{< image src="img/exception-after-fix.png" alt="Exception after fix" position="center" style="border-radius: 0.5em;" >}}
 
 Time to attempt some debugging!
 
@@ -126,7 +126,7 @@ After packaging the files, they can be accessed with file API calls from your C/
 
 Once I packaged the files properly, everything compiled again. I checked the website and there weren't any exceptions there, but the output was blank and the page was frozen:
 
-![Blank Emscripten](img/blank-emscripten.png)
+{{< image src="img/blank-emscripten.png" alt="Blank Emscripten" position="center" style="border-radius: 0.5em;" >}}
 
 I also got the following warning:
 
@@ -275,7 +275,7 @@ I gave this a go myself before rewriting my code for `emscripten_set_main_loop()
 
 I compiled the code after rewriting using an Emscripten loop and I got the emulator working!
 
-![Working Emulator](img/working-emulator.png)
+{{< image src="img/working-emulator.png" alt="Working Emulator" position="center" style="border-radius: 0.5em;" >}}
 
 The emulator was very slow, however. I found that this is to do with the `requestAnimationFrame` method which I mentioned previously that is used to call the Emscripten main loop function.
 

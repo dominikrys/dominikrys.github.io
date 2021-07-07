@@ -9,7 +9,7 @@ tags:
   - security
 ---
 
-![Squid Logo](img/squid-logo.png)
+{{< image src="img/squid-logo.png" alt="Squid Logo" position="center" style="border-radius: 0.5em;" >}}
 
 I've recently set up [Squid](http://www.squid-cache.org/) as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don't quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
 

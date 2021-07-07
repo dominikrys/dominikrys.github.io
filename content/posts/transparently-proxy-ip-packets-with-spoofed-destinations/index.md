@@ -11,7 +11,7 @@ tags:
   - linux
 ---
 
-![Privoxy Logo](img/privoxy-logo.png)
+{{< image src="img/privoxy-logo.png" alt="Privoxy Logo" position="center" style="border-radius: 0.5em;" >}}
 
 I've recently worked on a security project which required me to transparently/interceptingly (if that's a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is **not** the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.
 

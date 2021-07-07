@@ -13,7 +13,7 @@ tags:
   - traefik
 ---
 
-![Architecture Diagram](img/diagram.png)
+{{< image src="img/diagram.png" alt="Architecture Diagram" position="center" style="border-radius: 0.5em;" >}}
 
 ## Motivation
 
