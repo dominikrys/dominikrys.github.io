@@ -1,5 +1,5 @@
 ---
-title: "Executing Stream Cipher Attacks on IP Packets in C++"
+title: "Executing Stream Cipher Attacks on IP Packets"
 date: 2021-07-08T10:36:55+01:00
 draft: true
 toc: true
@@ -154,8 +154,8 @@ Another major issue that could be encountered is that even if the IPv4 checksum 
 
 ## TODO
 
-- fix images
 - add image to top of page
 - add image to more parts of the blog post
+- check sizes of images
 - re-read
 - grammarly check
