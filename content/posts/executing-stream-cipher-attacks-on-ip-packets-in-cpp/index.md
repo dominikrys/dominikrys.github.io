@@ -10,6 +10,8 @@ tags:
   - networking
 ---
 
+{{< image src="img/cover.jpg" alt="Cover" position="center" style="border-radius: 0.5em;" >}}
+
 For part of my bachelor's dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper ["Breaking LTE on Layer Two"](https://alter-attack.net/).
 
 The attack is possible due to a specification flaw in LTE standards, where IP packets **not integrity protected**. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully, since it can't verify the authenticity of the data. The specifics on how this is possible are explained later in this post.
@@ -20,7 +22,7 @@ I learned a lot while implementing this attack which I thought would be worth do
 
 In most LTE networks, IP packets are encrypted with a **stream cipher** (AES-CTR), where the encryption algorithm generates streams of bytes (called **keystreams**) which are XORed with the message plaintext in order to obtain the ciphertext. The receiver can then generate the same keystream and XOR it with the encrypted message to obtain the plaintext.
 
-{{< image src="img/stream-cipher-diagram.png" alt="Stream Cipher Diagram" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/stream-cipher-diagram.png" alt="Stream Cipher Diagram" position="center" style="border-radius: 0.5em; width: 70%;" >}}
 
 As explained at the start of the post, a MITM attacker attacker can successfully modify packets in LTE networks and the receiver will be able to decrypt them. This is known as a [malleable cipher](https://en.wikipedia.org/wiki/Malleability_(cryptography)). This property can be used by an attacker to modify the ciphertext in such a way that it decrypts into *any* chosen plaintext, if the original plaintext is known. I highly recommend reading a short description of how the attack works on [Wikipedia](https://en.wikipedia.org/wiki/Stream_cipher_attacks#Bit-flipping_attack).
 
@@ -40,9 +42,7 @@ In my case, I was working with IPv4 packets encapsulated in the LTE PDCP protoco
 
 To additionally verify if my assumptions were correct, I checked example packets in Wireshark. This would also need to be done when working with more exotic protocols. To obtain sample packets, I captured packets in a test setup with known keys such that the packets can be decrypted. Since we're working with a stream cipher, the offsets will be the same whether encryption is enabled or not. In the Wireshark trace, I was able to verify that the offset is what I thought it would be. Below, you can see the Wireshark capture from which I could tell that the offset is shifted by 2 due to the 2-byte header.
 
-{{< image src="img/pdcp-trace.png" alt="Wireshark PDCP Trace" position="center" style="border-radius: 0.5em;" >}}
-
-![fuck](img/pdcp-trace.png)
+{{< image src="img/pdcp-trace.png" alt="Wireshark PDCP Trace" position="center" style="border-radius: 0.5em; width: 90%;" >}}
 
 ### Applying Bitmasks to Parts of Payload in C++
 
@@ -95,7 +95,7 @@ In our case, this entails calculating the difference between the 16-bit sums of 
 
 In LTE networks, we can reliably predict the TTL of packets sent from a phone to the first mast, as it won't be decremented. This gives us the ability to compensate for changes in the first and third octets of the IP. With other fields, I had to perform some trial and error by sending hand-crafted packets with "broken" fields to a remotely hosted VPS and checking if they're received. This was easily done using [Scapy](https://scapy.net/). I found that the DSCP and ECN fields were constant and didn't impact routing, so these gave enough room for me to be able to compensate for changes in the second and fourth octets of the IP.
 
-{{< image src="img/ip-checksum.png" alt="IP Checksum Diagram" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/ip-checksum.png" alt="IP Checksum Diagram" position="center" style="border-radius: 0.5em; width: 90%;" >}}
 
 #### Example Implementation
 
@@ -121,9 +121,9 @@ std::valarray<int> ttl_mask = {ttl_mask_val};
 int ttl_byte_offset = 10;
 
 apply_mask(buf, ttl_mask, ttl_byte_offset);
+```
 
-
-
+```cpp
 /* Mask DSCP/ECN */
 int dscp_ecn_plaintext = 0;
 
@@ -150,12 +150,9 @@ This is an issue that I have encountered. In my case, I was redirecting DNS pack
 
 Another major issue that could be encountered is that even if the IPv4 checksum is corrected, the UDP checksum will still be incorrect. Depending on the application this may be an issue. In my case, since I was sending the packets to a VPS I controlled, I had to make the VPS ignore broken UDP checksums. It may not be possible to compensate for the UDP checksum, as in most cases the fields that the UDP checksum also takes into consideration can't be changed without corrupting the packet or making the receiver discard it.
 
-{{< image src="img/udp-checksum.png" alt="UDP Checksum Diagram" position="center" style="border-radius: 0.5em;" >}}
+{{< image src="img/udp-checksum.png" alt="UDP Checksum Diagram" position="center" style="border-radius: 0.5em; width: 90%;" >}}
 
 ## TODO
 
-- add image to top of page
-- add image to more parts of the blog post
-- check sizes of images
 - re-read
 - grammarly check
