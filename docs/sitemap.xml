@@ -2,22 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dominikrys.com/</loc>
-    <lastmod>2021-06-16T18:56:21+01:00</lastmod>
+    <loc>https://dominikrys.com/tags/c&#43;&#43;/</loc>
+    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</loc>
-    <lastmod>2021-06-16T18:56:21+01:00</lastmod>
+    <loc>https://dominikrys.com/</loc>
+    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</loc>
+    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/networking/</loc>
+    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/security/</loc>
+    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/srslte/</loc>
+    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/</loc>
+    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</loc>
     <lastmod>2021-06-16T18:56:21+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/rust/</loc>
     <lastmod>2021-06-16T18:56:21+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/software-engineering/</loc>
-    <lastmod>2021-06-16T18:56:21+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/</loc>
     <lastmod>2021-06-16T18:56:21+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/devops/</loc>
@@ -29,28 +44,16 @@
     <loc>https://dominikrys.com/tags/linux/</loc>
     <lastmod>2021-05-20T12:37:22+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/networking/</loc>
-    <lastmod>2021-05-20T12:37:22+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/security/</loc>
-    <lastmod>2021-05-20T12:37:22+01:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</loc>
     <lastmod>2021-04-17T10:44:53+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/2021/04/a-modern-way-to-configure-squid-as-a-transparent-proxy/</loc>
     <lastmod>2021-04-10T10:08:45+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/c&#43;&#43;/</loc>
-    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/lte/</loc>
-    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/srslte/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/docker/</loc>

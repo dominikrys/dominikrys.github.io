@@ -6,8 +6,152 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-GB</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 16 Jun 2021 18:56:21 +0100</lastBuildDate>
+        <lastBuildDate>Fri, 09 Jul 2021 15:36:55 +0100</lastBuildDate>
         <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Executing Stream Cipher Attacks on IP Packets</title>
+            <link>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</link>
+            <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</guid>
+            <description>For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
+The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
+            <content type="html"><![CDATA[
+    <img src="img/cover.jpg"  alt="Cover"  class="center"  style="border-radius: 0.5em;"  />
+
+
+<p>For part of my bachelor&rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper <a href="https://alter-attack.net/">&ldquo;Breaking LTE on Layer Two&rdquo;</a>.</p>
+<p>The attack is possible due to a specification flaw in LTE standards, where IP packets are <strong>not integrity protected</strong>. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&rsquo;t verify the authenticity of the data. This kind of attack is not specific to LTE networks, however, and can be executed in different environments.</p>
+<p>I learned a lot while implementing this attack, which I thought would be worth documenting and sharing through this post. Some of this post will refer to LTE networks specifically, but I will try to keep much of it general. This post includes how to do bitmasking comfortably in C++, how to find packet offsets using appropriate tools, and how to compensate for any checksum errors in IP packets.</p>
+<h2 id="stream-cipher-attack-explanation">Stream Cipher Attack Explanation</h2>
+<p>In most LTE networks, IP packets are encrypted with a <strong>stream cipher</strong> (AES-CTR), where the encryption algorithm generates streams of bytes called <strong>keystreams</strong>. To encrypt data, the sender XORs the unencrypted message (the <strong>plaintext</strong>) with the keystream to obtain an encrypted message (the <strong>ciphertext</strong>). The ciphertext is then sent to the receiver. The receiver generates the same keystream and can XOR it with the received ciphertext to retrieve the plaintext.</p>
+
+    <img src="img/stream-cipher-diagram.png"  alt="Stream Cipher Diagram"  class="center"  style="border-radius: 0.5em; width: 70%;"  />
+
+
+<p>As explained previously, a MITM attacker can successfully modify the ciphertext of internet packets in LTE networks such that they decrypt to a related plaintext. This is possible because the encryption algorithm used is a <a href="https://en.wikipedia.org/wiki/Malleability_(cryptography)"><strong>malleable cipher</strong></a>. If the attacker knows part of the plaintext of the encrypted data, they can apply a calculated <strong>manipulation mask</strong> (also referred to as a <strong>bitmask</strong>) to the ciphertext such that it decrypts into <em>any</em> chosen plaintext. The mask is calculated by XORing the plaintext with the message that the attacker wants to modify the plaintext to. The mask is then applied by XORing it with the ciphertext.</p>
+<p>The attack works because data XORed with itself results in all zeroes, and all zeros XORed with any data keeps the data intact. For more detail, I highly recommend reading a short description of how the attack works on <a href="https://en.wikipedia.org/wiki/Stream_cipher_attacks#Bit-flipping_attack">Wikipedia</a>.</p>
+
+    <img src="img/attack-diagram-general.png"  alt="Attack Diagram"  class="center"  style="border-radius: 0.5em;"  />
+
+
+<p>An attacker can apply the mask to only a part of the ciphertext, allowing for the attack if the entire plaintext is not known.</p>
+<p>As an example, in the context of LTE networks, the network provides the IP of the DNS server that connected devices should use for DNS resolution. Therefore, the plaintext of the destination IP of DNS requests is known. A MITM attacker can use this to change the destination IP to an arbitrary address, hijacking the request.</p>
+<h2 id="implementing-the-bit-flipping-stream-cipher-attack-in-c">Implementing the Bit-Flipping Stream Cipher Attack in C++</h2>
+<p>With the basics out of the way, I will explain how to implement a bit-flipping stream cipher attack where the plaintext is known in C++.</p>
+<h3 id="obtaining-field-offsets">Obtaining Field Offsets</h3>
+<p>The encrypted packets can be encapsulated in various protocols, so the offset at which to apply the bitmask will differ depending on the context. With more common protocols, you can easily find this information on the internet. In other cases, Wireshark and some testing may be needed.</p>
+<p>In my case of LTE networks and using the C++ <a href="https://www.srslte.com/">srsLTE</a> software suite, I was working with IPv4 packets encapsulated in the LTE PDCP protocol. Obtaining the offset of the destination IP in the IPv4 packet was trivial, but I found <a href="https://hpd.gasmi.net/">Salim Gasmi&rsquo;s Hex Packet Decoder</a> to be an excellent tool to help with this. The PDCP protocol only adds a 2-byte header to the front of IP packets, so I needed to add 2 to the IP packet offset for it to work in the context of PDCP packets.</p>
+<p>To additionally verify if my assumptions were correct, I checked example packets in Wireshark. This would also likely need to be done when finding the offsets of more exotic, less well-documented protocols. To obtain the example packets, I captured packets in a test setup with known keys such that the packets could be decrypted. Since we&rsquo;re working with a stream cipher, the offsets will be the same whether encryption is enabled or not. In the Wireshark capture, I was able to confirm that adding 2 to the IP packet offset was correct. This is shown below with the 2-byte PDP header but can also be verified by checking individual bytes.</p>
+
+    <img src="img/pdcp-trace.png"  alt="Wireshark PDCP Trace"  class="center"  style="border-radius: 0.5em; width: 90%;"  />
+
+
+<h3 id="applying-bitmasks-to-parts-of-payload-in-c">Applying Bitmasks to Parts of Payload in C++</h3>
+<p>We now have the required offsets at which to mask parts of our packets. The next step is to apply the bitmask by XORing it with the encrypted payload. In my case of using <a href="https://www.srslte.com/">srsLTE</a> and LTE networks, the payload was represented by a <code>uint8_t</code> array.</p>
+<p>To comfortably tweak my implementation and test it without having to set up an entire LTE network, I made myself a test script. To work with real data in the test script, I grabbed some example payloads (encrypted and unencrypted) from a test run and serialised them into a hex string. Then, my test script serialised it back into raw bytes when run. The code I personally used is by <a href="https://stackoverflow.com/questions/17452689/read-write-binary-object-as-hex/17452690#17452690">Robbie Rosati on Stack Overflow</a>.</p>
+<p>To calculate the bitmask, the known plaintext of the ciphertext is XORed with the plaintext that you would like the ciphertext to decrypt to. In C++ this is greatly eased by using a <code>std::valarray</code> as it&rsquo;s compatible with regular bitwise operations. Then, the mask is XORed with the payload at the appropriate offset. Overall, the entire implementation looks as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">apply_mask</span>(<span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> buf, std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> mask, <span style="color:#66d9ef">int</span> offset)
+{
+  <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> offset; i <span style="color:#f92672">&lt;</span> offset <span style="color:#f92672">+</span> mask.size(); i<span style="color:#f92672">++</span>) {
+    buf[i] <span style="color:#f92672">^=</span> mask[i <span style="color:#f92672">-</span> offset];
+  }
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#75715e">// De-serialise example payload (for testing only)
+</span><span style="color:#75715e"></span>  std<span style="color:#f92672">::</span>string buf_str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;80004500004ce33d00007811&#34;</span>;
+  <span style="color:#66d9ef">uint8_t</span> buf[buf_str.length() <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>];
+  object_from_hex(buf_str, <span style="color:#f92672">&amp;</span>buf);
+
+  <span style="color:#75715e">// Store plaintext and the modified plaintext as std::valarray
+</span><span style="color:#75715e"></span>  std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> dest_ip_modified{<span style="color:#ae81ff">178</span>, <span style="color:#ae81ff">62</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">207</span>};
+  std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> dest_ip_plaintext{<span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">226</span>, <span style="color:#ae81ff">10</span>};
+
+  <span style="color:#75715e">// Calculate the bitmask
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">auto</span> ip_mask <span style="color:#f92672">=</span> dest_ip_plaintext <span style="color:#f92672">^</span> dest_ip_modified;
+
+  <span style="color:#75715e">// Store the previously found offset of our known plaintext
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> pdu_dst_ip_byte_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>;
+
+  <span style="color:#75715e">// Apply the bitmask to the payload
+</span><span style="color:#75715e"></span>  apply_mask(buf, ip_mask, pdu_dst_ip_byte_offset);
+}
+</code></pre></div><h3 id="compensating-for-the-ipv4-checksum">Compensating for the IPv4 Checksum</h3>
+<p>In the example above, the destination IP of IPv4 packets is modified. The checksum is left intact, which will most likely be invalid with the new IP address. In effect, these packets will be correctly encrypted, but the network stack at the receiver is likely to discard them.</p>
+<p>For the receiver to not discard the packets, the checksum will need to be preserved. This can be done by modifying other fields in the packets, whose fields we can reliably predict. To do this, we first need to understand hot IPv4 checksums are calculated. As stated in the <a href="https://datatracker.ietf.org/doc/html/rfc791">Internet Protocol RFC 791</a>:</p>
+<blockquote>
+<p>&ldquo;The checksum field is the 16-bit ones' complement of the ones' complement sum of all 16-bit words in the header. For purposes of computing the checksum, the value of the checksum field is zero.&rdquo;</p>
+</blockquote>
+<p>This is quite a mouthful and personally, I found it difficult to grasp without seeing an example. For a great one, I recommend checking the <a href="https://en.wikipedia.org/wiki/IPv4_header_checksum#Examples">IPv4 header checksum Wikipedia page</a>.</p>
+<p>In the case of compensating for changes in the destination IP address, this entails calculating the difference between the 16-bit sums of the original and the modified IP addresses and tweaking other fields appropriately. Note that the 16-bit sum will mean that <strong>the first and the third octets</strong> of each IP address in the sum are <strong>shifted left 8 bits</strong> in the checksum calculation.</p>
+<p>In LTE networks, we can reliably predict the TTL of packets sent from some devices to the first mast, as it won&rsquo;t yet be decremented. This gives us the ability to compensate for changes in the <strong>first</strong> and <strong>third</strong> octets of the IP. To compensate for changes in the <strong>second</strong> and <strong>fourth</strong> octets, I performed an investigation by sending hand-crafted DNS packets with broken fields to a remotely hosted VM and checking if they&rsquo;re received and processed correctly. The aim was to establish which fields are not necessary for routing and could be modified. This was easily done using <a href="https://scapy.net/">Scapy</a>. Eventually, I found that the DSCP and ECN fields could be predicted and didn&rsquo;t impact routing, so these gave enough room for me to be able to compensate for changes in the second and fourth octets of the IP.</p>
+
+    <img src="img/ip-checksum.png"  alt="IP Checksum Diagram"  class="center"  style="border-radius: 0.5em; width: 90%;"  />
+
+
+<h4 id="ip-checksum-compensation-code-example">IP Checksum Compensation Code Example</h4>
+<p>To verify if my IP checksum compensation code worked, I added an implementation of it to my test script from before.</p>
+<p>To compensate for changes in the <strong>first</strong> and <strong>third</strong> IP octet using the TTL field:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Mask TTL */</span>
+
+<span style="color:#75715e">// Store the TTL field plaintext
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_plaintext <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>;
+
+<span style="color:#75715e">// Calculate the difference in the 16-bit totals of the original and modified destination IPs
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dest_ip_plaintext_total <span style="color:#f92672">=</span> (dest_ip_plaintext[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span> dest_ip_plaintext[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> (dest_ip_plaintext[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span> dest_ip_plaintext[<span style="color:#ae81ff">3</span>];
+<span style="color:#66d9ef">int</span> dest_ip_modified_total <span style="color:#f92672">=</span> (dest_ip_modified[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span> dest_ip_modified[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> (dest_ip_modified[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span> dest_ip_modified[<span style="color:#ae81ff">3</span>];
+<span style="color:#66d9ef">int</span> chksm_difference <span style="color:#f92672">=</span> dest_ip_plaintext_total <span style="color:#f92672">+</span> (ttl_plaintext <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">-</span> dest_ip_modified_total;
+
+<span style="color:#75715e">// Extract only the higher byte from the difference that the TTL field can compensate for
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_modified <span style="color:#f92672">=</span> chksm_difference <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">8</span>;
+
+<span style="color:#75715e">// Assert that the modified TTL field is valid
+</span><span style="color:#75715e"></span>assert(ttl_modified <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">20</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;TTL under 20: may not reach the destination&#34;</span>);
+assert(ttl_modified <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">255</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;TTL over 255: too large&#34;</span>);
+
+<span style="color:#75715e">// Calculate the bitmask
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_mask_val <span style="color:#f92672">=</span> ttl_plaintext <span style="color:#f92672">^</span>ttl_modified;
+std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ttl_mask <span style="color:#f92672">=</span> {ttl_mask_val};
+
+<span style="color:#75715e">// Apply the bitmask to the ciphertext
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_byte_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+apply_mask(buf, ttl_mask, ttl_byte_offset);
+</code></pre></div><p>To compensate for changes in the <strong>second</strong> and <strong>fourth</strong> IP octet using the DSCP and ECN fields:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Mask DSCP/ECN */</span>
+
+<span style="color:#75715e">// Store the DSCP/ECN field plaintext
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dscp_ecn_plaintext <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+<span style="color:#75715e">// Extract only the lower byte from the difference that the DSCP/ECN field can compensate for
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dscp_ecn_modified <span style="color:#f92672">=</span> chksm_difference <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>;
+
+<span style="color:#75715e">// Assert that the modified DSCP/ECN value is valid
+</span><span style="color:#75715e"></span>assert(dscp_ecn_mod <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;DSPCP/ECN under 1: invalid&#34;</span>);
+assert(dscp_ecn_mod <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">255</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;DSPCP/ECN above 255: invalid&#34;</span>);
+
+<span style="color:#75715e">// Calculate the bitmask
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dscp_ecn_mask_val <span style="color:#f92672">=</span> dscp_ecn_plain <span style="color:#f92672">^</span>dscp_ecn_mod;
+std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> dscp_ecn_mask <span style="color:#f92672">=</span> {dscp_ecn_mask_val};
+
+<span style="color:#75715e">// Apply the bitmask to the ciphertext
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> pdu_dscp_ecn_byte_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+apply_mask(buf, dscp_ecn_mask, pdu_dscp_ecn_byte_offset);
+</code></pre></div><h2 id="caveats-of-stream-cipher-attacks-on-ip-packets">Caveats of Stream Cipher Attacks on IP Packets</h2>
+<h3 id="impossible-to-compensate-for-changes">Impossible to Compensate for Changes</h3>
+<p>You may that it won&rsquo;t be possible to compensate for some changes in the fields, especially to the higher byte of the 16-bit sum. The lower byte can always carry into the higher byte, but the higher byte doesn&rsquo;t have this luxury. If it&rsquo;s not possible to find enough fields whose plaintext can be predicted, it may not be possible to compensate for any changes unless some external changes are made.</p>
+<p>This is an issue that I have encountered, where the destination IP couldn&rsquo;t be compensated for. In my case, I was redirecting DNS packets to a remote VM that I controlled, so I had control over the modified destination IP. I fixed this issue by deploying a VM hosted by another provider or in another region, such that the IP would differ adequately.</p>
+<h3 id="incorrect-udptcp-checksums">Incorrect UDP/TCP Checksums</h3>
+<p>Another issue that could occur is that the UDP checksum will be incorrect, causing the receiver to discard the packet. This occurs because the UDP checksum is calculated separately from the IP checksum. If you control the receiver, this issue could be alleviated by ignoring UDP checksums. There is conflicting advice on how to do this online, so I wrote a guide on how to disable UDP checksum validation in Linux which you can find <a href="https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/" title="How to Disable UDP Checksum Validation in Linux">here</a>.</p>
+<p>I&rsquo;ve attempted to correct the UDP checksum by masking other fields in the packet as well. Below is a diagram of all the fields that are used to calculate the UDP checksum, where the red fields are from the IPv4 packet:</p>
+
+    <img src="img/udp-checksum.png"  alt="UDP Checksum Diagram"  class="center"  style="border-radius: 0.5em; width: 75%;"  />
+
+
+<p>After modifying every non-payload field to see if the packets will be received, I found that Linux rejected them at the kernel level. The only promising change that worked was when part of the payload could be predicted and modified. Otherwise, pervasive changes would need to be made to the IP stack such that any incorrect fields are ignored and corrected.</p>
+]]></content>
+        </item>
         
         <item>
             <title>How I Started Learning Rust</title>

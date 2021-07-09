@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/srslte/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Jul 2021 15:36:55 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/srslte/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Executing Stream Cipher Attacks on IP Packets</title>
+      <link>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</link>
+      <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</guid>
+      <description>For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
+The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
+    </item>
+    
     <item>
       <title>How to Debug srsLTE</title>
       <link>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</link>
