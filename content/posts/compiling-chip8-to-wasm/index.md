@@ -14,7 +14,7 @@ tags:
 
 {{< image src="img/full-emulator.png" alt="CHIP-8 Emulator" position="center" style="border-radius: 0.5em;" >}}
 
-## Intro
+## Introduction
 
 A couple of months ago I wrote a [CHIP-8 emulator](https://github.com/dominikrys/chip8) in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I'll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result **[here](https://dominikrys.com/chip8)**.
 

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Dominik Rys ">
-<meta name="description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+<meta name="description" content="Introduction A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running." />
 <meta name="keywords" content="blog, software, engineering, software engineering, devops, software development, computer science, software engineering, webassembly, c&#43;&#43;, emscripten, sdl" />
 <meta name="robots" content="noodp" />
@@ -43,7 +43,7 @@ My main motivation for getting the emulator working on the web was that in its c
 
 
 <meta itemprop="name" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly">
-<meta itemprop="description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+<meta itemprop="description" content="Introduction A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running."><meta itemprop="datePublished" content="2020-08-15T16:55:48+01:00" />
 <meta itemprop="dateModified" content="2020-08-15T16:55:48+01:00" />
 <meta itemprop="wordCount" content="3380"><meta itemprop="image" content="https://dominikrys.com"/>
@@ -52,14 +52,14 @@ My main motivation for getting the emulator working on the web was that in its c
 <meta name="twitter:image" content="https://dominikrys.com"/>
 
 <meta name="twitter:title" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly"/>
-<meta name="twitter:description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+<meta name="twitter:description" content="Introduction A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running."/>
 
 
 
 
     <meta property="og:title" content="Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly" />
-<meta property="og:description" content="Intro A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+<meta property="og:description" content="Introduction A couple of months ago I wrote a CHIP-8 emulator in C&#43;&#43;17, as I wanted to learn about emulation and expand my C&#43;&#43; knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/" /><meta property="og:image" content="https://dominikrys.com"/><meta property="article:section" content="posts" />
@@ -168,7 +168,7 @@ My main motivation for getting the emulator working on the web was that in its c
           <div class="toc-title">Table of Contents</div>
           <nav id="TableOfContents">
   <ul>
-    <li><a href="#intro">Intro</a></li>
+    <li><a href="#introduction">Introduction</a></li>
     <li><a href="#setting-up-emscripten">Setting up Emscripten</a></li>
     <li><a href="#cmake-and-emscripten">CMake and Emscripten</a>
       <ul>
@@ -202,7 +202,7 @@ My main motivation for getting the emulator working on the web was that in its c
     <img src="img/full-emulator.png"  alt="CHIP-8 Emulator"  class="center"  style="border-radius: 0.5em;"  />
 
 
-<h2 id="intro">Intro</h2>
+<h2 id="introduction">Introduction</h2>
 <p>A couple of months ago I wrote a <a href="https://github.com/dominikrys/chip8">CHIP-8 emulator</a> in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result <strong><a href="https://dominikrys.com/chip8">here</a></strong>.</p>
 <p>My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running. I could send someone the pre-compiled binary or give building instructions, but those aren&rsquo;t guaranteed to work on every platform. Ideally, I wanted a solution that can be hosted on the web, and I recently heard about this cool new &ldquo;WebAssembly&rdquo; thing that seemed like the perfect solution.</p>
 <p><a href="https://webassembly.org/">WebAssembly</a> is a binary instruction format that runs on modern web browsers and allows apps to run at &ldquo;near-native speed&rdquo;. In reality, there is a <a href="https://www.usenix.org/conference/atc19/presentation/jangda">performance hit of about 50% relative to their native counterparts</a> so it won&rsquo;t be great at running AI or HFT algorithms in your web browser, but it will be good enough to play Space Invaders.</p>

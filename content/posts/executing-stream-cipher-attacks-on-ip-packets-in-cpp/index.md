@@ -12,6 +12,8 @@ tags:
 
 {{< image src="img/cover.jpg" alt="Cover" position="center" style="border-radius: 0.5em;" >}}
 
+## Introduction
+
 For part of my bachelor's dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper ["Breaking LTE on Layer Two"](https://alter-attack.net/).
 
 The attack is possible due to a specification flaw in LTE standards, where IP packets are **not integrity protected**. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can't verify the authenticity of the data. This kind of attack is not specific to LTE networks, however, and can be executed in different environments.

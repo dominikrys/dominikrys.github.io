@@ -14,7 +14,7 @@
       <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</guid>
-      <description>For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
+      <description>Introduction For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
 The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
     </item>
     
@@ -33,7 +33,7 @@ The attack is possible due to a specification flaw in LTE standards, where IP pa
       <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</guid>
-      <description>I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
+      <description>Introduction I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
     </item>
     
     <item>
@@ -42,7 +42,7 @@ The attack is possible due to a specification flaw in LTE standards, where IP pa
       <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2021/04/a-modern-way-to-configure-squid-as-a-transparent-proxy/</guid>
-      <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.</description>
+      <description>Introduction I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.</description>
     </item>
     
     <item>
@@ -51,7 +51,7 @@ The attack is possible due to a specification flaw in LTE standards, where IP pa
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
-      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+      <description>Introduction I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
     </item>

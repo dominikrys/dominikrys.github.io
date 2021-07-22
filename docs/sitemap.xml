@@ -2,10 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dominikrys.com/tags/c&#43;&#43;/</loc>
-    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
+    <loc>https://dominikrys.com/posts/2021/07/10-tips-for-getting-a-first-in-a-computer-science-dissertation/</loc>
+    <lastmod>2021-07-22T11:02:23+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/</loc>
+    <lastmod>2021-07-22T11:02:23+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2021-07-22T11:02:23+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/</loc>
+    <lastmod>2021-07-22T11:02:23+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/university/</loc>
+    <lastmod>2021-07-22T11:02:23+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/c&#43;&#43;/</loc>
     <lastmod>2021-07-09T15:36:55+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</loc>
@@ -14,16 +26,10 @@
     <loc>https://dominikrys.com/tags/networking/</loc>
     <lastmod>2021-07-09T15:36:55+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/</loc>
-    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/tags/security/</loc>
     <lastmod>2021-07-09T15:36:55+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/srslte/</loc>
-    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/</loc>
     <lastmod>2021-07-09T15:36:55+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</loc>

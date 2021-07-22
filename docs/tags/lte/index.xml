@@ -14,7 +14,7 @@
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
-      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+      <description>Introduction I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
     </item>

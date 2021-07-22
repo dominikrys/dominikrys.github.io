@@ -6,8 +6,69 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-GB</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 09 Jul 2021 15:36:55 +0100</lastBuildDate>
+        <lastBuildDate>Thu, 22 Jul 2021 11:02:23 +0100</lastBuildDate>
         <atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>10 Tips for Getting a First in a Computer Science Dissertation</title>
+            <link>https://dominikrys.com/posts/2021/07/10-tips-for-getting-a-first-in-a-computer-science-dissertation/</link>
+            <pubDate>Thu, 22 Jul 2021 11:02:23 +0100</pubDate>
+            
+            <guid>https://dominikrys.com/posts/2021/07/10-tips-for-getting-a-first-in-a-computer-science-dissertation/</guid>
+            <description>Introduction The moment I&amp;rsquo;ve been waiting for for years has happened recently - I&amp;rsquo;ve graduated with a First Class degree in Computer Science from the University of Birmingham! During the graduation ceremony (which I&amp;rsquo;ve been very lucky to get given a pandemic going on) I have also been awarded the Undergraduate Distinguished Dissertation Prize. This has been quite an honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.</description>
+            <content type="html"><![CDATA[
+    <img src="img/cover.jpg"  alt="Cover"  class="center"  style="border-radius: 0.5em;"  />
+
+
+<h2 id="introduction">Introduction</h2>
+<p>The moment I&rsquo;ve been waiting for for years has happened recently - I&rsquo;ve graduated with a First Class degree in Computer Science from the University of Birmingham! During the graduation ceremony (which I&rsquo;ve been very lucky to get given a pandemic going on) I have also been awarded the Undergraduate Distinguished Dissertation Prize. This has been quite an honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.</p>
+<p>I was going to write a post reflecting on my dissertation at some point. Given that I&rsquo;ve received such an accolade, however, I thought it made sense to document and pass on some knowledge that I believe went into making my dissertation stand out.</p>
+<h2 id="dissertation-context">Dissertation Context</h2>
+<p>Dissertations differ between universities and between courses, so I&rsquo;ll give some background as to how mine went down. The dissertation took place over the entirety of both terms (excluding the third, assessment term) of the final year of my undergraduate degree. It accounted for a third of the overall mark for my final year. I was given the option to specify which dissertation supervisors I prefer. I chose to go down the cybersecurity route, as in terms of academics that&rsquo;s the one that most aligns with my interests.</p>
+<p>I ended up with a cybersecurity researcher as my supervisor. He was incredibly helpful and without a doubt, a lot of the success of my dissertation is thanks to his input. My dissertation was titled &ldquo;Analysing the Security of 4G LTE Networks using an Independently Developed MITM Proxy/Relay&rdquo;. This is quite a mouthful, but the specifics of it don&rsquo;t matter for this blog post. Overall, I received a mark of 90% in my dissertation.</p>
+<p>I compiled a list of 10 tips that helped me work on my dissertation below. Some tips I&rsquo;ve received from my supervisor, some I figured out as I worked on my dissertation, and some I found through discussion with my peers. I tried to keep them general, yet specific enough to the field of computer science. I hope they&rsquo;re useful and provide something new relative to existing advice online.</p>
+<h2 id="the-10-tips">The 10 Tips</h2>
+<h3 id="1-set-many-achievable-goals-">1) Set many, achievable goals 🏁</h3>
+<p>Your dissertation will feel overwhelming at first. There is a lot of work to do over the year and it may feel like there&rsquo;s no way you&rsquo;d be able to finish it all. I overcame this by setting myself milestones that I discussed with my supervisor. I then split those milestones into smaller goals and sub-goals.</p>
+<p>As for milestones, make sure you have some small ones so that it feels like you made progress early on. Equally, make sure to have some <strong>ambitious</strong> ones towards the end. It&rsquo;s great to have an &ldquo;impossible&rdquo; goal to strive towards as then you&rsquo;ll always feel like there is work to do, which can also help with eliminating procrastination. In the worst case, if those difficult goals aren&rsquo;t achieved, you can mention them as potential improvements. In the best case, you&rsquo;ll achieve those goals and have a substantial contribution to the field in your dissertation.</p>
+<p>It&rsquo;s also important to <strong>assign a priority</strong> to your goals. I split my tasks into &ldquo;high&rdquo;, &ldquo;medium&rdquo;, and &ldquo;low&rdquo; priority. High priority tasks were done first as they were key to progress with my dissertation. Once those were done, I moved on to lower priority tasks. I found keeping a &ldquo;low&rdquo; priority list helpful to note down &ldquo;nice to have&rdquo; features that I could come back to at the end.</p>
+<p>I kept track of my goals with Apple Notes, but I know many people like using special to-do list apps or keeping track of tasks in a notebook. Whatever works for you is fine, as long as you use it.</p>
+<h3 id="2-regularly-ask-for-feedback-">2) Regularly ask for feedback 🗣</h3>
+<p>This one is super important and I feel like many students don&rsquo;t do it enough. Whenever you can, solicit feedback on your project. It will help you stay on track and give you a fresh perspective on your work so far, ensuring that you&rsquo;re making the most of your time and aren&rsquo;t missing anything.</p>
+<p>This should be done regularly during meetings with your supervisor. If your supervisor is reluctant or can&rsquo;t give you anything, ask them to think about it for next time.</p>
+<p>If you ever need to prepare a presentation on your project, make sure to take the feedback of any parties on board and directly address it when you&rsquo;re presenting your work at a later time. When preparing the presentation, practice by presenting it to your friends or family and gather their feedback. It will go a long way.</p>
+<p>Gathering feedback will also be important once you&rsquo;ve written up your dissertation. You could swap dissertations with other students and give each other feedback. This can help you as it will expose you to aspects that you may have missed, and it will get you to think about your dissertation from a more critical angle.</p>
+<h3 id="3-make-the-most-of-resources-provided-to-you-">3) Make the most of resources provided to you 💻</h3>
+<p>There are a <em>lot</em> of resources available to students writing their dissertations. This is not something I felt in previous years of university, and it has become very apparent over the last year. Whenever I needed any equipment (and I need a bunch of specialised 4G equipment), I asked my supervisor. He usually managed to sort something out promptly, or if he couldn&rsquo;t then he referred me to someone that could help.</p>
+<p>Universities generally also have lots of online resources that you have access to. Namely, there is a large collection of books I could access online. Those helped greatly with obtaining technical diagrams and writing up the background section for my dissertation.</p>
+<p>If your university provides example dissertations from previous years or mark schemes, <strong>use them</strong>! Especially if you&rsquo;re able to find a highly-graded dissertation similar to your dissertation topic, use it as inspiration as to how to structure your dissertation and what to include in it.</p>
+<h3 id="4-keep-a-record-of-all-youve-done-">4) Keep a record of all you&rsquo;ve done ✅</h3>
+<p>It&rsquo;s very useful to make a note of what work you&rsquo;ve done and the details of it. It especially comes in handy when writing up the dissertation and trying to remember the details of something you&rsquo;d have done months ago.</p>
+<p>It&rsquo;s also useful when discussing progress in weekly supervisor meetings. Your supervisor might as you things that you can&rsquo;t remember off the top of your head, so having what you did noted down helps in such cases.</p>
+<h3 id="5-if-youre-stuck-try-everything-you-can-and-be-honest-">5) If you&rsquo;re stuck, try everything you can and be honest 🙋‍♂️</h3>
+<p>Dissertations are difficult. There were many points over the year where I felt like I hit a wall. In times like this, I made it a point to instead try to do anything that could help (even if I thought it&rsquo;s unlikely to work) and noted down what I tried and what the outcomes were. In many cases, I could get closer to the solution through this methodological trial-and-error. If I couldn&rsquo;t progress, I made sure to formulate the problem well and explain it to my dissertation supervisor, mentioning everything I tried.</p>
+<p>If you&rsquo;re stuck, make sure to be upfront and honest about your issues in progress meetings. Your supervisor would then be aware of these issues early and will be able to help you in a timely manner. In the end, they want you to succeed, so there&rsquo;s no shame in asking for help.</p>
+<p>It&rsquo;s also useful to ask any technical friends about what ideas they may have when you&rsquo;re stuck. I found myself fixating on certain esoteric aspects of my project sometimes, where the solution turned out to be much simpler once I spoke to someone about it.</p>
+<h3 id="6-manage-your-time-well-">6) Manage your time well ⏱</h3>
+<p>You will have other modules and commitments that you&rsquo;ll need to allocate time for. Therefore, time management is key. You may find that during some weeks you get lots of work on your dissertation, and in other weeks there won&rsquo;t be much. That&rsquo;s completely fine, but it&rsquo;s important to communicate this to your supervisor and in any progress checks.</p>
+<p>Personally, I did a bulk of the work in the first term, so in the second term, I focussed on aspects that might not work and writing up my dissertation. Also when I knew that an assignment is coming up from another module, I made sure to focus on my dissertation beforehand. Then, once the assignment was available, I didn&rsquo;t have to focus on my dissertation knowing that I worked on it additionally at another time.</p>
+<h3 id="7-dont-lose-sight-of-the-big-picture-">7) Don&rsquo;t lose sight of the big picture 🥇</h3>
+<p>Continuously remind yourself of what the end goal is of what you&rsquo;re trying to do. I did a security project where I was being marked on the accuracy and thoroughness of my methods. Nevertheless, I found myself spending hours employing various software engineering methods and making my code look good and maintainable. This wasn&rsquo;t necessary and if any, I got negligible credit for this. It simply wasn&rsquo;t the goal of the project and that time could have been better allocated elsewhere.</p>
+<h3 id="8-allocate-time-to-learn-about-academic-writing-">8) Allocate time to learn about academic writing 📚</h3>
+<p>Writing up a dissertation will likely be quite different from any work you&rsquo;ve done previously. Especially in computer science, where essays and longer pieces of writing aren&rsquo;t common in many modules, it can take some time to get used to.</p>
+<p>You will need to read a lot of academic papers to get used to the academic writing style. I underestimated quite heavily how much this would take, and resulted in having to re-write some sections of my dissertation when my sense for academic writing improved.</p>
+<p>It can be useful to keep a small bank of published papers that you like of which you can refer back to. I did this and then picked aspects I liked out of each one and incorporated them into my dissertation. This also ensured that my dissertation read more like a paper, and less like a student essay.</p>
+<p>Along with reading about academic writing, some time will need to be allocated to getting familiar with academic writing tools. The vast majority of academic papers are written using <a href="https://www.latex-project.org/">LaTeX</a>. I&rsquo;d recommend using LaTeX, as your markers are likely to be researchers that also use it and are likely quite fond of it. It also makes your writing look great out of the box. However, sometimes things may break and extra time will need to aspects that just wouldn&rsquo;t break in an ordinary word processor. A good alternative is using a word processor with a LaTeX document theme.</p>
+<p>I used <a href="https://www.overleaf.com/">Overleaf</a> as my LaTeX editor, which made working with LaTeX a breeze. I also used <a href="https://www.zotero.org/">Zotero</a> as my bibliography manager. <a href="https://www.writefull.com/">Writefull</a> also came in handy to make my work look more academic and it integrated with Overleaf well. Finally, <a href="https://grammarly.com/">Grammarly</a> and <a href="https://hemingwayapp.com/">Hemingway Editor</a> were useful in giving my dissertation an extra level of polish and helped with getting it to read better.</p>
+<h3 id="9-keep-your-final-write-up-concise-">9) Keep your final write-up concise ✍️</h3>
+<p>After working on your dissertation for almost a year, you&rsquo;ll find that there is a lot you can write about. I had to do lots of cutting down to reach the 10,000-word limit and wished I&rsquo;d have been much more concise from the start.</p>
+<p>The hardest bit for me was parting with the misconception that the time spent on a certain task directly correlates to the amount of space it should take up in the write-up. This was plain wrong. I spent weeks at the start simply trying to understand the basics of what I was working on, which eventually seemed quite trivial to me. Towards the end, however, I could spend a couple of days working on something that I could write whole chapters about. It&rsquo;s important to realise how much value each point brings.</p>
+<p>On the contrary, it&rsquo;s important to be aware of the <a href="https://en.wikipedia.org/wiki/Curse_of_knowledge"><strong>curse of knowledge</strong></a>. You&rsquo;re likely to be working on a highly specialised topic that&rsquo;s not common knowledge for many computer science researchers. Something trivial to you may not be trivial to others. To help with this, I recommend reading your dissertation in its entirety from time to time and getting other people to read it also.</p>
+<p>In the end, <strong>a longer dissertation won&rsquo;t mean a better dissertation</strong>. In a long dissertation, your weak points will likely dilute your strong points, which could make your markers doubt your understanding of the topic. A good rule to follow is that <strong>if it doesn&rsquo;t directly improve your project or feed into something that does, cut it out</strong>.</p>
+<h3 id="10-have-fun-">10) Have fun! 😊</h3>
+<p>Your dissertation is a substantial piece of work, and likely the largest piece of academic work you&rsquo;ve undertaken so far. It&rsquo;s also a great opportunity to hone in on one research topic that you&rsquo;re interested in. Therefore, it&rsquo;s important that you have fun along the way and treat it as an opportunity to focus on what you enjoy in computer science!</p>
+]]></content>
+        </item>
         
         <item>
             <title>Executing Stream Cipher Attacks on IP Packets</title>
@@ -15,12 +76,13 @@
             <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
             
             <guid>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</guid>
-            <description>For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
+            <description>Introduction For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
 The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
             <content type="html"><![CDATA[
     <img src="img/cover.jpg"  alt="Cover"  class="center"  style="border-radius: 0.5em;"  />
 
 
+<h2 id="introduction">Introduction</h2>
 <p>For part of my bachelor&rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper <a href="https://alter-attack.net/">&ldquo;Breaking LTE on Layer Two&rdquo;</a>.</p>
 <p>The attack is possible due to a specification flaw in LTE standards, where IP packets are <strong>not integrity protected</strong>. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&rsquo;t verify the authenticity of the data. This kind of attack is not specific to LTE networks, however, and can be executed in different environments.</p>
 <p>I learned a lot while implementing this attack, which I thought would be worth documenting and sharing through this post. Some of this post will refer to LTE networks specifically, but I will try to keep much of it general. This post includes how to do bitmasking comfortably in C++, how to find packet offsets using appropriate tools, and how to compensate for any checksum errors in IP packets.</p>
@@ -255,11 +317,12 @@ sudo nft <span style="color:#e6db74">&#39;add rule input_table input ip protocol
             <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
             
             <guid>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</guid>
-            <description>I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
+            <description>Introduction I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
             <content type="html"><![CDATA[
     <img src="img/privoxy-logo.png"  alt="Privoxy Logo"  class="center"  style="border-radius: 0.5em;"  />
 
 
+<h2 id="introduction">Introduction</h2>
 <p>I&rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is <strong>not</strong> the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</p>
 <p>In this post, I will explain how it&rsquo;s possible to proxy such HTTP traffic by redirecting it to the correct destination.</p>
 <h2 id="why-cant-spoofed-dns-packets-be-proxied-using-an-ordinary-transparent-proxy">Why can&rsquo;t spoofed DNS packets be proxied using an ordinary transparent proxy?</h2>
@@ -301,11 +364,12 @@ debug 1
             <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
             
             <guid>https://dominikrys.com/posts/2021/04/a-modern-way-to-configure-squid-as-a-transparent-proxy/</guid>
-            <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.</description>
+            <description>Introduction I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.</description>
             <content type="html"><![CDATA[
     <img src="img/squid-logo.png"  alt="Squid Logo"  class="center"  style="border-radius: 0.5em; background: white; padding: 5px;"  />
 
 
+<h2 id="introduction">Introduction</h2>
 <p>I&rsquo;ve recently set up <a href="http://www.squid-cache.org/">Squid</a> as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.</p>
 <p>With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&rsquo;d write this post. We discuss HTTP transparent proxying at the start, but provide resources for allowing support for HTTPS.</p>
 <p>The following instructions have been tested on Ubuntu 18.04 deployed in Azure, and Ubuntu 20.04 on DigitalOcean.</p>
@@ -355,13 +419,14 @@ http_port 3128 intercept
             <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
             
             <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
-            <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+            <description>Introduction I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
             <content type="html"><![CDATA[
     <img src="img/srslte-logo.png"  alt="srsLTE Logo"  class="center"  style="border-radius: 0.5em;"  />
 
 
+<h2 id="introduction">Introduction</h2>
 <p>I&rsquo;ve recently been working extensively with <a href="https://github.com/srsLTE/srsLTE">srsLTE</a> for my bachelor&rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.</p>
 <p>I&rsquo;ll assume you know how to debug ordinary C/C++ programs (I&rsquo;ll patiently wait here if you need to have a look into that).</p>
 <h2 id="compiling-srslte-in-debug-mode">Compiling srsLTE in debug mode</h2>
@@ -827,13 +892,13 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
             <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
             
             <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
-            <description>Intro A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+            <description>Introduction A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
             <content type="html"><![CDATA[
     <img src="img/full-emulator.png"  alt="CHIP-8 Emulator"  class="center"  style="border-radius: 0.5em;"  />
 
 
-<h2 id="intro">Intro</h2>
+<h2 id="introduction">Introduction</h2>
 <p>A couple of months ago I wrote a <a href="https://github.com/dominikrys/chip8">CHIP-8 emulator</a> in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result <strong><a href="https://dominikrys.com/chip8">here</a></strong>.</p>
 <p>My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running. I could send someone the pre-compiled binary or give building instructions, but those aren&rsquo;t guaranteed to work on every platform. Ideally, I wanted a solution that can be hosted on the web, and I recently heard about this cool new &ldquo;WebAssembly&rdquo; thing that seemed like the perfect solution.</p>
 <p><a href="https://webassembly.org/">WebAssembly</a> is a binary instruction format that runs on modern web browsers and allows apps to run at &ldquo;near-native speed&rdquo;. In reality, there is a <a href="https://www.usenix.org/conference/atc19/presentation/jangda">performance hit of about 50% relative to their native counterparts</a> so it won&rsquo;t be great at running AI or HFT algorithms in your web browser, but it will be good enough to play Space Invaders.</p>
