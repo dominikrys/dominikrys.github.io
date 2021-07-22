@@ -3,7 +3,6 @@ title: "How to Debug srsLTE"
 date: 2021-02-13T10:34:48+01:00
 draft: false
 toc: true
-comments: true
 tags:
   - security
   - software engineering

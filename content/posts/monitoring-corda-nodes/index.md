@@ -3,7 +3,6 @@ title: "Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf"
 date: 2020-09-21T16:52:48+01:00
 draft: false
 toc: true
-comments: true
 tags:
   - devops
   - security

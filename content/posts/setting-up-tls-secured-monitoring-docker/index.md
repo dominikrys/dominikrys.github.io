@@ -3,7 +3,6 @@ title: "Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, G
 date: 2020-12-01T12:51:48+01:00
 draft: false
 toc: true
-comments: true
 tags:
   - devops
   - security

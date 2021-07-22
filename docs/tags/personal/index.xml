@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>personal on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/personal/</link>
+    <description>Recent content in personal on Dominik Rys</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-GB</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 01 Aug 2020 15:16:16 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/personal/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>First Blog Post</title>
+      <link>https://dominikrys.com/posts/2020/08/first-blog-post/</link>
+      <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/2020/08/first-blog-post/</guid>
+      <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
+My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this.
+The tech stack I used to set up this blog is quite straightforward. Hugo is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown and then rapidly generate the web pages.</description>
+    </item>
+    
+  </channel>
+</rss>
