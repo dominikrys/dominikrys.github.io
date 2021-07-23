@@ -98,5 +98,77 @@
       <description></description>
     </item>
     
+    <item>
+      <title>docker</title>
+      <link>https://dominikrys.com/tags/docker/</link>
+      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>grafana</title>
+      <link>https://dominikrys.com/tags/grafana/</link>
+      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/grafana/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>influxdb</title>
+      <link>https://dominikrys.com/tags/influxdb/</link>
+      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/influxdb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>traefik</title>
+      <link>https://dominikrys.com/tags/traefik/</link>
+      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/traefik/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>emscripten</title>
+      <link>https://dominikrys.com/tags/emscripten/</link>
+      <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/emscripten/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sdl</title>
+      <link>https://dominikrys.com/tags/sdl/</link>
+      <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/sdl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>webassembly</title>
+      <link>https://dominikrys.com/tags/webassembly/</link>
+      <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/webassembly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>personal</title>
+      <link>https://dominikrys.com/tags/personal/</link>
+      <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/personal/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
