@@ -115,23 +115,5 @@ My main objective for this blog is to start documenting my work more. Having had
 The tech stack I used to set up this blog is quite straightforward. Hugo is the static site generator responsible for most of the heavy work, allowing me to write posts simply in Markdown and then rapidly generate the web pages.</description>
     </item>
     
-    <item>
-      <title>About</title>
-      <link>https://dominikrys.com/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/about/</guid>
-      <description>Opinions expressed on this blog are solely my own and do not express the views or opinions of my employer.</description>
-    </item>
-    
-    <item>
-      <title>Projects</title>
-      <link>https://dominikrys.com/projects/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/projects/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
