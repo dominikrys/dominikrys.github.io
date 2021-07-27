@@ -4,12 +4,9 @@ date: 2021-07-22T11:02:23+01:00
 cover:
     image: "img/cover.jpg"
     alt: "Cover"
-    relative: true
 tags:
   - university
 ---
-
-## Introduction
 
 The moment I've been waiting for for years has happened recently - I've graduated with a First Class degree in Computer Science from the University of Birmingham! During the graduation ceremony (which I've been very lucky to get given a pandemic going on) I have also been awarded the Undergraduate Distinguished Dissertation Prize. This has been quite an honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.
 

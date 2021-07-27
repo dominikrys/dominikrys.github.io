@@ -4,7 +4,6 @@ date: 2021-02-13T10:34:48+01:00
 cover:
     image: "img/srslte-logo.png"
     alt: "srsLTE Logo"
-    relative: true
 tags:
   - security
   - software engineering
@@ -12,8 +11,6 @@ tags:
   - srslte
   - lte
 ---
-
-## Introduction
 
 I've recently been working extensively with [srsLTE](https://github.com/srsLTE/srsLTE) for my bachelor's dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 

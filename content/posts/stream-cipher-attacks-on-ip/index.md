@@ -4,15 +4,12 @@ date: 2021-07-09T15:36:55+01:00
 cover:
     image: "img/cover.jpg"
     alt: "Cover"
-    relative: true
 tags:
   - c++
   - srslte
   - security
   - networking
 ---
-
-## Introduction
 
 For part of my bachelor's dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper ["Breaking LTE on Layer Two"](https://alter-attack.net/).
 

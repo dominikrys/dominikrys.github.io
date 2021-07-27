@@ -16,7 +16,7 @@
       <pubDate>Thu, 22 Jul 2021 11:02:23 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/cs-dissertation-tips/</guid>
-      <description>Introduction The moment I&amp;rsquo;ve been waiting for for years has happened recently - I&amp;rsquo;ve graduated with a First Class degree in Computer Science from the University of Birmingham! During the graduation ceremony (which I&amp;rsquo;ve been very lucky to get given a pandemic going on) I have also been awarded the Undergraduate Distinguished Dissertation Prize. This has been quite an honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.</description>
+      <description>The moment I&amp;rsquo;ve been waiting for for years has happened recently - I&amp;rsquo;ve graduated with a First Class degree in Computer Science from the University of Birmingham! During the graduation ceremony (which I&amp;rsquo;ve been very lucky to get given a pandemic going on) I have also been awarded the Undergraduate Distinguished Dissertation Prize. This has been quite an honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.</description>
     </item>
     
     <item>
@@ -25,7 +25,7 @@
       <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</guid>
-      <description>Introduction For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
+      <description>For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
 The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
     </item>
     
@@ -54,7 +54,7 @@ In this post, I describe how I went about learning Rust and what resources I use
       <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/transparently-proxy-spoofed-ip/</guid>
-      <description>Introduction I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
+      <description>I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
     </item>
     
     <item>
@@ -63,7 +63,8 @@ In this post, I describe how I went about learning Rust and what resources I use
       <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/squid-transparent-proxy/</guid>
-      <description>Introduction I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.</description>
+      <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
+With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&amp;rsquo;d write this post.</description>
     </item>
     
     <item>
@@ -72,7 +73,7 @@ In this post, I describe how I went about learning Rust and what resources I use
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/debug-srslte/</guid>
-      <description>Introduction I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
     </item>

@@ -4,7 +4,6 @@ date: 2020-12-01T12:51:48+01:00
 cover:
     image: "img/diagram.png"
     alt: "Architecture Diagram"
-    relative: true
 tags:
   - devops
   - security

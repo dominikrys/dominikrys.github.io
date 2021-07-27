@@ -4,7 +4,6 @@ date: 2020-09-21T16:52:48+01:00
 cover:
     image: "img/cover.png"
     alt: "Cover"
-    relative: true
 tags:
   - devops
   - security
@@ -22,7 +21,7 @@ Here at R3, we have a cluster of Corda nodes that we use for performance testing
 
 We recently decided to invest some effort in improving the observability of the overall system so that we could identify regressions and analyse their root cause more efficiently and with less manual work. There is [a wealth of metrics exposed by Corda nodes via JMX](https://docs.corda.net/docs/corda-enterprise/node-metrics.html) that can be inspected using tools such as [Hawtio](https://hawt.io/) (as [described in the Corda docs](https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html)). However, this approach requires plenty of manual intervention and the prerequisite of the test actively running during inspection times.
 
-{{< figure src="img/hawtio.png" alt="Corda JMX metrics visible in Hawtio" align="center" >}} _> Corda JMX metrics visible in Hawtio_
+{{< figure src="img/hawtio.png" alt="Corda JMX metrics visible in Hawtio" align="center" caption="Corda JMX metrics visible in Hawtio">}}
 
 We had to set up a monitoring infrastructure that would allow us to:
 
@@ -100,11 +99,11 @@ Being the oldest of the bunch has its disadvantages though, most notably that th
 
 ### Front end for visualising and querying the TSDB
 
-{{< figure src="img/example-grafana-dashboard.png" alt="Example Grafana Dashboard" align="center" >}} _> Example Grafana Dashboard_
+{{< figure src="img/example-grafana-dashboard.png" alt="Example Grafana Dashboard" align="center" caption="Example Grafana Dashboard" >}}
 
 ⭐ [**Grafana**](https://grafana.com) — an open source tool for interactively visualising data from various data sources. Grafana is by far the most popular tool for interacting with TSDBs with over [1200 contributors on GitHub](https://github.com/grafana/grafana) and a very active [community forum](https://community.grafana.com/). There are [many plug-ins available for it](https://grafana.com/grafana/plugins), it integrates well with many other services for [alerting](https://grafana.com/docs/grafana/latest/alerting/notifications/) and [authentication](https://grafana.com/docs/grafana/latest/auth/overview/), and it makes creating aesthetically pleasing dashboards a breeze.
 
-{{< figure src="img/example-chronograf-dashboard.png" alt="Example Chronograf Dashboard" align="center" >}} _> Example Chronograf Dashboard_
+{{< figure src="img/example-chronograf-dashboard.png" alt="Example Chronograf Dashboard" align="center" caption="Example Chronograf Dashboard">}}
 
 [**Chronograf**](https://www.influxdata.com/time-series-platform/chronograf) — an open source tool for interacting and visualising data from InfluxDB. Chronograf is very well suited for setups where other products from InfluxData are used, as it’s better integrated with them compared to Grafana. This could have been a great option if we also used [Kapacitor](https://www.influxdata.com/time-series-platform/kapacitor/) as a real-time streaming data processing engine from InfluxData, to complete their “[TICK](https://www.influxdata.com/blog/introduction-to-influxdatas-influxdb-and-tick-stack/)” stack.
 

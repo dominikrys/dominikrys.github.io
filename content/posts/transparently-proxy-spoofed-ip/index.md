@@ -4,15 +4,12 @@ date: 2021-04-17T10:44:53+01:00
 cover:
     image: "img/privoxy-logo.png"
     alt: "Privoxy Logo"
-    relative: true
 tags:
   - security
   - devops
   - networking
   - linux
 ---
-
-## Introduction
 
 I've recently worked on a security project which required me to transparently/interceptingly (if that's a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is **not** the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.
 

@@ -4,7 +4,6 @@ date: 2020-08-15T16:55:48+01:00
 cover:
     image: "img/full-emulator.png"
     alt: "CHIP-8 Emulator"
-    relative: true
 tags:
   - software engineering
   - webassembly
