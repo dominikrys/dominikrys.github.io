@@ -105,6 +105,6 @@ You should now have a minimal Squid transparent proxy running. Make sure to conf
 
 To enable transparent proxying of HTTPS traffic, I recommend [suntong's guide](https://dev.to/suntong/squid-proxy-and-ssl-interception-1oa4).
 
-Note that Squid is unable to resolve the original destination of packets that have had their destination IP spoofed ([source](http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html)). To resolve those properly, I've had luck using [Privoxy](https://www.privoxy.org/) in [intercepting mode](https://www.privoxy.org/faq/configuration.html#INTERCEPTING) as I describe in [this post]({{< ref "../transparently-proxy-ip-packets-with-spoofed-destinations/index.md" >}} "Transparently Proxy IP Packets With Spoofed Destinations").
+Note that Squid is unable to resolve the original destination of packets that have had their destination IP spoofed ([source](http://squid-web-proxy-cache.1019090.n4.nabble.com/TProxy-and-client-dst-passthru-td4670189.html)). To resolve those properly, I've had luck using [Privoxy](https://www.privoxy.org/) in [intercepting mode](https://www.privoxy.org/faq/configuration.html#INTERCEPTING) as I describe in [this post]({{< ref "../transparently-proxy-spoofed-ip/index.md" >}} "Transparently Proxy IP Packets With Spoofed Destinations").
 
 Thanks for reading, and I hope that this post helped anyone struggling with Squid!

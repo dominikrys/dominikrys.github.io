@@ -181,24 +181,24 @@ if (!doNotTrack) {
 <ol>
 <li>
 <p>Run <code>tcpdump</code> on machine 1, listening to internet traffic at port 53:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo tcpdump -i &lt;NETWORK INTERFACE&gt; dst port <span style="color:#ae81ff">53</span> -vv
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo tcpdump -i &lt;NETWORK INTERFACE&gt; dst port <span style="color:#ae81ff">53</span> -vv
 </code></pre></div><p>To get the network interface names, you can run <code>ip link show</code>.</p>
 </li>
 <li>
 <p>Disable transmit checksum offloading on machine 1. This is so that any invalid checksums won&rsquo;t be corrected by the hardware. In some cases, it may not be possible to disable this, so another machine may need to be used. To disable transmit checksum offloading on Linux, run:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ethtool --offload &lt;NETWORK INTERFACE&gt; tx off
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ethtool --offload &lt;NETWORK INTERFACE&gt; tx off
 </code></pre></div></li>
 <li>
 <p>Download and run <a href="https://github.com/secdev/scapy">Scapy</a> on machine 2.</p>
 </li>
 <li>
 <p>Craft a DNS packet with a broken UDP checksum using Scapy on machine 2:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bad_packet <span style="color:#f92672">=</span> IP<span style="color:#f92672">(</span>dst<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&lt;MACHINE 1 IP&gt;&#39;</span><span style="color:#f92672">)</span> / UDP<span style="color:#f92672">()</span> / DNS<span style="color:#f92672">(</span>rd<span style="color:#f92672">=</span>1, qd<span style="color:#f92672">=</span>DNSQR<span style="color:#f92672">(</span>qname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;www.example.com&#34;</span><span style="color:#f92672">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bad_packet <span style="color:#f92672">=</span> IP<span style="color:#f92672">(</span>dst<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&lt;MACHINE 1 IP&gt;&#39;</span><span style="color:#f92672">)</span> / UDP<span style="color:#f92672">()</span> / DNS<span style="color:#f92672">(</span>rd<span style="color:#f92672">=</span>1, qd<span style="color:#f92672">=</span>DNSQR<span style="color:#f92672">(</span>qname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;www.example.com&#34;</span><span style="color:#f92672">))</span>
 </code></pre></div><p>Make sure to replace <code>&lt;MACHINE 1 IP&gt;</code> with the IP of machine 1.</p>
 </li>
 <li>
 <p>Send the packet with a broken checksum from machine 2 to machine 1:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">send<span style="color:#f92672">(</span>bad_packet<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">send<span style="color:#f92672">(</span>bad_packet<span style="color:#f92672">)</span>
 </code></pre></div></li>
 <li>
 <p>Check the <code>tcpdump</code> logs on machine 1. If the packet is received stating <code>bad udp cksum</code> in the logs, the machine can receive packets with broken UDP checksums. We can then continue with adding rules to ignore the checksums.</p>
@@ -211,7 +211,7 @@ if (!doNotTrack) {
 <p>So far, we&rsquo;ve confirmed that packets with broken UDP checksums can be received by our machine. However, these packets won&rsquo;t get accepted by any target applications due to the invalid checksum. We can fix this using <code>nftables</code>.</p>
 <p>We can configure <code>nftables</code> rules that set the UDP checksum of received packets to 0 before they&rsquo;re passed to any applications. Packets with UDP checksums of 0 will not have their checksums validated, effectively disabling UDP checksum validation.</p>
 <p>To set this up, first install <code>nftables</code> with your favourite package manager. Next, add the following <code>nftables</code> rule:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nft add table input_table
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nft add table input_table
 sudo nft <span style="color:#e6db74">&#39;add chain input_table input {type filter hook input priority -300;}&#39;</span>
 sudo nft <span style="color:#e6db74">&#39;add rule input_table input ip protocol udp udp checksum set 0&#39;</span>
 </code></pre></div><p>This rule will set the UDP checksum of every received IP UDP packet to 0. Your machine will now ignore UDP checksums of received packets! Feel free to test it using Scapy.</p>

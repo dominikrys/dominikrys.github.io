@@ -210,7 +210,7 @@ if (!doNotTrack) {
 <p>For the finished all-in-one deployment of Grafana, InfluxDB and Traefik that this post will build up to, I&rsquo;ve provided this GitHub repo: <a href="https://github.com/dominikrys/docker-influxdb-grafana-traefik">Secure Monitoring Solution in Docker</a>.</p>
 <h2 id="setting-up-grafana-and-influxdb">Setting up Grafana and InfluxDB</h2>
 <p>Setting up Grafana and InfluxDB on Docker is pretty straightforward. Here&rsquo;s a <code>docker-compose.yml</code> that will do just that:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
 
 <span style="color:#f92672">services</span>:
     <span style="color:#f92672">influxdb</span>:
@@ -255,7 +255,7 @@ if (!doNotTrack) {
         <span style="color:#f92672">external</span>: <span style="color:#66d9ef">false</span>
 </code></pre></div><p>This simple Docker compose application creates Grafana and InfluxDB containers, creates persistent volumes for them so data will be saved if they&rsquo;re restarted, and sets up a networking bridge so the containers can communicate between each other (in favour of the legacy <a href="https://docs.docker.com/network/links/"><code>links</code></a> command that some old setups use).</p>
 <p>To start up the containers, run:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose up
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose up
 </code></pre></div><p>Grafana can then be accessed at <a href="http://localhost:3000/"><code>http://localhost:3000</code></a> and InfluxDB at <a href="http://localhost:8086/"><code>http://localhost:8086</code></a>. You can go ahead and send some data to InfluxDB (e.g. with <a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a>) to make sure it works. InfluxDB will need to be set up as a data source manually in Grafana, however it can be automated as I&rsquo;ll describe later.</p>
 <p>The database specified by the <code>INFLUXDB_DB</code> environment variable will be created when InfluxDB is initialised. This is poorly documented sadly, but most of the details are included in <a href="https://github.com/influxdata/influxdata-docker/pull/102">this InfluxDB PR</a>.</p>
 <p>The admin account details are provided in the <code>docker-compose.yml</code> above and should be changed to something secure. For ideas on how to store them securely, I recommend looking at <a href="https://docs.docker.com/engine/swarm/secrets/">Docker secrets</a> or <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">Ansible Vault</a>.</p>
@@ -275,7 +275,7 @@ if (!doNotTrack) {
 <p>Initially, I found how to secure the described Docker compose deployment with Traefik from <a href="https://www.grzegorowski.com/secure-docker-grafana-container-with-ssl-through-traefik-proxy">Jan Grzegorowski&rsquo;s blog post</a>. I highly recommend reading his post if anything is not clear here (I won&rsquo;t be offended).</p>
 <p>As described already, Traefik is a cloud-native edge router which will serve as a reverse proxy in our Docker compose application. It will automatically issue and renew TLS certificates, so the traffic to and from our Docker containers will be encrypted. Luckily it&rsquo;s also quite straightforward to configure using <a href="https://doc.traefik.io/traefik/providers/docker/">labels</a>, and the entire configuration can be kept inside one <code>docker-compose.yml</code> file.</p>
 <p>Adapting the above example <code>docker-compose.yml</code> to work with Traefik, we get:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
 
 <span style="color:#f92672">services</span>:
     <span style="color:#f92672">influxdb</span>:
@@ -380,7 +380,7 @@ if (!doNotTrack) {
 <h3 id="traefik-with-other-containers">Traefik with other containers</h3>
 <p>The Grafana TLS configuration is largely the same, with the appropriate port numbers and router names changed.</p>
 <p>Since we want Grafana to show up when the domain is visited, the following labels handle HTTP to HTTPS redirection using Traefik:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;traefik.http.routers.grafana.entryPoints=port80&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;traefik.http.routers.grafana.entryPoints=port80&#34;</span>
 - <span style="color:#e6db74">&#34;traefik.http.routers.grafana.rule=host(`YOUR_DOMAIN`)&#34;</span>
 - <span style="color:#e6db74">&#34;traefik.http.routers.grafana.middlewares=grafana-redirect&#34;</span>
 - <span style="color:#e6db74">&#34;traefik.http.middlewares.grafana-redirect.redirectScheme.scheme=https&#34;</span>
@@ -388,7 +388,7 @@ if (!doNotTrack) {
 </code></pre></div><p>Here we set up <a href="https://doc.traefik.io/traefik/middlewares/overview/">Traefik middlewares</a> which are a means to tweak requests (e.g. redirect from one port to another) before it gets passed to the Traefik service. The configuration is fairly straightforward.</p>
 <h3 id="traefik-container-configuration">Traefik container configuration</h3>
 <p>Finally, we set up the actual Traefik container:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">traefik</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">traefik</span>:
     <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">traefik</span>
     <span style="color:#f92672">image</span>: <span style="color:#ae81ff">traefik:v2.3.4</span>
     <span style="color:#f92672">volumes</span>:
@@ -403,14 +403,14 @@ if (!doNotTrack) {
 </code></pre></div><p>First, we set up a persistent volume for the <code>/letencrypt</code> directory which will store any TLS certificates that Traefik obtains from Let&rsquo;s Encrypt. This is important so that certificates don&rsquo;t have to be reissued when the container is restarted.</p>
 <p>Next, we need to mount the Docker socket into the container so that Traefik can get <a href="https://docs.traefik.io/providers/docker/#docker-api-access">Docker&rsquo;s dynamic configuration</a>.</p>
 <p>We also open all the ports whose traffic we want to route through Traefik.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">command</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">command</span>:
     - <span style="color:#e6db74">&#34;--providers.docker=true&#34;</span>
 
     - <span style="color:#e6db74">&#34;--entryPoints.port443.address=:443&#34;</span>
     - <span style="color:#e6db74">&#34;--entryPoints.port80.address=:80&#34;</span>
     - <span style="color:#e6db74">&#34;--entryPoints.influxdb-port.address=:8086&#34;</span>
 </code></pre></div><p>We set the <code>providers.docker</code> command to true since we&rsquo;re using Docker. We also set up some <a href="https://doc.traefik.io/traefik/routing/entrypoints/">Traefik entrypoints</a> to open connections for incoming requests, which correspond to the ports we&rsquo;ve opened in the container.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.tlsChallenge=true&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.tlsChallenge=true&#34;</span>
 - <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.storage=/letsencrypt/acme.json&#34;</span>
 - <span style="color:#e6db74">&#34;--certificatesresolvers.lets-encrypt-ssl.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory&#34;</span>
 - <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.email=YOUR-EMAIL@website.com&#34;</span>

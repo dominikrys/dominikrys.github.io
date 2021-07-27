@@ -114,7 +114,7 @@ The attack is possible due to a specification flaw in LTE standards, where IP pa
 <p>We now have the required offsets at which to mask parts of our packets. The next step is to apply the bitmask by XORing it with the encrypted payload. In my case of using <a href="https://www.srslte.com/">srsLTE</a> and LTE networks, the payload was represented by a <code>uint8_t</code> array.</p>
 <p>To comfortably tweak my implementation and test it without having to set up an entire LTE network, I made myself a test script. To work with real data in the test script, I grabbed some example payloads (encrypted and unencrypted) from a test run and serialised them into a hex string. Then, my test script serialised it back into raw bytes when run. The code I personally used is by <a href="https://stackoverflow.com/questions/17452689/read-write-binary-object-as-hex/17452690#17452690">Robbie Rosati on Stack Overflow</a>.</p>
 <p>To calculate the bitmask, the known plaintext of the ciphertext is XORed with the plaintext that you would like the ciphertext to decrypt to. In C++ this is greatly eased by using a <code>std::valarray</code> as it&rsquo;s compatible with regular bitwise operations. Then, the mask is XORed with the payload at the appropriate offset. Overall, the entire implementation looks as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">apply_mask</span>(<span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> buf, std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> mask, <span style="color:#66d9ef">int</span> offset)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">apply_mask</span>(<span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> buf, std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> mask, <span style="color:#66d9ef">int</span> offset)
 {
   <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> offset; i <span style="color:#f92672">&lt;</span> offset <span style="color:#f92672">+</span> mask.size(); i<span style="color:#f92672">++</span>) {
     buf[i] <span style="color:#f92672">^=</span> mask[i <span style="color:#f92672">-</span> offset];
@@ -156,7 +156,7 @@ The attack is possible due to a specification flaw in LTE standards, where IP pa
 <h4 id="ip-checksum-compensation-code-example">IP Checksum Compensation Code Example</h4>
 <p>To verify if my IP checksum compensation code worked, I added an implementation of it to my test script from before.</p>
 <p>To compensate for changes in the <strong>first</strong> and <strong>third</strong> IP octet using the TTL field:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Mask TTL */</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Mask TTL */</span>
 
 <span style="color:#75715e">// Store the TTL field plaintext
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_plaintext <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>;
@@ -181,7 +181,7 @@ std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_byte_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 apply_mask(buf, ttl_mask, ttl_byte_offset);
 </code></pre></div><p>To compensate for changes in the <strong>second</strong> and <strong>fourth</strong> IP octet using the DSCP and ECN fields:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Mask DSCP/ECN */</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Mask DSCP/ECN */</span>
 
 <span style="color:#75715e">// Store the DSCP/ECN field plaintext
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dscp_ecn_plaintext <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
@@ -271,24 +271,24 @@ In this post, I describe how I went about learning Rust and what resources I use
 <ol>
 <li>
 <p>Run <code>tcpdump</code> on machine 1, listening to internet traffic at port 53:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo tcpdump -i &lt;NETWORK INTERFACE&gt; dst port <span style="color:#ae81ff">53</span> -vv
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo tcpdump -i &lt;NETWORK INTERFACE&gt; dst port <span style="color:#ae81ff">53</span> -vv
 </code></pre></div><p>To get the network interface names, you can run <code>ip link show</code>.</p>
 </li>
 <li>
 <p>Disable transmit checksum offloading on machine 1. This is so that any invalid checksums won&rsquo;t be corrected by the hardware. In some cases, it may not be possible to disable this, so another machine may need to be used. To disable transmit checksum offloading on Linux, run:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ethtool --offload &lt;NETWORK INTERFACE&gt; tx off
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ethtool --offload &lt;NETWORK INTERFACE&gt; tx off
 </code></pre></div></li>
 <li>
 <p>Download and run <a href="https://github.com/secdev/scapy">Scapy</a> on machine 2.</p>
 </li>
 <li>
 <p>Craft a DNS packet with a broken UDP checksum using Scapy on machine 2:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bad_packet <span style="color:#f92672">=</span> IP<span style="color:#f92672">(</span>dst<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&lt;MACHINE 1 IP&gt;&#39;</span><span style="color:#f92672">)</span> / UDP<span style="color:#f92672">()</span> / DNS<span style="color:#f92672">(</span>rd<span style="color:#f92672">=</span>1, qd<span style="color:#f92672">=</span>DNSQR<span style="color:#f92672">(</span>qname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;www.example.com&#34;</span><span style="color:#f92672">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bad_packet <span style="color:#f92672">=</span> IP<span style="color:#f92672">(</span>dst<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&lt;MACHINE 1 IP&gt;&#39;</span><span style="color:#f92672">)</span> / UDP<span style="color:#f92672">()</span> / DNS<span style="color:#f92672">(</span>rd<span style="color:#f92672">=</span>1, qd<span style="color:#f92672">=</span>DNSQR<span style="color:#f92672">(</span>qname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;www.example.com&#34;</span><span style="color:#f92672">))</span>
 </code></pre></div><p>Make sure to replace <code>&lt;MACHINE 1 IP&gt;</code> with the IP of machine 1.</p>
 </li>
 <li>
 <p>Send the packet with a broken checksum from machine 2 to machine 1:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">send<span style="color:#f92672">(</span>bad_packet<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">send<span style="color:#f92672">(</span>bad_packet<span style="color:#f92672">)</span>
 </code></pre></div></li>
 <li>
 <p>Check the <code>tcpdump</code> logs on machine 1. If the packet is received stating <code>bad udp cksum</code> in the logs, the machine can receive packets with broken UDP checksums. We can then continue with adding rules to ignore the checksums.</p>
@@ -301,7 +301,7 @@ In this post, I describe how I went about learning Rust and what resources I use
 <p>So far, we&rsquo;ve confirmed that packets with broken UDP checksums can be received by our machine. However, these packets won&rsquo;t get accepted by any target applications due to the invalid checksum. We can fix this using <code>nftables</code>.</p>
 <p>We can configure <code>nftables</code> rules that set the UDP checksum of received packets to 0 before they&rsquo;re passed to any applications. Packets with UDP checksums of 0 will not have their checksums validated, effectively disabling UDP checksum validation.</p>
 <p>To set this up, first install <code>nftables</code> with your favourite package manager. Next, add the following <code>nftables</code> rule:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nft add table input_table
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nft add table input_table
 sudo nft <span style="color:#e6db74">&#39;add chain input_table input {type filter hook input priority -300;}&#39;</span>
 sudo nft <span style="color:#e6db74">&#39;add rule input_table input ip protocol udp udp checksum set 0&#39;</span>
 </code></pre></div><p>This rule will set the UDP checksum of every received IP UDP packet to 0. Your machine will now ignore UDP checksums of received packets! Feel free to test it using Scapy.</p>
@@ -334,17 +334,17 @@ sudo nft <span style="color:#e6db74">&#39;add rule input_table input ip protocol
 <p>To resolve packets according to their <code>Host</code> header, I used <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a>, which I will explain how to configure.</p>
 <h2 id="how-to-configure-privoxy-to-resolve-spoofed-ip-packets">How to configure Privoxy to resolve spoofed IP packets?</h2>
 <p>Luckily the configuration for Privoxy is very simple. First, install it using your operating system&rsquo;s package manager. Next, modify its configuration file under <code>etc/privoxy/config</code> with the following details, where <code>INTERFACE_IP</code> is the IP of the interface that you want Privoxy to listen at:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">listen-address INTERFACE_IP:3128
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">listen-address INTERFACE_IP:3128
 accept-intercepted-requests 1
 debug 1
 </code></pre></div><p>Note that <code>debug 1</code> is not strictly needed, but it will allow us to see if requests are coming through to the server. <code>accept-intercepted-requests 1</code> is the important part, which enabled the &ldquo;intercepting&rdquo; mode of Privoxy.</p>
 <p>Next, restart privoxy:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart privoxy
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart privoxy
 </code></pre></div><p>Finally, add an <code>iptables</code> rule to redirect traffic from the HTTP port to the port that Privoxy is listening at:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">8118</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">8118</span>
 </code></pre></div><p>You can modify the above rule or add additional ones if you have other interfaces apart from <code>eth0</code> that you&rsquo;d like to forward traffic from.</p>
 <p>Now you can send some spoofed requests to the server and check if you can see them in the logs:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo tail -f /var/log/privoxy/logfile
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo tail -f /var/log/privoxy/logfile
 
 2021-04-15 15:06:24.434 7f39feffd700 Request: scratchpads.org/
 2021-04-15 15:06:24.789 7f39feffd700 Request: scratchpads.org/css/main.css
@@ -379,32 +379,32 @@ debug 1
 <h2 id="configuring-squid">Configuring Squid</h2>
 <h3 id="configuration-file">Configuration file</h3>
 <p>Now the most important part - the configuration. The config is stored under <code>/etc/squid/squid.conf</code>, but before we make any changes I like to make a copy of the original:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp /etc/squid/squid.conf /etc/squid/squid.conf.orig
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp /etc/squid/squid.conf /etc/squid/squid.conf.orig
 </code></pre></div><p>Next, edit the configuration file with your favourite text editor:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo vim /etc/squid/squid.conf
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo vim /etc/squid/squid.conf
 </code></pre></div><p>And enter this minimal configuration:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">http_access allow all
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">http_access allow all
 
 http_port 3128 intercept
 </code></pre></div><p>The <code>http_access</code> parameter should ideally be narrowed down as described in the <a href="http://www.squid-cache.org/Doc/config/http_access/">Squid documentation</a>, but to eliminate potential errors we will permit anything to access the proxy.</p>
 <p>The <code>http_port</code> states which port Squid will listen at, for which we keep the default <code>3128</code>. We will redirect traffic to this port using <code>iptables</code> soon. <code>intercept</code> is needed to make Squid act as a transparent proxy.</p>
 <p><strong>Nothing else</strong> is necessary for a working configuration as of the time of writing this post, unlike what some other tutorials may lead you to believe. Note that in its current state, there will be a warning printed in the Squid logs whenever it&rsquo;s started, stemming from the fact that a non-transparent port is not open. If you&rsquo;d like to silence that, you can have Squid listen at a vacant port by adding e.g. <code>http_port 3129</code> to the configuration.</p>
 <p>Finally, we can restart Squid:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart squid
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart squid
 </code></pre></div><p>This should be it for the Squid configuration! Make sure to check if it&rsquo;s working, as described earlier in the post. If it&rsquo;s not, good places to start are the <code>journalctl</code> entries for squid, and the access and log files by default located at <code>/var/log/squid/access.log</code> and <code>/var/log/squid/cache.log</code>, respectively.</p>
 <h3 id="enabling-ip-forwarding">Enabling IP forwarding</h3>
 <p>Since we&rsquo;re configuring a transparent proxy, we need to configure IP forwarding on the system:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo sysctl net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo sysctl net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 </code></pre></div><p>To make this configuration persistent, modify <code>/etc/sysctl.conf</code> and uncomment the line:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">#net.ipv4.ip_forward=1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">#net.ipv4.ip_forward=1
 </code></pre></div><h3 id="iptables-rules">iptables Rules</h3>
 <p>To get the kernel to forward packets received at port 80 to Squid, we need the following <code>iptables</code> rule:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">3128</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">3128</span>
 </code></pre></div><p>Make sure to modify the above rule, or add additional ones if you have other interfaces apart from <code>eth0</code> that you&rsquo;d like to forward traffic from. Those can be found using e.g. <code>ip link show</code> or <code>ifconfig</code>. This rule makes it so that only external traffic will be send to Squid, and all traffic originating at the machine will reach its destination and not cause a cycle.</p>
 <p>If at any point you make a mistake with your configuration, you can flush all existing <code>iptables</code> NAT rules:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -F
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -F
 </code></pre></div><p>Or list any existing rules using:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -L
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -L
 </code></pre></div><h2 id="closing-notes---https-support-gateway-setup-spoofed-requests">Closing Notes - HTTPS Support, Gateway Setup, Spoofed Requests</h2>
 <p>You should now have a minimal Squid transparent proxy running. Make sure to configure the machine as the default gateway for whichever machines you&rsquo;d like to transparently proxy data for.</p>
 <p>To enable transparent proxying of HTTPS traffic, I recommend <a href="https://dev.to/suntong/squid-proxy-and-ssl-interception-1oa4">suntong&rsquo;s guide</a>.</p>
@@ -431,10 +431,10 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 <p>I&rsquo;ll assume you know how to debug ordinary C/C++ programs (I&rsquo;ll patiently wait here if you need to have a look into that).</p>
 <h2 id="compiling-srslte-in-debug-mode">Compiling srsLTE in debug mode</h2>
 <p>Your first attempt at debugging may have been to compile with the <code>Debug</code> CMake flag, and then executing the binaries using GDB or another debugger:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Debug
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Debug
 </code></pre></div><p><strong>This will probably work for srsEPC</strong>, but you may have trouble with srsENB and srsUE as the code most likely won&rsquo;t get past the Random Access Procedure (RAP). Due to how time-sensitive the RAP is, binaries in <code>Debug</code> mode are too slow and are unable to complete the procedure. However, if what you need to debug occurs before the RAP, this method will most likely be sufficient.</p>
 <p>Alternatively, srsLTE can be built in <strong>release with debug info</strong> mode, which will reliably get past the RAP:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>RelWithDebInfo
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>RelWithDebInfo
 </code></pre></div><p>An issue with this is that plenty of code will be optimised out, so you may not hit the breakpoints you need. Sporadic segmentation faults may also occur, so your mileage may vary.</p>
 <p>As an extra caveat, <strong>using SDRs while running srsLTE may not be possible</strong> due to the extra latency introduced by the debugger. I&rsquo;ve tried using the Ettus Research USRP B200 and B210 while debugging, and the UHD driver constantly times out for both. Instead, the <a href="https://docs.srslte.com/en/latest/app_notes/source/zeromq/source/">ZeroMQ</a> driver will most likely need to be used while debugging.</p>
 <h3 id="when-release-with-debug-info-doesnt-work">When Release With Debug Info doesn&rsquo;t work</h3>
@@ -442,12 +442,12 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 <p>Increasing <code>all_hex_limit</code> inside the <code>.conf</code> files from 32 to something greater can also help if you&rsquo;re inspecting various messages/objects, as it will allow for more hex to be printed in the logs.</p>
 <h4 id="printing-hex-in-the-console">Printing hex in the console</h4>
 <p>To ease debugging, a quick hack can be added to srsLTE for allowing objects to be printed in the console. This is particularly useful for printing certain PDUs of interest. To achieve this in srsLTE 20.04.2, add following code to <code>log_filter.cc</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> log_filter<span style="color:#f92672">::</span>console_hex(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> log_filter<span style="color:#f92672">::</span>console_hex(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size)
 {
   console(hex_string(hex, size).c_str());
 }
 </code></pre></div><p>The appropriate headers will also need to be changed in <code>log.h</code> and <code>log_filter.h</code>. Objects can then by printed as hex by calling:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">log<span style="color:#f92672">-&gt;</span>console_hex(pdu<span style="color:#f92672">-&gt;</span>msg, pdu<span style="color:#f92672">-&gt;</span>N_bytes);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">log<span style="color:#f92672">-&gt;</span>console_hex(pdu<span style="color:#f92672">-&gt;</span>msg, pdu<span style="color:#f92672">-&gt;</span>N_bytes);
 </code></pre></div><h2 id="successful-debugging-in-a-vm">Successful debugging in a VM</h2>
 <p>If debugging in debug mode is <em>really</em> necessary, A VM can be used as a last resort. I found that it&rsquo;s possible there to get past the RAP with srsLTE built in <code>Debug</code> mode. Note that SDRs will most likely not work due to the latency introduced by the VM, in which case the srsLTE ZeroMQ driver will need to be used instead.</p>
 ]]></content>
@@ -472,7 +472,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 <p>For the finished all-in-one deployment of Grafana, InfluxDB and Traefik that this post will build up to, I&rsquo;ve provided this GitHub repo: <a href="https://github.com/dominikrys/docker-influxdb-grafana-traefik">Secure Monitoring Solution in Docker</a>.</p>
 <h2 id="setting-up-grafana-and-influxdb">Setting up Grafana and InfluxDB</h2>
 <p>Setting up Grafana and InfluxDB on Docker is pretty straightforward. Here&rsquo;s a <code>docker-compose.yml</code> that will do just that:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
 
 <span style="color:#f92672">services</span>:
     <span style="color:#f92672">influxdb</span>:
@@ -517,7 +517,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
         <span style="color:#f92672">external</span>: <span style="color:#66d9ef">false</span>
 </code></pre></div><p>This simple Docker compose application creates Grafana and InfluxDB containers, creates persistent volumes for them so data will be saved if they&rsquo;re restarted, and sets up a networking bridge so the containers can communicate between each other (in favour of the legacy <a href="https://docs.docker.com/network/links/"><code>links</code></a> command that some old setups use).</p>
 <p>To start up the containers, run:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose up
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose up
 </code></pre></div><p>Grafana can then be accessed at <a href="http://localhost:3000/"><code>http://localhost:3000</code></a> and InfluxDB at <a href="http://localhost:8086/"><code>http://localhost:8086</code></a>. You can go ahead and send some data to InfluxDB (e.g. with <a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a>) to make sure it works. InfluxDB will need to be set up as a data source manually in Grafana, however it can be automated as I&rsquo;ll describe later.</p>
 <p>The database specified by the <code>INFLUXDB_DB</code> environment variable will be created when InfluxDB is initialised. This is poorly documented sadly, but most of the details are included in <a href="https://github.com/influxdata/influxdata-docker/pull/102">this InfluxDB PR</a>.</p>
 <p>The admin account details are provided in the <code>docker-compose.yml</code> above and should be changed to something secure. For ideas on how to store them securely, I recommend looking at <a href="https://docs.docker.com/engine/swarm/secrets/">Docker secrets</a> or <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">Ansible Vault</a>.</p>
@@ -537,7 +537,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 <p>Initially, I found how to secure the described Docker compose deployment with Traefik from <a href="https://www.grzegorowski.com/secure-docker-grafana-container-with-ssl-through-traefik-proxy">Jan Grzegorowski&rsquo;s blog post</a>. I highly recommend reading his post if anything is not clear here (I won&rsquo;t be offended).</p>
 <p>As described already, Traefik is a cloud-native edge router which will serve as a reverse proxy in our Docker compose application. It will automatically issue and renew TLS certificates, so the traffic to and from our Docker containers will be encrypted. Luckily it&rsquo;s also quite straightforward to configure using <a href="https://doc.traefik.io/traefik/providers/docker/">labels</a>, and the entire configuration can be kept inside one <code>docker-compose.yml</code> file.</p>
 <p>Adapting the above example <code>docker-compose.yml</code> to work with Traefik, we get:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
 
 <span style="color:#f92672">services</span>:
     <span style="color:#f92672">influxdb</span>:
@@ -642,7 +642,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 <h3 id="traefik-with-other-containers">Traefik with other containers</h3>
 <p>The Grafana TLS configuration is largely the same, with the appropriate port numbers and router names changed.</p>
 <p>Since we want Grafana to show up when the domain is visited, the following labels handle HTTP to HTTPS redirection using Traefik:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;traefik.http.routers.grafana.entryPoints=port80&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;traefik.http.routers.grafana.entryPoints=port80&#34;</span>
 - <span style="color:#e6db74">&#34;traefik.http.routers.grafana.rule=host(`YOUR_DOMAIN`)&#34;</span>
 - <span style="color:#e6db74">&#34;traefik.http.routers.grafana.middlewares=grafana-redirect&#34;</span>
 - <span style="color:#e6db74">&#34;traefik.http.middlewares.grafana-redirect.redirectScheme.scheme=https&#34;</span>
@@ -650,7 +650,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 </code></pre></div><p>Here we set up <a href="https://doc.traefik.io/traefik/middlewares/overview/">Traefik middlewares</a> which are a means to tweak requests (e.g. redirect from one port to another) before it gets passed to the Traefik service. The configuration is fairly straightforward.</p>
 <h3 id="traefik-container-configuration">Traefik container configuration</h3>
 <p>Finally, we set up the actual Traefik container:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">traefik</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">traefik</span>:
     <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">traefik</span>
     <span style="color:#f92672">image</span>: <span style="color:#ae81ff">traefik:v2.3.4</span>
     <span style="color:#f92672">volumes</span>:
@@ -665,14 +665,14 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 </code></pre></div><p>First, we set up a persistent volume for the <code>/letencrypt</code> directory which will store any TLS certificates that Traefik obtains from Let&rsquo;s Encrypt. This is important so that certificates don&rsquo;t have to be reissued when the container is restarted.</p>
 <p>Next, we need to mount the Docker socket into the container so that Traefik can get <a href="https://docs.traefik.io/providers/docker/#docker-api-access">Docker&rsquo;s dynamic configuration</a>.</p>
 <p>We also open all the ports whose traffic we want to route through Traefik.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">command</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">command</span>:
     - <span style="color:#e6db74">&#34;--providers.docker=true&#34;</span>
 
     - <span style="color:#e6db74">&#34;--entryPoints.port443.address=:443&#34;</span>
     - <span style="color:#e6db74">&#34;--entryPoints.port80.address=:80&#34;</span>
     - <span style="color:#e6db74">&#34;--entryPoints.influxdb-port.address=:8086&#34;</span>
 </code></pre></div><p>We set the <code>providers.docker</code> command to true since we&rsquo;re using Docker. We also set up some <a href="https://doc.traefik.io/traefik/routing/entrypoints/">Traefik entrypoints</a> to open connections for incoming requests, which correspond to the ports we&rsquo;ve opened in the container.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.tlsChallenge=true&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">- <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.tlsChallenge=true&#34;</span>
 - <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.storage=/letsencrypt/acme.json&#34;</span>
 - <span style="color:#e6db74">&#34;--certificatesresolvers.lets-encrypt-ssl.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory&#34;</span>
 - <span style="color:#e6db74">&#34;--certificatesResolvers.lets-encrypt-ssl.acme.email=YOUR-EMAIL@website.com&#34;</span>
@@ -910,16 +910,16 @@ My main motivation for getting the emulator working on the web was that in its c
 <p>It&rsquo;s worth pointing out there aren&rsquo;t many IDE plugins or integrations for Emscripten as of writing this post. I tried to hack as much integration as I could into CLion, but what I managed to get to work caused issues for me later on. Emscripten relies on its own compilers and linkers a lot, so I would recommend sticking solely to the terminal to save yourself some headaches.</p>
 <h2 id="cmake-and-emscripten">CMake and Emscripten</h2>
 <p>Since my emulator is a not a single file as in the Mozilla examples mentioned in the section above, the most appropriate way to compile the emulator was to use CMake. I took the compiler flags mentioned in the Mozilla examples and added them to my <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">set(<span style="color:#e6db74">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;${CMAKE_CXX_FLAGS} -s WASM=1 --shell-file ${CMAKE_CURRENT_LIST_DIR}/web/shell_minimal.html&#34;</span>)<span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">set(<span style="color:#e6db74">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;${CMAKE_CXX_FLAGS} -s WASM=1 --shell-file ${CMAKE_CURRENT_LIST_DIR}/web/shell_minimal.html&#34;</span>)<span style="color:#960050;background-color:#1e0010">
 </span></code></pre></div><p>Next I created a sub-directory in my root project directory for my CMake output (called <code>cmake-build-emscripten</code>) and called the following from it:</p>
 <ul>
 <li>
 <p>To generate the project build system:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">emcmake cmake -G <span style="color:#e6db74">&#34;CodeBlocks - MinGW Makefiles&#34;</span> ..
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">emcmake cmake -G <span style="color:#e6db74">&#34;CodeBlocks - MinGW Makefiles&#34;</span> ..
 </code></pre></div></li>
 <li>
 <p>To compile the code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mingw32-make
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mingw32-make
 </code></pre></div></li>
 </ul>
 <h3 id="potential-cmake-problem">Potential CMake problem</h3>
@@ -930,7 +930,7 @@ My main motivation for getting the emulator working on the web was that in its c
 <h2 id="initial-compile">Initial compile</h2>
 <p>I was almost ready to compile the code. Since the emulator is using <a href="https://www.libsdl.org/">SDL2</a> for audio and graphics, I also needed to specify the <code>-s USE_SDL=2</code> compiler flag. When this is specified, Emscripten will automatically download the <a href="https://github.com/emscripten-ports/SDL2">SDL2 Emscripten port</a>.</p>
 <p>I hardcoded a ROM to the path, and compiled the source otherwise unaltered:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">Emscripten Release
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">Emscripten Release
 -- Configuring done
 -- Generating done
 -- Build files have been written to: C:/dev/git/chip8/cmake-build-emscripten
@@ -944,7 +944,7 @@ Scanning dependencies of target chip8
 [100%] Linking CXX executable chip8.js
 [100%] Built target chip8
 </code></pre></div><p>It&hellip; worked? I hosted the generated page locally with Python</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server
 </code></pre></div><p>And had a look at it in Chrome. I found that the screen was blank, but there was an exception in the JavaScript console:</p>
 
     <img src="img/exception-after-fix.png"  alt="Exception after fix"  class="center"  style="border-radius: 0.5em;"  />
@@ -983,27 +983,27 @@ Scanning dependencies of target chip8
 
 
 <p>I also got the following warning:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
 </code></pre></div><p>For the time being, I decided to get rid of the audio handling code and sort this out later.</p>
 <h2 id="emscripten-loops">Emscripten loops</h2>
 <p>To get the screen buffer to update and not freeze the tab, I had to change the current loop that my current emulator runs on into an <a href="https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop">Emscripten loop</a>. This is because the web browser event model uses co-operative multitasking, so each event gets a turn to run and has to return control to the browser. My code was blocking and never gave control back to the browser, so the tab froze and the display didn&rsquo;t update.</p>
 <p>After a quick Google looking for some real-world examples on how to write an Emscripten loop, I found <a href="https://www.jamesfmackenzie.com/2019/12/03/webassembly-emscripten-loops/">James MacKenzie&rsquo;s blog</a> which has been a huge help on getting this to work.</p>
 <p>A traditional loop in a C++ program using SDL looks like the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
     renderFrame();
     SDL_Delay(timeToNextFrame());
 }
 </code></pre></div><p>And once rewritten to use Emscripten loops look like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(renderFrame, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(renderFrame, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>);
 </code></pre></div><p>Where the full signature of <code>emscripten_set_main_loop</code> is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(em_callback_func func, <span style="color:#66d9ef">int</span> fps, <span style="color:#66d9ef">int</span> simulate_infinite_loop)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(em_callback_func func, <span style="color:#66d9ef">int</span> fps, <span style="color:#66d9ef">int</span> simulate_infinite_loop)
 </code></pre></div><p><code>emscripten_set_main_loop()</code> simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the <a href="https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop">Emscripten docs</a> mention that it&rsquo;s &ldquo;<strong>HIGHLY</strong> recommended&rdquo; to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s <code>requestAnimationFrame</code> method to call the main loop function which we will revisit later.</p>
 <h3 id="rewriting-for-a-global-function-in-the-main-loop">Rewriting for a global function in the main loop</h3>
 <p>There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.</p>
 <p>My code wasn&rsquo;t designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global in my small <code>Main.cpp</code> file to make it accessible from the main loop. It&rsquo;s not a particularly elegant solution, but for this relatively simple project it sufficed.</p>
 <p>As an effect of writing code this way your IDE may also complain about not being able to catch exceptions from variables with static storage duration - this is not a problem, and Emscripten will still be able to catch them for us if we add the exception handling in Javasript code that was described in the <a href="#debugging-emscripten">debugging section</a>.</p>
 <p>My code went from looking something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
     <span style="color:#66d9ef">try</span>
@@ -1045,7 +1045,7 @@ Scanning dependencies of target chip8
     <span style="color:#66d9ef">return</span> EXIT_SUCCESS;
 }
 </code></pre></div><p>To this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
 </span><span style="color:#75715e"></span>
 Config config{};
 Chip8 chip8{config.mode_};
@@ -1072,7 +1072,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </code></pre></div><p>At this point I&rsquo;ve also added a separate <code>Main.cpp</code> file just for Emscripten and added rules to pick up the right one in <code>CMakeLists.txt</code> depending on the compiler. The code has diverged a lot from my original <code>Main.cpp</code>, and adding preprocessor made the code difficult to trace through.</p>
 <h3 id="emterpreter">Emterpreter</h3>
 <p>Due to the amount of effort that may be required to rewrite traditional loops into Emscripten loops, depending on your project, Emscripten also provides <a href="https://github.com/emscripten-core/emscripten/wiki/Emterpreter">Emterpreter</a>. This allow you to keep traditional loops by adding <code>emscripten_sleep()</code> calls to your code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
     renderFrame();
     emscripten_sleep(timeToNextFrame());
 }
@@ -1102,7 +1102,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 <p>To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn&rsquo;t very straightforward, as the frame rate which ran natively didn&rsquo;t directly translate to what ran in Emscripten. For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles to emulate between every frame in an Emscripten loop - around 17 in this case. This wasn&rsquo;t the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn&rsquo;t seem to be a good way to calculate this difference upfront.</p>
 <p>Also it&rsquo;s worth nothing that not every screen will refresh at 60 frames a second, which is something to consider if you want the program to run at the same speed for everyone.</p>
 <p>The logic for emulating a set amount of cycles per frame looked as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> cyclesPerFrame <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> cyclesPerFrame <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mainLoop</span>() {
     <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> cyclesPerFrame; i<span style="color:#f92672">++</span>)
@@ -1117,7 +1117,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </code></pre></div><p>After compiling the emulator again with this change, everything worked as expected. Surprisingly, the keyboard also worked perfectly and didn&rsquo;t require any intervention.</p>
 <h2 id="exporting-c-functions-to-call-from-javascript">Exporting C++ functions to call from JavaScript</h2>
 <p>To finish this off, I wanted to add a dropdown so it&rsquo;s possible to select a game to load (turns out Pong gets a bit boring after a while). First, I added a function to my C++ code which will get exported so it can be called from JavaScript. There is a page in <a href="https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html">the Emscripted docs</a> which explains this in good detail. The function looked as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadRom</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path, <span style="color:#66d9ef">int</span> cyclesPerFrame_) {
     cyclesPerFrame <span style="color:#f92672">=</span> cyclesPerFrame_;
 
@@ -1127,7 +1127,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 }
 </code></pre></div><p>The function is wrapped in <code>extern &quot;C&quot;</code> to prevent C++ name mangling. I also added a <code>cyclesPerFrame_</code> parameter as many CHIP-8 ROMs need to have their frame rate adjusted to run at an appropriate speed.</p>
 <p>Next, I exported the function to enable it to be called from JavaScript. In order to call a C++ function from JavaScript, I also need to export the runtime <code>ccall</code> and/or <code>cwrap</code> methods which are called on the <code>Module</code> JavaScript object which <a href="https://emscripten.org/docs/api_reference/module.html">the Emscripten-generated code calls at various points in its execution</a>. To do this, I added the following to my compiler flags:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake"><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_FUNCTIONS=\&#34;[&#39;_main&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;_loadRom&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake"><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_FUNCTIONS=\&#34;[&#39;_main&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;_loadRom&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
 </span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_RUNTIME_METHODS=\&#34;[&#39;ccall&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;cwrap&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
 </span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">ALLOW_MEMORY_GROWTH=1</span> <span style="color:#960050;background-color:#1e0010">\
 </span><span style="color:#960050;background-color:#1e0010">--no-heap-copy</span> <span style="color:#960050;background-color:#1e0010">\
@@ -1139,7 +1139,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </li>
 <li>
 <p>Added a dropdown for selecting which ROM to load. Each option includes a path to a ROM to load and specifies the amount of cycles to emulate per frame, which differs per game.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;emscripten&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;menu&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;emscripten&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;menu&#34;</span>&gt;
   &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rom-dropdown&#34;</span>&gt;
     &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;name&#34;: &#34;games/Pong (1 player).ch8&#34;,&#34;cyclesPerFrame&#34;:10}&#39;</span>&gt;
       PONG
@@ -1150,7 +1150,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </code></pre></div></li>
 <li>
 <p>Added a JavaScript listener to check for changes in the dropdown when the WebAssembly code has loaded, and call the exported C++ function:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getRomOptionsFromDropdown</span>(<span style="color:#a6e22e">optionText</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getRomOptionsFromDropdown</span>(<span style="color:#a6e22e">optionText</span>) {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">romOptions</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">optionText</span>);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">romName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">romOptions</span>[<span style="color:#e6db74">&#34;name&#34;</span>];
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">romPath</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bin/roms/revival/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">romName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\0&#34;</span>;

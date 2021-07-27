@@ -208,32 +208,32 @@ if (!doNotTrack) {
 <h2 id="configuring-squid">Configuring Squid</h2>
 <h3 id="configuration-file">Configuration file</h3>
 <p>Now the most important part - the configuration. The config is stored under <code>/etc/squid/squid.conf</code>, but before we make any changes I like to make a copy of the original:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp /etc/squid/squid.conf /etc/squid/squid.conf.orig
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp /etc/squid/squid.conf /etc/squid/squid.conf.orig
 </code></pre></div><p>Next, edit the configuration file with your favourite text editor:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo vim /etc/squid/squid.conf
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo vim /etc/squid/squid.conf
 </code></pre></div><p>And enter this minimal configuration:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">http_access allow all
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">http_access allow all
 
 http_port 3128 intercept
 </code></pre></div><p>The <code>http_access</code> parameter should ideally be narrowed down as described in the <a href="http://www.squid-cache.org/Doc/config/http_access/">Squid documentation</a>, but to eliminate potential errors we will permit anything to access the proxy.</p>
 <p>The <code>http_port</code> states which port Squid will listen at, for which we keep the default <code>3128</code>. We will redirect traffic to this port using <code>iptables</code> soon. <code>intercept</code> is needed to make Squid act as a transparent proxy.</p>
 <p><strong>Nothing else</strong> is necessary for a working configuration as of the time of writing this post, unlike what some other tutorials may lead you to believe. Note that in its current state, there will be a warning printed in the Squid logs whenever it&rsquo;s started, stemming from the fact that a non-transparent port is not open. If you&rsquo;d like to silence that, you can have Squid listen at a vacant port by adding e.g. <code>http_port 3129</code> to the configuration.</p>
 <p>Finally, we can restart Squid:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart squid
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart squid
 </code></pre></div><p>This should be it for the Squid configuration! Make sure to check if it&rsquo;s working, as described earlier in the post. If it&rsquo;s not, good places to start are the <code>journalctl</code> entries for squid, and the access and log files by default located at <code>/var/log/squid/access.log</code> and <code>/var/log/squid/cache.log</code>, respectively.</p>
 <h3 id="enabling-ip-forwarding">Enabling IP forwarding</h3>
 <p>Since we&rsquo;re configuring a transparent proxy, we need to configure IP forwarding on the system:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo sysctl net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo sysctl net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 </code></pre></div><p>To make this configuration persistent, modify <code>/etc/sysctl.conf</code> and uncomment the line:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">#net.ipv4.ip_forward=1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">#net.ipv4.ip_forward=1
 </code></pre></div><h3 id="iptables-rules">iptables Rules</h3>
 <p>To get the kernel to forward packets received at port 80 to Squid, we need the following <code>iptables</code> rule:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">3128</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">3128</span>
 </code></pre></div><p>Make sure to modify the above rule, or add additional ones if you have other interfaces apart from <code>eth0</code> that you&rsquo;d like to forward traffic from. Those can be found using e.g. <code>ip link show</code> or <code>ifconfig</code>. This rule makes it so that only external traffic will be send to Squid, and all traffic originating at the machine will reach its destination and not cause a cycle.</p>
 <p>If at any point you make a mistake with your configuration, you can flush all existing <code>iptables</code> NAT rules:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -F
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -F
 </code></pre></div><p>Or list any existing rules using:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -L
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -L
 </code></pre></div><h2 id="closing-notes---https-support-gateway-setup-spoofed-requests">Closing Notes - HTTPS Support, Gateway Setup, Spoofed Requests</h2>
 <p>You should now have a minimal Squid transparent proxy running. Make sure to configure the machine as the default gateway for whichever machines you&rsquo;d like to transparently proxy data for.</p>
 <p>To enable transparent proxying of HTTPS traffic, I recommend <a href="https://dev.to/suntong/squid-proxy-and-ssl-interception-1oa4">suntong&rsquo;s guide</a>.</p>

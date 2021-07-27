@@ -205,17 +205,17 @@ if (!doNotTrack) {
 <p>To resolve packets according to their <code>Host</code> header, I used <a href="https://www.privoxy.org/">Privoxy</a> in <a href="https://www.privoxy.org/faq/configuration.html#INTERCEPTING">intercepting mode</a>, which I will explain how to configure.</p>
 <h2 id="how-to-configure-privoxy-to-resolve-spoofed-ip-packets">How to configure Privoxy to resolve spoofed IP packets?</h2>
 <p>Luckily the configuration for Privoxy is very simple. First, install it using your operating system&rsquo;s package manager. Next, modify its configuration file under <code>etc/privoxy/config</code> with the following details, where <code>INTERFACE_IP</code> is the IP of the interface that you want Privoxy to listen at:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">listen-address INTERFACE_IP:3128
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">listen-address INTERFACE_IP:3128
 accept-intercepted-requests 1
 debug 1
 </code></pre></div><p>Note that <code>debug 1</code> is not strictly needed, but it will allow us to see if requests are coming through to the server. <code>accept-intercepted-requests 1</code> is the important part, which enabled the &ldquo;intercepting&rdquo; mode of Privoxy.</p>
 <p>Next, restart privoxy:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart privoxy
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart privoxy
 </code></pre></div><p>Finally, add an <code>iptables</code> rule to redirect traffic from the HTTP port to the port that Privoxy is listening at:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">8118</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport <span style="color:#ae81ff">80</span> -j REDIRECT --to-port <span style="color:#ae81ff">8118</span>
 </code></pre></div><p>You can modify the above rule or add additional ones if you have other interfaces apart from <code>eth0</code> that you&rsquo;d like to forward traffic from.</p>
 <p>Now you can send some spoofed requests to the server and check if you can see them in the logs:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo tail -f /var/log/privoxy/logfile
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo tail -f /var/log/privoxy/logfile
 
 2021-04-15 15:06:24.434 7f39feffd700 Request: scratchpads.org/
 2021-04-15 15:06:24.789 7f39feffd700 Request: scratchpads.org/css/main.css

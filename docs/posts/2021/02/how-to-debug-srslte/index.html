@@ -208,10 +208,10 @@ if (!doNotTrack) {
 <p>I&rsquo;ll assume you know how to debug ordinary C/C++ programs (I&rsquo;ll patiently wait here if you need to have a look into that).</p>
 <h2 id="compiling-srslte-in-debug-mode">Compiling srsLTE in debug mode</h2>
 <p>Your first attempt at debugging may have been to compile with the <code>Debug</code> CMake flag, and then executing the binaries using GDB or another debugger:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Debug
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Debug
 </code></pre></div><p><strong>This will probably work for srsEPC</strong>, but you may have trouble with srsENB and srsUE as the code most likely won&rsquo;t get past the Random Access Procedure (RAP). Due to how time-sensitive the RAP is, binaries in <code>Debug</code> mode are too slow and are unable to complete the procedure. However, if what you need to debug occurs before the RAP, this method will most likely be sufficient.</p>
 <p>Alternatively, srsLTE can be built in <strong>release with debug info</strong> mode, which will reliably get past the RAP:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>RelWithDebInfo
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake ../ -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>RelWithDebInfo
 </code></pre></div><p>An issue with this is that plenty of code will be optimised out, so you may not hit the breakpoints you need. Sporadic segmentation faults may also occur, so your mileage may vary.</p>
 <p>As an extra caveat, <strong>using SDRs while running srsLTE may not be possible</strong> due to the extra latency introduced by the debugger. I&rsquo;ve tried using the Ettus Research USRP B200 and B210 while debugging, and the UHD driver constantly times out for both. Instead, the <a href="https://docs.srslte.com/en/latest/app_notes/source/zeromq/source/">ZeroMQ</a> driver will most likely need to be used while debugging.</p>
 <h3 id="when-release-with-debug-info-doesnt-work">When Release With Debug Info doesn&rsquo;t work</h3>
@@ -219,12 +219,12 @@ if (!doNotTrack) {
 <p>Increasing <code>all_hex_limit</code> inside the <code>.conf</code> files from 32 to something greater can also help if you&rsquo;re inspecting various messages/objects, as it will allow for more hex to be printed in the logs.</p>
 <h4 id="printing-hex-in-the-console">Printing hex in the console</h4>
 <p>To ease debugging, a quick hack can be added to srsLTE for allowing objects to be printed in the console. This is particularly useful for printing certain PDUs of interest. To achieve this in srsLTE 20.04.2, add following code to <code>log_filter.cc</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> log_filter<span style="color:#f92672">::</span>console_hex(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> log_filter<span style="color:#f92672">::</span>console_hex(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> hex, <span style="color:#66d9ef">int</span> size)
 {
   console(hex_string(hex, size).c_str());
 }
 </code></pre></div><p>The appropriate headers will also need to be changed in <code>log.h</code> and <code>log_filter.h</code>. Objects can then by printed as hex by calling:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">log<span style="color:#f92672">-&gt;</span>console_hex(pdu<span style="color:#f92672">-&gt;</span>msg, pdu<span style="color:#f92672">-&gt;</span>N_bytes);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">log<span style="color:#f92672">-&gt;</span>console_hex(pdu<span style="color:#f92672">-&gt;</span>msg, pdu<span style="color:#f92672">-&gt;</span>N_bytes);
 </code></pre></div><h2 id="successful-debugging-in-a-vm">Successful debugging in a VM</h2>
 <p>If debugging in debug mode is <em>really</em> necessary, A VM can be used as a last resort. I found that it&rsquo;s possible there to get past the RAP with srsLTE built in <code>Debug</code> mode. Note that SDRs will most likely not work due to the latency introduced by the VM, in which case the srsLTE ZeroMQ driver will need to be used instead.</p>
 

@@ -226,16 +226,16 @@ if (!doNotTrack) {
 <p>It&rsquo;s worth pointing out there aren&rsquo;t many IDE plugins or integrations for Emscripten as of writing this post. I tried to hack as much integration as I could into CLion, but what I managed to get to work caused issues for me later on. Emscripten relies on its own compilers and linkers a lot, so I would recommend sticking solely to the terminal to save yourself some headaches.</p>
 <h2 id="cmake-and-emscripten">CMake and Emscripten</h2>
 <p>Since my emulator is a not a single file as in the Mozilla examples mentioned in the section above, the most appropriate way to compile the emulator was to use CMake. I took the compiler flags mentioned in the Mozilla examples and added them to my <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">set(<span style="color:#e6db74">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;${CMAKE_CXX_FLAGS} -s WASM=1 --shell-file ${CMAKE_CURRENT_LIST_DIR}/web/shell_minimal.html&#34;</span>)<span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">set(<span style="color:#e6db74">CMAKE_CXX_FLAGS</span> <span style="color:#e6db74">&#34;${CMAKE_CXX_FLAGS} -s WASM=1 --shell-file ${CMAKE_CURRENT_LIST_DIR}/web/shell_minimal.html&#34;</span>)<span style="color:#960050;background-color:#1e0010">
 </span></code></pre></div><p>Next I created a sub-directory in my root project directory for my CMake output (called <code>cmake-build-emscripten</code>) and called the following from it:</p>
 <ul>
 <li>
 <p>To generate the project build system:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">emcmake cmake -G <span style="color:#e6db74">&#34;CodeBlocks - MinGW Makefiles&#34;</span> ..
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">emcmake cmake -G <span style="color:#e6db74">&#34;CodeBlocks - MinGW Makefiles&#34;</span> ..
 </code></pre></div></li>
 <li>
 <p>To compile the code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mingw32-make
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mingw32-make
 </code></pre></div></li>
 </ul>
 <h3 id="potential-cmake-problem">Potential CMake problem</h3>
@@ -246,7 +246,7 @@ if (!doNotTrack) {
 <h2 id="initial-compile">Initial compile</h2>
 <p>I was almost ready to compile the code. Since the emulator is using <a href="https://www.libsdl.org/">SDL2</a> for audio and graphics, I also needed to specify the <code>-s USE_SDL=2</code> compiler flag. When this is specified, Emscripten will automatically download the <a href="https://github.com/emscripten-ports/SDL2">SDL2 Emscripten port</a>.</p>
 <p>I hardcoded a ROM to the path, and compiled the source otherwise unaltered:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">Emscripten Release
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">Emscripten Release
 -- Configuring done
 -- Generating done
 -- Build files have been written to: C:/dev/git/chip8/cmake-build-emscripten
@@ -260,7 +260,7 @@ Scanning dependencies of target chip8
 [100%] Linking CXX executable chip8.js
 [100%] Built target chip8
 </code></pre></div><p>It&hellip; worked? I hosted the generated page locally with Python</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server
 </code></pre></div><p>And had a look at it in Chrome. I found that the screen was blank, but there was an exception in the JavaScript console:</p>
 
     <img src="img/exception-after-fix.png"  alt="Exception after fix"  class="center"  style="border-radius: 0.5em;"  />
@@ -299,27 +299,27 @@ Scanning dependencies of target chip8
 
 
 <p>I also got the following warning:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://goo.gl/7K7WLu
 </code></pre></div><p>For the time being, I decided to get rid of the audio handling code and sort this out later.</p>
 <h2 id="emscripten-loops">Emscripten loops</h2>
 <p>To get the screen buffer to update and not freeze the tab, I had to change the current loop that my current emulator runs on into an <a href="https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop">Emscripten loop</a>. This is because the web browser event model uses co-operative multitasking, so each event gets a turn to run and has to return control to the browser. My code was blocking and never gave control back to the browser, so the tab froze and the display didn&rsquo;t update.</p>
 <p>After a quick Google looking for some real-world examples on how to write an Emscripten loop, I found <a href="https://www.jamesfmackenzie.com/2019/12/03/webassembly-emscripten-loops/">James MacKenzie&rsquo;s blog</a> which has been a huge help on getting this to work.</p>
 <p>A traditional loop in a C++ program using SDL looks like the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
     renderFrame();
     SDL_Delay(timeToNextFrame());
 }
 </code></pre></div><p>And once rewritten to use Emscripten loops look like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(renderFrame, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(renderFrame, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>);
 </code></pre></div><p>Where the full signature of <code>emscripten_set_main_loop</code> is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(em_callback_func func, <span style="color:#66d9ef">int</span> fps, <span style="color:#66d9ef">int</span> simulate_infinite_loop)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">emscripten_set_main_loop(em_callback_func func, <span style="color:#66d9ef">int</span> fps, <span style="color:#66d9ef">int</span> simulate_infinite_loop)
 </code></pre></div><p><code>emscripten_set_main_loop()</code> simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the <a href="https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop">Emscripten docs</a> mention that it&rsquo;s &ldquo;<strong>HIGHLY</strong> recommended&rdquo; to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s <code>requestAnimationFrame</code> method to call the main loop function which we will revisit later.</p>
 <h3 id="rewriting-for-a-global-function-in-the-main-loop">Rewriting for a global function in the main loop</h3>
 <p>There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.</p>
 <p>My code wasn&rsquo;t designed with this in mind and would have been structured differently if I was writing it for Emscripten from the start. Anyway, I had to make a couple of objects global in my small <code>Main.cpp</code> file to make it accessible from the main loop. It&rsquo;s not a particularly elegant solution, but for this relatively simple project it sufficed.</p>
 <p>As an effect of writing code this way your IDE may also complain about not being able to catch exceptions from variables with static storage duration - this is not a problem, and Emscripten will still be able to catch them for us if we add the exception handling in Javasript code that was described in the <a href="#debugging-emscripten">debugging section</a>.</p>
 <p>My code went from looking something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
     <span style="color:#66d9ef">try</span>
@@ -361,7 +361,7 @@ Scanning dependencies of target chip8
     <span style="color:#66d9ef">return</span> EXIT_SUCCESS;
 }
 </code></pre></div><p>To this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// -- Headers --
 </span><span style="color:#75715e"></span>
 Config config{};
 Chip8 chip8{config.mode_};
@@ -388,7 +388,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </code></pre></div><p>At this point I&rsquo;ve also added a separate <code>Main.cpp</code> file just for Emscripten and added rules to pick up the right one in <code>CMakeLists.txt</code> depending on the compiler. The code has diverged a lot from my original <code>Main.cpp</code>, and adding preprocessor made the code difficult to trace through.</p>
 <h3 id="emterpreter">Emterpreter</h3>
 <p>Due to the amount of effort that may be required to rewrite traditional loops into Emscripten loops, depending on your project, Emscripten also provides <a href="https://github.com/emscripten-core/emscripten/wiki/Emterpreter">Emterpreter</a>. This allow you to keep traditional loops by adding <code>emscripten_sleep()</code> calls to your code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">while</span>(running) {
     renderFrame();
     emscripten_sleep(timeToNextFrame());
 }
@@ -418,7 +418,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 <p>To fix this issue, I added a constant which determines how many cycles to emulate every time the main Emscripten loop is given control. Calculating this constant wasn&rsquo;t very straightforward, as the frame rate which ran natively didn&rsquo;t directly translate to what ran in Emscripten. For example, if I ran a game at 1000Hz natively, I should be able to divide that by 60 to get the amount of cycles to emulate between every frame in an Emscripten loop - around 17 in this case. This wasn&rsquo;t the case however, as the Emscripten loop ran much faster than anticipated: to get an Emscripten loop running at a similar speed to one running natively at 1000Hz, I set the amount of loops to emulate per frame to 10. I found this through a process of trial-and-error as there didn&rsquo;t seem to be a good way to calculate this difference upfront.</p>
 <p>Also it&rsquo;s worth nothing that not every screen will refresh at 60 frames a second, which is something to consider if you want the program to run at the same speed for everyone.</p>
 <p>The logic for emulating a set amount of cycles per frame looked as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> cyclesPerFrame <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> cyclesPerFrame <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mainLoop</span>() {
     <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> cyclesPerFrame; i<span style="color:#f92672">++</span>)
@@ -433,7 +433,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </code></pre></div><p>After compiling the emulator again with this change, everything worked as expected. Surprisingly, the keyboard also worked perfectly and didn&rsquo;t require any intervention.</p>
 <h2 id="exporting-c-functions-to-call-from-javascript">Exporting C++ functions to call from JavaScript</h2>
 <p>To finish this off, I wanted to add a dropdown so it&rsquo;s possible to select a game to load (turns out Pong gets a bit boring after a while). First, I added a function to my C++ code which will get exported so it can be called from JavaScript. There is a page in <a href="https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html">the Emscripted docs</a> which explains this in good detail. The function looked as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadRom</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path, <span style="color:#66d9ef">int</span> cyclesPerFrame_) {
     cyclesPerFrame <span style="color:#f92672">=</span> cyclesPerFrame_;
 
@@ -443,7 +443,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 }
 </code></pre></div><p>The function is wrapped in <code>extern &quot;C&quot;</code> to prevent C++ name mangling. I also added a <code>cyclesPerFrame_</code> parameter as many CHIP-8 ROMs need to have their frame rate adjusted to run at an appropriate speed.</p>
 <p>Next, I exported the function to enable it to be called from JavaScript. In order to call a C++ function from JavaScript, I also need to export the runtime <code>ccall</code> and/or <code>cwrap</code> methods which are called on the <code>Module</code> JavaScript object which <a href="https://emscripten.org/docs/api_reference/module.html">the Emscripten-generated code calls at various points in its execution</a>. To do this, I added the following to my compiler flags:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake"><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_FUNCTIONS=\&#34;[&#39;_main&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;_loadRom&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake"><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_FUNCTIONS=\&#34;[&#39;_main&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;_loadRom&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
 </span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">EXPORTED_RUNTIME_METHODS=\&#34;[&#39;ccall&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;cwrap&#39;]\&#34;</span> <span style="color:#960050;background-color:#1e0010">\
 </span><span style="color:#960050;background-color:#1e0010">-s</span> <span style="color:#960050;background-color:#1e0010">ALLOW_MEMORY_GROWTH=1</span> <span style="color:#960050;background-color:#1e0010">\
 </span><span style="color:#960050;background-color:#1e0010">--no-heap-copy</span> <span style="color:#960050;background-color:#1e0010">\
@@ -455,7 +455,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </li>
 <li>
 <p>Added a dropdown for selecting which ROM to load. Each option includes a path to a ROM to load and specifies the amount of cycles to emulate per frame, which differs per game.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;emscripten&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;menu&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;emscripten&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;menu&#34;</span>&gt;
   &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rom-dropdown&#34;</span>&gt;
     &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;name&#34;: &#34;games/Pong (1 player).ch8&#34;,&#34;cyclesPerFrame&#34;:10}&#39;</span>&gt;
       PONG
@@ -466,7 +466,7 @@ Renderer renderer{<span style="color:#e6db74">&#34;WASM CHIP-8 Emulator&#34;</sp
 </code></pre></div></li>
 <li>
 <p>Added a JavaScript listener to check for changes in the dropdown when the WebAssembly code has loaded, and call the exported C++ function:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getRomOptionsFromDropdown</span>(<span style="color:#a6e22e">optionText</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getRomOptionsFromDropdown</span>(<span style="color:#a6e22e">optionText</span>) {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">romOptions</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">optionText</span>);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">romName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">romOptions</span>[<span style="color:#e6db74">&#34;name&#34;</span>];
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">romPath</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bin/roms/revival/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">romName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\0&#34;</span>;
