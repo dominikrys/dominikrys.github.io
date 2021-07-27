@@ -1,15 +1,14 @@
 ---
 title: "A Modern Way to Configure Squid as a Transparent Proxy"
 date: 2021-04-10T10:08:45+01:00
-draft: false
-toc: true
-images:
+cover:
+    image: "img/squid-logo.png"
+    alt: "Squid Logo"
+    relative: true
 tags:
   - devops
   - security
 ---
-
-{{< image src="img/squid-logo.png" alt="Squid Logo" position="center" style="border-radius: 0.5em; background: white; padding: 5px;" >}}
 
 ## Introduction
 

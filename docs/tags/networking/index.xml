@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>networking on Dominik Rys</title>
     <link>https://dominikrys.com/tags/networking/</link>
     <description>Recent content in networking on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/img/portrait.jpg</url>
+      <link>https://dominikrys.com/img/portrait.jpg</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-GB</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Fri, 09 Jul 2021 15:36:55 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/networking/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Executing Stream Cipher Attacks on IP Packets</title>
-      <link>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</link>
+      <link>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</link>
       <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2021/07/executing-stream-cipher-attacks-on-ip-packets/</guid>
+      <guid>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</guid>
       <description>Introduction For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
 The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
     </item>
     
     <item>
       <title>How to Disable UDP Checksum Validation in Linux</title>
-      <link>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/</link>
+      <link>https://dominikrys.com/posts/disable-udp-checksum-validation/</link>
       <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2021/05/how-to-disable-udp-checksum-validation-in-linux/</guid>
+      <guid>https://dominikrys.com/posts/disable-udp-checksum-validation/</guid>
       <description>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&amp;rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&amp;rsquo;s possible without recompiling the kernel. In this short post, I&amp;rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets.</description>
     </item>
     
     <item>
       <title>How to Transparently Proxy IP Packets With Spoofed Destinations</title>
-      <link>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</link>
+      <link>https://dominikrys.com/posts/transparently-proxy-spoofed-ip/</link>
       <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2021/04/how-to-transparently-proxy-ip-packets-with-spoofed-destinations/</guid>
+      <guid>https://dominikrys.com/posts/transparently-proxy-spoofed-ip/</guid>
       <description>Introduction I&amp;rsquo;ve recently worked on a security project which required me to transparently/interceptingly (if that&amp;rsquo;s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.</description>
     </item>
     

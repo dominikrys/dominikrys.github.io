@@ -1,8 +1,10 @@
 ---
 title: "Compiling a C++ CHIP-8 Emulator to WebAssembly"
 date: 2020-08-15T16:55:48+01:00
-draft: false
-toc: true
+cover:
+    image: "img/full-emulator.png"
+    alt: "CHIP-8 Emulator"
+    relative: true
 tags:
   - software engineering
   - webassembly
@@ -10,10 +12,6 @@ tags:
   - emscripten
   - sdl
 ---
-
-{{< image src="img/full-emulator.png" alt="CHIP-8 Emulator" position="center" style="border-radius: 0.5em;" >}}
-
-## Introduction
 
 A couple of months ago I wrote a [CHIP-8 emulator](https://github.com/dominikrys/chip8) in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I'll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result **[here](https://dominikrys.com/chip8)**.
 
@@ -95,7 +93,7 @@ python3 -m http.server
 
 And had a look at it in Chrome. I found that the screen was blank, but there was an exception in the JavaScript console:
 
-{{< image src="img/exception-after-fix.png" alt="Exception after fix" position="center" style="border-radius: 0.5em;" >}}
+{{< figure src="img/exception-after-fix.png" alt="Exception after fix" align="center" >}}
 
 Time to attempt some debugging!
 
@@ -125,7 +123,7 @@ After packaging the files, they can be accessed with file API calls from your C/
 
 Once I packaged the files properly, everything compiled again. I checked the website and there weren't any exceptions there, but the output was blank and the page was frozen:
 
-{{< image src="img/blank-emscripten.png" alt="Blank Emscripten" position="center" style="border-radius: 0.5em;" >}}
+{{< figure src="img/blank-emscripten.png" alt="Blank Emscripten" align="center" >}}
 
 I also got the following warning:
 
@@ -274,7 +272,7 @@ I gave this a go myself before rewriting my code for `emscripten_set_main_loop()
 
 I compiled the code after rewriting using an Emscripten loop and I got the emulator working!
 
-{{< image src="img/working-emulator.png" alt="Working Emulator" position="center" style="border-radius: 0.5em;" >}}
+{{< figure src="img/working-emulator.png" alt="Working Emulator" align="center" >}}
 
 The emulator was very slow, however. I found that this is to do with the `requestAnimationFrame` method which I mentioned previously that is used to call the Emscripten main loop function.
 

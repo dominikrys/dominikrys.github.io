@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>software engineering on Dominik Rys</title>
     <link>https://dominikrys.com/tags/software-engineering/</link>
     <description>Recent content in software engineering on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/img/portrait.jpg</url>
+      <link>https://dominikrys.com/img/portrait.jpg</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-GB</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Wed, 16 Jun 2021 18:56:21 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/software-engineering/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How I Started Learning Rust</title>
-      <link>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</link>
+      <link>https://dominikrys.com/posts/learning-rust/</link>
       <pubDate>Wed, 16 Jun 2021 18:56:21 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2021/06/how-i-started-learning-rust/</guid>
+      <guid>https://dominikrys.com/posts/learning-rust/</guid>
       <description>I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.
 In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped.</description>
     </item>
     
     <item>
       <title>How to Debug srsLTE</title>
-      <link>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</link>
+      <link>https://dominikrys.com/posts/debug-srslte/</link>
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2021/02/how-to-debug-srslte/</guid>
+      <guid>https://dominikrys.com/posts/debug-srslte/</guid>
       <description>Introduction I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
@@ -31,11 +33,11 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
     
     <item>
       <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
-      <link>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</link>
+      <link>https://dominikrys.com/posts/compiling-chip8-to-wasm/</link>
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
-      <description>Introduction A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+      <guid>https://dominikrys.com/posts/compiling-chip8-to-wasm/</guid>
+      <description>A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
     </item>
     

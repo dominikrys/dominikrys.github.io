@@ -30,7 +30,7 @@ hugo new posts/<POST NAME>/index.md
 
 ## Notes
 
-- Built with [Hugo](https://gohugo.io/) using the [Hello friend NG theme](https://github.com/rhazdon/hugo-theme-hello-friend-ng)
+- Built with [Hugo](https://gohugo.io/)
 
 - Hosted on [GitHub Pages](https://pages.github.com/)
 

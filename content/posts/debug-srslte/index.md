@@ -1,8 +1,10 @@
 ---
 title: "How to Debug srsLTE"
 date: 2021-02-13T10:34:48+01:00
-draft: false
-toc: true
+cover:
+    image: "img/srslte-logo.png"
+    alt: "srsLTE Logo"
+    relative: true
 tags:
   - security
   - software engineering
@@ -10,8 +12,6 @@ tags:
   - srslte
   - lte
 ---
-
-{{< image src="img/srslte-logo.png" alt="srsLTE Logo" position="center" style="border-radius: 0.5em;" >}}
 
 ## Introduction
 

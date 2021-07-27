@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Executing Stream Cipher Attacks on IP Packets | Dominik Rys</title>
+<meta name="keywords" content="c&#43;&#43;, srslte, security, networking" />
+<meta name="description" content="Introduction For part of my bachelor&rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &ldquo;Breaking LTE on Layer Two&rdquo;.
+The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&rsquo;t verify the authenticity of the data.">
+<meta name="author" content="">
+<link rel="canonical" href="https://dominikrys.com/posts/stream-cipher-attacks-on-ip/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.35cd0f65a15cafa92372b8313deef5960aae04b90ad722f2bbf509eb0468137e.css" integrity="sha256-Nc0PZaFcr6kjcrgxPe71lgquBLkK1yLyu/UJ6wRoE34=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://dominikrys.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://dominikrys.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://dominikrys.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://dominikrys.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://dominikrys.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.86.0" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZL8HVTHR8"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-FZL8HVTHR8', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Executing Stream Cipher Attacks on IP Packets" />
+<meta property="og:description" content="Introduction For part of my bachelor&rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &ldquo;Breaking LTE on Layer Two&rdquo;.
+The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&rsquo;t verify the authenticity of the data." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dominikrys.com/posts/stream-cipher-attacks-on-ip/" /><meta property="og:image" content="https://dominikrys.com/img/portrait.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-09T15:36:55&#43;01:00" />
+<meta property="article:modified_time" content="2021-07-09T15:36:55&#43;01:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dominikrys.com/img/portrait.jpg"/>
+
+<meta name="twitter:title" content="Executing Stream Cipher Attacks on IP Packets"/>
+<meta name="twitter:description" content="Introduction For part of my bachelor&rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &ldquo;Breaking LTE on Layer Two&rdquo;.
+The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&rsquo;t verify the authenticity of the data."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://dominikrys.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Executing Stream Cipher Attacks on IP Packets",
+      "item": "https://dominikrys.com/posts/stream-cipher-attacks-on-ip/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Executing Stream Cipher Attacks on IP Packets",
+  "name": "Executing Stream Cipher Attacks on IP Packets",
+  "description": "Introduction For part of my bachelor\u0026rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper \u0026ldquo;Breaking LTE on Layer Two\u0026rdquo;.\nThe attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can\u0026rsquo;t verify the authenticity of the data.",
+  "keywords": [
+    "c++", "srslte", "security", "networking"
+  ],
+  "articleBody": " Introduction For part of my bachelor’s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper “Breaking LTE on Layer Two”.\nThe attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can’t verify the authenticity of the data. This kind of attack is not specific to LTE networks, however, and can be executed in different environments.\nI learned a lot while implementing this attack, which I thought would be worth documenting and sharing through this post. Some of this post will refer to LTE networks specifically, but I will try to keep much of it general. This post includes how to do bitmasking comfortably in C++, how to find packet offsets using appropriate tools, and how to compensate for any checksum errors in IP packets.\nStream Cipher Attack Explanation In most LTE networks, IP packets are encrypted with a stream cipher (AES-CTR), where the encryption algorithm generates streams of bytes called keystreams. To encrypt data, the sender XORs the unencrypted message (the plaintext) with the keystream to obtain an encrypted message (the ciphertext). The ciphertext is then sent to the receiver. The receiver generates the same keystream and can XOR it with the received ciphertext to retrieve the plaintext.\n  As explained previously, a MITM attacker can successfully modify the ciphertext of internet packets in LTE networks such that they decrypt to a related plaintext. This is possible because the encryption algorithm used is a malleable cipher. If the attacker knows part of the plaintext of the encrypted data, they can apply a calculated manipulation mask (also referred to as a bitmask) to the ciphertext such that it decrypts into any chosen plaintext. The mask is calculated by XORing the plaintext with the message that the attacker wants to modify the plaintext to. The mask is then applied by XORing it with the ciphertext.\nThe attack works because data XORed with itself results in all zeroes, and all zeros XORed with any data keeps the data intact. For more detail, I highly recommend reading a short description of how the attack works on Wikipedia.\n An attacker can apply the mask to only a part of the ciphertext, allowing for the attack if the entire plaintext is not known.\nAs an example, in the context of LTE networks, the network provides the IP of the DNS server that connected devices should use for DNS resolution. Therefore, the plaintext of the destination IP of DNS requests is known. A MITM attacker can use this to change the destination IP to an arbitrary address, hijacking the request.\nImplementing the Bit-Flipping Stream Cipher Attack in C++ With the basics out of the way, I will explain how to implement a bit-flipping stream cipher attack where the plaintext is known in C++.\nObtaining Field Offsets The encrypted packets can be encapsulated in various protocols, so the offset at which to apply the bitmask will differ depending on the context. With more common protocols, you can easily find this information on the internet. In other cases, Wireshark and some testing may be needed.\nIn my case of LTE networks and using the C++ srsLTE software suite, I was working with IPv4 packets encapsulated in the LTE PDCP protocol. Obtaining the offset of the destination IP in the IPv4 packet was trivial, but I found Salim Gasmi’s Hex Packet Decoder to be an excellent tool to help with this. The PDCP protocol only adds a 2-byte header to the front of IP packets, so I needed to add 2 to the IP packet offset for it to work in the context of PDCP packets.\nTo additionally verify if my assumptions were correct, I checked example packets in Wireshark. This would also likely need to be done when finding the offsets of more exotic, less well-documented protocols. To obtain the example packets, I captured packets in a test setup with known keys such that the packets could be decrypted. Since we’re working with a stream cipher, the offsets will be the same whether encryption is enabled or not. In the Wireshark capture, I was able to confirm that adding 2 to the IP packet offset was correct. This is shown below with the 2-byte PDP header but can also be verified by checking individual bytes.\n Applying Bitmasks to Parts of Payload in C++ We now have the required offsets at which to mask parts of our packets. The next step is to apply the bitmask by XORing it with the encrypted payload. In my case of using srsLTE and LTE networks, the payload was represented by a uint8_t array.\nTo comfortably tweak my implementation and test it without having to set up an entire LTE network, I made myself a test script. To work with real data in the test script, I grabbed some example payloads (encrypted and unencrypted) from a test run and serialised them into a hex string. Then, my test script serialised it back into raw bytes when run. The code I personally used is by Robbie Rosati on Stack Overflow.\nTo calculate the bitmask, the known plaintext of the ciphertext is XORed with the plaintext that you would like the ciphertext to decrypt to. In C++ this is greatly eased by using a std::valarray as it’s compatible with regular bitwise operations. Then, the mask is XORed with the payload at the appropriate offset. Overall, the entire implementation looks as follows:\nvoid apply_mask(uint8_t* buf, std::valarrayint mask, int offset) { for (size_t i = offset; i  offset + mask.size(); i++) { buf[i] ^= mask[i - offset]; } } int main() { // De-serialise example payload (for testing only)  std::string buf_str = \"80004500004ce33d00007811\"; uint8_t buf[buf_str.length() / 2]; object_from_hex(buf_str, \u0026buf); // Store plaintext and the modified plaintext as std::valarray  std::valarrayint dest_ip_modified{178, 62, 108, 207}; std::valarrayint dest_ip_plaintext{103, 123, 226, 10}; // Calculate the bitmask  auto ip_mask = dest_ip_plaintext ^ dest_ip_modified; // Store the previously found offset of our known plaintext  int pdu_dst_ip_byte_offset = 18; // Apply the bitmask to the payload  apply_mask(buf, ip_mask, pdu_dst_ip_byte_offset); } Compensating for the IPv4 Checksum In the example above, the destination IP of IPv4 packets is modified. The checksum is left intact, which will most likely be invalid with the new IP address. In effect, these packets will be correctly encrypted, but the network stack at the receiver is likely to discard them.\nFor the receiver to not discard the packets, the checksum will need to be preserved. This can be done by modifying other fields in the packets, whose fields we can reliably predict. To do this, we first need to understand hot IPv4 checksums are calculated. As stated in the Internet Protocol RFC 791:\n “The checksum field is the 16-bit ones' complement of the ones' complement sum of all 16-bit words in the header. For purposes of computing the checksum, the value of the checksum field is zero.”\n This is quite a mouthful and personally, I found it difficult to grasp without seeing an example. For a great one, I recommend checking the IPv4 header checksum Wikipedia page.\nIn the case of compensating for changes in the destination IP address, this entails calculating the difference between the 16-bit sums of the original and the modified IP addresses and tweaking other fields appropriately. Note that the 16-bit sum will mean that the first and the third octets of each IP address in the sum are shifted left 8 bits in the checksum calculation.\nIn LTE networks, we can reliably predict the TTL of packets sent from some devices to the first mast, as it won’t yet be decremented. This gives us the ability to compensate for changes in the first and third octets of the IP. To compensate for changes in the second and fourth octets, I performed an investigation by sending hand-crafted DNS packets with broken fields to a remotely hosted VM and checking if they’re received and processed correctly. The aim was to establish which fields are not necessary for routing and could be modified. This was easily done using Scapy. Eventually, I found that the DSCP and ECN fields could be predicted and didn’t impact routing, so these gave enough room for me to be able to compensate for changes in the second and fourth octets of the IP.\n IP Checksum Compensation Code Example To verify if my IP checksum compensation code worked, I added an implementation of it to my test script from before.\nTo compensate for changes in the first and third IP octet using the TTL field:\n/* Mask TTL */ // Store the TTL field plaintext int ttl_plaintext = 64; // Calculate the difference in the 16-bit totals of the original and modified destination IPs int dest_ip_plaintext_total = (dest_ip_plaintext[0]  8) + dest_ip_plaintext[1] + (dest_ip_plaintext[2]  8) + dest_ip_plaintext[3]; int dest_ip_modified_total = (dest_ip_modified[0]  8) + dest_ip_modified[1] + (dest_ip_modified[2]  8) + dest_ip_modified[3]; int chksm_difference = dest_ip_plaintext_total + (ttl_plaintext  8) - dest_ip_modified_total; // Extract only the higher byte from the difference that the TTL field can compensate for int ttl_modified = chksm_difference  8; // Assert that the modified TTL field is valid assert(ttl_modified = 20 \u0026\u0026 \"TTL under 20: may not reach the destination\"); assert(ttl_modified  255 \u0026\u0026 \"TTL over 255: too large\"); // Calculate the bitmask int ttl_mask_val = ttl_plaintext ^ttl_modified; std::valarrayint ttl_mask = {ttl_mask_val}; // Apply the bitmask to the ciphertext int ttl_byte_offset = 10; apply_mask(buf, ttl_mask, ttl_byte_offset); To compensate for changes in the second and fourth IP octet using the DSCP and ECN fields:\n/* Mask DSCP/ECN */ // Store the DSCP/ECN field plaintext int dscp_ecn_plaintext = 0; // Extract only the lower byte from the difference that the DSCP/ECN field can compensate for int dscp_ecn_modified = chksm_difference \u0026 0xFF; // Assert that the modified DSCP/ECN value is valid assert(dscp_ecn_mod = 0 \u0026\u0026 \"DSPCP/ECN under 1: invalid\"); assert(dscp_ecn_mod  255 \u0026\u0026 \"DSPCP/ECN above 255: invalid\"); // Calculate the bitmask int dscp_ecn_mask_val = dscp_ecn_plain ^dscp_ecn_mod; std::valarrayint dscp_ecn_mask = {dscp_ecn_mask_val}; // Apply the bitmask to the ciphertext int pdu_dscp_ecn_byte_offset = 3; apply_mask(buf, dscp_ecn_mask, pdu_dscp_ecn_byte_offset); Caveats of Stream Cipher Attacks on IP Packets Impossible to Compensate for Changes You may that it won’t be possible to compensate for some changes in the fields, especially to the higher byte of the 16-bit sum. The lower byte can always carry into the higher byte, but the higher byte doesn’t have this luxury. If it’s not possible to find enough fields whose plaintext can be predicted, it may not be possible to compensate for any changes unless some external changes are made.\nThis is an issue that I have encountered, where the destination IP couldn’t be compensated for. In my case, I was redirecting DNS packets to a remote VM that I controlled, so I had control over the modified destination IP. I fixed this issue by deploying a VM hosted by another provider or in another region, such that the IP would differ adequately.\nIncorrect UDP/TCP Checksums Another issue that could occur is that the UDP checksum will be incorrect, causing the receiver to discard the packet. This occurs because the UDP checksum is calculated separately from the IP checksum. If you control the receiver, this issue could be alleviated by ignoring UDP checksums. There is conflicting advice on how to do this online, so I wrote a guide on how to disable UDP checksum validation in Linux which you can find here.\nI’ve attempted to correct the UDP checksum by masking other fields in the packet as well. Below is a diagram of all the fields that are used to calculate the UDP checksum, where the red fields are from the IPv4 packet:\n After modifying every non-payload field to see if the packets will be received, I found that Linux rejected them at the kernel level. The only promising change that worked was when part of the payload could be predicted and modified. Otherwise, pervasive changes would need to be made to the IP stack such that any incorrect fields are ignored and corrected.\n",
+  "wordCount" : "2035",
+  "inLanguage": "en",
+  "datePublished": "2021-07-09T15:36:55+01:00",
+  "dateModified": "2021-07-09T15:36:55+01:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://dominikrys.com/posts/stream-cipher-attacks-on-ip/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dominik Rys",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://dominikrys.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://dominikrys.com" accesskey="h" title="Dominik Rys (Alt + H)">Dominik Rys</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://dominikrys.com/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Executing Stream Cipher Attacks on IP Packets
+    </h1>
+    <div class="post-meta">July 9, 2021&nbsp;·&nbsp;10 min
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#stream-cipher-attack-explanation" aria-label="Stream Cipher Attack Explanation">Stream Cipher Attack Explanation</a></li>
+                <li>
+                    <a href="#implementing-the-bit-flipping-stream-cipher-attack-in-c" aria-label="Implementing the Bit-Flipping Stream Cipher Attack in C&#43;&#43;">Implementing the Bit-Flipping Stream Cipher Attack in C++</a><ul>
+                        
+                <li>
+                    <a href="#obtaining-field-offsets" aria-label="Obtaining Field Offsets">Obtaining Field Offsets</a></li>
+                <li>
+                    <a href="#applying-bitmasks-to-parts-of-payload-in-c" aria-label="Applying Bitmasks to Parts of Payload in C&#43;&#43;">Applying Bitmasks to Parts of Payload in C++</a></li>
+                <li>
+                    <a href="#compensating-for-the-ipv4-checksum" aria-label="Compensating for the IPv4 Checksum">Compensating for the IPv4 Checksum</a><ul>
+                        
+                <li>
+                    <a href="#ip-checksum-compensation-code-example" aria-label="IP Checksum Compensation Code Example">IP Checksum Compensation Code Example</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#caveats-of-stream-cipher-attacks-on-ip-packets" aria-label="Caveats of Stream Cipher Attacks on IP Packets">Caveats of Stream Cipher Attacks on IP Packets</a><ul>
+                        
+                <li>
+                    <a href="#impossible-to-compensate-for-changes" aria-label="Impossible to Compensate for Changes">Impossible to Compensate for Changes</a></li>
+                <li>
+                    <a href="#incorrect-udptcp-checksums" aria-label="Incorrect UDP/TCP Checksums">Incorrect UDP/TCP Checksums</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><figure class="align-center ">
+    <img loading="lazy" src="img/cover.jpg#center"
+         alt="Cover"/> 
+</figure>
+
+<h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>For part of my bachelor&rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper <a href="https://alter-attack.net/">&ldquo;Breaking LTE on Layer Two&rdquo;</a>.</p>
+<p>The attack is possible due to a specification flaw in LTE standards, where IP packets are <strong>not integrity protected</strong>. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&rsquo;t verify the authenticity of the data. This kind of attack is not specific to LTE networks, however, and can be executed in different environments.</p>
+<p>I learned a lot while implementing this attack, which I thought would be worth documenting and sharing through this post. Some of this post will refer to LTE networks specifically, but I will try to keep much of it general. This post includes how to do bitmasking comfortably in C++, how to find packet offsets using appropriate tools, and how to compensate for any checksum errors in IP packets.</p>
+<h2 id="stream-cipher-attack-explanation">Stream Cipher Attack Explanation<a hidden class="anchor" aria-hidden="true" href="#stream-cipher-attack-explanation">#</a></h2>
+<p>In most LTE networks, IP packets are encrypted with a <strong>stream cipher</strong> (AES-CTR), where the encryption algorithm generates streams of bytes called <strong>keystreams</strong>. To encrypt data, the sender XORs the unencrypted message (the <strong>plaintext</strong>) with the keystream to obtain an encrypted message (the <strong>ciphertext</strong>). The ciphertext is then sent to the receiver. The receiver generates the same keystream and can XOR it with the received ciphertext to retrieve the plaintext.</p>
+<figure>
+    <img loading="lazy" src="img/stream-cipher-diagram.png"
+         alt="Stream Cipher Diagram"/> 
+</figure>
+
+<p>As explained previously, a MITM attacker can successfully modify the ciphertext of internet packets in LTE networks such that they decrypt to a related plaintext. This is possible because the encryption algorithm used is a <a href="https://en.wikipedia.org/wiki/Malleability_(cryptography)"><strong>malleable cipher</strong></a>. If the attacker knows part of the plaintext of the encrypted data, they can apply a calculated <strong>manipulation mask</strong> (also referred to as a <strong>bitmask</strong>) to the ciphertext such that it decrypts into <em>any</em> chosen plaintext. The mask is calculated by XORing the plaintext with the message that the attacker wants to modify the plaintext to. The mask is then applied by XORing it with the ciphertext.</p>
+<p>The attack works because data XORed with itself results in all zeroes, and all zeros XORed with any data keeps the data intact. For more detail, I highly recommend reading a short description of how the attack works on <a href="https://en.wikipedia.org/wiki/Stream_cipher_attacks#Bit-flipping_attack">Wikipedia</a>.</p>
+<figure class="align-center ">
+    <img loading="lazy" src="img/attack-diagram.png#center"
+         alt="Attack Diagram"/> 
+</figure>
+
+<p>An attacker can apply the mask to only a part of the ciphertext, allowing for the attack if the entire plaintext is not known.</p>
+<p>As an example, in the context of LTE networks, the network provides the IP of the DNS server that connected devices should use for DNS resolution. Therefore, the plaintext of the destination IP of DNS requests is known. A MITM attacker can use this to change the destination IP to an arbitrary address, hijacking the request.</p>
+<h2 id="implementing-the-bit-flipping-stream-cipher-attack-in-c">Implementing the Bit-Flipping Stream Cipher Attack in C++<a hidden class="anchor" aria-hidden="true" href="#implementing-the-bit-flipping-stream-cipher-attack-in-c">#</a></h2>
+<p>With the basics out of the way, I will explain how to implement a bit-flipping stream cipher attack where the plaintext is known in C++.</p>
+<h3 id="obtaining-field-offsets">Obtaining Field Offsets<a hidden class="anchor" aria-hidden="true" href="#obtaining-field-offsets">#</a></h3>
+<p>The encrypted packets can be encapsulated in various protocols, so the offset at which to apply the bitmask will differ depending on the context. With more common protocols, you can easily find this information on the internet. In other cases, Wireshark and some testing may be needed.</p>
+<p>In my case of LTE networks and using the C++ <a href="https://www.srslte.com/">srsLTE</a> software suite, I was working with IPv4 packets encapsulated in the LTE PDCP protocol. Obtaining the offset of the destination IP in the IPv4 packet was trivial, but I found <a href="https://hpd.gasmi.net/">Salim Gasmi&rsquo;s Hex Packet Decoder</a> to be an excellent tool to help with this. The PDCP protocol only adds a 2-byte header to the front of IP packets, so I needed to add 2 to the IP packet offset for it to work in the context of PDCP packets.</p>
+<p>To additionally verify if my assumptions were correct, I checked example packets in Wireshark. This would also likely need to be done when finding the offsets of more exotic, less well-documented protocols. To obtain the example packets, I captured packets in a test setup with known keys such that the packets could be decrypted. Since we&rsquo;re working with a stream cipher, the offsets will be the same whether encryption is enabled or not. In the Wireshark capture, I was able to confirm that adding 2 to the IP packet offset was correct. This is shown below with the 2-byte PDP header but can also be verified by checking individual bytes.</p>
+<figure class="align-center ">
+    <img loading="lazy" src="img/pdcp-trace.png#center"
+         alt="Wireshark PDCP Trace"/> 
+</figure>
+
+<h3 id="applying-bitmasks-to-parts-of-payload-in-c">Applying Bitmasks to Parts of Payload in C++<a hidden class="anchor" aria-hidden="true" href="#applying-bitmasks-to-parts-of-payload-in-c">#</a></h3>
+<p>We now have the required offsets at which to mask parts of our packets. The next step is to apply the bitmask by XORing it with the encrypted payload. In my case of using <a href="https://www.srslte.com/">srsLTE</a> and LTE networks, the payload was represented by a <code>uint8_t</code> array.</p>
+<p>To comfortably tweak my implementation and test it without having to set up an entire LTE network, I made myself a test script. To work with real data in the test script, I grabbed some example payloads (encrypted and unencrypted) from a test run and serialised them into a hex string. Then, my test script serialised it back into raw bytes when run. The code I personally used is by <a href="https://stackoverflow.com/questions/17452689/read-write-binary-object-as-hex/17452690#17452690">Robbie Rosati on Stack Overflow</a>.</p>
+<p>To calculate the bitmask, the known plaintext of the ciphertext is XORed with the plaintext that you would like the ciphertext to decrypt to. In C++ this is greatly eased by using a <code>std::valarray</code> as it&rsquo;s compatible with regular bitwise operations. Then, the mask is XORed with the payload at the appropriate offset. Overall, the entire implementation looks as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">apply_mask</span>(<span style="color:#66d9ef">uint8_t</span><span style="color:#f92672">*</span> buf, std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> mask, <span style="color:#66d9ef">int</span> offset)
+{
+  <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> offset; i <span style="color:#f92672">&lt;</span> offset <span style="color:#f92672">+</span> mask.size(); i<span style="color:#f92672">++</span>) {
+    buf[i] <span style="color:#f92672">^=</span> mask[i <span style="color:#f92672">-</span> offset];
+  }
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#75715e">// De-serialise example payload (for testing only)
+</span><span style="color:#75715e"></span>  std<span style="color:#f92672">::</span>string buf_str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;80004500004ce33d00007811&#34;</span>;
+  <span style="color:#66d9ef">uint8_t</span> buf[buf_str.length() <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>];
+  object_from_hex(buf_str, <span style="color:#f92672">&amp;</span>buf);
+
+  <span style="color:#75715e">// Store plaintext and the modified plaintext as std::valarray
+</span><span style="color:#75715e"></span>  std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> dest_ip_modified{<span style="color:#ae81ff">178</span>, <span style="color:#ae81ff">62</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">207</span>};
+  std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> dest_ip_plaintext{<span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">226</span>, <span style="color:#ae81ff">10</span>};
+
+  <span style="color:#75715e">// Calculate the bitmask
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">auto</span> ip_mask <span style="color:#f92672">=</span> dest_ip_plaintext <span style="color:#f92672">^</span> dest_ip_modified;
+
+  <span style="color:#75715e">// Store the previously found offset of our known plaintext
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> pdu_dst_ip_byte_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>;
+
+  <span style="color:#75715e">// Apply the bitmask to the payload
+</span><span style="color:#75715e"></span>  apply_mask(buf, ip_mask, pdu_dst_ip_byte_offset);
+}
+</code></pre></div><h3 id="compensating-for-the-ipv4-checksum">Compensating for the IPv4 Checksum<a hidden class="anchor" aria-hidden="true" href="#compensating-for-the-ipv4-checksum">#</a></h3>
+<p>In the example above, the destination IP of IPv4 packets is modified. The checksum is left intact, which will most likely be invalid with the new IP address. In effect, these packets will be correctly encrypted, but the network stack at the receiver is likely to discard them.</p>
+<p>For the receiver to not discard the packets, the checksum will need to be preserved. This can be done by modifying other fields in the packets, whose fields we can reliably predict. To do this, we first need to understand hot IPv4 checksums are calculated. As stated in the <a href="https://datatracker.ietf.org/doc/html/rfc791">Internet Protocol RFC 791</a>:</p>
+<blockquote>
+<p>&ldquo;The checksum field is the 16-bit ones' complement of the ones' complement sum of all 16-bit words in the header. For purposes of computing the checksum, the value of the checksum field is zero.&rdquo;</p>
+</blockquote>
+<p>This is quite a mouthful and personally, I found it difficult to grasp without seeing an example. For a great one, I recommend checking the <a href="https://en.wikipedia.org/wiki/IPv4_header_checksum#Examples">IPv4 header checksum Wikipedia page</a>.</p>
+<p>In the case of compensating for changes in the destination IP address, this entails calculating the difference between the 16-bit sums of the original and the modified IP addresses and tweaking other fields appropriately. Note that the 16-bit sum will mean that <strong>the first and the third octets</strong> of each IP address in the sum are <strong>shifted left 8 bits</strong> in the checksum calculation.</p>
+<p>In LTE networks, we can reliably predict the TTL of packets sent from some devices to the first mast, as it won&rsquo;t yet be decremented. This gives us the ability to compensate for changes in the <strong>first</strong> and <strong>third</strong> octets of the IP. To compensate for changes in the <strong>second</strong> and <strong>fourth</strong> octets, I performed an investigation by sending hand-crafted DNS packets with broken fields to a remotely hosted VM and checking if they&rsquo;re received and processed correctly. The aim was to establish which fields are not necessary for routing and could be modified. This was easily done using <a href="https://scapy.net/">Scapy</a>. Eventually, I found that the DSCP and ECN fields could be predicted and didn&rsquo;t impact routing, so these gave enough room for me to be able to compensate for changes in the second and fourth octets of the IP.</p>
+<figure class="align-center ">
+    <img loading="lazy" src="img/ip-checksum.png#center"
+         alt="IP Checksum Diagram"/> 
+</figure>
+
+<h4 id="ip-checksum-compensation-code-example">IP Checksum Compensation Code Example<a hidden class="anchor" aria-hidden="true" href="#ip-checksum-compensation-code-example">#</a></h4>
+<p>To verify if my IP checksum compensation code worked, I added an implementation of it to my test script from before.</p>
+<p>To compensate for changes in the <strong>first</strong> and <strong>third</strong> IP octet using the TTL field:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Mask TTL */</span>
+
+<span style="color:#75715e">// Store the TTL field plaintext
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_plaintext <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>;
+
+<span style="color:#75715e">// Calculate the difference in the 16-bit totals of the original and modified destination IPs
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dest_ip_plaintext_total <span style="color:#f92672">=</span> (dest_ip_plaintext[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span> dest_ip_plaintext[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> (dest_ip_plaintext[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span> dest_ip_plaintext[<span style="color:#ae81ff">3</span>];
+<span style="color:#66d9ef">int</span> dest_ip_modified_total <span style="color:#f92672">=</span> (dest_ip_modified[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span> dest_ip_modified[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> (dest_ip_modified[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">+</span> dest_ip_modified[<span style="color:#ae81ff">3</span>];
+<span style="color:#66d9ef">int</span> chksm_difference <span style="color:#f92672">=</span> dest_ip_plaintext_total <span style="color:#f92672">+</span> (ttl_plaintext <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">-</span> dest_ip_modified_total;
+
+<span style="color:#75715e">// Extract only the higher byte from the difference that the TTL field can compensate for
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_modified <span style="color:#f92672">=</span> chksm_difference <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">8</span>;
+
+<span style="color:#75715e">// Assert that the modified TTL field is valid
+</span><span style="color:#75715e"></span>assert(ttl_modified <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">20</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;TTL under 20: may not reach the destination&#34;</span>);
+assert(ttl_modified <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">255</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;TTL over 255: too large&#34;</span>);
+
+<span style="color:#75715e">// Calculate the bitmask
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_mask_val <span style="color:#f92672">=</span> ttl_plaintext <span style="color:#f92672">^</span>ttl_modified;
+std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ttl_mask <span style="color:#f92672">=</span> {ttl_mask_val};
+
+<span style="color:#75715e">// Apply the bitmask to the ciphertext
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ttl_byte_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+apply_mask(buf, ttl_mask, ttl_byte_offset);
+</code></pre></div><p>To compensate for changes in the <strong>second</strong> and <strong>fourth</strong> IP octet using the DSCP and ECN fields:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Mask DSCP/ECN */</span>
+
+<span style="color:#75715e">// Store the DSCP/ECN field plaintext
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dscp_ecn_plaintext <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+<span style="color:#75715e">// Extract only the lower byte from the difference that the DSCP/ECN field can compensate for
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dscp_ecn_modified <span style="color:#f92672">=</span> chksm_difference <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>;
+
+<span style="color:#75715e">// Assert that the modified DSCP/ECN value is valid
+</span><span style="color:#75715e"></span>assert(dscp_ecn_mod <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;DSPCP/ECN under 1: invalid&#34;</span>);
+assert(dscp_ecn_mod <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">255</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;DSPCP/ECN above 255: invalid&#34;</span>);
+
+<span style="color:#75715e">// Calculate the bitmask
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dscp_ecn_mask_val <span style="color:#f92672">=</span> dscp_ecn_plain <span style="color:#f92672">^</span>dscp_ecn_mod;
+std<span style="color:#f92672">::</span>valarray<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> dscp_ecn_mask <span style="color:#f92672">=</span> {dscp_ecn_mask_val};
+
+<span style="color:#75715e">// Apply the bitmask to the ciphertext
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> pdu_dscp_ecn_byte_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+apply_mask(buf, dscp_ecn_mask, pdu_dscp_ecn_byte_offset);
+</code></pre></div><h2 id="caveats-of-stream-cipher-attacks-on-ip-packets">Caveats of Stream Cipher Attacks on IP Packets<a hidden class="anchor" aria-hidden="true" href="#caveats-of-stream-cipher-attacks-on-ip-packets">#</a></h2>
+<h3 id="impossible-to-compensate-for-changes">Impossible to Compensate for Changes<a hidden class="anchor" aria-hidden="true" href="#impossible-to-compensate-for-changes">#</a></h3>
+<p>You may that it won&rsquo;t be possible to compensate for some changes in the fields, especially to the higher byte of the 16-bit sum. The lower byte can always carry into the higher byte, but the higher byte doesn&rsquo;t have this luxury. If it&rsquo;s not possible to find enough fields whose plaintext can be predicted, it may not be possible to compensate for any changes unless some external changes are made.</p>
+<p>This is an issue that I have encountered, where the destination IP couldn&rsquo;t be compensated for. In my case, I was redirecting DNS packets to a remote VM that I controlled, so I had control over the modified destination IP. I fixed this issue by deploying a VM hosted by another provider or in another region, such that the IP would differ adequately.</p>
+<h3 id="incorrect-udptcp-checksums">Incorrect UDP/TCP Checksums<a hidden class="anchor" aria-hidden="true" href="#incorrect-udptcp-checksums">#</a></h3>
+<p>Another issue that could occur is that the UDP checksum will be incorrect, causing the receiver to discard the packet. This occurs because the UDP checksum is calculated separately from the IP checksum. If you control the receiver, this issue could be alleviated by ignoring UDP checksums. There is conflicting advice on how to do this online, so I wrote a guide on how to disable UDP checksum validation in Linux which you can find <a href="https://dominikrys.com/posts/disable-udp-checksum-validation/" title="How to Disable UDP Checksum Validation in Linux">here</a>.</p>
+<p>I&rsquo;ve attempted to correct the UDP checksum by masking other fields in the packet as well. Below is a diagram of all the fields that are used to calculate the UDP checksum, where the red fields are from the IPv4 packet:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="img/udp-checksum.png#center"
+         alt="UDP Checksum Diagram"/> 
+</figure>
+
+<p>After modifying every non-payload field to see if the packets will be received, I found that Linux rejected them at the kernel level. The only promising change that worked was when part of the payload could be predicted and modified. Otherwise, pervasive changes would need to be made to the IP stack such that any incorrect fields are ignored and corrected.</p>
+
+
+  </div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://dominikrys.com/tags/c&#43;&#43;/">c&#43;&#43;</a></li>
+      <li><a href="https://dominikrys.com/tags/srslte/">srslte</a></li>
+      <li><a href="https://dominikrys.com/tags/security/">security</a></li>
+      <li><a href="https://dominikrys.com/tags/networking/">networking</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://dominikrys.com/posts/cs-dissertation-tips/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>10 Tips for Getting a First in a Computer Science Dissertation</span>
+  </a>
+  <a class="next" href="https://dominikrys.com/posts/learning-rust/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>How I Started Learning Rust</span>
+  </a>
+</nav>
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Executing Stream Cipher Attacks on IP Packets on twitter"
+        href="https://twitter.com/intent/tweet/?text=Executing%20Stream%20Cipher%20Attacks%20on%20IP%20Packets&amp;url=https%3a%2f%2fdominikrys.com%2fposts%2fstream-cipher-attacks-on-ip%2f&amp;hashtags=c%2b%2b%2csrslte%2csecurity%2cnetworking">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Executing Stream Cipher Attacks on IP Packets on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fdominikrys.com%2fposts%2fstream-cipher-attacks-on-ip%2f&amp;title=Executing%20Stream%20Cipher%20Attacks%20on%20IP%20Packets&amp;summary=Executing%20Stream%20Cipher%20Attacks%20on%20IP%20Packets&amp;source=https%3a%2f%2fdominikrys.com%2fposts%2fstream-cipher-attacks-on-ip%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Executing Stream Cipher Attacks on IP Packets on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fdominikrys.com%2fposts%2fstream-cipher-attacks-on-ip%2f&title=Executing%20Stream%20Cipher%20Attacks%20on%20IP%20Packets">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Executing Stream Cipher Attacks on IP Packets on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fdominikrys.com%2fposts%2fstream-cipher-attacks-on-ip%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Executing Stream Cipher Attacks on IP Packets on whatsapp"
+        href="https://api.whatsapp.com/send?text=Executing%20Stream%20Cipher%20Attacks%20on%20IP%20Packets%20-%20https%3a%2f%2fdominikrys.com%2fposts%2fstream-cipher-attacks-on-ip%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Executing Stream Cipher Attacks on IP Packets on telegram"
+        href="https://telegram.me/share/url?text=Executing%20Stream%20Cipher%20Attacks%20on%20IP%20Packets&amp;url=https%3a%2f%2fdominikrys.com%2fposts%2fstream-cipher-attacks-on-ip%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    <span>&copy; 2021 <a href="https://dominikrys.com">Dominik Rys</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

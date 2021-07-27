@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>university on Dominik Rys</title>
     <link>https://dominikrys.com/tags/university/</link>
     <description>Recent content in university on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/img/portrait.jpg</url>
+      <link>https://dominikrys.com/img/portrait.jpg</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-GB</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Thu, 22 Jul 2021 11:02:23 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/university/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>10 Tips for Getting a First in a Computer Science Dissertation</title>
-      <link>https://dominikrys.com/posts/2021/07/10-tips-for-getting-a-first-in-a-computer-science-dissertation/</link>
+      <link>https://dominikrys.com/posts/cs-dissertation-tips/</link>
       <pubDate>Thu, 22 Jul 2021 11:02:23 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2021/07/10-tips-for-getting-a-first-in-a-computer-science-dissertation/</guid>
+      <guid>https://dominikrys.com/posts/cs-dissertation-tips/</guid>
       <description>Introduction The moment I&amp;rsquo;ve been waiting for for years has happened recently - I&amp;rsquo;ve graduated with a First Class degree in Computer Science from the University of Birmingham! During the graduation ceremony (which I&amp;rsquo;ve been very lucky to get given a pandemic going on) I have also been awarded the Undergraduate Distinguished Dissertation Prize. This has been quite an honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.</description>
     </item>
     

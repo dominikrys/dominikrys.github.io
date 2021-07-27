@@ -1,9 +1,6 @@
 ---
 title: "How I Started Learning Rust"
 date: 2021-06-16T18:56:21+01:00
-draft: false
-toc: true
-images:
 tags:
   - software engineering
   - rust
@@ -19,7 +16,7 @@ Overall, I started learning Rust by first working through the official [**Rust b
 
 When researching a starting point for learning Rust, I found that the [near-unanimous answer](https://www.reddit.com/r/rust/comments/en3wjg/best_way_to_start_learning_rust/) is to read the [Rust Programming Language](https://doc.rust-lang.org/book/) book. Although this book is available in physical and e-book forms, the most popular way to read it is in a website format.
 
-{{< image src="img/book.png" alt="The Rust Book Screenshot" position="center" style="border-radius: 0.5em;" >}}
+{{< figure src="img/book.png" alt="The Rust Book Screenshot" align="center" >}}
 
 The book contains up-to-date information with stable Rust and is actively updated. It covers the most important concepts of the language and even includes some projects within it, which massively helps with getting hands-on experience.
 
@@ -29,7 +26,7 @@ Overall the book was a great introduction to Rust and is very approachable. Howe
 
 After finishing the Rust book, I started the [Exercism Rust track](https://exercism.io/my/tracks/rust). I've been told about Exercism by a co-worker and have been eager to try it out since.
 
-{{< image src="img/exercism.png" alt="Exercism Screenshot" position="center" style="border-radius: 0.5em;" >}}
+{{< figure src="img/exercism.png" alt="Exercism Screenshot" align="center" >}}
 
 ### Overview
 

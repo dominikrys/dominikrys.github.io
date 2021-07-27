@@ -1,8 +1,10 @@
 ---
 title: "Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik"
 date: 2020-12-01T12:51:48+01:00
-draft: false
-toc: true
+cover:
+    image: "img/diagram.png"
+    alt: "Architecture Diagram"
+    relative: true
 tags:
   - devops
   - security
@@ -11,8 +13,6 @@ tags:
   - grafana
   - traefik
 ---
-
-{{< image src="img/diagram.png" alt="Architecture Diagram" position="center" style="border-radius: 0.5em;" >}}
 
 ## Motivation
 

@@ -1,17 +1,16 @@
 ---
 title: "How to Transparently Proxy IP Packets With Spoofed Destinations"
 date: 2021-04-17T10:44:53+01:00
-draft: false
-toc: true
-images:
+cover:
+    image: "img/privoxy-logo.png"
+    alt: "Privoxy Logo"
+    relative: true
 tags:
   - security
   - devops
   - networking
   - linux
 ---
-
-{{< image src="img/privoxy-logo.png" alt="Privoxy Logo" position="center" style="border-radius: 0.5em;" >}}
 
 ## Introduction
 

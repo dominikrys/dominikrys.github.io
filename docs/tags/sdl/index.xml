@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>sdl on Dominik Rys</title>
     <link>https://dominikrys.com/tags/sdl/</link>
     <description>Recent content in sdl on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/img/portrait.jpg</url>
+      <link>https://dominikrys.com/img/portrait.jpg</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-GB</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sat, 15 Aug 2020 16:55:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/sdl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
-      <link>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</link>
+      <link>https://dominikrys.com/posts/compiling-chip8-to-wasm/</link>
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/2020/08/compiling-a-c-chip-8-emulator-to-webassembly/</guid>
-      <description>Introduction A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+      <guid>https://dominikrys.com/posts/compiling-chip8-to-wasm/</guid>
+      <description>A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
 My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
     </item>
     

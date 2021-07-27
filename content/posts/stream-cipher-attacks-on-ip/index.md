@@ -1,16 +1,16 @@
 ---
 title: "Executing Stream Cipher Attacks on IP Packets"
 date: 2021-07-09T15:36:55+01:00
-draft: false
-toc: true
+cover:
+    image: "img/cover.jpg"
+    alt: "Cover"
+    relative: true
 tags:
   - c++
   - srslte
   - security
   - networking
 ---
-
-{{< image src="img/cover.jpg" alt="Cover" position="center" style="border-radius: 0.5em;" >}}
 
 ## Introduction
 
@@ -24,13 +24,13 @@ I learned a lot while implementing this attack, which I thought would be worth d
 
 In most LTE networks, IP packets are encrypted with a **stream cipher** (AES-CTR), where the encryption algorithm generates streams of bytes called **keystreams**. To encrypt data, the sender XORs the unencrypted message (the **plaintext**) with the keystream to obtain an encrypted message (the **ciphertext**). The ciphertext is then sent to the receiver. The receiver generates the same keystream and can XOR it with the received ciphertext to retrieve the plaintext.
 
-{{< image src="img/stream-cipher-diagram.png" alt="Stream Cipher Diagram" position="center" style="border-radius: 0.5em; width: 70%;" >}}
+{{< figure src="img/stream-cipher-diagram.png" alt="Stream Cipher Diagram" >}}
 
 As explained previously, a MITM attacker can successfully modify the ciphertext of internet packets in LTE networks such that they decrypt to a related plaintext. This is possible because the encryption algorithm used is a [**malleable cipher**](https://en.wikipedia.org/wiki/Malleability_(cryptography)). If the attacker knows part of the plaintext of the encrypted data, they can apply a calculated **manipulation mask** (also referred to as a **bitmask**) to the ciphertext such that it decrypts into *any* chosen plaintext. The mask is calculated by XORing the plaintext with the message that the attacker wants to modify the plaintext to. The mask is then applied by XORing it with the ciphertext.
 
 The attack works because data XORed with itself results in all zeroes, and all zeros XORed with any data keeps the data intact. For more detail, I highly recommend reading a short description of how the attack works on [Wikipedia](https://en.wikipedia.org/wiki/Stream_cipher_attacks#Bit-flipping_attack).
 
-{{< image src="img/attack-diagram-general.png" alt="Attack Diagram" position="center" style="border-radius: 0.5em;" >}}
+{{< figure src="img/attack-diagram.png" alt="Attack Diagram" align="center" >}}
 
 An attacker can apply the mask to only a part of the ciphertext, allowing for the attack if the entire plaintext is not known.
 
@@ -48,7 +48,7 @@ In my case of LTE networks and using the C++ [srsLTE](https://www.srslte.com/) s
 
 To additionally verify if my assumptions were correct, I checked example packets in Wireshark. This would also likely need to be done when finding the offsets of more exotic, less well-documented protocols. To obtain the example packets, I captured packets in a test setup with known keys such that the packets could be decrypted. Since we're working with a stream cipher, the offsets will be the same whether encryption is enabled or not. In the Wireshark capture, I was able to confirm that adding 2 to the IP packet offset was correct. This is shown below with the 2-byte PDP header but can also be verified by checking individual bytes.
 
-{{< image src="img/pdcp-trace.png" alt="Wireshark PDCP Trace" position="center" style="border-radius: 0.5em; width: 90%;" >}}
+{{< figure src="img/pdcp-trace.png" alt="Wireshark PDCP Trace" align="center" >}}
 
 ### Applying Bitmasks to Parts of Payload in C++
 
@@ -101,7 +101,7 @@ In the case of compensating for changes in the destination IP address, this enta
 
 In LTE networks, we can reliably predict the TTL of packets sent from some devices to the first mast, as it won't yet be decremented. This gives us the ability to compensate for changes in the **first** and **third** octets of the IP. To compensate for changes in the **second** and **fourth** octets, I performed an investigation by sending hand-crafted DNS packets with broken fields to a remotely hosted VM and checking if they're received and processed correctly. The aim was to establish which fields are not necessary for routing and could be modified. This was easily done using [Scapy](https://scapy.net/). Eventually, I found that the DSCP and ECN fields could be predicted and didn't impact routing, so these gave enough room for me to be able to compensate for changes in the second and fourth octets of the IP.
 
-{{< image src="img/ip-checksum.png" alt="IP Checksum Diagram" position="center" style="border-radius: 0.5em; width: 90%;" >}}
+{{< figure src="img/ip-checksum.png" alt="IP Checksum Diagram" align="center" >}}
 
 #### IP Checksum Compensation Code Example
 
@@ -174,6 +174,6 @@ Another issue that could occur is that the UDP checksum will be incorrect, causi
 
 I've attempted to correct the UDP checksum by masking other fields in the packet as well. Below is a diagram of all the fields that are used to calculate the UDP checksum, where the red fields are from the IPv4 packet:
 
-{{< image src="img/udp-checksum.png" alt="UDP Checksum Diagram" position="center" style="border-radius: 0.5em; width: 75%;" >}}
+{{< figure src="img/udp-checksum.png" alt="UDP Checksum Diagram" align="center" >}}
 
 After modifying every non-payload field to see if the packets will be received, I found that Linux rejected them at the kernel level. The only promising change that worked was when part of the payload could be predicted and modified. Otherwise, pervasive changes would need to be made to the IP stack such that any incorrect fields are ignored and corrected.
