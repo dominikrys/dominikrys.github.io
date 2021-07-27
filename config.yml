@@ -84,13 +84,9 @@ params:
   #       url: tags
 
   homeInfoParams:
-    Title: Hi there 👋
+    Title:
     Content: >
-      Welcome to my blog! I'm a recent First Class BSc Computer Science Graduate and an incoming Graduate Software Engineer at [Improbable](https://www.improbable.io/). \
-
-      \
-
-      Feel free to check out my recent posts or use the links below to get in touch with me.
+      First Class BSc Computer Science Graduate
 
   socialIcons:
     - name: github
