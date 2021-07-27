@@ -8,17 +8,15 @@ tags:
   - university
 ---
 
-The moment I've been waiting for for years has happened recently - I've graduated with a First Class degree in Computer Science from the University of Birmingham! During the graduation ceremony (which I've been very lucky to get given a pandemic going on) I have also been awarded the Undergraduate Distinguished Dissertation Prize. This has been quite an honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.
+An important moment has happened recently - I've graduated with a First Class BSc degree in Computer Science from the University of Birmingham! To my surprise, during the graduation ceremony, I have also been awarded the **Distinguished Dissertation Prize 2020/2021** for the highest-graded dissertation in the graduating cohort. This was quite an honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.
 
 I was going to write a post reflecting on my dissertation at some point. Given that I've received such an accolade, however, I thought it made sense to document and pass on some knowledge that I believe went into making my dissertation stand out.
 
 ## Dissertation Context
 
-Dissertations differ between universities and between courses, so I'll give some background as to how mine went down. The dissertation took place over the entirety of both terms (excluding the third, assessment term) of the final year of my undergraduate degree. It accounted for a third of the overall mark for my final year. I was given the option to specify which dissertation supervisors I prefer. I chose to go down the cybersecurity route, as in terms of academics that's the one that most aligns with my interests.
+The dissertation accounted for a third of the overall mark for my final year. I chose to base mine on cybersecurity, as that's the topic that most aligns with my interests in terms of academics. I've been appointed a cybersecurity researcher as my dissertation supervisor. He was incredibly helpful and without a doubt, a lot of the success of my dissertation is thanks to his input. My dissertation was titled **"Analysing the Security of 4G LTE Networks using an Independently Developed MITM Proxy/Relay"**. This is quite a mouthful, but the specifics of it don't matter for this blog post. Overall, I received a mark of 90% in my dissertation.
 
-I ended up with a cybersecurity researcher as my supervisor. He was incredibly helpful and without a doubt, a lot of the success of my dissertation is thanks to his input. My dissertation was titled "Analysing the Security of 4G LTE Networks using an Independently Developed MITM Proxy/Relay". This is quite a mouthful, but the specifics of it don't matter for this blog post. Overall, I received a mark of 90% in my dissertation.
-
-I compiled a list of 10 tips that helped me work on my dissertation below. Some tips I've received from my supervisor, some I figured out as I worked on my dissertation, and some I found through discussion with my peers. I tried to keep them general, yet specific enough to the field of computer science. I hope they're useful and provide something new relative to existing advice online.
+I compiled a list of 10 tips that helped me work on my dissertation below. Some tips I've received from my supervisor, some I figured out as I worked on my dissertation, and some I found through discussion with my peers. I tried to keep them general, yet specific enough to the field of computer science. I hope they're useful and provide something new compared to existing advice online!
 
 ## The 10 Tips
 
