@@ -28,7 +28,7 @@ As for milestones, make sure you have some small ones so that it feels like you 
 
 It's also important to **assign a priority** to your goals. I split my tasks into "high", "medium", and "low" priority. High priority tasks were done first as they were key to progress with my dissertation. Once those were done, I moved on to lower priority tasks. I found keeping a "low" priority list helpful to note down "nice to have" features that I could come back to at the end.
 
-I kept track of my goals with Apple Notes, but I know many people like using special to-do list apps or keeping track of tasks in a notebook. Whatever works for you is fine, as long as you use it.
+I kept track of my goals with Apple Notes, but I know many people like using special to-do list apps or keeping track of tasks in a notebook. Whatever works for you!
 
 ### 2) Regularly ask for feedback 🗣
 
@@ -42,7 +42,7 @@ Gathering feedback will also be important once you've written up your dissertati
 
 ### 3) Make the most of resources provided to you 💻
 
-There are a *lot* of resources available to students writing their dissertations. This is not something I felt in previous years of university, and it has become very apparent over the last year. Whenever I needed any equipment (and I need a bunch of specialised 4G equipment), I asked my supervisor. He usually managed to sort something out promptly, or if he couldn't then he referred me to someone that could help.
+There are a *lot* of resources available to students writing their dissertations. This is not something I felt in previous years of university, and it has become very apparent over the last year. Whenever I needed any equipment (and I needed a bunch of specialised 4G equipment), I asked my supervisor. He usually managed to sort something out promptly, or if he couldn't then he referred me to someone that could help.
 
 Universities generally also have lots of online resources that you have access to. Namely, there is a large collection of books I could access online. Those helped greatly with obtaining technical diagrams and writing up the background section for my dissertation.
 
@@ -52,11 +52,11 @@ If your university provides example dissertations from previous years or mark sc
 
 It's very useful to make a note of what work you've done and the details of it. It especially comes in handy when writing up the dissertation and trying to remember the details of something you'd have done months ago.
 
-It's also useful when discussing progress in weekly supervisor meetings. Your supervisor might as you things that you can't remember off the top of your head, so having what you did noted down helps in such cases.
+Making detailed notes is also helpful when discussing progress in supervisor meetings. Your supervisor might ask you things that you can't remember off the top of your head, so having what you did noted down helps in such cases.
 
-### 5) If you're stuck, try everything you can and be honest 🙋‍♂️
+### 5) If you're stuck, try everything you can and be honest about your progress 🙋‍♂️
 
-Dissertations are difficult. There were many points over the year where I felt like I hit a wall. In times like this, I made it a point to instead try to do anything that could help (even if I thought it's unlikely to work) and noted down what I tried and what the outcomes were. In many cases, I could get closer to the solution through this methodological trial-and-error. If I couldn't progress, I made sure to formulate the problem well and explain it to my dissertation supervisor, mentioning everything I tried.
+Writing a dissertation is difficult. There were many points over the year where I felt like I hit a wall. In times like this, I made it a point to instead try to do anything that could help (even if I thought it's unlikely to work) and noted down what I tried and what the outcomes were. In many cases, I could get closer to the solution through this methodological trial-and-error. If I couldn't progress, I made sure to formulate the problem well and explain it to my dissertation supervisor, mentioning everything I tried.
 
 If you're stuck, make sure to be upfront and honest about your issues in progress meetings. Your supervisor would then be aware of these issues early and will be able to help you in a timely manner. In the end, they want you to succeed, so there's no shame in asking for help.
 
@@ -66,7 +66,7 @@ It's also useful to ask any technical friends about what ideas they may have whe
 
 You will have other modules and commitments that you'll need to allocate time for. Therefore, time management is key. You may find that during some weeks you get lots of work on your dissertation, and in other weeks there won't be much. That's completely fine, but it's important to communicate this to your supervisor and in any progress checks.
 
-Personally, I did a bulk of the work in the first term, so in the second term, I focussed on aspects that might not work and writing up my dissertation. Also when I knew that an assignment is coming up from another module, I made sure to focus on my dissertation beforehand. Then, once the assignment was available, I didn't have to focus on my dissertation knowing that I worked on it additionally at another time.
+Personally, I did a bulk of the work in the first term, so in the second term, I focussed on aspects that might not work and writing up my dissertation. Also when I knew that an assignment is coming up from another module, I made sure to focus on my dissertation beforehand. Then, once the assignment was released, I didn't feel pressured to work on my dissertation knowing that I worked on it additionally already.
 
 ### 7) Don't lose sight of the big picture 🥇
 
@@ -78,7 +78,7 @@ Writing up a dissertation will likely be quite different from any work you've do
 
 You will need to read a lot of academic papers to get used to the academic writing style. I underestimated quite heavily how much this would take, and resulted in having to re-write some sections of my dissertation when my sense for academic writing improved.
 
-It can be useful to keep a small bank of published papers that you like of which you can refer back to. I did this and then picked aspects I liked out of each one and incorporated them into my dissertation. This also ensured that my dissertation read more like a paper, and less like a student essay.
+It can be useful to **keep a small bank of published papers that you like** of which you can refer back to. I did this and then picked aspects I liked out of each one and incorporated them into my dissertation. This also ensured that my dissertation read more like a paper, and less like a student essay.
 
 Along with reading about academic writing, some time will need to be allocated to getting familiar with academic writing tools. The vast majority of academic papers are written using [LaTeX](https://www.latex-project.org/). I'd recommend using LaTeX, as your markers are likely to be researchers that also use it and are likely quite fond of it. It also makes your writing look great out of the box. However, sometimes things may break and extra time will need to aspects that just wouldn't break in an ordinary word processor. A good alternative is using a word processor with a LaTeX document theme.
 
@@ -88,7 +88,7 @@ I used [Overleaf](https://www.overleaf.com/) as my LaTeX editor, which made work
 
 After working on your dissertation for almost a year, you'll find that there is a lot you can write about. I had to do lots of cutting down to reach the 10,000-word limit and wished I'd have been much more concise from the start.
 
-The hardest bit for me was parting with the misconception that the time spent on a certain task directly correlates to the amount of space it should take up in the write-up. This was plain wrong. I spent weeks at the start simply trying to understand the basics of what I was working on, which eventually seemed quite trivial to me. Towards the end, however, I could spend a couple of days working on something that I could write whole chapters about. It's important to realise how much value each point brings.
+The hardest bit for me was parting with the misconception that the time spent on a certain task directly correlates to the amount of space it should take up in the write-up. I spent weeks at the start simply trying to understand the basics of what I was working on, which eventually seemed trivial to me. Towards the end, however, I could spend a couple of days working on something that I could write whole chapters about. It's important to realise how much value each point brings to your overarching goal.
 
 On the contrary, it's important to be aware of the [**curse of knowledge**](https://en.wikipedia.org/wiki/Curse_of_knowledge). You're likely to be working on a highly specialised topic that's not common knowledge for many computer science researchers. Something trivial to you may not be trivial to others. To help with this, I recommend reading your dissertation in its entirety from time to time and getting other people to read it also.
 

@@ -63,7 +63,7 @@ params:
   ShowBreadCrumbs: false
   ShowCodeCopyButtons: true
   ShowToc: true
-  hideSummary: false
+  hideSummary: true
   comments: true
   cover:
     relative: true
@@ -86,7 +86,11 @@ params:
   homeInfoParams:
     Title:
     Content: >
-      First Class BSc Computer Science Graduate
+      I'm **Dom**, a recent **First Class BSc Computer Science graduate**.\
+
+      \
+
+      Have a look at my blog posts below, my projects on [GitHub](https://github.com/dominikrys), or [get in touch](mailto:dominik.j.rys@gmail.com).
 
   socialIcons:
     - name: github
@@ -95,7 +99,7 @@ params:
       url: "https://www.linkedin.com/in/dominikrys/"
     - name: email
       url: "mailto:dominik.j.rys@gmail.com"
-    - name: RsS
+    - name: RSS
       url: "index.xml"
 
   # editPost:

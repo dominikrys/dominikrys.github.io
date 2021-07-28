@@ -1,9 +1,6 @@
 ---
 title: "How to Transparently Proxy IP Packets With Spoofed Destinations"
 date: 2021-04-17T10:44:53+01:00
-cover:
-    image: "img/privoxy-logo.png"
-    alt: "Privoxy Logo"
 tags:
   - security
   - devops
@@ -27,7 +24,7 @@ To reclaim the original destination, proxy software is needed that can do a DNS 
 
 It's also worth mentioning that since this proxy will change the destination IP of the packet, it stops being "transparent", and is now an "intercepting" proxy. I thought that this term is reserved for slightly more involved proxies such as [Burp](https://portswigger.net/burp/documentation/desktop/tools/proxy/getting-started), but it also applies in this case.
 
-To resolve packets according to their `Host` header, I used [Privoxy](https://www.privoxy.org/) in [intercepting mode](https://www.privoxy.org/faq/configuration.html#INTERCEPTING), which I will explain how to configure.
+To resolve packets according to their `Host` header, I used [**Privoxy**](https://www.privoxy.org/) in [intercepting mode](https://www.privoxy.org/faq/configuration.html#INTERCEPTING), which I will explain how to configure.
 
 ## How to configure Privoxy to resolve spoofed IP packets?
 

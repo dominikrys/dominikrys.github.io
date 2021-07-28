@@ -138,9 +138,6 @@ if (!doNotTrack) {
   <header class="entry-header">
     <h2>How to Disable UDP Checksum Validation in Linux</h2>
   </header>
-  <section class="entry-content">
-    <p>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren’t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn’t disable checksum checking. In the end, I managed to figure this problem out and found that it’s possible without recompiling the kernel. In this short post, I’ll describe how to set up a Linux machine to ignore UDP checksums in received packets....</p>
-  </section>
   <footer class="entry-footer">May 20, 2021&nbsp;·&nbsp;4 min</footer>
   <a class="entry-link" aria-label="post link to How to Disable UDP Checksum Validation in Linux" href="https://dominikrys.com/posts/disable-udp-checksum-validation/"></a>
 </article>
@@ -149,9 +146,6 @@ if (!doNotTrack) {
   <header class="entry-header">
     <h2>How to Transparently Proxy IP Packets With Spoofed Destinations</h2>
   </header>
-  <section class="entry-content">
-    <p>I’ve recently worked on a security project which required me to transparently/interceptingly (if that’s a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply....</p>
-  </section>
   <footer class="entry-footer">April 17, 2021&nbsp;·&nbsp;4 min</footer>
   <a class="entry-link" aria-label="post link to How to Transparently Proxy IP Packets With Spoofed Destinations" href="https://dominikrys.com/posts/transparently-proxy-spoofed-ip/"></a>
 </article>
@@ -160,10 +154,6 @@ if (!doNotTrack) {
   <header class="entry-header">
     <h2>A Modern Way to Configure Squid as a Transparent Proxy</h2>
   </header>
-  <section class="entry-content">
-    <p>I’ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don’t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
-With the hopes of saving someone some time that may be embarking on a similar journey, I thought I’d write this post....</p>
-  </section>
   <footer class="entry-footer">April 10, 2021&nbsp;·&nbsp;4 min</footer>
   <a class="entry-link" aria-label="post link to A Modern Way to Configure Squid as a Transparent Proxy" href="https://dominikrys.com/posts/squid-transparent-proxy/"></a>
 </article>
@@ -172,9 +162,6 @@ With the hopes of saving someone some time that may be embarking on a similar jo
   <header class="entry-header">
     <h2>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik</h2>
   </header>
-  <section class="entry-content">
-    <p>Motivation During my last internship, I’ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively....</p>
-  </section>
   <footer class="entry-footer">December 1, 2020&nbsp;·&nbsp;9 min</footer>
   <a class="entry-link" aria-label="post link to Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik" href="https://dominikrys.com/posts/secure-monitoring-solution-docker/"></a>
 </article>
@@ -183,10 +170,6 @@ With the hopes of saving someone some time that may be embarking on a similar jo
   <header class="entry-header">
     <h2>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</h2>
   </header>
-  <section class="entry-content">
-    <p>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I’ve done during my summer internship at R3.
- Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions....</p>
-  </section>
   <footer class="entry-footer">September 21, 2020&nbsp;·&nbsp;11 min</footer>
   <a class="entry-link" aria-label="post link to Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf" href="https://dominikrys.com/posts/monitoring-corda-nodes/"></a>
 </article>
