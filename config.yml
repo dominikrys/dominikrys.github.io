@@ -63,12 +63,13 @@ params:
   ShowBreadCrumbs: false
   ShowCodeCopyButtons: true
   ShowToc: true
+  TocOpen: true
   hideSummary: true
   comments: true
   cover:
     relative: true
     hiddenInList: true
-  images: ["img/portrait.jpg"]
+  images: ["img/android-chrome-512x512.png"]
 
   # profileMode:
   #   enabled: false
