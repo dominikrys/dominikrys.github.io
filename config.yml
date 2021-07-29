@@ -69,7 +69,7 @@ params:
   cover:
     relative: true
     hiddenInList: true
-  images: ["img/android-chrome-512x512.png"]
+  images: ["android-chrome-512x512.png"]
 
   # profileMode:
   #   enabled: false
