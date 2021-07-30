@@ -14,9 +14,9 @@ I was going to write a post reflecting on my dissertation at some point. Given t
 
 ## Dissertation Context
 
-The dissertation accounted for a third of the overall mark for my final year. I chose to base mine on cybersecurity, as that's the topic that most aligns with my interests in terms of academics. I've been appointed a cybersecurity researcher as my dissertation supervisor. He was incredibly helpful and without a doubt, a lot of the success of my dissertation is thanks to his input. My dissertation was titled **"Analysing the Security of 4G LTE Networks using an Independently Developed MITM Proxy/Relay"**. This is quite a mouthful, but the specifics of it don't matter for this blog post. Overall, I received a mark of 90% in my dissertation.
+The dissertation accounted for a third of the overall mark for my final year. I chose to base mine on cybersecurity and titled it **"Analysing the Security of 4G LTE Networks using an Independently Developed MITM Proxy/Relay"**. This is quite a mouthful, but the specifics of it don't matter for this post. Overall, I received a mark of 90% in my dissertation.
 
-I compiled a list of 10 tips that helped me work on my dissertation below. Some tips I've received from my supervisor, some I figured out as I worked on my dissertation, and some I found through discussion with my peers. I tried to keep them general, yet specific enough to the field of computer science. I hope they're useful and provide something new compared to existing advice online!
+I compiled a list of 10 tips that helped me work on my dissertation below. Some tips I've received from my dissertation supervisor, some I figured out as I worked on my dissertation, and some I found through discussion with my peers. I tried to keep them general, yet specific enough to the field of computer science. Hopefully they're useful and provide something new compared to existing advice online!
 
 ## The 10 Tips
 
