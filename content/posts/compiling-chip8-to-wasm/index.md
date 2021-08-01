@@ -1,5 +1,5 @@
 ---
-title: "Compiling a C++ CHIP-8 Emulator to WebAssembly"
+title: "Compiling My C++ CHIP-8 Emulator to WebAssembly"
 date: 2020-08-15T16:55:48+01:00
 cover:
     image: "img/full-emulator.png"

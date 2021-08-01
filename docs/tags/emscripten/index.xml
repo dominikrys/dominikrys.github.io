@@ -11,7 +11,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 15 Aug 2020 16:55:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/emscripten/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Compiling a C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
+      <title>Compiling My C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
       <link>https://dominikrys.com/posts/compiling-chip8-to-wasm/</link>
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       

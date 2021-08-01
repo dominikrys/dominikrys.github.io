@@ -29,7 +29,7 @@
     </item>
     
     <item>
-      <title>A Modern Way to Configure Squid as a Transparent Proxy</title>
+      <title>An Up-To-Date Guide on Configuring Squid as a Transparent Proxy</title>
       <link>https://dominikrys.com/posts/squid-transparent-proxy/</link>
       <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
       
@@ -39,7 +39,7 @@ With the hopes of saving someone some time that may be embarking on a similar jo
     </item>
     
     <item>
-      <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik</title>
+      <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</title>
       <link>https://dominikrys.com/posts/secure-monitoring-solution-docker/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       

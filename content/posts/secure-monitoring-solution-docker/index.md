@@ -1,5 +1,5 @@
 ---
-title: "Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik"
+title: "Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik"
 date: 2020-12-01T12:51:48+01:00
 cover:
     image: "img/diagram.png"

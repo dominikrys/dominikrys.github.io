@@ -50,7 +50,9 @@ Firstly, we need to check if your machine can already accept packets with invali
 
 A router between your machines could discard the packet due to an incorrect UDP checksum. Such an issue can be hard to diagnose, so it may be circumvented by sending packets from another machine.
 
-If the packet is *still* not received, the kernel may be rejecting packets with invalid UDP checksums. In such case, the [`udp_recvmsg()`](https://leapster.org/linux/kernel/udp/#udp_recvmsg) function in the kernel would need to be modified to not return errors when the checksum validation fails. However, changes to the kernel were not needed on the machines that I have tested this on (Ubuntu 18.04 in Microsoft Azure, Ubuntu 20.10 in DigitalOcean, and Arch Linux with kernel version 5.11.11).
+If the packet is *still* not received, the kernel may be rejecting packets with invalid UDP checksums. In such case, the [`udp_recvmsg()`](https://leapster.org/linux/kernel/udp/#udp_recvmsg) function in the kernel would need to be modified to not return errors when the checksum validation fails. The kernel would then need to be recompiled - this can differ slightly between Linux distros, but many include useful documentation on how to achieve this (such as [this](https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel) for Ubuntu).
+
+Note that changes to the kernel were not needed on the three machines that I have tested this on (Ubuntu 18.04 in Microsoft Azure, Ubuntu 20.10 in DigitalOcean, and Arch Linux with kernel version 5.11.11) but your mileage may vary.
 
 ## Ignoring UDP checksums with nftables
 

@@ -11,7 +11,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 01 Dec 2020 12:51:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana and Traefik</title>
+      <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</title>
       <link>https://dominikrys.com/posts/secure-monitoring-solution-docker/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
