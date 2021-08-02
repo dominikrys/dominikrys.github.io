@@ -13,8 +13,6 @@ tags:
   - traefik
 ---
 
-## Motivation
-
 During my last internship, I've been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out [here]({{< ref "../monitoring-corda-nodes/index.md" >}} "Monitoring Corda Nodes"). The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with [Grafana](https://grafana.com/) and [InfluxDB](https://www.influxdata.com/products/influxdb/) as the front-end and time-series database, respectively.
 
 It's relatively straightforward to write and deploy a Docker compose application with just Grafana and InfluxDB. There are many ready-made `docker-compose.yml` files that can be found online, as well as various tutorials and blog posts which explain the details. The main difficulty was in getting the application secured by issuing and renewing TLS certificates. My initial idea was to manually issue and set TLS certificates as described e.g. in the [InfluxDB documentation](https://docs.influxdata.com/influxdb/v1.7/administration/https_setup/), but this kind of approach wouldn't be maintainable in the long run.

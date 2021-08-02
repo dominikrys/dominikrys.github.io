@@ -138,6 +138,10 @@ if (!doNotTrack) {
   <header class="entry-header">
     <h2>Executing Stream Cipher Attacks on IP Packets</h2>
   </header>
+  <section class="entry-content">
+    <p>For part of my bachelor’s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper “Breaking LTE on Layer Two”.
+The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can’t verify the authenticity of the data....</p>
+  </section>
   <footer class="entry-footer">July 9, 2021&nbsp;·&nbsp;10 min</footer>
   <a class="entry-link" aria-label="post link to Executing Stream Cipher Attacks on IP Packets" href="https://dominikrys.com/posts/stream-cipher-attacks-on-ip/"></a>
 </article>
@@ -146,6 +150,11 @@ if (!doNotTrack) {
   <header class="entry-header">
     <h2>How to Debug srsLTE</h2>
   </header>
+  <section class="entry-content">
+    <p>I’ve recently been working extensively with srsLTE for my bachelor’s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+I’ll assume you know how to debug ordinary C/C&#43;&#43; programs (I’ll patiently wait here if you need to have a look into that).
+Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:...</p>
+  </section>
   <footer class="entry-footer">February 13, 2021&nbsp;·&nbsp;3 min</footer>
   <a class="entry-link" aria-label="post link to How to Debug srsLTE" href="https://dominikrys.com/posts/debug-srslte/"></a>
 </article>

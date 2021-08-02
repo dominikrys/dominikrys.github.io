@@ -44,7 +44,7 @@ With the hopes of saving someone some time that may be embarking on a similar jo
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/secure-monitoring-solution-docker/</guid>
-      <description>Motivation During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
+      <description>During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
     </item>
     
     <item>

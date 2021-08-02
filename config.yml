@@ -64,7 +64,7 @@ params:
   ShowCodeCopyButtons: true
   ShowToc: true
   TocOpen: true
-  hideSummary: true
+  hideSummary: false
   comments: true
   cover:
     relative: true
