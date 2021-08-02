@@ -3,7 +3,6 @@ title: "10 Tips for Getting a First in a Computer Science Dissertation"
 date: 2021-07-22T11:02:23+01:00
 cover:
     image: "img/cover.jpg"
-    alt: "Cover"
 tags:
   - university
 ---

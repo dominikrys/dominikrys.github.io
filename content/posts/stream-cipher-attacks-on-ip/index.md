@@ -3,7 +3,6 @@ title: "Executing Stream Cipher Attacks on IP Packets"
 date: 2021-07-09T15:36:55+01:00
 cover:
     image: "img/cover.jpg"
-    alt: "Cover"
 tags:
   - c++
   - srslte
