@@ -70,7 +70,7 @@ sudo nft 'add rule input_table input ip protocol udp udp checksum set 0'
 
 This rule will set the UDP checksum of every received IP UDP packet to 0. Your machine will now ignore UDP checksums of received packets! Feel free to test it using Scapy.
 
-To make the rule persistent across reboots, I'd recommend reading through  [this short guide on `nftables`](https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes).
+To make the rule persistent across reboots, I'd recommend reading through  [this short guide to `nftables`](https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes).
 
 ## Ignoring UDP checksums using socket options
 

@@ -167,7 +167,7 @@ This is an issue that I have encountered, where the destination IP couldn't be c
 
 ### Incorrect UDP/TCP Checksums
 
-Another issue that could occur is that the UDP checksum will be incorrect, causing the receiver to discard the packet. This occurs because the UDP checksum is calculated separately from the IP checksum. If you control the receiver, this issue could be alleviated by ignoring UDP checksums. There is conflicting advice on how to do this online, so I wrote a guide on how to disable UDP checksum validation in Linux which you can find [here]({{< ref "../disable-udp-checksum-validation/index.md" >}} "How to Disable UDP Checksum Validation in Linux").
+Another issue that could occur is that the UDP checksum will be incorrect, causing the receiver to discard the packet. This occurs because the UDP checksum is calculated separately from the IP checksum. If you control the receiver, this issue could be alleviated by ignoring UDP checksums. There is conflicting advice on how to do this online, so I wrote a short guide to disabling UDP checksum validation in Linux which you can find [here]({{< ref "../disable-udp-checksum-validation/index.md" >}} "How to Disable UDP Checksum Validation in Linux").
 
 I've attempted to correct the UDP checksum by masking other fields in the packet as well. Below is a diagram of all the fields that are used to calculate the UDP checksum, where the red fields are from the IPv4 packet:
 

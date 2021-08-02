@@ -48,7 +48,7 @@ Overall, this was a good next step after reading the Rust book. It allowed me to
 
 ## Project
 
-After finishing many Exercism exercises, I applied my knowledge to a project. I did this by checking the [build-your-own-x](https://github.com/danistefanovic/build-your-own-x) GitHub repo which contains a wealth of tutorials and guides for different projects. There are a couple of interesting projects using Rust there, from which I chose [Emil Hernvall's guide on writing a DNS server in Rust](https://github.com/EmilHernvall/dnsguide/blob/master/README.md).
+After finishing many Exercism exercises, I applied my knowledge to a project. I did this by checking the [build-your-own-x](https://github.com/danistefanovic/build-your-own-x) GitHub repo which contains a wealth of tutorials and guides for different projects. There are a couple of interesting projects using Rust there, from which I chose [Emil Hernvall's guide to writing a DNS server in Rust](https://github.com/EmilHernvall/dnsguide/blob/master/README.md).
 
 Compared to Exercism and the Rust book, I learned a lot about how to structure and work on a Rust project from this guide. It also allowed me to get familiar with Rust tooling (e.g. testing and linting). Furthermore, there was plenty that could be improved upon the code in the guide as it was written a couple of years ago, and overall describes a fairly simple and bare-bones DNS server implementation. I found applying what I learned from Exercism exercises to improve upon the code in the guide particularly redeeming.
 
