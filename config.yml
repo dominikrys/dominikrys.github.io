@@ -68,7 +68,7 @@ params:
   comments: true
   cover:
     relative: true
-    hiddenInList: true
+    hiddenInList: false
     alt: "Cover"
   images: ["android-chrome-512x512.png"]
 
