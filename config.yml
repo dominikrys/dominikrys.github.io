@@ -64,7 +64,7 @@ params:
   ShowCodeCopyButtons: true
   ShowToc: true
   TocOpen: true
-  hideSummary: false
+  hideSummary: true
   comments: true
   cover:
     relative: true
@@ -95,11 +95,11 @@ params:
       Have a look at my blog posts below, my projects on [GitHub](https://github.com/dominikrys), or [get in touch](mailto:dominik.j.rys@gmail.com).
 
   socialIcons:
-    - name: github
+    - name: GitHub
       url: "https://github.com/dominikrys/"
-    - name: linkedin
+    - name: LinkedIn
       url: "https://www.linkedin.com/in/dominikrys/"
-    - name: email
+    - name: Email
       url: "mailto:dominik.j.rys@gmail.com"
     - name: RSS
       url: "index.xml"

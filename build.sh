@@ -8,8 +8,11 @@ for theme in themes/*/; do
   git -C "$theme" pull &
 done
 
-echo "==> Clearing docs directory"
+echo "==> Clearing docs/"
 rm -rf docs
+
+# echo "==> Clearing resources/_gen"
+# rm -rf resources/_gen
 
 echo "==> Running Hugo"
 hugo
