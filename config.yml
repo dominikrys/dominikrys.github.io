@@ -86,13 +86,13 @@ params:
   #       url: tags
 
   homeInfoParams:
-    Title:
+    Title: Hi, I'm Dom 👋🏻
     Content: >
-      I'm **Dom**, a recent **First Class BSc Computer Science graduate**.\
+      I'm a **First Class BSc Computer Science graduate** based in the UK.\
 
       \
 
-      Have a look at my blog posts below, my projects on [GitHub](https://github.com/dominikrys), or [get in touch](mailto:dominik.j.rys@gmail.com).
+      Have a look at my blog posts below, my projects on [GitHub](https://github.com/dominikrys), or get in touch using the links below.
 
   socialIcons:
     - name: GitHub
