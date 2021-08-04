@@ -1,6 +1,8 @@
 ---
 title: "How I Started Learning Rust"
 date: 2021-06-16T18:56:21+01:00
+cover:
+  image: "img/cover.png"
 tags:
   - software engineering
   - rust

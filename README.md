@@ -30,8 +30,16 @@ hugo new --kind post-bundle posts/<POST NAME>
 
 ## Notes
 
+### Technical
+
 - Built with [Hugo](https://gohugo.io/)
 
 - Hosted on [GitHub Pages](https://pages.github.com/)
 
   > Website deployed from the `docs` folder, so that the generated website and raw markdown is kept in one repo. `docs` is used as it's [the only deployment directory supported by GitHub Pages apart from root](https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+
+### Images
+
+- For blank covers, use dimensions of 2000x700.
+
+- Export [diagrams.net](https://app.diagrams.net/) diagrams with 500% zoom and 3 border radius.

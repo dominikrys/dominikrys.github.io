@@ -1,6 +1,9 @@
 ---
 title: "How to Transparently Proxy IP Packets With Spoofed Destinations"
 date: 2021-04-17T10:44:53+01:00
+cover:
+  image: "img/diagram.png"
+  alt: "Proxy Diagram"
 tags:
   - security
   - devops
@@ -8,7 +11,7 @@ tags:
   - linux
 ---
 
-I've recently worked on a security project which required me to transparently/interceptingly (if that's a word) proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is **not** the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply.
+I've recently worked on a security project which required me to transparently proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is **not** the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply. The diagram above shows what we want to achieve.
 
 In this post, I will explain how it's possible to proxy such HTTP traffic by redirecting it to the correct destination.
 

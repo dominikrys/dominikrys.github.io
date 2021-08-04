@@ -1,6 +1,8 @@
 ---
 title: "How to Disable UDP Checksum Validation in Linux"
 date: 2021-05-20T12:37:22+01:00
+cover:
+    image: "img/cover.jpg"
 tags:
   - security
   - devops
