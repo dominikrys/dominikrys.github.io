@@ -11,8 +11,15 @@ done
 echo "==> Clearing docs/"
 rm -rf docs
 
-# echo "==> Clearing resources/_gen"
-# rm -rf resources/_gen
+for arg in "$@"; do
+  case $arg in
+  --clear-gen)
+    echo "==> Clearing resources/_gen"
+    rm -rf resources/_gen
+    shift
+    ;;
+  esac
+done
 
 echo "==> Running Hugo"
 hugo
