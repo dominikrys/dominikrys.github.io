@@ -13,7 +13,7 @@ git clone --recurse-submodules git@github.com:dominikrys/dominikrys.github.io.gi
 Deployment:
 
 ```zsh
-./build.sh
+./build.sh [--clear-gen]
 ```
 
 Local testing:
@@ -30,7 +30,7 @@ hugo new --kind post-bundle posts/<POST NAME>
 
 ## Notes
 
-### Technical
+### Technical Details
 
 - Built with [Hugo](https://gohugo.io/)
 
@@ -40,6 +40,6 @@ hugo new --kind post-bundle posts/<POST NAME>
 
 ### Images
 
-- For blank covers, use dimensions of 2000x700.
+- For blank cover images, use dimensions of 2000x700, 1500x525, 1000x350 (2:7 ratio).
 
 - Export [diagrams.net](https://app.diagrams.net/) diagrams with 500% zoom and 3 border radius.
