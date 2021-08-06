@@ -14,13 +14,15 @@ tags:
 
 A couple of months ago I wrote a [CHIP-8 emulator](https://github.com/dominikrys/chip8) in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I'll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result **[here](https://dominikrys.com/chip8)**.
 
-My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running. I could send someone the pre-compiled binary or give building instructions, but those aren't guaranteed to work on every platform. Ideally, I wanted a solution that can be hosted on the web, and I recently heard about this cool new "WebAssembly" thing that seemed like the perfect solution.
+My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running. I could send someone the pre-compiled binary or give building instructions, but those aren't guaranteed to work on every platform. Ideally, I wanted a solution that can be hosted on the web, and I recently heard about this cool new "WebAssembly" which seemed perfect for the job.
 
-[WebAssembly](https://webassembly.org/) is a binary instruction format that runs on modern web browsers and allows apps to run at "near-native speed". In reality, there is a [performance hit of about 50% relative to their native counterparts](https://www.usenix.org/conference/atc19/presentation/jangda) so it won't be great at running AI or HFT algorithms in your web browser, but it will be good enough to play Space Invaders.
+[WebAssembly](https://webassembly.org/) (abbreviated Wasm) is a binary instruction format that runs on modern web browsers and allows apps to run at "near-native speed". In reality, there is a [performance hit of about 50% relative to their native counterparts](https://www.usenix.org/conference/atc19/presentation/jangda) so it won't be great at running AI or HFT algorithms in your web browser, but it will be good enough to play Space Invaders.
 
-To get our Wasm output, [Emscripten](https://emscripten.org/) can be used. It's a toolchain that can compile C, C++, and any language which uses LLVM into WebAssembly.
+For a great explanation on what WebAssembly is exactly and how it works, I'd recommend [Link Clark's blog post](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/).
 
-Armed with these tools, the idea was simple: compile my emulator using Emscripten, sort out any errors, and deploy it on a website. An afternoon's work, right? ...not quite. Turns out that there were a couple of pitfalls along the way, so I thought I'd document my journey of compiling a loop-based C++ program running into WebAssembly for future me's reference once WebAssembly takes over the world, or for anyone else that may be attempting a similar task themselves
+To get our Wasm output, [Emscripten](https://emscripten.org/) can be used. It's a toolchain that can compile any language which uses LLVM into WebAssembly.
+
+Armed with these tools, the idea was simple: compile my emulator using Emscripten, sort out any errors, and deploy it on a website. An afternoon's work, right? ...not quite. Turns out that there were a couple of pitfalls along the way, so I thought I'd document my journey of compiling a loop-based C++ program running into WebAssembly for future me's reference or for anyone else that may be attempting a similar task themselves.
 
 ## Setting up Emscripten
 
