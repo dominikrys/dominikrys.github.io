@@ -40,6 +40,6 @@ hugo new --kind post-bundle posts/<POST NAME>
 
 ### Images
 
-- For blank cover images, use dimensions of 2000x700, 1500x525, 1000x350 (2:7 ratio).
+- For blank cover images, use dimensions of 2000x700, 1500x525, or 1000x350 (2:7 ratio).
 
 - Export [diagrams.net](https://app.diagrams.net/) diagrams with 500% zoom and 5 border radius.
