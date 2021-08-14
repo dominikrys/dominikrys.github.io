@@ -21,7 +21,7 @@ This is where [Traefik](https://traefik.io/traefik/) came in - it's an edge rout
 
 Throughout the post, I'll also describe small improvements that could be made to the deployment I describe, as well as describe small quirks I found when working with the described tools. Note that Traefik works with all Docker containers, so this post can still apply if you for example use [Prometheus](https://prometheus.io/) instead of InfluxDB as your time-series database.
 
-For the finished all-in-one deployment of Grafana, InfluxDB and Traefik that this post will build up to, I've provided this GitHub repo: [Secure Monitoring Solution in Docker](https://github.com/dominikrys/docker-influxdb-grafana-traefik).
+For the finished all-in-one deployment of Grafana, InfluxDB and Traefik that this post will build up to, I've provided this GitHub repo: [Secure Monitoring Solution in Docker](https://github.com/dominikrys/docker-monitoring).
 
 ## Setting up Grafana and InfluxDB
 
@@ -277,7 +277,7 @@ That's it! Your Docker containers are now secured, and traffic that will be sent
 
 ## Further improvements
 
-There are a couple of small improvements that can be made to the Docker application at this point. Many of the improvements have been implemented in the mentioned [GitHub repository](https://github.com/dominikrys/docker-influxdb-grafana-traefik) mentioned at the start of this post.
+There are a couple of small improvements that can be made to the Docker application at this point. Many of the improvements have been implemented in the mentioned [GitHub repository](https://github.com/dominikrys/docker-monitoring) mentioned at the start of this post.
 
 - `volumes` configurations can be expanded to their verbose form for better readability. This can help with understanding what kind of mount is used, as it's not immediately obvious with the [short syntax](https://docs.docker.com/compose/compose-file/#short-syntax-3).
 

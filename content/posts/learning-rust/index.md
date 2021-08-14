@@ -54,7 +54,7 @@ After finishing many Exercism exercises, I applied my knowledge to a project. I 
 
 Compared to Exercism and the Rust book, I learned a lot about how to structure and work on a Rust project from this guide. It also allowed me to get familiar with Rust tooling (e.g. testing and linting). Furthermore, there was plenty that could be improved upon the code in the guide as it was written a couple of years ago, and overall describes a fairly simple and bare-bones DNS server implementation. I found applying what I learned from Exercism exercises to improve upon the code in the guide particularly redeeming.
 
-The final DNS server I wrote is [available on my GitHub](https://github.com/dominikrys/dns-server).
+The final DNS server I wrote is [available on my GitHub](https://github.com/dominikrys/iris).
 
 ## What Next?
 
