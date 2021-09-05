@@ -12,7 +12,7 @@ I&rsquo;ll assume you know how to debug ordinary C/C&#43;&#43; programs (I&rsquo
 Compiling srsLTE in debug mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:">
 <meta name="author" content="">
 <link rel="canonical" href="https://dominikrys.com/posts/debug-srslte/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.6cba0d81b5f3f42bb578d49f402ba4175aa72b43def148780b8ad714c957c6f5.css" integrity="sha256-bLoNgbXz9Cu1eNSfQCukF1qnK0Pe8Uh4C4rXFMlXxvU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.9f1d947375927e9847272b1f4e9be81336f539e513bf04d52cade31f81cad1af.css" integrity="sha256-nx2Uc3WSfphHJysfTpvoEzb1OeUTvwTVLK3jH4HK0a8=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://dominikrys.com/favicon.ico">
@@ -200,14 +200,16 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 </div>
   </header> 
 <figure class="entry-cover">
-        <img loading="lazy" srcset="https://dominikrys.com/posts/debug-srslte/img/srslte-logo_hua7fd728ddaa6e08b49343225b3f9c780_26831_360x0_resize_box_3.png 360w ,https://dominikrys.com/posts/debug-srslte/img/srslte-logo_hua7fd728ddaa6e08b49343225b3f9c780_26831_480x0_resize_box_3.png 480w ,https://dominikrys.com/posts/debug-srslte/img/srslte-logo_hua7fd728ddaa6e08b49343225b3f9c780_26831_720x0_resize_box_3.png 720w ,https://dominikrys.com/posts/debug-srslte/img/srslte-logo.png 1038w"
-            sizes="(min-width: 768px) 720px, 100vw" src="https://dominikrys.com/posts/debug-srslte/img/srslte-logo.png" alt="srsLTE Logo" />
+        <img loading="lazy" srcset="https://dominikrys.com/posts/debug-srslte/img/srslte-logo_hua7fd728ddaa6e08b49343225b3f9c780_26831_360x0_resize_box_3.png 360w ,https://dominikrys.com/posts/debug-srslte/img/srslte-logo_hua7fd728ddaa6e08b49343225b3f9c780_26831_480x0_resize_box_3.png 480w ,https://dominikrys.com/posts/debug-srslte/img/srslte-logo_hua7fd728ddaa6e08b49343225b3f9c780_26831_720x0_resize_box_3.png 720w ,https://dominikrys.com/posts/debug-srslte/img/srslte-logo.png 1038w" 
+            sizes="(min-width: 768px) 720px, 100vw" src="https://dominikrys.com/posts/debug-srslte/img/srslte-logo.png" alt="srsLTE Logo" 
+            width="1038" height="353">
         
 </figure><div class="toc">
     <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <div class="details">Table of Contents</div>
+            <span class="details">Table of Contents</span>
         </summary>
+
         <div class="inner"><ul>
                 <li>
                     <a href="#compiling-srslte-in-debug-mode" aria-label="Compiling srsLTE in debug mode">Compiling srsLTE in debug mode</a><ul>
@@ -253,6 +255,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 
 
   </div>
+
   <footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://dominikrys.com/tags/security/">security</a></li>
@@ -273,6 +276,7 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
     <span>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</span>
   </a>
 </nav>
+
 
 <div class="share-buttons">
     <a target="_blank" rel="noopener noreferrer" aria-label="share How to Debug srsLTE on twitter"
@@ -341,7 +345,8 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </article>
     </main>
-    <footer class="footer">
+    
+<footer class="footer">
     <span>&copy; 2021 <a href="https://dominikrys.com">Dominik Rys</a></span>
     <span>
         Powered by
@@ -349,12 +354,10 @@ Compiling srsLTE in debug mode Your first attempt at debugging may have been to 
         <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
     </span>
 </footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
-    <button class="top-link" id="top-link" type="button" accesskey="g">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-            <path d="M12 6H0l6-6z" />
-        </svg>
-    </button>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
 </a>
 
 <script>

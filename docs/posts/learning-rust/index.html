@@ -11,7 +11,7 @@
 In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped.">
 <meta name="author" content="">
 <link rel="canonical" href="https://dominikrys.com/posts/learning-rust/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.6cba0d81b5f3f42bb578d49f402ba4175aa72b43def148780b8ad714c957c6f5.css" integrity="sha256-bLoNgbXz9Cu1eNSfQCukF1qnK0Pe8Uh4C4rXFMlXxvU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.9f1d947375927e9847272b1f4e9be81336f539e513bf04d52cade31f81cad1af.css" integrity="sha256-nx2Uc3WSfphHJysfTpvoEzb1OeUTvwTVLK3jH4HK0a8=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://dominikrys.com/favicon.ico">
@@ -197,14 +197,16 @@ In this post, I describe how I went about learning Rust and what resources I use
 </div>
   </header> 
 <figure class="entry-cover">
-        <img loading="lazy" srcset="https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_360x0_resize_box_3.png 360w ,https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_480x0_resize_box_3.png 480w ,https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_720x0_resize_box_3.png 720w ,https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_1080x0_resize_box_3.png 1080w ,https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_1500x0_resize_box_3.png 1500w ,https://dominikrys.com/posts/learning-rust/img/cover.png 2000w"
-            sizes="(min-width: 768px) 720px, 100vw" src="https://dominikrys.com/posts/learning-rust/img/cover.png" alt="" />
+        <img loading="lazy" srcset="https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_360x0_resize_box_3.png 360w ,https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_480x0_resize_box_3.png 480w ,https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_720x0_resize_box_3.png 720w ,https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_1080x0_resize_box_3.png 1080w ,https://dominikrys.com/posts/learning-rust/img/cover_hue0ebc59720d8aee329022a3871647bcf_26207_1500x0_resize_box_3.png 1500w ,https://dominikrys.com/posts/learning-rust/img/cover.png 2000w" 
+            sizes="(min-width: 768px) 720px, 100vw" src="https://dominikrys.com/posts/learning-rust/img/cover.png" alt="" 
+            width="2000" height="800">
         
 </figure><div class="toc">
     <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <div class="details">Table of Contents</div>
+            <span class="details">Table of Contents</span>
         </summary>
+
         <div class="inner"><ul>
                 <li>
                     <a href="#the-rust-book" aria-label="The Rust Book">The Rust Book</a></li>
@@ -263,6 +265,7 @@ In this post, I describe how I went about learning Rust and what resources I use
 
 
   </div>
+
   <footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://dominikrys.com/tags/software-engineering/">software engineering</a></li>
@@ -280,6 +283,7 @@ In this post, I describe how I went about learning Rust and what resources I use
     <span>How to Disable UDP Checksum Validation in Linux</span>
   </a>
 </nav>
+
 
 <div class="share-buttons">
     <a target="_blank" rel="noopener noreferrer" aria-label="share How I Started Learning Rust on twitter"
@@ -348,7 +352,8 @@ In this post, I describe how I went about learning Rust and what resources I use
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </article>
     </main>
-    <footer class="footer">
+    
+<footer class="footer">
     <span>&copy; 2021 <a href="https://dominikrys.com">Dominik Rys</a></span>
     <span>
         Powered by
@@ -356,12 +361,10 @@ In this post, I describe how I went about learning Rust and what resources I use
         <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
     </span>
 </footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
-    <button class="top-link" id="top-link" type="button" accesskey="g">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-            <path d="M12 6H0l6-6z" />
-        </svg>
-    </button>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
 </a>
 
 <script>
