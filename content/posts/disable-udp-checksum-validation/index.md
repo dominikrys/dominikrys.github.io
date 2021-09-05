@@ -10,11 +10,15 @@ tags:
   - networking
 ---
 
-I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren't any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn't disable checksum checking. In the end, I managed to figure this problem out and found that it's possible without recompiling the kernel. In this short post, I'll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.
+I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren't any satisfactory solutions that I could easily find online related to this. The top Google results suggest [disabling checksum offloading](https://www.linuxquestions.org/questions/linux-networking-3/help-needed-disabling-tcp-udp-checksum-offloading-in-debian-880233/), which doesn't disable checksum validation. Another result mentions [a solution from within application source code](https://linux-tips.com/t/how-to-disable-udp-checksum-control-in-kernel/362), which you may not have access to or be able to modify.
+
+In the end, I managed to figure this problem out and found that it's usually possible without recompiling the kernel. In this short post, I'll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.
 
 ## Check if your machine can receive packets with broken UDP checksums
 
-Firstly, we need to check if your machine can already accept packets with invalid UDP checksums. Testing this is easy - send packets with broken UDP checksums from one machine (machine 1) to the machine that you want to disable validation on (machine 2), and check the traffic using `tcpdump`. I'll outline how I've done this below.
+Firstly, we need to check if your machine can already accept packets with invalid UDP checksums. This is necessary as your machine might already be able to receive them, but applications that are then passed the packets could be discarding them. Verifying this is also necessary to check if your network is capable of receiving packets with broken UDP checksums; there could be firewalls in place that verify packets before they reach your machine, in which case those will need to be reconfigured first.
+
+Testing if your machine can already receive packets with broken checksums is straightforward - send packets with broken UDP checksums from one machine (machine 1) to the machine that you want to disable validation on (machine 2), and check the traffic using `tcpdump`. I'll outline how I've done this below.
 
 1. Run `tcpdump` on machine 1, listening to internet traffic at port 53:
 

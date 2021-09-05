@@ -26,7 +26,7 @@ The attack is possible due to a specification flaw in LTE standards, where IP pa
       <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/disable-udp-checksum-validation/</guid>
-      <description>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top results also suggested disabling checksum offloading, which doesn&amp;rsquo;t disable checksum checking. In the end, I managed to figure this problem out and found that it&amp;rsquo;s possible without recompiling the kernel. In this short post, I&amp;rsquo;ll describe how to set up a Linux machine to ignore UDP checksums in received packets.</description>
+      <description>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top Google results suggest disabling checksum offloading, which doesn&amp;rsquo;t disable checksum validation. Another result mentions a solution from within application source code, which you may not have access to or be able to modify.</description>
     </item>
     
     <item>
