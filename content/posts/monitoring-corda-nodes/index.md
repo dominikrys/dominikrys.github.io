@@ -98,7 +98,7 @@ Being the oldest of the bunch has its disadvantages though, most notably that th
 
 ### Front end for visualising and querying the TSDB
 
-{{< figure src="img/example-grafana-dashboard.png" alt="Example Grafana Dashboard" align="center" caption="Example Grafana Dashboard" >}}
+{{< figure src="img/example-grafana-dashboard.jpg" alt="Example Grafana Dashboard" align="center" caption="Example Grafana Dashboard" >}}
 
 ⭐ [**Grafana**](https://grafana.com) — an open source tool for interactively visualising data from various data sources. Grafana is by far the most popular tool for interacting with TSDBs with over [1200 contributors on GitHub](https://github.com/grafana/grafana) and a very active [community forum](https://community.grafana.com/). There are [many plug-ins available for it](https://grafana.com/grafana/plugins), it integrates well with many other services for [alerting](https://grafana.com/docs/grafana/latest/alerting/notifications/) and [authentication](https://grafana.com/docs/grafana/latest/auth/overview/), and it makes creating aesthetically pleasing dashboards a breeze.
 
