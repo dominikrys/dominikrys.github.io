@@ -11,7 +11,7 @@
 In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped.">
 <meta name="author" content="">
 <link rel="canonical" href="https://dominikrys.com/posts/learning-rust/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.5e2b4101351c21e906f398ae96901791830f58d430f96f2659dab7eaef7b3cb7.css" integrity="sha256-XitBATUcIekG85iulpAXkYMPWNQw&#43;W8mWdq36u97PLc=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.6f60056d44d3f7eb69a4bc6c332b59960f3a995802bded244750232f33713c49.css" integrity="sha256-b2AFbUTT9&#43;tppLxsMytZlg86mVgCve0kR1AjLzNxPEk=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://dominikrys.com/favicon.ico">
@@ -177,8 +177,8 @@ In this post, I describe how I went about learning Rust and what resources I use
         </div>
         <ul id="menu">
             <li>
-                <a href="https://dominikrys.com/archives" title="Post Archive">
-                    <span>Post Archive</span>
+                <a href="https://dominikrys.com/archives" title="Archive">
+                    <span>Archive</span>
                 </a>
             </li>
         </ul>
@@ -192,7 +192,8 @@ In this post, I describe how I went about learning Rust and what resources I use
     <h1 class="post-title">
       How I Started Learning Rust
     </h1>
-    <div class="post-meta">June 16, 2021&nbsp;·&nbsp;6 min
+    <div class="post-meta"><span title='2021-06-16 18:56:21 +0100 BST'>June 16, 2021</span>&nbsp;·&nbsp;6 min
+
 </div>
   </header> 
 <figure class="entry-cover">
@@ -368,9 +369,11 @@ In this post, I describe how I went about learning Rust and what resources I use
 
 <script>
     let menu = document.getElementById('menu')
-    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-    menu.onscroll = function () {
-        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

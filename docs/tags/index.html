@@ -10,7 +10,7 @@
 <meta name="description" content="Dominik Rys&#39;s Blog">
 <meta name="author" content="">
 <link rel="canonical" href="https://dominikrys.com/tags/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.5e2b4101351c21e906f398ae96901791830f58d430f96f2659dab7eaef7b3cb7.css" integrity="sha256-XitBATUcIekG85iulpAXkYMPWNQw&#43;W8mWdq36u97PLc=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.6f60056d44d3f7eb69a4bc6c332b59960f3a995802bded244750232f33713c49.css" integrity="sha256-b2AFbUTT9&#43;tppLxsMytZlg86mVgCve0kR1AjLzNxPEk=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://dominikrys.com/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://dominikrys.com/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://dominikrys.com/favicon-32x32.png">
@@ -121,8 +121,8 @@ if (!doNotTrack) {
         </div>
         <ul id="menu">
             <li>
-                <a href="https://dominikrys.com/archives" title="Post Archive">
-                    <span>Post Archive</span>
+                <a href="https://dominikrys.com/archives" title="Archive">
+                    <span>Archive</span>
                 </a>
             </li>
         </ul>
@@ -210,9 +210,11 @@ if (!doNotTrack) {
 
 <script>
     let menu = document.getElementById('menu')
-    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-    menu.onscroll = function () {
-        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

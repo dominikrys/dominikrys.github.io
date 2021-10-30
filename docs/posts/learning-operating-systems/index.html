@@ -10,7 +10,7 @@
 <meta name="description" content="I&rsquo;ve recently graduated with a Computer Science degree from the University of Birmingham. Overall, the course covered most of the fundamentals of computer science. However, the course structure changed starting from the year below me, moving the operating systems module from the third to the second year. Since I took a year out for a year in industry, this meant that I completely missed out on the operating systems module!">
 <meta name="author" content="">
 <link rel="canonical" href="https://dominikrys.com/posts/learning-operating-systems/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.5e2b4101351c21e906f398ae96901791830f58d430f96f2659dab7eaef7b3cb7.css" integrity="sha256-XitBATUcIekG85iulpAXkYMPWNQw&#43;W8mWdq36u97PLc=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.6f60056d44d3f7eb69a4bc6c332b59960f3a995802bded244750232f33713c49.css" integrity="sha256-b2AFbUTT9&#43;tppLxsMytZlg86mVgCve0kR1AjLzNxPEk=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://dominikrys.com/favicon.ico">
@@ -174,8 +174,8 @@ if (!doNotTrack) {
         </div>
         <ul id="menu">
             <li>
-                <a href="https://dominikrys.com/archives" title="Post Archive">
-                    <span>Post Archive</span>
+                <a href="https://dominikrys.com/archives" title="Archive">
+                    <span>Archive</span>
                 </a>
             </li>
         </ul>
@@ -189,7 +189,8 @@ if (!doNotTrack) {
     <h1 class="post-title">
       Short Guide on Self-Teaching About Operating Systems
     </h1>
-    <div class="post-meta">August 3, 2021&nbsp;·&nbsp;4 min
+    <div class="post-meta"><span title='2021-08-03 16:07:52 +0100 BST'>August 3, 2021</span>&nbsp;·&nbsp;4 min
+
 </div>
   </header> 
 <figure class="entry-cover">
@@ -356,9 +357,11 @@ if (!doNotTrack) {
 
 <script>
     let menu = document.getElementById('menu')
-    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-    menu.onscroll = function () {
-        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

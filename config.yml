@@ -23,7 +23,7 @@ languages:
     weight: 1
     menu:
       main:
-        - name: Post Archive
+        - name: Archive
           url: archives
           weight: 5
         # - name: Search

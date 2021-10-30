@@ -10,7 +10,7 @@
 <meta name="description" content="I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&rsquo;t any satisfactory solutions that I could easily find online related to this. The top Google results suggest disabling checksum offloading, which doesn&rsquo;t disable checksum validation. Another result mentions a solution from within application source code, which you may not have access to or be able to modify.">
 <meta name="author" content="">
 <link rel="canonical" href="https://dominikrys.com/posts/disable-udp-checksum-validation/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.5e2b4101351c21e906f398ae96901791830f58d430f96f2659dab7eaef7b3cb7.css" integrity="sha256-XitBATUcIekG85iulpAXkYMPWNQw&#43;W8mWdq36u97PLc=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.6f60056d44d3f7eb69a4bc6c332b59960f3a995802bded244750232f33713c49.css" integrity="sha256-b2AFbUTT9&#43;tppLxsMytZlg86mVgCve0kR1AjLzNxPEk=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://dominikrys.com/favicon.ico">
@@ -174,8 +174,8 @@ if (!doNotTrack) {
         </div>
         <ul id="menu">
             <li>
-                <a href="https://dominikrys.com/archives" title="Post Archive">
-                    <span>Post Archive</span>
+                <a href="https://dominikrys.com/archives" title="Archive">
+                    <span>Archive</span>
                 </a>
             </li>
         </ul>
@@ -189,7 +189,8 @@ if (!doNotTrack) {
     <h1 class="post-title">
       How to Disable UDP Checksum Validation in Linux
     </h1>
-    <div class="post-meta">May 20, 2021&nbsp;·&nbsp;4 min
+    <div class="post-meta"><span title='2021-05-20 12:37:22 +0100 BST'>May 20, 2021</span>&nbsp;·&nbsp;4 min
+
 </div>
   </header> 
 <figure class="entry-cover">
@@ -375,9 +376,11 @@ sudo nft <span style="color:#e6db74">&#39;add rule input_table input ip protocol
 
 <script>
     let menu = document.getElementById('menu')
-    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-    menu.onscroll = function () {
-        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
