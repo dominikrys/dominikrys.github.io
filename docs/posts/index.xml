@@ -9,7 +9,18 @@
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 03 Aug 2021 16:07:52 +0100</lastBuildDate><atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Oct 2021 09:53:52 +0000</lastBuildDate><atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Enforce Uniqueness of Multiple Attributes in DynamoDB</title>
+      <link>https://dominikrys.com/posts/how-to-enforce-uniqueness-of-multiple-attributes-in-dynamodb/</link>
+      <pubDate>Sun, 31 Oct 2021 09:53:52 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/how-to-enforce-uniqueness-of-multiple-attributes-in-dynamodb/</guid>
+      <description>I&amp;rsquo;ve recently tried to solve a problem that involved enforcing uniqueness of multiple attributes in DynamoDB. Surprisingly, this wasn&amp;rsquo;t a trivial undertaking. Given most of my database experience is using SQL databases, I initially started solving the problem using SQL paradigms that didn&amp;rsquo;t translate well to NoSQL.
+In this post, I will describe what I learned, and how it&amp;rsquo;s possible to implement enforcing uniqueness of multiple attributes in DynamoDB.
+Approaches That Don&amp;rsquo;t Work Using Condition Expressions After some initial research, I tried implementing a Conditional Put using a condition expression.</description>
+    </item>
+    
     <item>
       <title>Short Guide on Self-Teaching About Operating Systems</title>
       <link>https://dominikrys.com/posts/learning-operating-systems/</link>

@@ -25,7 +25,7 @@ hugo serve [-D]
 Add a new post:
 
 ```zsh
-hugo new --kind post-bundle posts/<POST NAME>
+hugo new --kind post-bundle posts/<POST NAME SEPARATED BY DASHES>
 ```
 
 ## Notes
