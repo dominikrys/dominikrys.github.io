@@ -8,13 +8,13 @@ for theme in themes/*/; do
   git -C "$theme" pull &
 done
 
-echo "==> Clearing docs/"
+echo "==> Removing docs"
 rm -rf docs
 
 for arg in "$@"; do
   case $arg in
   --clear-gen)
-    echo "==> Clearing resources/_gen"
+    echo "==> Removing resources/_gen"
     rm -rf resources/_gen
     shift
     ;;
@@ -24,4 +24,4 @@ done
 echo "==> Running Hugo"
 hugo
 
-wait
+wait # Wait for submodule pull background task
