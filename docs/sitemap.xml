@@ -2,28 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://dominikrys.com/</loc>
+    <lastmod>2021-11-07T18:32:38+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/go/</loc>
+    <lastmod>2021-11-07T18:32:38+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/injecting-build-time-variables-to-nested-go-packages/</loc>
+    <lastmod>2021-11-07T18:32:38+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2021-11-07T18:32:38+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/software-engineering/</loc>
+    <lastmod>2021-11-07T18:32:38+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/</loc>
+    <lastmod>2021-11-07T18:32:38+00:00</lastmod>
+  </url><url>
     <loc>https://dominikrys.com/tags/aws/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/databases/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/</loc>
-    <lastmod>2021-10-31T09:53:52+00:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/tags/dynamodb/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/enforce-uniqueness-of-multiple-attributes-in-dynamodb/</loc>
-    <lastmod>2021-10-31T09:53:52+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/posts/</loc>
-    <lastmod>2021-10-31T09:53:52+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/software-engineering/</loc>
-    <lastmod>2021-10-31T09:53:52+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/operating-systems/</loc>
