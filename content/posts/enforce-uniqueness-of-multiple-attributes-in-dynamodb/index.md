@@ -10,6 +10,7 @@ tags:
   - databases
   - aws
   - software engineering
+  - infrastructure
 ---
 
 I've recently tried to solve a problem that involved enforcing uniqueness of multiple attributes in DynamoDB. Surprisingly, this wasn't a trivial undertaking. Given most of my database experience is using SQL databases, I initially started solving the problem using SQL paradigms that didn't translate well to NoSQL.

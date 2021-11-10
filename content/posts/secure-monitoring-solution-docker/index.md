@@ -7,6 +7,7 @@ cover:
 tags:
   - devops
   - security
+  - infrastructure
   - docker
   - influxdb
   - grafana

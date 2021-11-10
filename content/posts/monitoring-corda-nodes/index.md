@@ -7,6 +7,7 @@ tags:
   - devops
   - security
   - docker
+  - infrastructure
   - influxdb
   - grafana
   - traefik

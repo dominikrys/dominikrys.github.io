@@ -6,8 +6,8 @@ cover:
   alt: "Proxy Diagram"
 tags:
   - security
-  - devops
   - networking
+  - iptables
   - linux
 ---
 

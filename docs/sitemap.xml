@@ -32,6 +32,9 @@
     <loc>https://dominikrys.com/posts/enforce-uniqueness-of-multiple-attributes-in-dynamodb/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
+    <loc>https://dominikrys.com/tags/infrastructure/</loc>
+    <lastmod>2021-10-31T09:53:52+00:00</lastmod>
+  </url><url>
     <loc>https://dominikrys.com/tags/operating-systems/</loc>
     <lastmod>2021-08-03T16:07:52+01:00</lastmod>
   </url><url>
@@ -75,6 +78,9 @@
     <lastmod>2021-05-20T12:37:22+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/transparently-proxy-spoofed-ip/</loc>
+    <lastmod>2021-04-17T10:44:53+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/iptables/</loc>
     <lastmod>2021-04-17T10:44:53+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/squid-transparent-proxy/</loc>
