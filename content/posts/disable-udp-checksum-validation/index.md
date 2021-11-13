@@ -12,45 +12,45 @@ tags:
 
 I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren't any satisfactory solutions that I could easily find online related to this. The top Google results suggest [disabling checksum offloading](https://www.linuxquestions.org/questions/linux-networking-3/help-needed-disabling-tcp-udp-checksum-offloading-in-debian-880233/), which doesn't disable checksum validation. Another result mentions [a solution from within application source code](https://linux-tips.com/t/how-to-disable-udp-checksum-control-in-kernel/362), which you may not have access to or be able to modify.
 
-In the end, I managed to figure this problem out and found that it's usually possible without recompiling the kernel. In this short post, I'll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.
+In the end, I managed to figure this problem out and found that it's usually possible without recompiling the kernel.
+
+In this post, I'll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.
 
 ## Check if your machine can receive packets with broken UDP checksums
 
 Firstly, we need to check if your machine can already accept packets with invalid UDP checksums. This is necessary as your machine might already be able to receive them, but applications that are then passed the packets could be discarding them. Verifying this is also necessary to check if your network is capable of receiving packets with broken UDP checksums; there could be firewalls in place that verify packets before they reach your machine, in which case those will need to be reconfigured first.
 
-Testing if your machine can already receive packets with broken checksums is straightforward - send packets with broken UDP checksums from one machine (machine 1) to the machine that you want to disable validation on (machine 2), and check the traffic using `tcpdump`. I'll outline how I've done this below.
+Testing if your machine can already receive packets with broken checksums is straightforward - send packets with broken UDP checksums from one machine (source machine) to the machine that you want to disable UDP checksum validation on (destination machine), and check the traffic using `tcpdump`. I'll outline how I've done this below.
 
-1. Run `tcpdump` on machine 1, listening to internet traffic at port 53:
+1. Run `tcpdump` on the destination machine, listening to internet traffic at the port that you expect to receive packets with broken UDP checksums on:
 
     ```bash
-    sudo tcpdump -i <NETWORK INTERFACE> dst port 53 -vv
+    sudo tcpdump -i <NETWORK INTERFACE> dst port <PORT> -vv
     ```
 
     To get the network interface names, you can run `ip link show`.
 
-2. Disable transmit checksum offloading on machine 1. This is so that any invalid checksums won't be corrected by the hardware. In some cases, it may not be possible to disable this, so another machine may need to be used. To disable transmit checksum offloading on Linux, run:
+2. Disable transmit checksum offloading on the source machine. This is so that any packets with invalid checksums won't have their checksums corrected by hardware. In some cases, it may not be possible to disable this, so another machine may need to be used to send packets. To disable transmit checksum offloading on Linux, run:
   
     ```bash
     sudo ethtool --offload <NETWORK INTERFACE> tx off
     ```
 
-3. Download and run [Scapy](https://github.com/secdev/scapy) on machine 2.
+3. Download and run [Scapy](https://github.com/secdev/scapy) on the source machine.
 
-4. Craft a DNS packet with a broken UDP checksum using Scapy on machine 2:
+4. Craft a packet of the with a broken UDP checksum using Scapy on the source machine. This is an example for how to do this with DNS packets:
 
     ```bash
-    bad_packet = IP(dst='<MACHINE 1 IP>') / UDP() / DNS(rd=1, qd=DNSQR(qname="www.example.com"))
+    bad_packet = IP(dst='<destination machine IP>') / UDP() / DNS(rd=1, qd=DNSQR(qname="www.example.com"))
     ```
 
-    Make sure to replace `<MACHINE 1 IP>` with the IP of machine 1.
-
-5. Send the packet with a broken checksum from machine 2 to machine 1:
+5. Send the packet with a broken checksum from the source to the destination machine:
 
     ```bash
     send(bad_packet)
     ```
 
-6. Check the `tcpdump` logs on machine 1. If the packet is received stating `bad udp cksum` in the logs, the machine can receive packets with broken UDP checksums. We can then continue with adding rules to ignore the checksums.
+6. Check the `tcpdump` logs on the destination machine. If the packet is received stating `bad udp cksum` in the logs, the machine can receive packets with broken UDP checksums. We can then continue with adding `nftables` rules to ignore the checksums.
 
 ### What if my machine doesn't receive packets with invalid UDP checksums?
 
@@ -74,9 +74,11 @@ sudo nft 'add chain input_table input {type filter hook input priority -300;}'
 sudo nft 'add rule input_table input ip protocol udp udp checksum set 0'
 ```
 
-This rule will set the UDP checksum of every received IP UDP packet to 0. Your machine will now ignore UDP checksums of received packets! Feel free to test it using Scapy.
+This rule will set the UDP checksum of every received IP UDP packet to 0, which applications won't validate.
 
-To make the rule persistent across reboots, I'd recommend reading through  [this short guide to `nftables`](https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes).
+Your machine will now ignore UDP checksums of received packets! Feel free to test this using Scapy.
+
+To make the rule persistent across reboots, I'd recommend following the advice in [this short guide to `nftables`](https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes).
 
 ## Ignoring UDP checksums using socket options
 

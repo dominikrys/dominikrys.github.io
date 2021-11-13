@@ -1,5 +1,5 @@
 ---
-title: "An Up-To-Date Guide to Configuring Squid as a Transparent Proxy"
+title: "Configuring Squid as a Transparent Proxy"
 date: 2021-04-10T10:08:45+01:00
 cover:
     image: "img/squid-logo.png"

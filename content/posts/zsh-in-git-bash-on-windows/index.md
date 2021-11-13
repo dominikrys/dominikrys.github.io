@@ -18,7 +18,7 @@ There are a couple of guides on GitHub from some years ago on how this can be ac
 
 1. Download the latest MSYS2 zsh package from [the MSYS2 package repository](https://packages.msys2.org/package/zsh?repo=msys&variant=x86_64). The file will be named something along the lines of `zsh-5.8-5-x86_64.pkg.tar.zst`.
 
-2. Install an extractor that can handle ZST archives such as [PeaZip](https://peazip.github.io/) or [the 7-Zip Beta](https://www.7-zip.org/).
+2. Install an extractor that can open ZST archives such as [PeaZip](https://peazip.github.io/) or [7-Zip Beta](https://www.7-zip.org/).
 
 3. Extract the contents of the archive (which should include `etc` and `usr` folders) into your Git Bash installation directory. This is likely to be under `C:\Program Files\Git`. Merge the contents of the folder if asked ( no files should be getting overridden).
 

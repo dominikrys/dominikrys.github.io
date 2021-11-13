@@ -1,5 +1,5 @@
 ---
-title: "How to Enforce Uniqueness of Multiple Attributes in DynamoDB"
+title: "Enforcing Uniqueness of Multiple Attributes in DynamoDB"
 date: 2021-10-31T09:53:52Z
 ShowToc: true
 cover:
