@@ -26,9 +26,9 @@ languages:
         - name: Tags
           url: tags
           weight: 1
-        - name: Archive
-          url: archives
-          weight: 2
+        # - name: Archive
+        #   url: archives
+        #   weight: 2
         # - name: Search
         #   url: search/
         #   weight: 10
