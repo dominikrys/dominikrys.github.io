@@ -1,5 +1,5 @@
 ---
-title: "Creating Datadog Log Metrics in Terraform"
+title: "Caveats to Creating Datadog Log Metrics in Terraform"
 date: 2021-11-14T9:52:58Z
 ShowToc: true
 cover:
@@ -12,7 +12,7 @@ tags:
   - devops
 ---
 
-In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I spotted a couple of caveats that warranted documenting and hopefully helping others.
+In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.
 
 This post assumes that you have a basic configuration for Datadog in Terraform already. If you don't, [Datadog's post on managing Datadog with Terraform](https://www.datadoghq.com/blog/managing-datadog-with-terraform/) is a good starting point.
 

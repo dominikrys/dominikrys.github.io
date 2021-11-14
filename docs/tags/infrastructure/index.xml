@@ -11,12 +11,12 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 14 Nov 2021 09:52:58 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/infrastructure/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Creating Datadog Log Metrics in Terraform</title>
+      <title>Caveats to Creating Datadog Log Metrics in Terraform</title>
       <link>https://dominikrys.com/posts/datadog-log-metrics-terraform/</link>
       <pubDate>Sun, 14 Nov 2021 09:52:58 +0000</pubDate>
       
       <guid>https://dominikrys.com/posts/datadog-log-metrics-terraform/</guid>
-      <description>In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I spotted a couple of caveats that warranted documenting and hopefully helping others.
+      <description>In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.
 This post assumes that you have a basic configuration for Datadog in Terraform already. If you don&amp;rsquo;t, Datadog&amp;rsquo;s post on managing Datadog with Terraform is a good starting point.
 Datadog Terraform Resources There are three Terraform resources that you can use to configure log metrics in Datadog:</description>
     </item>
