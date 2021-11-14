@@ -1,5 +1,5 @@
 ---
-title: "Installing Zsh and oh-my-zsh in Windows Git Bash"
+title: "Installing Zsh (and oh-my-zsh) in Windows Git Bash"
 date: 2021-11-11T19:10:26Z
 ShowToc: true
 cover:

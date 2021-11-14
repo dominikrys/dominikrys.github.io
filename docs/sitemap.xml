@@ -2,19 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://dominikrys.com/posts/datadog-log-metrics-terraform/</loc>
+    <lastmod>2021-11-14T09:52:58+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/datadog/</loc>
+    <lastmod>2021-11-14T09:52:58+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/devops/</loc>
+    <lastmod>2021-11-14T09:52:58+00:00</lastmod>
+  </url><url>
     <loc>https://dominikrys.com/</loc>
-    <lastmod>2021-11-11T19:10:26+00:00</lastmod>
+    <lastmod>2021-11-14T09:52:58+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/infrastructure/</loc>
+    <lastmod>2021-11-14T09:52:58+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2021-11-14T09:52:58+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/</loc>
+    <lastmod>2021-11-14T09:52:58+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/terraform/</loc>
+    <lastmod>2021-11-14T09:52:58+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/zsh-in-git-bash-on-windows/</loc>
     <lastmod>2021-11-11T19:10:26+00:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/</loc>
-    <lastmod>2021-11-11T19:10:26+00:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/tags/shell/</loc>
-    <lastmod>2021-11-11T19:10:26+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/</loc>
     <lastmod>2021-11-11T19:10:26+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/windows/</loc>
@@ -39,9 +54,6 @@
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/enforcing-uniqueness-of-multiple-attributes-in-dynamodb/</loc>
-    <lastmod>2021-10-31T09:53:52+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/infrastructure/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/operating-systems/</loc>
@@ -76,9 +88,6 @@
   </url><url>
     <loc>https://dominikrys.com/tags/rust/</loc>
     <lastmod>2021-06-16T18:56:21+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/devops/</loc>
-    <lastmod>2021-05-20T12:37:22+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/disable-udp-checksum-validation/</loc>
     <lastmod>2021-05-20T12:37:22+01:00</lastmod>

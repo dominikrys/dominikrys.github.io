@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>terraform on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/terraform/</link>
+    <description>Recent content in terraform on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/android-chrome-512x512.png</url>
+      <link>https://dominikrys.com/android-chrome-512x512.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 14 Nov 2021 09:52:58 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating Datadog Log Metrics in Terraform</title>
+      <link>https://dominikrys.com/posts/datadog-log-metrics-terraform/</link>
+      <pubDate>Sun, 14 Nov 2021 09:52:58 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/datadog-log-metrics-terraform/</guid>
+      <description>In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I spotted a couple of caveats that warranted documenting and hopefully helping others.
+This post assumes that you have a basic configuration for Datadog in Terraform already. If you don&amp;rsquo;t, Datadog&amp;rsquo;s post on managing Datadog with Terraform is a good starting point.
+Datadog Terraform Resources There are three Terraform resources that you can use to configure log metrics in Datadog:</description>
+    </item>
+    
+  </channel>
+</rss>
