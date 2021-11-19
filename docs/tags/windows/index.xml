@@ -16,7 +16,7 @@
       <pubDate>Thu, 11 Nov 2021 19:10:26 +0000</pubDate>
       
       <guid>https://dominikrys.com/posts/zsh-in-git-bash-on-windows/</guid>
-      <description>I&amp;rsquo;ve recently started using Windows again. After a long time using a customized Zsh shell on macOS and Linux though, I&amp;rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up my shell as I want it under WSL, but it doesn&amp;rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.</description>
+      <description>I&amp;rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I&amp;rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn&amp;rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.</description>
     </item>
     
   </channel>
