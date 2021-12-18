@@ -7,7 +7,7 @@ cover:
     alt: "Cover"
 tags:
   - kibana
-  - ELK
+  - elk
   - infrastructure
   - monitoring
   - devops
