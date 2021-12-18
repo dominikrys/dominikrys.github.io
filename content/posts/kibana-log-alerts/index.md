@@ -1,5 +1,5 @@
 ---
-title: "Creating Alerts from Logs in Kibana"
+title: "Guide to Creating Alerts from Logs in Kibana"
 date: 2021-12-18T12:35:54Z
 ShowToc: true
 cover:
