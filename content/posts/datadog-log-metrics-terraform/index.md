@@ -40,11 +40,11 @@ Ideally, facets and measures would be able to be created using Terraform, but th
 
 3. Hover over the log field and click on the cog icon that appears.
 
-    ![Cog Icon Next to Log Field](img/cog_labelled.png)
+    {{< figure src="img/cog_labelled.png" alt="Cog Icon Next to Log Field" align="center" >}}
 
 4. Select if you want to create a measure or a facet from the log field.
 
-    ![Facet and Measure Menu](img/facet_menu_labelled.png)
+    {{< figure src="img/facet_menu_labelled.png" alt="Facet and Measure Menu" align="center" >}}
 
 ## Modifying Metric Metadata
 
