@@ -8,7 +8,7 @@ cover:
 tags:
   - kibana
   - elasticsearch
-  - elk
+  - elk/elastic
   - infrastructure
   - monitoring
   - devops
