@@ -12,10 +12,10 @@
     <lastBuildDate>Sun, 31 Oct 2021 09:53:52 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/databases/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Enforcing Uniqueness of Multiple Attributes in DynamoDB</title>
-      <link>https://dominikrys.com/posts/enforcing-uniqueness-of-multiple-attributes-in-dynamodb/</link>
+      <link>https://dominikrys.com/posts/unqiue-attributes-dynamodb/</link>
       <pubDate>Sun, 31 Oct 2021 09:53:52 +0000</pubDate>
       
-      <guid>https://dominikrys.com/posts/enforcing-uniqueness-of-multiple-attributes-in-dynamodb/</guid>
+      <guid>https://dominikrys.com/posts/unqiue-attributes-dynamodb/</guid>
       <description>I&amp;rsquo;ve recently tried to solve a problem that involved enforcing uniqueness of multiple attributes in DynamoDB. Surprisingly, this wasn&amp;rsquo;t a trivial undertaking. Given most of my database experience is using SQL databases, I initially started solving the problem using SQL paradigms that didn&amp;rsquo;t translate well to NoSQL.
 In this post, I will describe what I learned, and how it&amp;rsquo;s possible to implement enforcing uniqueness of multiple attributes in DynamoDB.
 Approaches That Don&amp;rsquo;t Work Using Condition Expressions After some initial research, I tried implementing a Conditional Put using a condition expression.</description>

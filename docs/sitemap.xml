@@ -8,6 +8,9 @@
     <loc>https://dominikrys.com/</loc>
     <lastmod>2021-12-18T12:35:54+00:00</lastmod>
   </url><url>
+    <loc>https://dominikrys.com/tags/elasticsearch/</loc>
+    <lastmod>2021-12-18T12:35:54+00:00</lastmod>
+  </url><url>
     <loc>https://dominikrys.com/tags/elk/</loc>
     <lastmod>2021-12-18T12:35:54+00:00</lastmod>
   </url><url>
@@ -50,7 +53,7 @@
     <loc>https://dominikrys.com/tags/go/</loc>
     <lastmod>2021-11-07T18:32:38+00:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/injecting-build-time-variables-to-nested-go-packages/</loc>
+    <loc>https://dominikrys.com/posts/injecting-build-variables-nested-go/</loc>
     <lastmod>2021-11-07T18:32:38+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/software-engineering/</loc>
@@ -65,7 +68,7 @@
     <loc>https://dominikrys.com/tags/dynamodb/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/enforcing-uniqueness-of-multiple-attributes-in-dynamodb/</loc>
+    <loc>https://dominikrys.com/posts/unqiue-attributes-dynamodb/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/operating-systems/</loc>

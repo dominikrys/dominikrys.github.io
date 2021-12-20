@@ -7,6 +7,7 @@ cover:
     alt: "Cover"
 tags:
   - kibana
+  - elasticsearch
   - elk
   - infrastructure
   - monitoring
@@ -46,7 +47,7 @@ These alerts are written using [Watcher JSON](https://www.elastic.co/guide/en/el
 To iterate on creating an Advanced Watcher alert, I'd recommend first crafting the search query. It can then easily be created into an alert. To do so, you can use the following `curl` template:
 
 ```bash
-curl -X GET "<Kibana URL>/<your index>/_search?pretty" --user <Elasticsearch username>:<Elasticsearch Password> -H 'Content-Type: application/json' -d'
+curl -X GET "<Kibana URL>/<your index>/_search?pretty" --user <Elasticsearch username>:<Elasticsearch password> -H 'Content-Type: application/json' -d'
 {
   "size": 0,
   "query": {
