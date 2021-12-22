@@ -15,11 +15,11 @@ I've recently worked on a security project which required me to transparently pr
 
 In this post, I will explain how it's possible to proxy such HTTP traffic by redirecting it to the correct destination.
 
-## Why can't spoofed DNS packets be proxied using an ordinary transparent proxy?
+## Why Can't Spoofed DNS Packets be Proxied Using an Ordinary Transparent Proxy?
 
 When an IP packet with a spoofed destination IP reaches its destination server, the server will handle it like any other IP packet that has been destined for it. Ordinary transparent proxying tools such as [Squid](http://www.squid-cache.org/) are usually configured as internet gateways, so they are not the final destination of the IP packets that pass through them. Since the final destination IP of each packet is known in such setups, these tools can easily send packets to their destination. If the destination IP **is** the proxy, as it would be in the case of spoofed destination IPs, the transparent proxy would need to additionally resolve the original destination IP. Most such tools don't have support for this.
 
-## How to reclaim the original destination?
+## How to Reclaim the Original Destination?
 
 To reclaim the original destination, the `Host` header can be used which is [required by HTTP/1.1](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host). The `Host` header contains the domain name that the client wants to access. In the case of spoofed destination IPs, this header will be intact and pointing to the un-spoofed destination.
 
@@ -29,7 +29,7 @@ It's also worth mentioning that since this proxy will change the destination IP 
 
 To resolve packets according to their `Host` header, I used [**Privoxy**](https://www.privoxy.org/) in [intercepting mode](https://www.privoxy.org/faq/configuration.html#INTERCEPTING), which I will explain how to configure.
 
-## How to configure Privoxy to resolve spoofed IP packets?
+## How to Configure Privoxy to Resolve Spoofed IP packets?
 
 Luckily the configuration for Privoxy is very simple. First, install it using your operating system's package manager. Next, modify its configuration file under `etc/privoxy/config` with the following details, where `INTERFACE_IP` is the IP of the interface that you want Privoxy to listen at:
 
@@ -68,7 +68,7 @@ $ sudo tail -f /var/log/privoxy/logfile
 2021-04-15 15:06:26.554 7f39feffd700 Request: scratchpads.org/assets/index.js
 ```
 
-## HTTPS support?
+## HTTPS Support?
 
 The method described in this post won't work for HTTPS requests, since the HTTP header will be encrypted and the `Host` header won't be able to be read. As far as I know there are no tools available that would be able to do this. In theory, it's possible to make this work with HTTPS in a transparent manner, but with substantial engineering effort.
 

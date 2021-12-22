@@ -14,7 +14,7 @@ I've always been quite interested in operating systems and felt that knowledge a
 
 In this short post, I will cover what online resources I found to be particularly useful in  teaching myself about OSes. I’ll mention resources ranging from ones that can be gone through in a couple of hours to acquire some surface-level knowledge, to those that will take a bit longer but prepare you to write the next Unix successor.
 
-## Where to start?
+## Where to Start?
 
 As a pre-requisite to learning about operating systems, **I'd recommend having some familiarity with C and assembly language**. Both are prevalent in many operating systems and will greatly help you in exercises and following different texts.
 
@@ -28,13 +28,13 @@ There are three resources that I found to be the most useful from online recomme
 
 Each one has its pros and cons, so I’ll describe what they cover and what I thought about them below.
 
-### OSTEP book
+### OSTEP Book
 
 This is considered to be the most comprehensive resource on learning operating systems by many. The book is split into three main concepts: **virtualization**, **concurrency**, and **persistence**. Each concept is then further split into relevant chapters. The book also contains small projects and assignments so you can put each concept you learn about into practice.
 
 The book is rather long and can be quite daunting, however. If you're looking for a more concise way of learning about operating systems, I'd recommend the xv6 book. I found OSTEP to be useful to refer to when some concepts weren't clear in other resources.
 
-### Xv6 book
+### Xv6 Book
 
 This is the resource I mostly used. It's much more concise than OSTEP and still manages to cover most of the topics around operating systems well. I also found that it kept a better balance between theory and practical exercises compared to OSTEP, letting me put what I learned into practice earlier.
 
@@ -48,7 +48,7 @@ This is a set of notes on an OS course split into topics. The notes are concise 
 
 In the end, these notes are still just notes though. Compared to the other resources they are much easier to refer back to, but they don't flow particularly well when it comes to learning about different concepts. Since these notes also don't include practical exercises, I'd recommend referring to other resources if you're just starting to learn about OSes.
 
-## Additional resources
+## Additional Resources
 
 The mixture of the resources above should give you a solid understanding of operating systems. There are two other valuable resources that I also found though.
 

@@ -54,17 +54,17 @@ Next I created a sub-directory in my root project directory for my CMake output 
   mingw32-make
   ```
 
-### Potential CMake problem
+### Potential CMake Problem
 
 If you're using C++17 features, you may get `No such file or directory` errors referencing certain headers. This can be caused by accidentally compiling the code outside of Emscripten either by yourself or by your IDE. The sure-fire way to fix these is to clear the CMake project build system directory and re-create it.
 
-### Adding Emscripten sections to CMakeLists
+### Adding Emscripten Sections to CMakeLists
 
 I wanted to maintain the ability to compile my code natively as well as being able to compile it using Emscripten. The CMake `EMSCRIPTEN` variable solves this problem, as it's set to true when compiling with Emscripten. Note that when compiling with Emscripten, the CMake `UNIX` variable will also be `true`, so make sure your branching logic is correct.
 
 For the full `CMakeLists.txt` that I ended up using, look [here](https://github.com/dominikrys/chip8/blob/master/CMakeLists.txt).
 
-## Initial compile
+## Initial Compile
 
 I was almost ready to compile the code. Since the emulator is using [SDL2](https://www.libsdl.org/) for audio and graphics, I also needed to specify the `-s USE_SDL=2` compiler flag. When this is specified, Emscripten will automatically download the [SDL2 Emscripten port](https://github.com/emscripten-ports/SDL2).
 
@@ -134,7 +134,7 @@ The AudioContext was not allowed to start. It must be resumed (or created) after
 
 For the time being, I decided to get rid of the audio handling code and sort this out later.
 
-## Emscripten loops
+## Emscripten Loops
 
 To get the screen buffer to update and not freeze the tab, I had to change the current loop that my current emulator runs on into an [Emscripten loop](https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop). This is because the web browser event model uses co-operative multitasking, so each event gets a turn to run and has to return control to the browser. My code was blocking and never gave control back to the browser, so the tab froze and the display didn't update.
 
@@ -163,7 +163,7 @@ emscripten_set_main_loop(em_callback_func func, int fps, int simulate_infinite_l
 
 `emscripten_set_main_loop()` simulates an infinite loop, but in reality just calls the loop function a specified number of times a second. The amount of times that this loop gets called a second is specified by the second argument, however the [Emscripten docs](https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop) mention that it's "**HIGHLY** recommended" to set this to 0 or a negative value when doing any rendering. The site will then use the browser’s `requestAnimationFrame` method to call the main loop function which we will revisit later.
 
-### Rewriting for a global function in the main loop
+### Rewriting for a Global Function in the Main Loop
 
 There is a major side effect of having to call a global function in my main loop - every object called within that global function also has to be accessible globally, or be local to that function.
 
@@ -269,7 +269,7 @@ I gave this a go myself before rewriting my code for `emscripten_set_main_loop()
 
 - It simply didn't work for my project. I got various errors and decided to switch back and to it the "proper" way, as also more support would be available for doing things that way.
 
-### Frame rate issues
+### Frame Rate Issues
 
 I compiled the code after rewriting using an Emscripten loop and I got the emulator working!
 
@@ -302,7 +302,7 @@ int main() {
 
 After compiling the emulator again with this change, everything worked as expected. Surprisingly, the keyboard also worked perfectly and didn't require any intervention.
 
-## Exporting C++ functions to call from JavaScript
+## Exporting C++ Functions to Call from JavaScript
 
 To finish this off, I wanted to add a dropdown so it's possible to select a game to load (turns out Pong gets a bit boring after a while). First, I added a function to my C++ code which will get exported so it can be called from JavaScript. There is a page in [the Emscripted docs](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html) which explains this in good detail. The function looked as follows:
 
@@ -379,12 +379,12 @@ I compiled the code with the audio enabled and checked how Chrome treats it. The
 
 In order to make this work, I a good way would be to handle the audio entirely in JavaScript and query the emulator for when a sound should play. Since I didn't see much value in adding sound to the emulator, I left it out.
 
-## Finishing touches
+## Finishing Touches
 
 That's pretty much it - I managed to compile the emulator into WebAssembly, I added the ability to play different games and to host the emulator online. To finish the emulator off, I added some CSS styling, a start/stop button and instructions on how to play which was easy to do by editing the default Emscripten shell file.
 
 An extra thing which was worth doing is checking how the site behaved in different web browsers. For example I made the assumption in my JavaScript code that the game picker dropdown will always not have a game selected when the page is loaded. This held for Chrome, but not for Firefox which remembers what the last option that the user picked in a dropdown was, so I had to handle that case accordingly.
 
-## The end!
+## Conclusion
 
 I hope this post was somewhat insightful for anyone looking at compiling their own C or C++ code into WebAssembly. I think there's huge potential in the technology, and can be very useful for computationally expensive tasks which aren't viable to be ran using JavaScript. For examples of more sophisticated projects using WebAssembly and some inspiration, I recommend having a look [Made with WebAssembly](https://madewithwebassembly.com/).

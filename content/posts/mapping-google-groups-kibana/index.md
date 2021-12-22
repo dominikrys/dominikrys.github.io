@@ -17,7 +17,7 @@ I've recently configured authentication for the Elastic Stack. To take some of t
 
 Having followed [Elastic's documentation on setting up Google OIDC authentication](https://www.elastic.co/guide/en/cloud/current/ec-securing-clusters-oidc-op.html), however, I found that this task is not so easy, as [Google OIDC doesn't return group memberships in the JWT that the application receives](https://discuss.elastic.co/t/google-oidc-sso-with-mapping-google-groups-onto-kibana-roles/271762).
 
-## Why doesn't Google OIDC propagate group information?
+## Why Doesn’t Google OIDC Propagate Group Information?
 
 Google OIDC doesn't support any notion of a `groups` claim that's present in other OIDC providers, which can be observed by looking at [Google's OIDC configuration example](https://accounts.google.com/.well-known/openid-configuration)). Unhelpfully, many unofficial snippets for configuring Google OIDC in Elastic erroneously include a `groups` claim, which gets confusing.
 
@@ -39,7 +39,7 @@ Be wary that setting up a Google SAML app [requires Google Workspace Super Admin
 
 Note that the Kibana port numbers can be omitted from the SAML configuration if you're using Elastic Cloud since Kibana is also available on port 443 by default. Saying this, make sure to keep it consistent and to use the same port everywhere. I configured SAML with ports omitted in the SAML configuration and with ports mentioned in the Kibana configuration initially, thinking that it would work, but Google returned errors.
 
-#### Create separate SAML apps with varying permissions
+#### Create Separate SAML Apps with Varying Permissions
 
 This is the solution I settled for. As suggested by [judge2020 on GitHub](https://gist.github.com/m1keil/71d2212c2657b32d086a3309d7e1dd59#gistcomment-3946789), first create separate SAML apps for each level of permissions that you want to set up. Only allow access to each to the appropriate Google Groups.
 
@@ -114,17 +114,17 @@ There are a couple of other caveats to this configuration:
 - Make sure the SAML realm names match in your Elasticsearch and Kibana configurations.
 - To make your configuration Elastic 8.0 compliant, don't set the `order` of any of your SAML realms to 3, as it's reserved for the built-in Elastic Cloud SAML realm. The values 2 and 4-100 inclusive can be used instead.
 
-#### Add a SAML attribute mapping
+#### Add a SAML Attribute Mapping
 
 I haven't tried this method personally, but the GitHub user sirachv [has written up a guide on how to set it up on Github](https://gist.github.com/m1keil/71d2212c2657b32d086a3309d7e1dd59#gistcomment-3872637). It involves adding custom attributes to Google Workspace users and setting up the SAML app so that it returns those attributes.
 
 This solution involves editing user configuration which I wanted to avoid, especially as the user configurations need to somehow be maintained when users are added. The author of this solution suggests running a Python script to do this. For our needs, this would be too much of an overhead, especially as the solution with multiple SAML apps doesn't require this.
 
-#### Configure group mapping by adding a custom schema
+#### Configure Group Mapping by Adding a Custom Schema
 
 A custom schema can be added to user accounts, as described in [this article from Dynatrace](https://www.dynatrace.com/support/help/how-to-use-dynatrace/user-management-and-sso/manage-users-and-groups-with-saml/saml-gsuite#preparing-group-mapping). This involves having to reconfigure your groups in Google Workspace though, which may be a hassle if your organisation has a lot of users.
 
-### Last resort - configure permissions manually in Kibana
+### Last Resort - Configure Permissions Manually in Kibana
 
 Finally, if all else fails - you may need to manually add users to roles in Kibana by whitelisting their names.
 

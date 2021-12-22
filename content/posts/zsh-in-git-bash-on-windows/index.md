@@ -55,7 +55,7 @@ From this point, your Git Bash will behave essentially like a Unix Zsh shell. To
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-## Installing plugins and themes
+## Installing Plugins and Themes
 
 To install plugins and themes, use their oh-my-zsh installation methods. I've installed the [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme as well as the following plugins, and can verify that they work:
 
@@ -69,7 +69,7 @@ To install plugins and themes, use their oh-my-zsh installation methods. I've in
     git checkout tags/v0.6.4 -b v0.6.4-branch
     ```
 
-## Fixing mangled output
+## Fixing Mangled Output
 
 Windows can mangle some UTF-8 encoded text, causing unexpected characters to be displayed in your terminal (more info in [this Stack Overflow answer](https://stackoverflow.com/a/65688816/13749561)). To fix this, add the following to your `~/.bashrc` file, ideally before code that sets your shell as Zsh:
 

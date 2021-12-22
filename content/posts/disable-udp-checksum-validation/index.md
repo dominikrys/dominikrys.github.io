@@ -16,7 +16,7 @@ In the end, I managed to figure this problem out and found that it's usually pos
 
 In this post, I'll describe how to set up a Linux machine to ignore UDP checksums in received packets. The mentioned steps may also be adapted to allow for disabling TCP checksum checking.
 
-## Check if your machine can receive packets with broken UDP checksums
+## Check If Your Machine Can Receive Packets with Broken UDP Checksums
 
 Firstly, we need to check if your machine can already accept packets with invalid UDP checksums. This is necessary as your machine might already be able to receive them, but applications that are then passed the packets could be discarding them. Verifying this is also necessary to check if your network is capable of receiving packets with broken UDP checksums; there could be firewalls in place that verify packets before they reach your machine, in which case those will need to be reconfigured first.
 
@@ -52,7 +52,7 @@ Testing if your machine can already receive packets with broken checksums is str
 
 6. Check the `tcpdump` logs on the destination machine. If the packet is received stating `bad udp cksum` in the logs, the machine can receive packets with broken UDP checksums. We can then continue with adding `nftables` rules to ignore the checksums.
 
-### What if my machine doesn't receive packets with invalid UDP checksums?
+### What If My Machine Doesn’t Receive Packets with Invalid UDP Checksums?
 
 A router between your machines could discard the packet due to an incorrect UDP checksum. Such an issue can be hard to diagnose, so it may be circumvented by sending packets from another machine.
 
@@ -80,6 +80,6 @@ Your machine will now ignore UDP checksums of received packets! Feel free to tes
 
 To make the rule persistent across reboots, I'd recommend following the advice in [this short guide to `nftables`](https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes).
 
-## Ignoring UDP checksums using socket options
+## Ignoring UDP Checksums Using Socket Options
 
 If you have the source code of the application that you want to send the packets with broken UDP checksums to, it may be possible by using socket options. To do so, the `SO_NO_CHECK` option would need to be declared with the UDP socket file descriptor, as described [here](https://linux-tips.com/t/how-to-disable-udp-checksum-control-in-kernel/362).
