@@ -7,7 +7,6 @@ cover:
     alt: "Cover"
 tags:
   - terraform
-  - course
   - infrastructure
   - devops
 ---

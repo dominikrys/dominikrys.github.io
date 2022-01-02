@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>&#39;HashiCorp Certified: Terraform Associate&#39; Course Review | Dominik Rys</title>
-<meta name="keywords" content="terraform, course, infrastructure, devops" />
+<meta name="keywords" content="terraform, infrastructure, devops" />
 <meta name="description" content="I&rsquo;ve recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn&rsquo;t particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.
 After some initial looking around, I found Zeal Vora&rsquo;s &lsquo;HashiCorp Certified: Terraform Associate&rsquo; course on Udemy to be well-regarded.">
 <meta name="author" content="">
@@ -21,7 +21,7 @@ After some initial looking around, I found Zeal Vora&rsquo;s &lsquo;HashiCorp Ce
 <link rel="mask-icon" href="https://dominikrys.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.91.1" />
+<meta name="generator" content="Hugo 0.91.2" />
 <noscript>
     <style>
         #theme-toggle,
@@ -113,7 +113,7 @@ After some initial looking around, I found Zeal Vora&rsquo;s &lsquo;HashiCorp Ce
   "name": "\u0027HashiCorp Certified: Terraform Associate\u0027 Course Review",
   "description": "I\u0026rsquo;ve recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn\u0026rsquo;t particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.\nAfter some initial looking around, I found Zeal Vora\u0026rsquo;s \u0026lsquo;HashiCorp Certified: Terraform Associate\u0026rsquo; course on Udemy to be well-regarded.",
   "keywords": [
-    "terraform", "course", "infrastructure", "devops"
+    "terraform", "infrastructure", "devops"
   ],
   "articleBody": "I’ve recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn’t particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.\nAfter some initial looking around, I found Zeal Vora’s ‘HashiCorp Certified: Terraform Associate’ course on Udemy to be well-regarded. Now, I’m not a fan of courses. I’d much rather get stuck into a project of my own and avoid the hand-holding that most courses offer. In the case of Terraform though, since I didn’t have deploying any complicated infrastructure in mind, completing a course seemed like the right approach. The instructor of the course also seemed credible, seeing as he’s released many courses on Cloud Engineering topics and works as a Cloud Security Consultant.\nIn this post, I describe what the course does well and not so well, and aim to answer whether it was worth the time and monetary investment. Note that my intention was not to do the course to get ready for the Terraform Associate certification. I wanted a hands-on overview of Terraform, but I’ll give an insight into how well I reckon the course could prepare someone for the certification also.\nWhat the Course Does Well Good Course Structure The course is structured into distinct sections, starting from Terraform basics and building upon them. Towards the end, the instructor delves into more in-depth topics as well. These include Terraform Cloud and various enterprise capabilities, which are needed for the certification. In the end, there is also a handy exam preparation section. You could also skip some parts towards the end if you’re not preparing for the certification, and not miss any vital information on using Terraform in a professional scenario. I found the structure of the course to be just right.\n Supporting Materials Provided The instructor provides a GitHub repo with code snippets and notes. There are also notes at the end of every section on Udemy. While the repo helps support the content in the course, some care could have been given to mark which resources relate to which lesson, however.\nMultiple Cloud Providers Mentioned The instructor focuses on working with AWS, but he also touches upon how to use Terraform with other cloud service providers. I found that this makes the course content highly transferable while allowing me to find out about some aspects of AWS that I haven’t known about before.\nMultiple Explanations for Concepts Provided When introducing new topics, the instructor first starts with a textual explanation of the topic, then he sometimes follows with a diagram/visual, and finally shows how it works in practice with a demo. This greatly helps with making sure you understand the topics, especially if one of the methods of explanation wasn’t clear. I found that it also could make the course accessible to beginners, as the instructor doesn’t assume much existing knowledge.\nThis is a double-edged sword though. I found many of the concepts very easy to grasp, yet the instructor took a couple of minutes to describe them. In some cases, he may have been a bit too pedantic, for example dedicating entire sections to conditional statements or on how to reference items in lists by index. To save some time, I’d recommend speeding up the playback speed of lessons that discuss concepts you’re already familiar with.\nTerraform Integrations Mentioned The instructor mentions how Terraform can be integrated with other tools, such as Ansible for configuration management. This kind of pragmatic advice was very welcome, allowing me to place exactly where Terraform would fit in existing DevOps configurations\nPractice Tests Provided The instructor provides a whole section dedicated to the certification exam. Two practice tests are also provided, which I found valuable to complete to consolidate my knowledge. However, the practice tests lack proper explanations as to what the correct answer is. While this may not work for some people, I found it to be a useful prompt to do my own research.\nWhat the Course Could Do Better Provide Independent Exercises The course had too much hand-holding for my liking. It would have been an improvement if the instructor gave small tasks to complete independently, and then provide a model answer along with an explanation. This would have been a much more pragmatic approach to learning Terraform, and it would make more of the content stick for the certification exam.\nDescribe Methods of Storing Secrets In one of the first lessons, the instructor stores secrets in plain text alongside Terraform code and doesn’t mention anything about how detrimental such a practice is. Later on, he does describe that in the case of AWS you can instead use the AWS credentials file and mentions using environment variables in a later lesson. I thought that this was a wasted opportunity to describe alternative approaches, such as using encrypted files or secret stores.\nProvide More Practical Terraform Advice This could just be me being pedantic, but I found that the course lacked practical advice around many of the described concepts. For example, the instructor dedicates a couple of lessons to Terraform Provisioners. When checking the documentation for them though, the first thing that’s stated is that they should only be used as a last resort. This is not mentioned anywhere in the lessons. A saving grace is that the instructor throws in some anecdotes from his professional life when backing up how infrastructure-as-code tools should be used in organisations.\nAs someone who also enjoys working with clean code that follows consistent conventions, I’d have liked if the instructor mentioned some Terraform general style guidelines or naming best practises (and ideally to follow a consistent naming regime himself) as well.\nIs the Course Worth It? Coming in at around 10 hours of video and covering all the main Terraform concepts, I found this course to be very insightful. Sure, it has some slight issues, but for the price, those can be forgiven. Overall, I confidently feel that completing this course has improved my DevOps/software reliability skills.\nIf you’re considering this course to get help to prepare for the Terraform Associate exam, I’d highly recommend it.\nIf you’re considering it as a way to learn Terraform so that you can then use it in your own project, I’d recommend working through the official Terraform tutorials instead. While this course would provide supplementary explanations, too much of it is related to the certification to make it completely worthwhile.\n",
   "wordCount" : "1105",
@@ -283,11 +283,15 @@ After some initial looking around, I found Zeal Vora&rsquo;s &lsquo;HashiCorp Ce
   <footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://dominikrys.com/tags/terraform/">terraform</a></li>
-      <li><a href="https://dominikrys.com/tags/course/">course</a></li>
       <li><a href="https://dominikrys.com/tags/infrastructure/">infrastructure</a></li>
       <li><a href="https://dominikrys.com/tags/devops/">devops</a></li>
     </ul>
 <nav class="paginav">
+  <a class="prev" href="https://dominikrys.com/posts/live-reload-browserify/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>Live Reload Browserify &#43; TypeScript in Node.js Project</span>
+  </a>
   <a class="next" href="https://dominikrys.com/posts/mapping-google-groups-kibana/">
     <span class="title">Next Page »</span>
     <br>
@@ -298,7 +302,7 @@ After some initial looking around, I found Zeal Vora&rsquo;s &lsquo;HashiCorp Ce
 
 <div class="share-buttons">
     <a target="_blank" rel="noopener noreferrer" aria-label="share &#39;HashiCorp Certified: Terraform Associate&#39; Course Review on twitter"
-        href="https://twitter.com/intent/tweet/?text=%27HashiCorp%20Certified%3a%20Terraform%20Associate%27%20Course%20Review&amp;url=https%3a%2f%2fdominikrys.com%2fposts%2fterraform-course-review-zealvora%2f&amp;hashtags=terraform%2ccourse%2cinfrastructure%2cdevops">
+        href="https://twitter.com/intent/tweet/?text=%27HashiCorp%20Certified%3a%20Terraform%20Associate%27%20Course%20Review&amp;url=https%3a%2f%2fdominikrys.com%2fposts%2fterraform-course-review-zealvora%2f&amp;hashtags=terraform%2cinfrastructure%2cdevops">
         <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
             <path
                 d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
@@ -365,7 +369,7 @@ After some initial looking around, I found Zeal Vora&rsquo;s &lsquo;HashiCorp Ce
     </main>
     
 <footer class="footer">
-    <span>&copy; 2021 <a href="https://dominikrys.com">Dominik Rys</a></span>
+    <span>&copy; 2022 <a href="https://dominikrys.com">Dominik Rys</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

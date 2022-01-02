@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>web-development on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/web-development/</link>
+    <description>Recent content in web-development on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/android-chrome-512x512.png</url>
+      <link>https://dominikrys.com/android-chrome-512x512.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 02 Jan 2022 20:39:17 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/web-development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Live Reload Browserify &#43; TypeScript in Node.js Project</title>
+      <link>https://dominikrys.com/posts/live-reload-browserify/</link>
+      <pubDate>Sun, 02 Jan 2022 20:39:17 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/live-reload-browserify/</guid>
+      <description>I&amp;rsquo;ve recently been working on a Node.js project in TypeScript and bundling its dependencies using Browserify. To increase the speed of iteration, I wanted to automatically reload the tab with my web app whenever I made code changes, which would entail recompiling the TypeScript code into JavaScript. However, I couldn&amp;rsquo;t find a good guide on how to achieve this online. In the end, I managed to figure it out by bolting some tools together - with no JavaScript task runner such as Gulp or Grunt needed!</description>
+    </item>
+    
+  </channel>
+</rss>
