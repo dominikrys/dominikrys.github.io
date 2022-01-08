@@ -7,7 +7,7 @@ tags:
   - university
 ---
 
-I'm incredibly proud to have recently graduated with a First Class BSc degree in Computer Science from the University of Birmingham. To my surprise, during the graduation ceremony, I have also been awarded the **Distinguished Dissertation Prize 2020/2021** for the highest-graded dissertation in the graduating cohort. This was a huge honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.
+I'm proud to have recently graduated with a First Class BSc degree in Computer Science from the University of Birmingham. To my surprise, during the graduation ceremony, I have also been awarded the **Distinguished Dissertation Prize 2020/2021** for the highest-graded dissertation in the graduating cohort. This was a huge honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.
 
 I was going to write a post reflecting on my dissertation at some point. Given that I've received such an accolade, however, I thought it made sense to document and pass on some knowledge that I believe went into making my dissertation stand out.
 

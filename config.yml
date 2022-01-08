@@ -1,6 +1,6 @@
 baseURL: "https://dominikrys.com"
 title: Dominik Rys
-paginate: 100
+paginate: 10
 theme: PaperMod
 
 enableInlineShortcodes: true
@@ -23,15 +23,15 @@ languages:
     weight: 1
     menu:
       main:
-        - name: Tags
-          url: tags
+        - name: 📖 Archive
+          url: archives
           weight: 1
-        # - name: Archive
-        #   url: archives
-        #   weight: 2
-        # - name: Search
-        #   url: search/
-        #   weight: 10
+        - name: 🔖 Tags 
+          url: tags
+          weight: 2
+        - name: 🔎 Search
+          url: search/
+          weight: 3
 
 outputs:
   home:
