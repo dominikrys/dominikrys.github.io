@@ -22,6 +22,6 @@ for arg in "$@"; do
 done
 
 echo "==> Running Hugo"
-hugo
+hugo --minify
 
 wait # Wait for submodule pull background task

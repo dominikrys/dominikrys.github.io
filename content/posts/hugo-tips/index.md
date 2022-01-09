@@ -1,14 +1,15 @@
 ---
-title: "Tips for Developing a Hugo Static Site"
+title: "Tips for Developing a Static Site Using Hugo"
 date: 2022-01-08T14:28:18Z
 ShowToc: true
 cover:
     image: "img/cover.png"
     alt: "Cover"
 tags:
-  - 
-draft: true
+  - hugo
 ---
+
+
 
 - intro: been asked how this blog is written and maintained. I use hugo (explain what that is) thought I'd collate my findings over a couple of over a year of working with hugo. also useful for non-blog use cases, and I've used hugo personally in orgs that used hugo for internal and external doc sites and wikis. i'll mention practical advice on working with hugo
 - 💻 set up your environment to work with hugo well

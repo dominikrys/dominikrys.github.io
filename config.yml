@@ -11,7 +11,7 @@ buildExpired: false
 enableEmoji: true
 googleAnalytics: G-FZL8HVTHR8
 disqusShortname: dominikrys
-publishDir: "docs"
+# publishDir: "public"
 
 minify:
   disableXML: true
