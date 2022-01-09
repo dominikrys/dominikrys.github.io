@@ -1,0 +1,4 @@
+pre-push:
+  scripts:
+    "update_themes.sh":
+      runner: bash

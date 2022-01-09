@@ -7,9 +7,10 @@ cover:
     alt: "Cover"
 tags:
   - hugo
+draft: true
 ---
 
-
+I've been asked a couple of times as to how this blog is 
 
 - intro: been asked how this blog is written and maintained. I use hugo (explain what that is) thought I'd collate my findings over a couple of over a year of working with hugo. also useful for non-blog use cases, and I've used hugo personally in orgs that used hugo for internal and external doc sites and wikis. i'll mention practical advice on working with hugo
 - 💻 set up your environment to work with hugo well
