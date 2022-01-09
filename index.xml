@@ -9,16 +9,7 @@
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 08 Jan 2022 14:28:18 +0000</lastBuildDate><atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Tips for Developing a Static Site Using Hugo</title>
-      <link>https://dominikrys.com/posts/hugo-tips/</link>
-      <pubDate>Sat, 08 Jan 2022 14:28:18 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/posts/hugo-tips/</guid>
-      <description>intro: been asked how this blog is written and maintained. I use hugo (explain what that is) thought I&amp;rsquo;d collate my findings over a couple of over a year of working with hugo. also useful for non-blog use cases, and I&amp;rsquo;ve used hugo personally in orgs that used hugo for internal and external doc sites and wikis. i&amp;rsquo;ll mention practical advice on working with hugo 💻 set up your environment to work with hugo well  I use VSCode.</description>
-    </item>
-    
+    <lastBuildDate>Sun, 02 Jan 2022 20:39:17 +0000</lastBuildDate><atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Live Reload Browserify &#43; TypeScript in Node.js</title>
       <link>https://dominikrys.com/posts/live-reload-browserify-ts/</link>
