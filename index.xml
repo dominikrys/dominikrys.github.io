@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Dominik Rys</title>
+    <link>https://dominikrys.com/</link>
+    <description>Recent content on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/android-chrome-512x512.png</url>
+      <link>https://dominikrys.com/android-chrome-512x512.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 08 Jan 2022 14:28:18 +0000</lastBuildDate><atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tips for Developing a Static Site Using Hugo</title>
+      <link>https://dominikrys.com/posts/hugo-tips/</link>
+      <pubDate>Sat, 08 Jan 2022 14:28:18 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/hugo-tips/</guid>
+      <description>intro: been asked how this blog is written and maintained. I use hugo (explain what that is) thought I&amp;rsquo;d collate my findings over a couple of over a year of working with hugo. also useful for non-blog use cases, and I&amp;rsquo;ve used hugo personally in orgs that used hugo for internal and external doc sites and wikis. i&amp;rsquo;ll mention practical advice on working with hugo 💻 set up your environment to work with hugo well  I use VSCode.</description>
+    </item>
+    
+    <item>
+      <title>Live Reload Browserify &#43; TypeScript in Node.js</title>
+      <link>https://dominikrys.com/posts/live-reload-browserify-ts/</link>
+      <pubDate>Sun, 02 Jan 2022 20:39:17 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/live-reload-browserify-ts/</guid>
+      <description>I&amp;rsquo;ve recently been working on a Node.js project in TypeScript and bundling its dependencies using Browserify. To increase the speed of iteration, I wanted to automatically reload the tab with my web app whenever I made code changes, which would entail recompiling the TypeScript code into JavaScript. However, I couldn&amp;rsquo;t find a good guide on how to achieve this online. In the end, I managed to figure it out by bolting some tools together - with no JavaScript task runner such as Gulp or Grunt needed!</description>
+    </item>
+    
+    <item>
+      <title>&#39;HashiCorp Certified: Terraform Associate&#39; Course Review</title>
+      <link>https://dominikrys.com/posts/terraform-course-review-zealvora/</link>
+      <pubDate>Thu, 23 Dec 2021 10:38:04 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/terraform-course-review-zealvora/</guid>
+      <description>I&amp;rsquo;ve recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn&amp;rsquo;t particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.
+After some initial looking around, I found Zeal Vora&amp;rsquo;s &amp;lsquo;HashiCorp Certified: Terraform Associate&amp;rsquo; course on Udemy to be well-regarded.</description>
+    </item>
+    
+    <item>
+      <title>Mapping Google Groups to Kibana Roles</title>
+      <link>https://dominikrys.com/posts/mapping-google-groups-kibana/</link>
+      <pubDate>Mon, 20 Dec 2021 15:05:10 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/mapping-google-groups-kibana/</guid>
+      <description>I&amp;rsquo;ve recently configured authentication for the Elastic Stack. To take some of the burden off managing permissions manually, we wanted to map Google Groups to Kibana roles, since we manage authentication to most of our systems using Google Groups.
+Having followed Elastic&amp;rsquo;s documentation on setting up Google OIDC authentication, however, I found that this task is not so easy, as Google OIDC doesn&amp;rsquo;t return group memberships in the JWT that the application receives.</description>
+    </item>
+    
+    <item>
+      <title>Guide to Creating Alerts from Logs in Kibana</title>
+      <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
+      <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>
+      <description>I&amp;rsquo;ve recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren&amp;rsquo;t particularly well documented in Elastic&amp;rsquo;s documentation. I&amp;rsquo;ll explain my findings in this post.
+Types of Kibana Alerts Rules These used to be called Kibana Alerts (for some reason Elastic has done a lot of renaming over the years), and in most cases I found these to be the best choice.</description>
+    </item>
+    
+    <item>
+      <title>Caveats to Creating Datadog Log Metrics in Terraform</title>
+      <link>https://dominikrys.com/posts/datadog-log-metrics-terraform/</link>
+      <pubDate>Sun, 14 Nov 2021 09:52:58 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/datadog-log-metrics-terraform/</guid>
+      <description>In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.
+This post assumes that you have a basic configuration for Datadog in Terraform already. If you don&amp;rsquo;t, Datadog&amp;rsquo;s post on managing Datadog with Terraform is a good starting point.
+Datadog Terraform Resources There are three Terraform resources that you can use to configure log metrics in Datadog:</description>
+    </item>
+    
+    <item>
+      <title>Installing Zsh (and oh-my-zsh) in Windows Git Bash</title>
+      <link>https://dominikrys.com/posts/zsh-in-git-bash-on-windows/</link>
+      <pubDate>Thu, 11 Nov 2021 19:10:26 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/zsh-in-git-bash-on-windows/</guid>
+      <description>I&amp;rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I&amp;rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn&amp;rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.</description>
+    </item>
+    
+    <item>
+      <title>Injecting Build-Time Variables to Nested Go Packages</title>
+      <link>https://dominikrys.com/posts/injecting-build-variables-nested-go/</link>
+      <pubDate>Sun, 07 Nov 2021 18:32:38 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/injecting-build-variables-nested-go/</guid>
+      <description>I&amp;rsquo;ve recently tried to figure out how to inject variables to a Go executable at build-time. The available guidance online was straightforward, but it all referred to simple Go programs with rudimentary package structures that aren&amp;rsquo;t hosted remotely. None also mentioned working with the Cobra CLI library, which usually results in multiple levels of nesting in the Go application&amp;rsquo;s package structure.
+To address what the other posts don&amp;rsquo;t cover, I thought I&amp;rsquo;d write this short blog post.</description>
+    </item>
+    
+    <item>
+      <title>Enforcing Uniqueness of Multiple Attributes in DynamoDB</title>
+      <link>https://dominikrys.com/posts/unqiue-attributes-dynamodb/</link>
+      <pubDate>Sun, 31 Oct 2021 09:53:52 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/unqiue-attributes-dynamodb/</guid>
+      <description>I&amp;rsquo;ve recently tried to solve a problem that involved enforcing uniqueness of multiple attributes in DynamoDB. Surprisingly, this wasn&amp;rsquo;t a trivial undertaking. Given most of my database experience is using SQL databases, I initially started solving the problem using SQL paradigms that didn&amp;rsquo;t translate well to NoSQL.
+In this post, I will describe what I learned, and how it&amp;rsquo;s possible to implement enforcing uniqueness of multiple attributes in DynamoDB.
+Approaches That Don&amp;rsquo;t Work Using Condition Expressions After some initial research, I tried implementing a Conditional Put using a condition expression.</description>
+    </item>
+    
+    <item>
+      <title>Short Guide on Teaching Yourself About Operating Systems</title>
+      <link>https://dominikrys.com/posts/learning-operating-systems/</link>
+      <pubDate>Tue, 03 Aug 2021 16:07:52 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/learning-operating-systems/</guid>
+      <description>I&amp;rsquo;ve recently graduated with a Computer Science degree from the University of Birmingham. Overall, the course covered most of the fundamentals of computer science. However, the course structure changed when I was on my year in industry, causing me to completely miss out on operating systems modules! Since I&amp;rsquo;ve always been quite interested in operating systems, I decided to teach myself about them.
+In this short post, I will cover what online resources I found to be particularly useful in teaching myself about OSes.</description>
+    </item>
+    
+    <item>
+      <title>10 Tips for Getting a First in a Computer Science Dissertation</title>
+      <link>https://dominikrys.com/posts/cs-dissertation-tips/</link>
+      <pubDate>Thu, 22 Jul 2021 11:02:23 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/cs-dissertation-tips/</guid>
+      <description>I&amp;rsquo;m proud to have recently graduated with a First Class BSc degree in Computer Science from the University of Birmingham. To my surprise, during the graduation ceremony, I have also been awarded the Distinguished Dissertation Prize 2020/2021 for the highest-graded dissertation in the graduating cohort. This was a huge honour as it came completely unexpected, and it made a lot of the effort that went into writing my dissertation worthwhile.</description>
+    </item>
+    
+    <item>
+      <title>Executing Stream Cipher Attacks on IP Packets</title>
+      <link>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</link>
+      <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</guid>
+      <description>For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
+The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
+    </item>
+    
+    <item>
+      <title>How I Started Learning Rust</title>
+      <link>https://dominikrys.com/posts/learning-rust/</link>
+      <pubDate>Wed, 16 Jun 2021 18:56:21 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/learning-rust/</guid>
+      <description>I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.
+In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped.</description>
+    </item>
+    
+    <item>
+      <title>How to Disable UDP Checksum Validation in Linux</title>
+      <link>https://dominikrys.com/posts/disable-udp-checksum-validation/</link>
+      <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/disable-udp-checksum-validation/</guid>
+      <description>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top Google results suggest disabling checksum offloading, which doesn&amp;rsquo;t disable checksum validation. Another result mentions a solution from within application source code, which you may not have access to or be able to modify.</description>
+    </item>
+    
+    <item>
+      <title>How to Transparently Proxy IP Packets With Spoofed Destinations</title>
+      <link>https://dominikrys.com/posts/transparently-proxy-spoofed-ip/</link>
+      <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/transparently-proxy-spoofed-ip/</guid>
+      <description>I&amp;rsquo;ve recently worked on a security project which required me to transparently proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply. The diagram above shows what we want to achieve.</description>
+    </item>
+    
+    <item>
+      <title>Configuring Squid as a Transparent Proxy</title>
+      <link>https://dominikrys.com/posts/squid-transparent-proxy/</link>
+      <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/squid-transparent-proxy/</guid>
+      <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
+With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&amp;rsquo;d write this post.</description>
+    </item>
+    
+    <item>
+      <title>How to Debug srsLTE</title>
+      <link>https://dominikrys.com/posts/debug-srslte/</link>
+      <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/debug-srslte/</guid>
+      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
+I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
+Compiling srsLTE in Debug Mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
+    </item>
+    
+    <item>
+      <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</title>
+      <link>https://dominikrys.com/posts/secure-monitoring-solution-docker/</link>
+      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/secure-monitoring-solution-docker/</guid>
+      <description>During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
+    </item>
+    
+    <item>
+      <title>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</title>
+      <link>https://dominikrys.com/posts/monitoring-corda-nodes/</link>
+      <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/monitoring-corda-nodes/</guid>
+      <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
+ Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
+    </item>
+    
+    <item>
+      <title>Compiling My C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
+      <link>https://dominikrys.com/posts/compiling-chip8-to-wasm/</link>
+      <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/compiling-chip8-to-wasm/</guid>
+      <description>A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
+My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
+    </item>
+    
+    <item>
+      <title>First Blog Post</title>
+      <link>https://dominikrys.com/posts/first-blog-post/</link>
+      <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/first-blog-post/</guid>
+      <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
+My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this!
+I&amp;rsquo;ve also been quite curious about Swyx&amp;rsquo;s Learn in Public philosophy for a little while, so I thought I&amp;rsquo;d give blogging a go and put it to the test.</description>
+    </item>
+    
+    
+    
+  </channel>
+</rss>

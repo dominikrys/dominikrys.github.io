@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>elk/elastic on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/elk/elastic/</link>
+    <description>Recent content in elk/elastic on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/android-chrome-512x512.png</url>
+      <link>https://dominikrys.com/android-chrome-512x512.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://dominikrys.com/tags/elk/elastic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mapping Google Groups to Kibana Roles</title>
+      <link>https://dominikrys.com/posts/mapping-google-groups-kibana/</link>
+      <pubDate>Mon, 20 Dec 2021 15:05:10 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/mapping-google-groups-kibana/</guid>
+      <description>I&amp;rsquo;ve recently configured authentication for the Elastic Stack. To take some of the burden off managing permissions manually, we wanted to map Google Groups to Kibana roles, since we manage authentication to most of our systems using Google Groups.
+Having followed Elastic&amp;rsquo;s documentation on setting up Google OIDC authentication, however, I found that this task is not so easy, as Google OIDC doesn&amp;rsquo;t return group memberships in the JWT that the application receives.</description>
+    </item>
+    
+    <item>
+      <title>Guide to Creating Alerts from Logs in Kibana</title>
+      <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
+      <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>
+      <description>I&amp;rsquo;ve recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren&amp;rsquo;t particularly well documented in Elastic&amp;rsquo;s documentation. I&amp;rsquo;ll explain my findings in this post.
+Types of Kibana Alerts Rules These used to be called Kibana Alerts (for some reason Elastic has done a lot of renaming over the years), and in most cases I found these to be the best choice.</description>
+    </item>
+    
+  </channel>
+</rss>

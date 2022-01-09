@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>infrastructure on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/infrastructure/</link>
+    <description>Recent content in infrastructure on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/android-chrome-512x512.png</url>
+      <link>https://dominikrys.com/android-chrome-512x512.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 23 Dec 2021 10:38:04 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/infrastructure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>&#39;HashiCorp Certified: Terraform Associate&#39; Course Review</title>
+      <link>https://dominikrys.com/posts/terraform-course-review-zealvora/</link>
+      <pubDate>Thu, 23 Dec 2021 10:38:04 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/terraform-course-review-zealvora/</guid>
+      <description>I&amp;rsquo;ve recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn&amp;rsquo;t particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.
+After some initial looking around, I found Zeal Vora&amp;rsquo;s &amp;lsquo;HashiCorp Certified: Terraform Associate&amp;rsquo; course on Udemy to be well-regarded.</description>
+    </item>
+    
+    <item>
+      <title>Mapping Google Groups to Kibana Roles</title>
+      <link>https://dominikrys.com/posts/mapping-google-groups-kibana/</link>
+      <pubDate>Mon, 20 Dec 2021 15:05:10 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/mapping-google-groups-kibana/</guid>
+      <description>I&amp;rsquo;ve recently configured authentication for the Elastic Stack. To take some of the burden off managing permissions manually, we wanted to map Google Groups to Kibana roles, since we manage authentication to most of our systems using Google Groups.
+Having followed Elastic&amp;rsquo;s documentation on setting up Google OIDC authentication, however, I found that this task is not so easy, as Google OIDC doesn&amp;rsquo;t return group memberships in the JWT that the application receives.</description>
+    </item>
+    
+    <item>
+      <title>Guide to Creating Alerts from Logs in Kibana</title>
+      <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
+      <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>
+      <description>I&amp;rsquo;ve recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren&amp;rsquo;t particularly well documented in Elastic&amp;rsquo;s documentation. I&amp;rsquo;ll explain my findings in this post.
+Types of Kibana Alerts Rules These used to be called Kibana Alerts (for some reason Elastic has done a lot of renaming over the years), and in most cases I found these to be the best choice.</description>
+    </item>
+    
+    <item>
+      <title>Caveats to Creating Datadog Log Metrics in Terraform</title>
+      <link>https://dominikrys.com/posts/datadog-log-metrics-terraform/</link>
+      <pubDate>Sun, 14 Nov 2021 09:52:58 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/datadog-log-metrics-terraform/</guid>
+      <description>In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.
+This post assumes that you have a basic configuration for Datadog in Terraform already. If you don&amp;rsquo;t, Datadog&amp;rsquo;s post on managing Datadog with Terraform is a good starting point.
+Datadog Terraform Resources There are three Terraform resources that you can use to configure log metrics in Datadog:</description>
+    </item>
+    
+    <item>
+      <title>Enforcing Uniqueness of Multiple Attributes in DynamoDB</title>
+      <link>https://dominikrys.com/posts/unqiue-attributes-dynamodb/</link>
+      <pubDate>Sun, 31 Oct 2021 09:53:52 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/unqiue-attributes-dynamodb/</guid>
+      <description>I&amp;rsquo;ve recently tried to solve a problem that involved enforcing uniqueness of multiple attributes in DynamoDB. Surprisingly, this wasn&amp;rsquo;t a trivial undertaking. Given most of my database experience is using SQL databases, I initially started solving the problem using SQL paradigms that didn&amp;rsquo;t translate well to NoSQL.
+In this post, I will describe what I learned, and how it&amp;rsquo;s possible to implement enforcing uniqueness of multiple attributes in DynamoDB.
+Approaches That Don&amp;rsquo;t Work Using Condition Expressions After some initial research, I tried implementing a Conditional Put using a condition expression.</description>
+    </item>
+    
+    <item>
+      <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</title>
+      <link>https://dominikrys.com/posts/secure-monitoring-solution-docker/</link>
+      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/secure-monitoring-solution-docker/</guid>
+      <description>During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
+    </item>
+    
+    <item>
+      <title>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</title>
+      <link>https://dominikrys.com/posts/monitoring-corda-nodes/</link>
+      <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/monitoring-corda-nodes/</guid>
+      <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
+ Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
+    </item>
+    
+  </channel>
+</rss>

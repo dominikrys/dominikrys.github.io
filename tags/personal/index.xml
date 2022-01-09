@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>personal on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/personal/</link>
+    <description>Recent content in personal on Dominik Rys</description>
+    <image>
+      <url>https://dominikrys.com/android-chrome-512x512.png</url>
+      <link>https://dominikrys.com/android-chrome-512x512.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 01 Aug 2020 15:16:16 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/personal/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>First Blog Post</title>
+      <link>https://dominikrys.com/posts/first-blog-post/</link>
+      <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/first-blog-post/</guid>
+      <description>Hi, I&amp;rsquo;m Dom. Welcome to my first blog post!
+My main objective for this blog is to start documenting my work more. Having had completed some small side projects and interning at some companies, I wanted a place to document the details of my past work. I thought that a blog is the perfect place for this!
+I&amp;rsquo;ve also been quite curious about Swyx&amp;rsquo;s Learn in Public philosophy for a little while, so I thought I&amp;rsquo;d give blogging a go and put it to the test.</description>
+    </item>
+    
+  </channel>
+</rss>
