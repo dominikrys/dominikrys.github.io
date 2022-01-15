@@ -52,7 +52,7 @@ There are a couple of guides on GitHub from some years ago on how this can be ac
 From this point, your Git Bash will behave essentially like a Unix Zsh shell. To install oh-my-zsh, run the usual command that you'd run in any Zsh shell:
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 ## Installing Plugins and Themes
