@@ -1,6 +1,6 @@
 ---
 title: "Live Reload Browserify + TypeScript in Node.js"
-date: 2022-01-02T20:39:17Z
+date: 2022-01-17T20:39:17Z
 ShowToc: true
 cover:
   image: "img/cover.png"

@@ -1,32 +1,67 @@
 ---
 title: "Tips for Developing a Static Site Using Hugo"
-date: 2022-01-08T14:28:18Z
+date: 2022-01-05T21:08:18Z
 ShowToc: true
 cover:
     image: "img/cover.png"
     alt: "Cover"
 tags:
   - hugo
+  - documentation
 draft: true
 ---
 
-I've been asked a couple of times as to how this blog is 
+I've been asked a handful of times how this blog is written and maintained. The answer changed every time, as the blog's gone through a couple of iterations in the time I've had it. I reckon that it's in a good state now, so I thought that I'd collate and document what I found works well with developing a Hugo static site, and what I wished that I knew earlier.
 
-- intro: been asked how this blog is written and maintained. I use hugo (explain what that is) thought I'd collate my findings over a couple of over a year of working with hugo. also useful for non-blog use cases, and I've used hugo personally in orgs that used hugo for internal and external doc sites and wikis. i'll mention practical advice on working with hugo
-- 💻 set up your environment to work with hugo well
-  - I use VSCode. Extensions I'd recommend are code spell checker, markdownlint, grammarly. Hemingway editor is also useful at the end. grammarlyt website is also decent at the end.
-  - best to check what you're doing using e..g. `hugo serve -D`
-- 🧠 choose your theme wisely
-  - personally, I want this to be primarily a blog. The content is what matters most. I dont want to spend effort tweaking the theme. Hence, make sure to find a theme that has all you need right away. Hard to tell this at the start, so it's best to start on some theme, and stick to some vanilla markdown for the first couple of months to really tell what you need. E.g. one theme (hello friend ng) that i was using didnt have content on the front page. this is something that didnt bother me for a bit as i didnt blog much, but eventually became something i wanted. also, the maintainer stopped being particularlt active. had to find another theme
-  - it's best to find a popular theme which is actively maintained. That way - it will receive updates that you personally don't have to maintain, you can suggest changes (and it's likely they will be reviewed or updated). If theme is not going to be maintained by the orignal maintainer, if it has lots of users, the odds are higher with popular themes that somene will fork it and start actively maintaining themes. This is a solid list of most popular themes: https://pfht.netlify.app/post/top-starred/
-  - has the pro of having other people effectively maintain the theme for you - you can just focus on writing posts
-  - why choose wisely? moving themes is a major pain. The more non-markdowny theme-specific stuff to use, the harder it is to migrate as a theme you're moving to may do something differently (or not support it at all). Which leads me to the next tip
-- 🍦 use plain markdown when you can
-  - easier to eventually migrate, hugo might fall our of favour (just like jekyll). luckily markdown is fairly prevalent now, so can easily future proof your blog this way
-- 📋 use archetypes
-    - i have one for a page bundle symlinked to a normal post. Creating posts is simple now, as i can just call hugo new and all the changes i need to make are in one file. Before, I called hugo new and had to rummage through old posts for the flags and commands I wanted
-    - helps with website organisation, makes writing post faster, especially if e.g. this for an internal doc site. nice to have a template instead of getting an exiting post and making it work
-- 🛠 write a simple build script
-  - hugo generates a load of temp stuff. if deploying from CI not an issue, if locally, it's worht having a step that clears your entire output folder and resources/_gen before generating the site. hugo is fast so thius works, but maybe this is not feasible for larger projects (which would likely run on ci. This is also useful if you move or rename your files
-  - update or notify if the theme you're using has updated - otherwise you just won't know (insert snippet)
-- grammarly
+These tips may be useful for personal blogs, but also more generally for static sites. I've worked for a couple of companies that use Hugo for various knowledge bases and wikis, for example, so some of this advice also has the potential to streamline those workflows.
+
+## How This Blog Is Written Developed
+
+The setup for this blog is quite simple. The posts are written in ordinary Markdown and generated into a static site using [Hugo](https://gohugo.io/). To automate the building process, I push my changes to GitHub where a CI pipeline builds the website and deploys it to [GitHub Pages](https://pages.github.com/).
+
+### Why Not Use a Dedicated Blog Website?
+
+Admittedly, using a static site generator may seem like a lot of hassle compared to using a service that lets you have a blog out-of-the-box such as [Hashnode](https://hashnode.com/), [DEV.to](https://dev.to/), or [Medium](https://medium.com/). However, I highly value that I own this blog's content. I don't have to worry about if the service that hosts my blog suddenly changes the way certain elements are displayed, or locks my posts behind a paywall or a daily post limit. I can also more easily migrate the data to another service since all the content is in Markdown, which is very flexible.
+
+## Tips
+
+### 💻 Set up Your Environment to Work with Hugo
+
+You write posts in Markdown that Hugo can then generate into static sites. For this, all you really need is a text editor. Out of the box in most text editors though, this is a much less pleasant writing experience compared to writing a post in a rich text editor. I personally use [Visual Studio Code](https://code.visualstudio.com/) along with a couple of extensions to find issues as I type:
+
+- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) - helps with keeping the styling of Markdown files consistent and can find errors in my formatting.
+- [Grammarly (unofficial)](https://marketplace.visualstudio.com/items?itemName=znck.grammarly) - helps find grammatical mistakes and strangely worded phrases. Sometimes the extension breaks, in which case the [Grammarly website](https://app.grammarly.com/) works well. Note that you can freely paste your entire raw Markdown into the Grammarly website, and it will ignore all the Markdown formatting directives.
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - spell checker.
+- [Capitalize](https://marketplace.visualstudio.com/items?itemName=viablelab.capitalize) - used to normalise the capitalization in the titles (super pedantic, I know).
+
+Alongside VSCode I run the Hugo server using `hugo serve -D`, allowing me to check how my changes look in real-time.
+
+### 🎨 Choose Your Theme Wisely
+
+One of my main motivations for using a static site generator compared to making the blog from scratch is that I don't have to worry about maintaining the theme or the styling, allowing me to focus on writing blog posts. Given this, Hugo themes vary. You may start using a theme, only to find that it doesn't include a feature you'd like. In such a case, you'll either have to extend the theme to support the feature (which admittedly is fairly easy to do in Hugo) or use another theme with that feature. The problem with making this yourself is that it may break in the future and it would be harder to guarantee that it works properly on many devices and device form factors.
+
+Another problem you may run into is if the theme stops being actively maintained. To help mitigate this, I'd recommend using popular themes so that the likelihood of it being maintained is much higher. I found [this website](https://pfht.netlify.app/post/top-starred/) to be a great resource for finding the most commonly used themes.
+
+To alleviate the above issues, make sure to choose your theme wisely from the start. Ideally, something popular, paying special attention to the features you may need when checking theme demos.
+
+### 🍦 Write Posts in Vanilla Markdown (Where Possible)
+
+If you've ever tried to or spoken to someone that has migrated their blog from one platform to another, you'll know how painful of a process that could be. It's likely that Hugo will eventually fall out of favour for whatever reason ([Jekyll](https://jekyllrb.com/) comes to mind), or you'll find that the theme you're using is not sufficient for your use-case anymore. If you stick to writing posts in plain markdown where possible, fewer Hugo or theme-specific styling directives would need to be migrated if you switch theme or static site generator, making your blog much more future-proof.
+
+### 📋 Use Archetypes
+
+[Hugo Archetypes](https://gohugo.io/content-management/archetypes/) can give you a small productivity boost, reducing the friction it takes to write a new post. They're effectively templates that can be invoked by calling `hugo new --kind <your archetype name> <path to your content>`. I use one for new posts that fills in the front matter for me and sets up a dummy cover photo.
+
+I found archetypes to be particularly effective for use in sites that host a variety of content, allowing its maintainers to quickly write up posts for the site.
+
+### 🛠 Automate What You Can
+
+I use [Github Actions](https://github.com/features/actions) with [these Hugo actions](https://github.com/peaceiris/actions-hugo) to deploy my blog from CI. I recommend this as it doesn't take long to set up, and for most personal use-cases the [free GitHub Actions minutes](https://github.com/pricing) would give you enough freedom to not have to worry about any costs.
+
+Before deploying from CI though, I used to build this blog locally and push the built site. A build script came in handy for this. The build script first cleared out temporary Hugo data from `resources/_gen`, cleared the output folder (in case any posts were renamed or removed), and finally built a minified version of the site using `hugo --minify`.
+
+It's also worth updating your themes periodically. There are better ways to do this, but I run a simple pre-push script maintained using [Lefthook](https://github.com/evilmartians/lefthook) that updates the themes in my project:
+
+```bash
+git submodule update --recursive --remote
+```
