@@ -1,4 +1,4 @@
 pre-push:
-  scripts:
-    "update_themes.sh":
-      runner: bash
+  commands:
+    update-themes:
+      run: git submodule update --recursive --remote
