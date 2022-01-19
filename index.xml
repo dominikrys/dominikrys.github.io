@@ -20,6 +20,15 @@
     </item>
     
     <item>
+      <title>Tips for Developing a Static Site Using Hugo</title>
+      <link>https://dominikrys.com/posts/hugo-tips/</link>
+      <pubDate>Wed, 05 Jan 2022 21:08:18 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/hugo-tips/</guid>
+      <description>I&amp;rsquo;ve been asked a handful of times how this blog is written and maintained. The answer changed every time, as the blog&amp;rsquo;s gone through a couple of iterations in the time I&amp;rsquo;ve had it. I reckon that it&amp;rsquo;s in a good state now, so I thought that I&amp;rsquo;d collate and document what I found works well with developing a Hugo static site, and what I wished that I knew earlier.</description>
+    </item>
+    
+    <item>
       <title>&#39;HashiCorp Certified: Terraform Associate&#39; Course Review</title>
       <link>https://dominikrys.com/posts/terraform-course-review-zealvora/</link>
       <pubDate>Thu, 23 Dec 2021 10:38:04 +0000</pubDate>
