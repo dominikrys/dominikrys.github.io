@@ -1,6 +1,6 @@
 ---
-title: "'HashiCorp Certified: Terraform Associate' Course Review"
-date: 2021-12-23T10:38:04Z
+title: "HashiCorp Certified: Terraform Associate Course Review"
+date: 2021-12-27T10:38:04Z
 ShowToc: true
 cover:
     image: "img/cover.png"

@@ -1,6 +1,6 @@
 ---
 title: "Tips for Developing a Static Site Using Hugo"
-date: 2022-01-05T21:08:18Z
+date: 2021-08-20T21:08:18Z
 ShowToc: true
 cover:
     image: "img/cover.png"
