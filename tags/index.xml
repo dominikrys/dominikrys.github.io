@@ -38,27 +38,9 @@
     </item>
     
     <item>
-      <title>documentation</title>
-      <link>https://dominikrys.com/tags/documentation/</link>
-      <pubDate>Wed, 05 Jan 2022 21:08:18 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/tags/documentation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hugo</title>
-      <link>https://dominikrys.com/tags/hugo/</link>
-      <pubDate>Wed, 05 Jan 2022 21:08:18 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>devops</title>
       <link>https://dominikrys.com/tags/devops/</link>
-      <pubDate>Thu, 23 Dec 2021 10:38:04 +0000</pubDate>
+      <pubDate>Mon, 27 Dec 2021 10:38:04 +0000</pubDate>
       
       <guid>https://dominikrys.com/tags/devops/</guid>
       <description></description>
@@ -67,7 +49,7 @@
     <item>
       <title>infrastructure</title>
       <link>https://dominikrys.com/tags/infrastructure/</link>
-      <pubDate>Thu, 23 Dec 2021 10:38:04 +0000</pubDate>
+      <pubDate>Mon, 27 Dec 2021 10:38:04 +0000</pubDate>
       
       <guid>https://dominikrys.com/tags/infrastructure/</guid>
       <description></description>
@@ -76,7 +58,7 @@
     <item>
       <title>terraform</title>
       <link>https://dominikrys.com/tags/terraform/</link>
-      <pubDate>Thu, 23 Dec 2021 10:38:04 +0000</pubDate>
+      <pubDate>Mon, 27 Dec 2021 10:38:04 +0000</pubDate>
       
       <guid>https://dominikrys.com/tags/terraform/</guid>
       <description></description>
@@ -178,6 +160,24 @@
       <pubDate>Sun, 31 Oct 2021 09:53:52 +0000</pubDate>
       
       <guid>https://dominikrys.com/tags/dynamodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>documentation</title>
+      <link>https://dominikrys.com/tags/documentation/</link>
+      <pubDate>Fri, 20 Aug 2021 21:08:18 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/tags/documentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://dominikrys.com/tags/hugo/</link>
+      <pubDate>Fri, 20 Aug 2021 21:08:18 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/tags/hugo/</guid>
       <description></description>
     </item>
     

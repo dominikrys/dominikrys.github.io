@@ -20,20 +20,11 @@
     </item>
     
     <item>
-      <title>Tips for Developing a Static Site Using Hugo</title>
-      <link>https://dominikrys.com/posts/hugo-tips/</link>
-      <pubDate>Wed, 05 Jan 2022 21:08:18 +0000</pubDate>
+      <title>HashiCorp Certified: Terraform Associate Course Review</title>
+      <link>https://dominikrys.com/posts/terraform-course-review/</link>
+      <pubDate>Mon, 27 Dec 2021 10:38:04 +0000</pubDate>
       
-      <guid>https://dominikrys.com/posts/hugo-tips/</guid>
-      <description>I&amp;rsquo;ve been asked a handful of times how this blog is written and maintained. The answer changed every time, as the blog&amp;rsquo;s gone through a couple of iterations in the time I&amp;rsquo;ve had it. I reckon that it&amp;rsquo;s in a good state now, so I thought that I&amp;rsquo;d collate and document what I found works well with developing a Hugo static site, and what I wished that I knew earlier.</description>
-    </item>
-    
-    <item>
-      <title>&#39;HashiCorp Certified: Terraform Associate&#39; Course Review</title>
-      <link>https://dominikrys.com/posts/terraform-course-review-zealvora/</link>
-      <pubDate>Thu, 23 Dec 2021 10:38:04 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/posts/terraform-course-review-zealvora/</guid>
+      <guid>https://dominikrys.com/posts/terraform-course-review/</guid>
       <description>I&amp;rsquo;ve recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn&amp;rsquo;t particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.
 After some initial looking around, I found Zeal Vora&amp;rsquo;s &amp;lsquo;HashiCorp Certified: Terraform Associate&amp;rsquo; course on Udemy to be well-regarded.</description>
     </item>
@@ -97,6 +88,15 @@ To address what the other posts don&amp;rsquo;t cover, I thought I&amp;rsquo;d w
       <description>I&amp;rsquo;ve recently tried to solve a problem that involved enforcing uniqueness of multiple attributes in DynamoDB. Surprisingly, this wasn&amp;rsquo;t a trivial undertaking. Given most of my database experience is using SQL databases, I initially started solving the problem using SQL paradigms that didn&amp;rsquo;t translate well to NoSQL.
 In this post, I will describe what I learned, and how it&amp;rsquo;s possible to implement enforcing uniqueness of multiple attributes in DynamoDB.
 Approaches That Don&amp;rsquo;t Work Using Condition Expressions After some initial research, I tried implementing a Conditional Put using a condition expression.</description>
+    </item>
+    
+    <item>
+      <title>Tips for Developing a Static Site Using Hugo</title>
+      <link>https://dominikrys.com/posts/hugo-tips/</link>
+      <pubDate>Fri, 20 Aug 2021 21:08:18 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/hugo-tips/</guid>
+      <description>I&amp;rsquo;ve been asked a handful of times how this blog is written and maintained. The answer changed every time, as the blog&amp;rsquo;s gone through a couple of iterations in the time I&amp;rsquo;ve had it. I reckon that it&amp;rsquo;s in a good state now, so I thought that I&amp;rsquo;d collate and document what I found works well with developing a Hugo static site, and what I wished that I knew earlier.</description>
     </item>
     
     <item>

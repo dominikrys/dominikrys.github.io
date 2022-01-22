@@ -23,26 +23,17 @@
     <loc>https://dominikrys.com/tags/web-development/</loc>
     <lastmod>2022-01-17T20:39:17+00:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/documentation/</loc>
-    <lastmod>2022-01-05T21:08:18+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/hugo/</loc>
-    <lastmod>2022-01-05T21:08:18+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/posts/hugo-tips/</loc>
-    <lastmod>2022-01-05T21:08:18+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/posts/terraform-course-review-zealvora/</loc>
-    <lastmod>2021-12-23T10:38:04+00:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/tags/devops/</loc>
-    <lastmod>2021-12-23T10:38:04+00:00</lastmod>
+    <lastmod>2021-12-27T10:38:04+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/terraform-course-review/</loc>
+    <lastmod>2021-12-27T10:38:04+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/infrastructure/</loc>
-    <lastmod>2021-12-23T10:38:04+00:00</lastmod>
+    <lastmod>2021-12-27T10:38:04+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/terraform/</loc>
-    <lastmod>2021-12-23T10:38:04+00:00</lastmod>
+    <lastmod>2021-12-27T10:38:04+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/kibana/</loc>
     <lastmod>2021-12-20T15:05:10+00:00</lastmod>
@@ -94,6 +85,15 @@
   </url><url>
     <loc>https://dominikrys.com/posts/unqiue-attributes-dynamodb/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/documentation/</loc>
+    <lastmod>2021-08-20T21:08:18+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/hugo/</loc>
+    <lastmod>2021-08-20T21:08:18+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/hugo-tips/</loc>
+    <lastmod>2021-08-20T21:08:18+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/operating-systems/</loc>
     <lastmod>2021-08-03T16:07:52+01:00</lastmod>

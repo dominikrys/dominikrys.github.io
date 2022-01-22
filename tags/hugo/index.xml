@@ -9,11 +9,11 @@
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 05 Jan 2022 21:08:18 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Aug 2021 21:08:18 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tips for Developing a Static Site Using Hugo</title>
       <link>https://dominikrys.com/posts/hugo-tips/</link>
-      <pubDate>Wed, 05 Jan 2022 21:08:18 +0000</pubDate>
+      <pubDate>Fri, 20 Aug 2021 21:08:18 +0000</pubDate>
       
       <guid>https://dominikrys.com/posts/hugo-tips/</guid>
       <description>I&amp;rsquo;ve been asked a handful of times how this blog is written and maintained. The answer changed every time, as the blog&amp;rsquo;s gone through a couple of iterations in the time I&amp;rsquo;ve had it. I reckon that it&amp;rsquo;s in a good state now, so I thought that I&amp;rsquo;d collate and document what I found works well with developing a Hugo static site, and what I wished that I knew earlier.</description>
