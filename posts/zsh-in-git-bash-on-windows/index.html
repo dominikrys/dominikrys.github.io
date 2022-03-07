@@ -3,13 +3,12 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>Installing Zsh (and oh-my-zsh) in Windows Git Bash | Dominik Rys</title>
-<meta name=keywords content="windows,shell">
+<title>Installing Zsh (and oh-my-zsh) in Windows Git Bash | Dominik Rys</title><meta name=keywords content="windows,shell">
 <meta name=description content="I&rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I&rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn&rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.">
 <meta name=author content>
 <link rel=canonical href=https://dominikrys.com/posts/zsh-in-git-bash-on-windows/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
-<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://dominikrys.com/favicon.ico>
 <link rel=icon type=image/png sizes=16x16 href=https://dominikrys.com/favicon-16x16.png>
 <link rel=icon type=image/png sizes=32x32 href=https://dominikrys.com/favicon-32x32.png>
@@ -17,13 +16,9 @@
 <link rel=mask-icon href=https://dominikrys.com/safari-pinned-tab.svg>
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
-<meta name=generator content="Hugo 0.92.0">
 <noscript>
-<style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZL8HVTHR8"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-FZL8HVTHR8',{anonymize_ip:!1})}</script>
+<style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script async src="https://www.googletagmanager.com/gtag/js?id=G-FZL8HVTHR8"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-FZL8HVTHR8",{anonymize_ip:!1})}</script>
 <meta property="og:title" content="Installing Zsh (and oh-my-zsh) in Windows Git Bash">
 <meta property="og:description" content="I&rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I&rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn&rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.">
 <meta property="og:type" content="article">
@@ -36,10 +31,9 @@
 <meta name=twitter:title content="Installing Zsh (and oh-my-zsh) in Windows Git Bash">
 <meta name=twitter:description content="I&rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I&rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn&rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://dominikrys.com/posts/"},{"@type":"ListItem","position":3,"name":"Installing Zsh (and oh-my-zsh) in Windows Git Bash","item":"https://dominikrys.com/posts/zsh-in-git-bash-on-windows/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Installing Zsh (and oh-my-zsh) in Windows Git Bash","name":"Installing Zsh (and oh-my-zsh) in Windows Git Bash","description":"I\u0026rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I\u0026rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn\u0026rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.","keywords":["windows","shell"],"articleBody":"I’ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I’ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn’t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.\nThere are a couple of guides on GitHub from some years ago on how this can be achieved. However, I found they’re either outdated, or they don’t include information on whether plugins and custom themes can be used. I’ve addressed these issues in this post.\nInstalling Zsh in Git Bash   Download the latest MSYS2 zsh package from the MSYS2 package repository. The file will be named something along the lines of zsh-5.8-5-x86_64.pkg.tar.zst.\n  Install an extractor that can open ZST archives such as PeaZip or 7-Zip Beta.\n  Extract the contents of the archive (which should include etc and usr folders) into your Git Bash installation directory. This is likely to be under C:\\Program Files\\Git. Merge the contents of the folder if asked (no files should be getting overridden).\n  Open Git Bash and run:\nzsh   IMPORTANT: configure the tab completion and history in the Zsh first use wizard. If for some reason it doesn’t appear, or you skip it, re-run it:\nautoload -U zsh-newuser-install zsh-newuser-install -f  To configure the history, press 1, change the values if you like by pressing 1-3, and then press 0. To configure the completion, press 2 to “Use the new completion system”, and then press 0. Press 0 to save the settings.    Configure Zsh as the default shell by appending the following to your ~/.bashrc file:\nif [ -t 1 ]; then exec zsh fi   Installing oh-my-zsh From this point, your Git Bash will behave essentially like a Unix Zsh shell. To install oh-my-zsh, run the usual command that you’d run in any Zsh shell:\nsh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" Installing Plugins and Themes To install plugins and themes, use their oh-my-zsh installation methods. I’ve installed the Powerlevel10k theme as well as the following plugins, and can verify that they work:\n zsh-completions zsh-syntax-highlighting zsh-autosuggestions   NOTE: you may get strange artifacts and spacing in your terminal as of version v0.7.0. To fix this, use version v.0.6.4:\ncd ~/.oh-my-zsh/plugins/zsh-autosuggestions git checkout tags/v0.6.4 -b v0.6.4-branch     Fixing Mangled Output Windows can mangle some UTF-8 encoded text, causing unexpected characters to be displayed in your terminal (more info in this Stack Overflow answer). To fix this, add the following to your ~/.bashrc file, ideally before code that sets your shell as Zsh:\n/c/Windows/System32/chcp.com 65001  /dev/null 2\u00261 Troubleshooting fworks’s guide tends to be fairly active, so it’s worth searching for or asking about any problems you may have there. Note that some of the information on there is outdated.\n","wordCount":"487","inLanguage":"en","image":"https://dominikrys.com/img/cover.png","datePublished":"2021-11-11T19:10:26Z","dateModified":"2021-11-11T19:10:26Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://dominikrys.com/posts/zsh-in-git-bash-on-windows/"},"publisher":{"@type":"Organization","name":"Dominik Rys","logo":{"@type":"ImageObject","url":"https://dominikrys.com/favicon.ico"}}}</script>
-</head>
-<body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Installing Zsh (and oh-my-zsh) in Windows Git Bash","name":"Installing Zsh (and oh-my-zsh) in Windows Git Bash","description":"I\u0026rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I\u0026rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn\u0026rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.","keywords":["windows","shell"],"articleBody":"I’ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I’ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn’t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.\nThere are a couple of guides on GitHub from some years ago on how this can be achieved. However, I found they’re either outdated, or they don’t include information on whether plugins and custom themes can be used. I’ve addressed these issues in this post.\nInstalling Zsh in Git Bash   Download the latest MSYS2 zsh package from the MSYS2 package repository. The file will be named something along the lines of zsh-5.8-5-x86_64.pkg.tar.zst.\n  Install an extractor that can open ZST archives such as PeaZip or 7-Zip Beta.\n  Extract the contents of the archive (which should include etc and usr folders) into your Git Bash installation directory. This is likely to be under C:\\Program Files\\Git. Merge the contents of the folder if asked (no files should be getting overridden).\n  Open Git Bash and run:\nzsh   IMPORTANT: configure the tab completion and history in the Zsh first use wizard. If for some reason it doesn’t appear, or you skip it, re-run it:\nautoload -U zsh-newuser-install zsh-newuser-install -f  To configure the history, press 1, change the values if you like by pressing 1-3, and then press 0. To configure the completion, press 2 to “Use the new completion system”, and then press 0. Press 0 to save the settings.    Configure Zsh as the default shell by appending the following to your ~/.bashrc file:\nif [ -t 1 ]; then  exec zsh fi   Installing oh-my-zsh From this point, your Git Bash will behave essentially like a Unix Zsh shell. To install oh-my-zsh, run the usual command that you’d run in any Zsh shell:\nsh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" Installing Plugins and Themes To install plugins and themes, use their oh-my-zsh installation methods. I’ve installed the Powerlevel10k theme as well as the following plugins, and can verify that they work:\n zsh-completions zsh-syntax-highlighting zsh-autosuggestions   NOTE: you may get strange artifacts and spacing in your terminal as of version v0.7.0. To fix this, use version v.0.6.4:\ncd ~/.oh-my-zsh/plugins/zsh-autosuggestions git checkout tags/v0.6.4 -b v0.6.4-branch     Fixing Mangled Output Windows can mangle some UTF-8 encoded text, causing unexpected characters to be displayed in your terminal (more info in this Stack Overflow answer). To fix this, add the following to your ~/.bashrc file, ideally before code that sets your shell as Zsh:\n/c/Windows/System32/chcp.com 65001  /dev/null 2\u00261 Troubleshooting fworks’s guide tends to be fairly active, so it’s worth searching for or asking about any problems you may have there. Note that some of the information on there is outdated.\n","wordCount":"487","inLanguage":"en","image":"https://dominikrys.com/img/cover.png","datePublished":"2021-11-11T19:10:26Z","dateModified":"2021-11-11T19:10:26Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://dominikrys.com/posts/zsh-in-git-bash-on-windows/"},"publisher":{"@type":"Organization","name":"Dominik Rys","logo":{"@type":"ImageObject","url":"https://dominikrys.com/favicon.ico"}}}</script>
+</head><body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -48,36 +42,26 @@
 <button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
 </span>
-</div>
-<ul id=menu>
+</div><ul id=menu>
 <li>
 <a href=https://dominikrys.com/archives title=📖 Archive>
 <span>📖 Archive</span>
 </a>
-</li>
-<li>
+</li><li>
 <a href=https://dominikrys.com/tags title=🔖 Tags>
 <span>🔖 Tags</span>
 </a>
-</li>
-<li>
+</li><li>
 <a href=https://dominikrys.com/search/ title=🔎 Search>
 <span>🔎 Search</span>
 </a>
-</li>
-</ul>
-</nav>
-</header>
-<main class=main>
+</li></ul></nav></header><main class=main>
 <article class=post-single>
 <header class=post-header>
 <h1 class=post-title>
 Installing Zsh (and oh-my-zsh) in Windows Git Bash
-</h1>
-<div class=post-meta><span title="2021-11-11 19:10:26 +0000 UTC">November 11, 2021</span>&nbsp;·&nbsp;3 min
-</div>
-</header>
-<figure class=entry-cover>
+</h1><div class=post-meta><span title="2021-11-11 19:10:26 +0000 UTC">November 11, 2021</span>&nbsp;·&nbsp;3 min
+</div></header><figure class=entry-cover>
 <img loading=lazy srcset="https://dominikrys.com/posts/zsh-in-git-bash-on-windows/img/cover_hu5ffd2067d59aed54b3b9a24a9399de7f_162410_360x0_resize_box_3.png 360w ,https://dominikrys.com/posts/zsh-in-git-bash-on-windows/img/cover_hu5ffd2067d59aed54b3b9a24a9399de7f_162410_480x0_resize_box_3.png 480w ,https://dominikrys.com/posts/zsh-in-git-bash-on-windows/img/cover_hu5ffd2067d59aed54b3b9a24a9399de7f_162410_720x0_resize_box_3.png 720w ,https://dominikrys.com/posts/zsh-in-git-bash-on-windows/img/cover_hu5ffd2067d59aed54b3b9a24a9399de7f_162410_1080x0_resize_box_3.png 1080w ,https://dominikrys.com/posts/zsh-in-git-bash-on-windows/img/cover_hu5ffd2067d59aed54b3b9a24a9399de7f_162410_1500x0_resize_box_3.png 1500w ,https://dominikrys.com/posts/zsh-in-git-bash-on-windows/img/cover.png 2725w" sizes="(min-width: 768px) 720px, 100vw" src=https://dominikrys.com/posts/zsh-in-git-bash-on-windows/img/cover.png alt=Cover width=2725 height=1075>
 </figure><div class=toc>
 <details open>
@@ -86,84 +70,37 @@ Installing Zsh (and oh-my-zsh) in Windows Git Bash
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#installing-zsh-in-git-bash aria-label="Installing Zsh in Git Bash">Installing Zsh in Git Bash</a></li>
-<li>
-<a href=#installing-oh-my-zsh aria-label="Installing oh-my-zsh">Installing oh-my-zsh</a></li>
-<li>
-<a href=#installing-plugins-and-themes aria-label="Installing Plugins and Themes">Installing Plugins and Themes</a></li>
-<li>
-<a href=#fixing-mangled-output aria-label="Fixing Mangled Output">Fixing Mangled Output</a></li>
-<li>
+<a href=#installing-zsh-in-git-bash aria-label="Installing Zsh in Git Bash">Installing Zsh in Git Bash</a></li><li>
+<a href=#installing-oh-my-zsh aria-label="Installing oh-my-zsh">Installing oh-my-zsh</a></li><li>
+<a href=#installing-plugins-and-themes aria-label="Installing Plugins and Themes">Installing Plugins and Themes</a></li><li>
+<a href=#fixing-mangled-output aria-label="Fixing Mangled Output">Fixing Mangled Output</a></li><li>
 <a href=#troubleshooting aria-label=Troubleshooting>Troubleshooting</a>
-</li>
-</ul>
-</div>
-</details>
-</div>
-<div class=post-content><p>I&rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I&rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn&rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.</p>
-<p>There are a couple of guides on GitHub from some years ago on how this can be achieved. However, I found they&rsquo;re either outdated, or they don&rsquo;t include information on whether plugins and custom themes can be used. I&rsquo;ve addressed these issues in this post.</p>
-<h2 id=installing-zsh-in-git-bash>Installing Zsh in Git Bash<a hidden class=anchor aria-hidden=true href=#installing-zsh-in-git-bash>#</a></h2>
-<ol>
+</li></ul></div></details>
+</div><div class=post-content><p>I&rsquo;ve recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I&rsquo;ve started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn&rsquo;t always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.</p><p>There are a couple of guides on GitHub from some years ago on how this can be achieved. However, I found they&rsquo;re either outdated, or they don&rsquo;t include information on whether plugins and custom themes can be used. I&rsquo;ve addressed these issues in this post.</p><h2 id=installing-zsh-in-git-bash>Installing Zsh in Git Bash<a hidden class=anchor aria-hidden=true href=#installing-zsh-in-git-bash>#</a></h2><ol>
 <li>
-<p>Download the latest MSYS2 zsh package from <a href="https://packages.msys2.org/package/zsh?repo=msys&variant=x86_64">the MSYS2 package repository</a>. The file will be named something along the lines of <code>zsh-5.8-5-x86_64.pkg.tar.zst</code>.</p>
-</li>
-<li>
-<p>Install an extractor that can open ZST archives such as <a href=https://peazip.github.io/>PeaZip</a> or <a href=https://www.7-zip.org/>7-Zip Beta</a>.</p>
-</li>
-<li>
-<p>Extract the contents of the archive (which should include <code>etc</code> and <code>usr</code> folders) into your Git Bash installation directory. This is likely to be under <code>C:\Program Files\Git</code>. Merge the contents of the folder if asked (no files should be getting overridden).</p>
-</li>
-<li>
-<p>Open Git Bash and run:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>zsh
-</code></pre></div></li>
-<li>
-<p><strong>IMPORTANT:</strong> configure the tab completion and history in the Zsh first use wizard. If for some reason it doesn&rsquo;t appear, or you skip it, re-run it:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>autoload -U zsh-newuser-install
-zsh-newuser-install -f
-</code></pre></div><ul>
-<li>To configure the history, press <code>1</code>, change the values if you like by pressing <code>1-3</code>, and then press <code>0</code>.</li>
-<li>To configure the completion, press <code>2</code> to &ldquo;Use the new completion system&rdquo;, and then press <code>0</code>.</li>
-<li>Press <code>0</code> to save the settings.</li>
-</ul>
-</li>
-<li>
-<p>Configure Zsh as the default shell by appending the following to your <code>~/.bashrc</code> file:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -t <span style=color:#ae81ff>1</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
-  exec zsh
-<span style=color:#66d9ef>fi</span>
-</code></pre></div></li>
-</ol>
-<h2 id=installing-oh-my-zsh>Installing oh-my-zsh<a hidden class=anchor aria-hidden=true href=#installing-oh-my-zsh>#</a></h2>
-<p>From this point, your Git Bash will behave essentially like a Unix Zsh shell. To install oh-my-zsh, run the usual command that you&rsquo;d run in any Zsh shell:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>sh -c <span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
-</code></pre></div><h2 id=installing-plugins-and-themes>Installing Plugins and Themes<a hidden class=anchor aria-hidden=true href=#installing-plugins-and-themes>#</a></h2>
-<p>To install plugins and themes, use their oh-my-zsh installation methods. I&rsquo;ve installed the <a href=https://github.com/romkatv/powerlevel10k>Powerlevel10k</a> theme as well as the following plugins, and can verify that they work:</p>
-<ul>
-<li><a href=https://github.com/zsh-users/zsh-completions>zsh-completions</a></li>
-<li><a href=https://github.com/zsh-users/zsh-syntax-highlighting>zsh-syntax-highlighting</a></li>
-<li><a href=https://github.com/zsh-users/zsh-autosuggestions>zsh-autosuggestions</a>
+<p>Download the latest MSYS2 zsh package from <a href="https://packages.msys2.org/package/zsh?repo=msys&variant=x86_64">the MSYS2 package repository</a>. The file will be named something along the lines of <code>zsh-5.8-5-x86_64.pkg.tar.zst</code>.</p></li><li>
+<p>Install an extractor that can open ZST archives such as <a href=https://peazip.github.io/>PeaZip</a> or <a href=https://www.7-zip.org/>7-Zip Beta</a>.</p></li><li>
+<p>Extract the contents of the archive (which should include <code>etc</code> and <code>usr</code> folders) into your Git Bash installation directory. This is likely to be under <code>C:\Program Files\Git</code>. Merge the contents of the folder if asked (no files should be getting overridden).</p></li><li>
+<p>Open Git Bash and run:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>zsh
+</span></span></code></pre></div></li><li>
+<p><strong>IMPORTANT:</strong> configure the tab completion and history in the Zsh first use wizard. If for some reason it doesn&rsquo;t appear, or you skip it, re-run it:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>autoload -U zsh-newuser-install
+</span></span><span style=display:flex><span>zsh-newuser-install -f
+</span></span></code></pre></div><ul>
+<li>To configure the history, press <code>1</code>, change the values if you like by pressing <code>1-3</code>, and then press <code>0</code>.</li><li>To configure the completion, press <code>2</code> to &ldquo;Use the new completion system&rdquo;, and then press <code>0</code>.</li><li>Press <code>0</code> to save the settings.</li></ul></li><li>
+<p>Configure Zsh as the default shell by appending the following to your <code>~/.bashrc</code> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -t <span style=color:#ae81ff>1</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>  exec zsh
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span></code></pre></div></li></ol><h2 id=installing-oh-my-zsh>Installing oh-my-zsh<a hidden class=anchor aria-hidden=true href=#installing-oh-my-zsh>#</a></h2><p>From this point, your Git Bash will behave essentially like a Unix Zsh shell. To install oh-my-zsh, run the usual command that you&rsquo;d run in any Zsh shell:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sh -c <span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
+</span></span></code></pre></div><h2 id=installing-plugins-and-themes>Installing Plugins and Themes<a hidden class=anchor aria-hidden=true href=#installing-plugins-and-themes>#</a></h2><p>To install plugins and themes, use their oh-my-zsh installation methods. I&rsquo;ve installed the <a href=https://github.com/romkatv/powerlevel10k>Powerlevel10k</a> theme as well as the following plugins, and can verify that they work:</p><ul>
+<li><a href=https://github.com/zsh-users/zsh-completions>zsh-completions</a></li><li><a href=https://github.com/zsh-users/zsh-syntax-highlighting>zsh-syntax-highlighting</a></li><li><a href=https://github.com/zsh-users/zsh-autosuggestions>zsh-autosuggestions</a>
 <ul>
 <li>
-<p>NOTE: you may get strange artifacts and spacing in your terminal as of version <code>v0.7.0</code>. To fix this, use version <code>v.0.6.4</code>:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cd ~/.oh-my-zsh/plugins/zsh-autosuggestions
-git checkout tags/v0.6.4 -b v0.6.4-branch
-</code></pre></div></li>
-</ul>
-</li>
-</ul>
-<h2 id=fixing-mangled-output>Fixing Mangled Output<a hidden class=anchor aria-hidden=true href=#fixing-mangled-output>#</a></h2>
-<p>Windows can mangle some UTF-8 encoded text, causing unexpected characters to be displayed in your terminal (more info in <a href=https://stackoverflow.com/a/65688816/13749561>this Stack Overflow answer</a>). To fix this, add the following to your <code>~/.bashrc</code> file, ideally before code that sets your shell as Zsh:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>/c/Windows/System32/chcp.com <span style=color:#ae81ff>65001</span> &gt; /dev/null 2&gt;&amp;<span style=color:#ae81ff>1</span>
-</code></pre></div><h2 id=troubleshooting>Troubleshooting<a hidden class=anchor aria-hidden=true href=#troubleshooting>#</a></h2>
-<p><a href=https://gist.github.com/fworks/af4c896c9de47d827d4caa6fd7154b6b>fworks&rsquo;s guide</a> tends to be fairly active, so it&rsquo;s worth searching for or asking about any problems you may have there. Note that some of the information on there is outdated.</p>
-</div>
-<footer class=post-footer>
+<p>NOTE: you may get strange artifacts and spacing in your terminal as of version <code>v0.7.0</code>. To fix this, use version <code>v.0.6.4</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cd ~/.oh-my-zsh/plugins/zsh-autosuggestions
+</span></span><span style=display:flex><span>git checkout tags/v0.6.4 -b v0.6.4-branch
+</span></span></code></pre></div></li></ul></li></ul><h2 id=fixing-mangled-output>Fixing Mangled Output<a hidden class=anchor aria-hidden=true href=#fixing-mangled-output>#</a></h2><p>Windows can mangle some UTF-8 encoded text, causing unexpected characters to be displayed in your terminal (more info in <a href=https://stackoverflow.com/a/65688816/13749561>this Stack Overflow answer</a>). To fix this, add the following to your <code>~/.bashrc</code> file, ideally before code that sets your shell as Zsh:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>/c/Windows/System32/chcp.com <span style=color:#ae81ff>65001</span> &gt; /dev/null 2&gt;&amp;<span style=color:#ae81ff>1</span>
+</span></span></code></pre></div><h2 id=troubleshooting>Troubleshooting<a hidden class=anchor aria-hidden=true href=#troubleshooting>#</a></h2><p><a href=https://gist.github.com/fworks/af4c896c9de47d827d4caa6fd7154b6b>fworks&rsquo;s guide</a> tends to be fairly active, so it&rsquo;s worth searching for or asking about any problems you may have there. Note that some of the information on there is outdated.</p></div><footer class=post-footer>
 <ul class=post-tags>
-<li><a href=https://dominikrys.com/tags/windows/>windows</a></li>
-<li><a href=https://dominikrys.com/tags/shell/>shell</a></li>
-</ul>
-<nav class=paginav>
+<li><a href=https://dominikrys.com/tags/windows/>windows</a></li><li><a href=https://dominikrys.com/tags/shell/>shell</a></li></ul><nav class=paginav>
 <a class=prev href=https://dominikrys.com/posts/datadog-log-metrics-terraform/>
 <span class=title>« Prev Page</span>
 <br>
@@ -174,8 +111,7 @@ git checkout tags/v0.6.4 -b v0.6.4-branch
 <br>
 <span>Injecting Build-Time Variables to Nested Go Packages</span>
 </a>
-</nav>
-<div class=share-buttons>
+</nav><div class=share-buttons>
 <a target=_blank rel="noopener noreferrer" aria-label="share Installing Zsh (and oh-my-zsh) in Windows Git Bash on twitter" href="https://twitter.com/intent/tweet/?text=Installing%20Zsh%20%28and%20oh-my-zsh%29%20in%20Windows%20Git%20Bash&url=https%3a%2f%2fdominikrys.com%2fposts%2fzsh-in-git-bash-on-windows%2f&hashtags=windows%2cshell"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
 </a>
 <a target=_blank rel="noopener noreferrer" aria-label="share Installing Zsh (and oh-my-zsh) in Windows Git Bash on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fdominikrys.com%2fposts%2fzsh-in-git-bash-on-windows%2f&title=Installing%20Zsh%20%28and%20oh-my-zsh%29%20in%20Windows%20Git%20Bash&summary=Installing%20Zsh%20%28and%20oh-my-zsh%29%20in%20Windows%20Git%20Bash&source=https%3a%2f%2fdominikrys.com%2fposts%2fzsh-in-git-bash-on-windows%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
@@ -188,26 +124,19 @@ git checkout tags/v0.6.4 -b v0.6.4-branch
 </a>
 <a target=_blank rel="noopener noreferrer" aria-label="share Installing Zsh (and oh-my-zsh) in Windows Git Bash on telegram" href="https://telegram.me/share/url?text=Installing%20Zsh%20%28and%20oh-my-zsh%29%20in%20Windows%20Git%20Bash&url=https%3a%2f%2fdominikrys.com%2fposts%2fzsh-in-git-bash-on-windows%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
 </a>
-</div>
-</footer><div id=disqus_thread></div>
-<script type=application/javascript>var disqus_config=function(){this.page.url='https://dominikrys.com/posts/zsh-in-git-bash-on-windows/',this.page.identifier='https://dominikrys.com/posts/zsh-in-git-bash-on-windows/',this.page.title='Installing Zsh (and oh-my-zsh) in Windows Git Bash'};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//dominikrys.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</article>
-</main>
-<footer class=footer>
+</div></footer><div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){this.page.url="https://dominikrys.com/posts/zsh-in-git-bash-on-windows/",this.page.identifier="https://dominikrys.com/posts/zsh-in-git-bash-on-windows/",this.page.title="Installing Zsh (and oh-my-zsh) in Windows Git Bash"};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//dominikrys.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</article></main><footer class=footer>
 <span>&copy; 2022 <a href=https://dominikrys.com>Dominik Rys</a></span>
 <span>
 Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
         <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
 </span>
-</footer>
-<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
 </a>
-<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script>
 <script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
-<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
-<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
-</body>
-</html>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script>
+<script>document.querySelectorAll("pre > code").forEach(t=>{const n=t.parentNode.parentNode,e=document.createElement("button");e.classList.add("copy-code"),e.innerText="copy";function s(){e.innerText="copied!",setTimeout(()=>{e.innerText="copy"},2e3)}e.addEventListener("click",o=>{if("clipboard"in navigator){navigator.clipboard.writeText(t.textContent),s();return}const e=document.createRange();e.selectNodeContents(t);const n=window.getSelection();n.removeAllRanges(),n.addRange(e);try{document.execCommand("copy"),s()}catch(e){}n.removeRange(e)}),n.classList.contains("highlight")?n.appendChild(e):n.parentNode.firstChild==n||(t.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?t.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(e):t.parentNode.appendChild(e))})</script>
+</body></html>
