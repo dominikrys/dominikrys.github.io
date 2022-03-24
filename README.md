@@ -1,5 +1,8 @@
 # Personal Website and Blog
 
+[![Website](https://img.shields.io/website?down_color=lightgrey&style=flat-square&down_message=offline&up_color=brightgreen&up_message=online&url=https%3A%2F%2Fdominikrys.com)](https://dominikrys.com/)
+[![Build Status](https://img.shields.io/github/workflow/status/dominikrys/dominikrys.github.io/Deploy%20to%20GitHub%20Pages?style=flat-square)](https://github.com/dominikrys/dominikrys.github.io/actions/workflows/deploy-gh.yml)
+
 Available at **[dominikrys.com](https://dominikrys.com/)**
 
 ## Cloning

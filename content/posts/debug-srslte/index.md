@@ -6,7 +6,7 @@ cover:
     alt: "srsLTE Logo"
 tags:
   - security
-  - software engineering
+  - engineering
   - c++
   - srslte
   - lte

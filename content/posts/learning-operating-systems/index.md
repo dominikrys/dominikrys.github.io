@@ -4,7 +4,7 @@ date: 2021-08-03T16:07:52+01:00
 cover:
     image: "img/cover.jpg"
 tags:
-  - software engineering
+  - engineering
   - operating systems
 ---
 

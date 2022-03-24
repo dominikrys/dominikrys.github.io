@@ -9,7 +9,7 @@ tags:
   - dynamodb
   - databases
   - aws
-  - software engineering
+  - engineering
   - infrastructure
 ---
 
