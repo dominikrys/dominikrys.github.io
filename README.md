@@ -42,3 +42,7 @@ For automated local theme updates, a [Lefthook](https://github.com/evilmartians/
 - For blank cover images, use dimensions of 2000x800 (1:4 ratio).
 
 - Export [diagrams.net](https://app.diagrams.net/) diagrams with 500% zoom and 5 border radius.
+
+## Overriding CSS
+
+- Add CSS overriding files to `assets/css/extended`
