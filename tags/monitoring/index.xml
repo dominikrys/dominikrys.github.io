@@ -9,7 +9,17 @@
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 20 Dec 2021 15:05:10 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/monitoring/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Mar 2022 21:37:36 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/monitoring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
+      <link>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</link>
+      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</guid>
+      <description>Configuring the Grafana Agent to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate this configuration using the Grafana Agent Operator.
+Possible Solutions The easiest way to manage Grafana Agent deployments is using the Grafana Agent Operator.</description>
+    </item>
+    
     <item>
       <title>Mapping Google Groups to Kibana Roles</title>
       <link>https://dominikrys.com/posts/mapping-google-groups-kibana/</link>

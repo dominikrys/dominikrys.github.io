@@ -9,7 +9,17 @@
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 17 Jan 2022 20:39:17 +0000</lastBuildDate><atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Mar 2022 21:37:36 +0100</lastBuildDate><atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
+      <link>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</link>
+      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</guid>
+      <description>Configuring the Grafana Agent to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate this configuration using the Grafana Agent Operator.
+Possible Solutions The easiest way to manage Grafana Agent deployments is using the Grafana Agent Operator.</description>
+    </item>
+    
     <item>
       <title>Live Reload Browserify &#43; TypeScript in Node.js</title>
       <link>https://dominikrys.com/posts/live-reload-browserify-ts/</link>
@@ -100,13 +110,13 @@ Approaches That Don&amp;rsquo;t Work Using Condition Expressions After some init
     </item>
     
     <item>
-      <title>Short Guide on Teaching Yourself About Operating Systems</title>
+      <title>Resources for Learning about Operating Systems</title>
       <link>https://dominikrys.com/posts/learning-operating-systems/</link>
       <pubDate>Tue, 03 Aug 2021 16:07:52 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/learning-operating-systems/</guid>
-      <description>I&amp;rsquo;ve recently graduated with a Computer Science degree from the University of Birmingham. Overall, the course covered most of the fundamentals of computer science. However, the course structure changed when I was on my year in industry, causing me to completely miss out on operating systems modules! Since I&amp;rsquo;ve always been quite interested in operating systems, I decided to teach myself about them.
-In this short post, I will cover what online resources I found to be particularly useful in teaching myself about OSes.</description>
+      <description>I&amp;rsquo;ve recently graduated with a Computer Science degree. Overall, the course covered most of the fundamentals of computer science. However, the course structure changed when I was on my year in industry, causing me to completely miss out on operating systems modules! Since I&amp;rsquo;ve always been interested in operating systems, I decided to teach myself about them.
+In this short post, I will cover what online resources I found to be particularly useful in teaching myself about operating systems.</description>
     </item>
     
     <item>
