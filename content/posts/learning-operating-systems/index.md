@@ -1,5 +1,5 @@
 ---
-title: "Short Guide on Teaching Yourself About Operating Systems"
+title: "Resources for Learning about Operating Systems"
 date: 2021-08-03T16:07:52+01:00
 cover:
     image: "img/cover.jpg"
@@ -8,9 +8,9 @@ tags:
   - operating systems
 ---
 
-I've recently graduated with a Computer Science degree from the University of Birmingham. Overall, the course covered most of the fundamentals of computer science. However, the course structure changed when I was on my year in industry, causing me to completely miss out on operating systems modules! Since I've always been quite interested in operating systems, I decided to teach myself about them.
+I've recently graduated with a Computer Science degree. Overall, the course covered most of the fundamentals of computer science. However, the course structure changed when I was on my year in industry, causing me to completely miss out on operating systems modules! Since I've always been interested in operating systems, I decided to teach myself about them.
 
-In this short post, I will cover what online resources I found to be particularly useful in teaching myself about OSes. I’ll mention resources ranging from ones that can be gone through in a couple of hours to acquire some surface-level knowledge, to those that will take a bit longer but prepare you to write the next Unix successor.
+In this short post, I will cover what online resources I found to be particularly useful in teaching myself about operating systems. I’ll mention resources ranging from ones that can be gone through in a couple of hours to acquire some surface-level knowledge, to those that will take a bit longer but prepare you to write the next Unix successor.
 
 ## Where to Start?
 
