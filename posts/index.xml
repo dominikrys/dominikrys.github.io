@@ -16,8 +16,7 @@
       <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</guid>
-      <description>Configuring the Grafana Agent to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate this configuration using the Grafana Agent Operator.
-Possible Solutions The easiest way to manage Grafana Agent deployments is using the Grafana Agent Operator.</description>
+      <description>Configuring the Grafana Agent to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.</description>
     </item>
     
     <item>

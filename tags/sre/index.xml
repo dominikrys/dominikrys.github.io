@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>devops on Dominik Rys</title>
-    <link>https://dominikrys.com/tags/devops/</link>
-    <description>Recent content in devops on Dominik Rys</description>
+    <title>SRE on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/sre/</link>
+    <description>Recent content in SRE on Dominik Rys</description>
     <image>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 27 Dec 2021 10:38:04 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Mar 2022 21:37:36 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/sre/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
+      <link>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</link>
+      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</guid>
+      <description>Configuring the Grafana Agent to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.</description>
+    </item>
+    
     <item>
       <title>HashiCorp Certified: Terraform Associate Course Review</title>
       <link>https://dominikrys.com/posts/terraform-course-review/</link>
@@ -49,25 +58,6 @@ Types of Kibana Alerts Rules These used to be called Kibana Alerts (for some rea
       <description>In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.
 This post assumes that you have a basic configuration for Datadog in Terraform already. If you don&amp;rsquo;t, Datadog&amp;rsquo;s post on managing Datadog with Terraform is a good starting point.
 Datadog Terraform Resources There are three Terraform resources that you can use to configure log metrics in Datadog:</description>
-    </item>
-    
-    <item>
-      <title>How to Disable UDP Checksum Validation in Linux</title>
-      <link>https://dominikrys.com/posts/disable-udp-checksum-validation/</link>
-      <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/posts/disable-udp-checksum-validation/</guid>
-      <description>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top Google results suggest disabling checksum offloading, which doesn&amp;rsquo;t disable checksum validation. Another result mentions a solution from within application source code, which you may not have access to or be able to modify.</description>
-    </item>
-    
-    <item>
-      <title>Configuring Squid as a Transparent Proxy</title>
-      <link>https://dominikrys.com/posts/squid-transparent-proxy/</link>
-      <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/posts/squid-transparent-proxy/</guid>
-      <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
-With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&amp;rsquo;d write this post.</description>
     </item>
     
     <item>

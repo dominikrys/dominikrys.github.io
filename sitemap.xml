@@ -11,16 +11,16 @@
     <loc>https://dominikrys.com/tags/grafana/</loc>
     <lastmod>2022-03-30T21:37:36+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/infrastructure/</loc>
-    <lastmod>2022-03-30T21:37:36+01:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/tags/kubernetes/</loc>
     <lastmod>2022-03-30T21:37:36+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/monitoring/</loc>
+    <loc>https://dominikrys.com/tags/observability/</loc>
     <lastmod>2022-03-30T21:37:36+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2022-03-30T21:37:36+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/sre/</loc>
     <lastmod>2022-03-30T21:37:36+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/</loc>
@@ -32,14 +32,11 @@
     <loc>https://dominikrys.com/tags/node.js/</loc>
     <lastmod>2022-01-17T20:39:17+00:00</lastmod>
   </url><url>
+    <loc>https://dominikrys.com/tags/sde/</loc>
+    <lastmod>2022-01-17T20:39:17+00:00</lastmod>
+  </url><url>
     <loc>https://dominikrys.com/tags/typescript/</loc>
     <lastmod>2022-01-17T20:39:17+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/web-development/</loc>
-    <lastmod>2022-01-17T20:39:17+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/devops/</loc>
-    <lastmod>2021-12-27T10:38:04+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/terraform-course-review/</loc>
     <lastmod>2021-12-27T10:38:04+00:00</lastmod>
@@ -74,9 +71,6 @@
     <loc>https://dominikrys.com/tags/windows/</loc>
     <lastmod>2021-11-11T19:10:26+00:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/engineering/</loc>
-    <lastmod>2021-11-07T18:32:38+00:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/tags/go/</loc>
     <lastmod>2021-11-07T18:32:38+00:00</lastmod>
   </url><url>
@@ -84,9 +78,6 @@
     <lastmod>2021-11-07T18:32:38+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/aws/</loc>
-    <lastmod>2021-10-31T09:53:52+00:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/databases/</loc>
     <lastmod>2021-10-31T09:53:52+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/dynamodb/</loc>
@@ -128,9 +119,6 @@
     <loc>https://dominikrys.com/tags/security/</loc>
     <lastmod>2021-07-09T15:36:55+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/srslte/</loc>
-    <lastmod>2021-07-09T15:36:55+01:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/posts/learning-rust/</loc>
     <lastmod>2021-06-16T18:56:21+01:00</lastmod>
   </url><url>
@@ -156,6 +144,9 @@
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/lte/</loc>
+    <lastmod>2021-02-13T10:34:48+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/srslte/</loc>
     <lastmod>2021-02-13T10:34:48+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/docker/</loc>
@@ -194,8 +185,6 @@
     <loc>https://dominikrys.com/archives/</loc>
   </url><url>
     <loc>https://dominikrys.com/categories/</loc>
-  </url><url>
-    <loc>https://dominikrys.com/tags/elk/elastic/</loc>
   </url><url>
     <loc>https://dominikrys.com/search/</loc>
   </url>

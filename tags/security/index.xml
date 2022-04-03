@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>security on Dominik Rys</title>
+    <title>Security on Dominik Rys</title>
     <link>https://dominikrys.com/tags/security/</link>
-    <description>Recent content in security on Dominik Rys</description>
+    <description>Recent content in Security on Dominik Rys</description>
     <image>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
@@ -57,25 +57,6 @@ With the hopes of saving someone some time that may be embarking on a similar jo
       <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
 I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
 Compiling srsLTE in Debug Mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
-    </item>
-    
-    <item>
-      <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</title>
-      <link>https://dominikrys.com/posts/secure-monitoring-solution-docker/</link>
-      <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/posts/secure-monitoring-solution-docker/</guid>
-      <description>During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
-    </item>
-    
-    <item>
-      <title>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</title>
-      <link>https://dominikrys.com/posts/monitoring-corda-nodes/</link>
-      <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/posts/monitoring-corda-nodes/</guid>
-      <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
- Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
     </item>
     
   </channel>

@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>srslte on Dominik Rys</title>
+    <title>srsLTE on Dominik Rys</title>
     <link>https://dominikrys.com/tags/srslte/</link>
-    <description>Recent content in srslte on Dominik Rys</description>
+    <description>Recent content in srsLTE on Dominik Rys</description>
     <image>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 09 Jul 2021 15:36:55 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/srslte/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Executing Stream Cipher Attacks on IP Packets</title>
-      <link>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</link>
-      <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</guid>
-      <description>For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
-The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
-    </item>
-    
+    <lastBuildDate>Sat, 13 Feb 2021 10:34:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/srslte/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Debug srsLTE</title>
       <link>https://dominikrys.com/posts/debug-srslte/</link>

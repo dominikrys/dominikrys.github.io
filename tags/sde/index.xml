@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>engineering on Dominik Rys</title>
-    <link>https://dominikrys.com/tags/engineering/</link>
-    <description>Recent content in engineering on Dominik Rys</description>
+    <title>SDE on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/sde/</link>
+    <description>Recent content in SDE on Dominik Rys</description>
     <image>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 07 Nov 2021 18:32:38 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/engineering/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Jan 2022 20:39:17 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/sde/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Live Reload Browserify &#43; TypeScript in Node.js</title>
+      <link>https://dominikrys.com/posts/live-reload-browserify-ts/</link>
+      <pubDate>Mon, 17 Jan 2022 20:39:17 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/live-reload-browserify-ts/</guid>
+      <description>I&amp;rsquo;ve recently been working on a Node.js project in TypeScript and bundling its dependencies using Browserify. To increase the speed of iteration, I wanted to automatically reload the tab with my web app whenever I made code changes, which would entail recompiling the TypeScript code into JavaScript. However, I couldn&amp;rsquo;t find a good guide on how to achieve this online. In the end, I managed to figure it out by bolting some tools together - with no JavaScript task runner such as Gulp or Grunt needed!</description>
+    </item>
+    
+    <item>
+      <title>Guide to Creating Alerts from Logs in Kibana</title>
+      <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
+      <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>
+      <description>I&amp;rsquo;ve recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren&amp;rsquo;t particularly well documented in Elastic&amp;rsquo;s documentation. I&amp;rsquo;ll explain my findings in this post.
+Types of Kibana Alerts Rules These used to be called Kibana Alerts (for some reason Elastic has done a lot of renaming over the years), and in most cases I found these to be the best choice.</description>
+    </item>
+    
     <item>
       <title>Injecting Build-Time Variables to Nested Go Packages</title>
       <link>https://dominikrys.com/posts/injecting-build-variables-nested-go/</link>

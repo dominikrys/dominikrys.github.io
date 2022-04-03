@@ -11,7 +11,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 30 Mar 2022 21:37:36 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>grafana</title>
+      <title>Grafana</title>
       <link>https://dominikrys.com/tags/grafana/</link>
       <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
       
@@ -20,16 +20,7 @@
     </item>
     
     <item>
-      <title>infrastructure</title>
-      <link>https://dominikrys.com/tags/infrastructure/</link>
-      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/tags/infrastructure/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
+      <title>Kubernetes</title>
       <link>https://dominikrys.com/tags/kubernetes/</link>
       <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
       
@@ -38,16 +29,25 @@
     </item>
     
     <item>
-      <title>monitoring</title>
-      <link>https://dominikrys.com/tags/monitoring/</link>
+      <title>Observability</title>
+      <link>https://dominikrys.com/tags/observability/</link>
       <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
       
-      <guid>https://dominikrys.com/tags/monitoring/</guid>
+      <guid>https://dominikrys.com/tags/observability/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>node.js</title>
+      <title>SRE</title>
+      <link>https://dominikrys.com/tags/sre/</link>
+      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/sre/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Node.js</title>
       <link>https://dominikrys.com/tags/node.js/</link>
       <pubDate>Mon, 17 Jan 2022 20:39:17 +0000</pubDate>
       
@@ -56,7 +56,16 @@
     </item>
     
     <item>
-      <title>typescript</title>
+      <title>SDE</title>
+      <link>https://dominikrys.com/tags/sde/</link>
+      <pubDate>Mon, 17 Jan 2022 20:39:17 +0000</pubDate>
+      
+      <guid>https://dominikrys.com/tags/sde/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TypeScript</title>
       <link>https://dominikrys.com/tags/typescript/</link>
       <pubDate>Mon, 17 Jan 2022 20:39:17 +0000</pubDate>
       
@@ -65,25 +74,7 @@
     </item>
     
     <item>
-      <title>web-development</title>
-      <link>https://dominikrys.com/tags/web-development/</link>
-      <pubDate>Mon, 17 Jan 2022 20:39:17 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/tags/web-development/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>devops</title>
-      <link>https://dominikrys.com/tags/devops/</link>
-      <pubDate>Mon, 27 Dec 2021 10:38:04 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/tags/devops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>terraform</title>
+      <title>Terraform</title>
       <link>https://dominikrys.com/tags/terraform/</link>
       <pubDate>Mon, 27 Dec 2021 10:38:04 +0000</pubDate>
       
@@ -92,7 +83,7 @@
     </item>
     
     <item>
-      <title>kibana</title>
+      <title>Kibana</title>
       <link>https://dominikrys.com/tags/kibana/</link>
       <pubDate>Mon, 20 Dec 2021 15:05:10 +0000</pubDate>
       
@@ -101,7 +92,7 @@
     </item>
     
     <item>
-      <title>elasticsearch</title>
+      <title>ElasticSearch</title>
       <link>https://dominikrys.com/tags/elasticsearch/</link>
       <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
       
@@ -110,7 +101,7 @@
     </item>
     
     <item>
-      <title>datadog</title>
+      <title>DataDog</title>
       <link>https://dominikrys.com/tags/datadog/</link>
       <pubDate>Sun, 14 Nov 2021 09:52:58 +0000</pubDate>
       
@@ -119,7 +110,7 @@
     </item>
     
     <item>
-      <title>shell</title>
+      <title>Shell</title>
       <link>https://dominikrys.com/tags/shell/</link>
       <pubDate>Thu, 11 Nov 2021 19:10:26 +0000</pubDate>
       
@@ -128,7 +119,7 @@
     </item>
     
     <item>
-      <title>windows</title>
+      <title>Windows</title>
       <link>https://dominikrys.com/tags/windows/</link>
       <pubDate>Thu, 11 Nov 2021 19:10:26 +0000</pubDate>
       
@@ -137,16 +128,7 @@
     </item>
     
     <item>
-      <title>engineering</title>
-      <link>https://dominikrys.com/tags/engineering/</link>
-      <pubDate>Sun, 07 Nov 2021 18:32:38 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/tags/engineering/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
+      <title>Go</title>
       <link>https://dominikrys.com/tags/go/</link>
       <pubDate>Sun, 07 Nov 2021 18:32:38 +0000</pubDate>
       
@@ -155,7 +137,7 @@
     </item>
     
     <item>
-      <title>aws</title>
+      <title>AWS</title>
       <link>https://dominikrys.com/tags/aws/</link>
       <pubDate>Sun, 31 Oct 2021 09:53:52 +0000</pubDate>
       
@@ -164,16 +146,7 @@
     </item>
     
     <item>
-      <title>databases</title>
-      <link>https://dominikrys.com/tags/databases/</link>
-      <pubDate>Sun, 31 Oct 2021 09:53:52 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/tags/databases/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dynamodb</title>
+      <title>DynamoDB</title>
       <link>https://dominikrys.com/tags/dynamodb/</link>
       <pubDate>Sun, 31 Oct 2021 09:53:52 +0000</pubDate>
       
@@ -182,7 +155,7 @@
     </item>
     
     <item>
-      <title>documentation</title>
+      <title>Documentation</title>
       <link>https://dominikrys.com/tags/documentation/</link>
       <pubDate>Fri, 20 Aug 2021 21:08:18 +0000</pubDate>
       
@@ -191,7 +164,7 @@
     </item>
     
     <item>
-      <title>hugo</title>
+      <title>Hugo</title>
       <link>https://dominikrys.com/tags/hugo/</link>
       <pubDate>Fri, 20 Aug 2021 21:08:18 +0000</pubDate>
       
@@ -200,7 +173,7 @@
     </item>
     
     <item>
-      <title>operating systems</title>
+      <title>Operating Systems</title>
       <link>https://dominikrys.com/tags/operating-systems/</link>
       <pubDate>Tue, 03 Aug 2021 16:07:52 +0100</pubDate>
       
@@ -209,7 +182,7 @@
     </item>
     
     <item>
-      <title>university</title>
+      <title>University</title>
       <link>https://dominikrys.com/tags/university/</link>
       <pubDate>Thu, 22 Jul 2021 11:02:23 +0100</pubDate>
       
@@ -218,7 +191,7 @@
     </item>
     
     <item>
-      <title>c&#43;&#43;</title>
+      <title>C&#43;&#43;</title>
       <link>https://dominikrys.com/tags/c&#43;&#43;/</link>
       <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
       
@@ -227,7 +200,7 @@
     </item>
     
     <item>
-      <title>networking</title>
+      <title>Networking</title>
       <link>https://dominikrys.com/tags/networking/</link>
       <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
       
@@ -236,7 +209,7 @@
     </item>
     
     <item>
-      <title>security</title>
+      <title>Security</title>
       <link>https://dominikrys.com/tags/security/</link>
       <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
       
@@ -245,16 +218,7 @@
     </item>
     
     <item>
-      <title>srslte</title>
-      <link>https://dominikrys.com/tags/srslte/</link>
-      <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
-      
-      <guid>https://dominikrys.com/tags/srslte/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rust</title>
+      <title>Rust</title>
       <link>https://dominikrys.com/tags/rust/</link>
       <pubDate>Wed, 16 Jun 2021 18:56:21 +0100</pubDate>
       
@@ -263,7 +227,7 @@
     </item>
     
     <item>
-      <title>linux</title>
+      <title>Linux</title>
       <link>https://dominikrys.com/tags/linux/</link>
       <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
       
@@ -281,7 +245,7 @@
     </item>
     
     <item>
-      <title>lte</title>
+      <title>LTE</title>
       <link>https://dominikrys.com/tags/lte/</link>
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
       
@@ -290,7 +254,16 @@
     </item>
     
     <item>
-      <title>docker</title>
+      <title>srsLTE</title>
+      <link>https://dominikrys.com/tags/srslte/</link>
+      <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/tags/srslte/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
       <link>https://dominikrys.com/tags/docker/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
@@ -299,7 +272,7 @@
     </item>
     
     <item>
-      <title>influxdb</title>
+      <title>InfluxDB</title>
       <link>https://dominikrys.com/tags/influxdb/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
@@ -308,7 +281,7 @@
     </item>
     
     <item>
-      <title>traefik</title>
+      <title>Traefik</title>
       <link>https://dominikrys.com/tags/traefik/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
@@ -317,7 +290,7 @@
     </item>
     
     <item>
-      <title>emscripten</title>
+      <title>Emscripten</title>
       <link>https://dominikrys.com/tags/emscripten/</link>
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       
@@ -326,7 +299,7 @@
     </item>
     
     <item>
-      <title>sdl</title>
+      <title>SDL</title>
       <link>https://dominikrys.com/tags/sdl/</link>
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       
@@ -335,7 +308,7 @@
     </item>
     
     <item>
-      <title>webassembly</title>
+      <title>WebAssembly</title>
       <link>https://dominikrys.com/tags/webassembly/</link>
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
       
@@ -344,20 +317,11 @@
     </item>
     
     <item>
-      <title>personal</title>
+      <title>Personal</title>
       <link>https://dominikrys.com/tags/personal/</link>
       <pubDate>Sat, 01 Aug 2020 15:16:16 +0100</pubDate>
       
       <guid>https://dominikrys.com/tags/personal/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>elk/elastic</title>
-      <link>https://dominikrys.com/tags/elk/elastic/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dominikrys.com/tags/elk/elastic/</guid>
       <description></description>
     </item>
     
