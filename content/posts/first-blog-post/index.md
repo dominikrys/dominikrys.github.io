@@ -5,7 +5,7 @@ ShowToc: false
 cover:
     image: "img/cover.jpg"
 tags:
-  - personal
+  - Personal
 ---
 
 Hi, I'm Dom. Welcome to my first blog post!

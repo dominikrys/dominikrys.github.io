@@ -6,8 +6,8 @@ cover:
     image: "img/cover.png"
     alt: "Cover"
 tags:
-  - windows
-  - shell
+  - Windows
+  - Shell
 ---
 
 I've recently started using Windows again. After a long time using a customised Zsh shell on macOS and Linux though, I've started to miss some of the small productivity boosts that Zsh plugins offered me. Of course, I could set up the shell as I want it under WSL, but WSL doesn't always play nicely with Windows-native applications and tools. To remedy this, I looked into how I could set up Zsh to run instead of Bash in Git Bash.

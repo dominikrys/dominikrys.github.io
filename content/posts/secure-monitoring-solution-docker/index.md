@@ -5,13 +5,11 @@ cover:
     image: "img/diagram.png"
     alt: "Architecture Diagram"
 tags:
-  - devops
-  - security
-  - infrastructure
-  - docker
-  - influxdb
-  - grafana
-  - traefik
+  - Docker
+  - SRE
+  - InfluxDB
+  - Grafana
+  - Traefik
 ---
 
 During my last internship, I've been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out [here]({{< ref "../monitoring-corda-nodes/index.md" >}} "Monitoring Corda Nodes"). The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with [Grafana](https://grafana.com/) and [InfluxDB](https://www.influxdata.com/products/influxdb/) as the front-end and time-series database, respectively.

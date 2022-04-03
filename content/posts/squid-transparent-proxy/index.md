@@ -5,8 +5,7 @@ cover:
     image: "img/squid-logo.png"
     alt: "Squid Logo"
 tags:
-  - devops
-  - security
+  - Security
   - iptables
 ---
 

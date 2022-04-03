@@ -4,13 +4,11 @@ date: 2020-09-21T16:52:48+01:00
 cover:
     image: "img/cover.png"
 tags:
-  - devops
-  - security
-  - docker
-  - infrastructure
-  - influxdb
-  - grafana
-  - traefik
+  - Docker
+  - SRE
+  - InfluxDB
+  - Grafana
+  - Traefik
 ---
 
 > **This post is also hosted on the [Corda Blog](https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/).** The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I've done during my summer internship at R3.

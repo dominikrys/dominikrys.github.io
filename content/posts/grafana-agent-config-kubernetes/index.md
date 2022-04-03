@@ -7,13 +7,13 @@ cover:
     image: "img/cover.png"
     alt: "Cover"
 tags:
-  - infrastructure
-  - kubernetes
-  - grafana
-  - monitoring
+  - Kubernetes
+  - Grafana
+  - Observability
+  - SRE
 ---
 
-Configuring the [Grafana Agent](https://github.com/grafana/agent/) to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate this configuration using the Grafana Agent Operator.
+Configuring the [Grafana Agent](https://github.com/grafana/agent/) to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.
 
 ## Possible Solutions
 
@@ -30,11 +30,11 @@ The operator has a couple of shortcomings that make its use prohibitive for some
 
 Despite its shortcomings, the operator is very good at two things - service discovery and Grafana Agent configuration generation. Below, I'll describe how to use the operator to generate the configuration for a cluster and extract it. The configuration can then be used in ordinary Grafana Agent deployments in Kubernetes, allowing you to modify the configuration and agent deployments in any way you like. For more information on how to configure Grafana Agents outside of the Grafana Agent Operator, check the [Grafana Agent Kubernetes docs](https://grafana.com/docs/grafana-cloud/kubernetes/agent-k8s/k8s_agent_metrics/).
 
-This solution has one downside, however. If new PodMonitors, ServiceMonitors, or Probes are added, **the operator will need to be run again** to pick up the changes and generate a new configuration. This may not need to happen often though, and if needed, the entire configuration-generation process can be scripted and automated.
+There's a downside to this solution, however. If new PodMonitors, ServiceMonitors, or Probes are added, **the operator will need to be run again** to pick up the changes and generate a new configuration. This may not need to happen often though, and if needed, the entire configuration-generation process can be scripted and automated.
 
 ## Extracting the Agent Configuration from the Grafana Operator
 
-1. Install the Grafana Agent Operator into your cluster by following [the documentation](https://grafana.com/docs/agent/latest/operator/getting-started/). The default configuration doesn't need to be modified, although I'd recommend **deploying the operator in a new namespace**. This will allow you to remove the operator and its associated custom resources easily once the config generation is done.
+1. Install the Grafana Agent Operator into your cluster by following [the documentation](https://grafana.com/docs/agent/latest/operator/getting-started/). The default configuration doesn't need to be modified, although I'd recommend **deploying the operator in a new namespace**. A new namespace will allow you to remove the operator and its associated custom resources easily once the config generation is done.
 
     To create a new namespace in your Kubernetes cluster (using the namespace name `grafana-temp` as an example), run:
 
@@ -62,7 +62,7 @@ This solution has one downside, however. If new PodMonitors, ServiceMonitors, or
 
 3. Verify that the operator and its deployed pods are running and haven't returned any errors.
 
-    This can be done by checking the pods in the `grafana-temp` namespace that we defined earlier, or by searching for pods with `grafana` in their name. Personally, I used [k9s](https://k9scli.io/) to do this. Make any necessary changes if the pods are unhealthy to the operator config and re-apply it by running the relevant `kubectl` command again. The operator will automatically pick up any changes.
+    This can be done by checking the pods in the `grafana-temp` namespace that we defined earlier, or by searching for pods with `grafana` in their name. Personally, I used [k9s](https://k9scli.io/) to check the pods. Make any necessary changes if the pods are unhealthy to the operator config and re-apply it by running the relevant `kubectl` command again. The operator will automatically pick up any changes.
 
 4. Dump the generated Grafana Agent config to disk:
 

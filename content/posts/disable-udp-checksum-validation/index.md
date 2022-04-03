@@ -4,10 +4,9 @@ date: 2021-05-20T12:37:22+01:00
 cover:
     image: "img/cover.jpg"
 tags:
-  - security
-  - devops
-  - linux
-  - networking
+  - Security
+  - Linux
+  - Networking
 ---
 
 I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren't any satisfactory solutions that I could easily find online related to this. The top Google results suggest [disabling checksum offloading](https://www.linuxquestions.org/questions/linux-networking-3/help-needed-disabling-tcp-udp-checksum-offloading-in-debian-880233/), which doesn't disable checksum validation. Another result mentions [a solution from within application source code](https://linux-tips.com/t/how-to-disable-udp-checksum-control-in-kernel/362), which you may not have access to or be able to modify.

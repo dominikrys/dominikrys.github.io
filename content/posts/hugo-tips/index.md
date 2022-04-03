@@ -6,8 +6,8 @@ cover:
     image: "img/cover.png"
     alt: "Cover"
 tags:
-  - hugo
-  - documentation
+  - Hugo
+  - Documentation
 ---
 
 I've been asked a handful of times how this blog is written and maintained. The answer changed every time, as the blog's gone through a couple of iterations in the time I've had it. I reckon that it's in a good state now, so I thought that I'd collate and document what I found works well with developing a Hugo static site, and what I wished that I knew earlier.

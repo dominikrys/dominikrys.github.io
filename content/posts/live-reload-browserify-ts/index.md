@@ -6,9 +6,9 @@ cover:
   image: "img/cover.png"
   alt: "Cover"
 tags:
-  - node.js
-  - web-development
-  - typescript
+  - Node.js
+  - TypeScript
+  - SDE
 ---
 
 I've recently been working on a Node.js project in TypeScript and bundling its dependencies using [Browserify](https://browserify.org/). To increase the speed of iteration, I wanted to automatically reload the tab with my web app whenever I made code changes, which would entail recompiling the TypeScript code into JavaScript. However, I couldn't find a good guide on how to achieve this online. In the end, I managed to figure it out by bolting some tools together - with no JavaScript task runner such as [Gulp](https://gulpjs.com/) or [Grunt](https://gruntjs.com/) needed!

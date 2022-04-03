@@ -6,11 +6,9 @@ cover:
     image: "img/cover.jpg"
     alt: "Cover"
 tags:
-  - kibana
-  - elk/elastic
-  - infrastructure
-  - monitoring
-  - devops
+  - Kibana
+  - Observability
+  - SRE
 ---
 
 I've recently configured authentication for the Elastic Stack. To take some of the burden off managing permissions manually, we wanted to map Google Groups to Kibana roles, since we manage authentication to most of our systems using Google Groups.

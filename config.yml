@@ -44,13 +44,15 @@ params:
   description: "Dominik Rys's Blog"
   keywords:
     [
+      dominik rys,
       blog,
       software,
       engineering,
       software engineering,
+      sire reliability engineering,
       devops,
       software development,
-      computer science,
+      computer science
     ]
 
   # author: Dominik Rys
@@ -89,7 +91,7 @@ params:
   #       url: tags
 
   homeInfoParams:
-    Title: Hi, I'm Dom 👋🏻
+    Title: Hey, I'm Dom 👋🏻
     Content: >
       I'm a **Software Engineer** at [**Improbable**](https://www.improbable.io/).\
 

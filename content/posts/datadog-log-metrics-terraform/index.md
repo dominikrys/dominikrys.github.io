@@ -6,10 +6,9 @@ cover:
     image: "img/cover.png"
     alt: "Cover"
 tags:
-  - datadog
-  - infrastructure
-  - terraform
-  - devops
+  - DataDog
+  - Terraform
+  - SRE
 ---
 
 In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.

@@ -6,12 +6,11 @@ cover:
     image: "img/cover.jpg"
     alt: "Cover"
 tags:
-  - kibana
-  - elasticsearch
-  - elk/elastic
-  - infrastructure
-  - monitoring
-  - devops
+  - Kibana
+  - ElasticSearch
+  - SRE
+  - Observability
+  - SDE
 ---
 
 I've recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren't particularly well documented in Elastic's documentation. I'll explain my findings in this post.

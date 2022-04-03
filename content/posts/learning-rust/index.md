@@ -4,8 +4,8 @@ date: 2021-06-16T18:56:21+01:00
 cover:
   image: "img/cover.png"
 tags:
-  - engineering
-  - rust
+  - SDE
+  - Rust
 ---
 
 I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.

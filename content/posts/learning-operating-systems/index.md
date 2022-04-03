@@ -4,8 +4,8 @@ date: 2021-08-03T16:07:52+01:00
 cover:
     image: "img/cover.jpg"
 tags:
-  - engineering
-  - operating systems
+  - SDE
+  - Operating Systems
 ---
 
 I've recently graduated with a Computer Science degree. Overall, the course covered most of the fundamentals of computer science. However, the course structure changed when I was on my year in industry, causing me to completely miss out on operating systems modules! Since I've always been interested in operating systems, I decided to teach myself about them.
