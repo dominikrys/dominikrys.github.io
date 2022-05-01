@@ -7,7 +7,7 @@ cover:
     alt: "Cover"
 tags:
   - Terraform
-  - SRE
+  - Site Reliability Engineering
 ---
 
 I've recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn't particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.

@@ -29,9 +29,9 @@ languages:
         - name: 🔖 Tags 
           url: tags
           weight: 2
-        - name: 🔎 Search
-          url: search/
-          weight: 3
+        # - name: 🔎 Search
+        #   url: search/
+        #   weight: 3
 
 outputs:
   home:

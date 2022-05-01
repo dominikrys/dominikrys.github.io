@@ -6,7 +6,7 @@ cover:
     alt: "Architecture Diagram"
 tags:
   - Docker
-  - SRE
+  - Site Reliability Engineering
   - InfluxDB
   - Grafana
   - Traefik

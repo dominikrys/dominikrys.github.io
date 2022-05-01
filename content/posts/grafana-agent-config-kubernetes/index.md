@@ -1,5 +1,5 @@
 ---
-title: "Generating a Grafana Agent Configuration for a Kubernetes Cluster"
+title: "Automatically Generating a Grafana Agent Configuration for a Kubernetes Cluster"
 date: 2022-03-30T21:37:36+01:00
 ShowToc: true
 searchHidden: false
@@ -10,7 +10,7 @@ tags:
   - Kubernetes
   - Grafana
   - Observability
-  - SRE
+  - Site Reliability Engineering
 ---
 
 Configuring the [Grafana Agent](https://github.com/grafana/agent/) to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.

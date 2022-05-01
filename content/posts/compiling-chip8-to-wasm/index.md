@@ -5,7 +5,7 @@ cover:
     image: "img/full-emulator.png"
     alt: "CHIP-8 Emulator"
 tags:
-  - SDE
+  - Software Development
   - WebAssembly
   - C++
   - Emscripten

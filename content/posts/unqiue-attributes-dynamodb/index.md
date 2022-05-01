@@ -7,7 +7,7 @@ cover:
     alt: "Cover"
 tags:
   - DynamoDB
-  - SDE
+  - Software Development
   - AWS
 ---
 

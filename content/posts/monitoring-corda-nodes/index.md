@@ -5,7 +5,7 @@ cover:
     image: "img/cover.png"
 tags:
   - Docker
-  - SRE
+  - Site Reliability Engineering
   - InfluxDB
   - Grafana
   - Traefik

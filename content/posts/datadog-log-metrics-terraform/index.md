@@ -8,7 +8,7 @@ cover:
 tags:
   - DataDog
   - Terraform
-  - SRE
+  - Site Reliability Engineering
 ---
 
 In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.

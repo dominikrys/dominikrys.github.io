@@ -1,5 +1,5 @@
 ---
-title: "Injecting Build-Time Variables to Nested Go Packages"
+title: "Injecting Build-Time Variables to Nested Golang Packages"
 date: 2021-11-07T18:32:38Z
 ShowToc: true
 cover:
@@ -7,7 +7,7 @@ cover:
     alt: "Cover"
 tags:
   - Go
-  - SDE
+  - Software Development
 ---
 
 I've recently tried to figure out how to inject variables to a Go executable at build-time. The available guidance online was straightforward, but it all referred to simple Go programs with rudimentary package structures that aren't hosted remotely. None also mentioned working with the [Cobra](https://github.com/spf13/cobra) CLI library, which usually results in multiple levels of nesting in the Go application's package structure.
