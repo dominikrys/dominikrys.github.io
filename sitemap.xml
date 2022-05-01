@@ -2,10 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dominikrys.com/</loc>
+    <loc>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</loc>
     <lastmod>2022-03-30T21:37:36+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</loc>
+    <loc>https://dominikrys.com/</loc>
     <lastmod>2022-03-30T21:37:36+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/grafana/</loc>
@@ -20,7 +20,7 @@
     <loc>https://dominikrys.com/posts/</loc>
     <lastmod>2022-03-30T21:37:36+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/sre/</loc>
+    <loc>https://dominikrys.com/tags/site-reliability-engineering/</loc>
     <lastmod>2022-03-30T21:37:36+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/</loc>
@@ -32,7 +32,7 @@
     <loc>https://dominikrys.com/tags/node.js/</loc>
     <lastmod>2022-01-17T20:39:17+00:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/tags/sde/</loc>
+    <loc>https://dominikrys.com/tags/software-development/</loc>
     <lastmod>2022-01-17T20:39:17+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/typescript/</loc>

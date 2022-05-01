@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>SDE on Dominik Rys</title>
-    <link>https://dominikrys.com/tags/sde/</link>
-    <description>Recent content in SDE on Dominik Rys</description>
+    <title>Software Development on Dominik Rys</title>
+    <link>https://dominikrys.com/tags/software-development/</link>
+    <description>Recent content in Software Development on Dominik Rys</description>
     <image>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 17 Jan 2022 20:39:17 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/sde/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Jan 2022 20:39:17 +0000</lastBuildDate><atom:link href="https://dominikrys.com/tags/software-development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Live Reload Browserify &#43; TypeScript in Node.js</title>
       <link>https://dominikrys.com/posts/live-reload-browserify-ts/</link>
@@ -30,7 +30,7 @@ Types of Kibana Alerts Rules These used to be called Kibana Alerts (for some rea
     </item>
     
     <item>
-      <title>Injecting Build-Time Variables to Nested Go Packages</title>
+      <title>Injecting Build-Time Variables to Nested Golang Packages</title>
       <link>https://dominikrys.com/posts/injecting-build-variables-nested-go/</link>
       <pubDate>Sun, 07 Nov 2021 18:32:38 +0000</pubDate>
       

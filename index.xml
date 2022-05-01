@@ -11,7 +11,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 30 Mar 2022 21:37:36 +0100</lastBuildDate><atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
+      <title>Automatically Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
       <link>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</link>
       <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
       
@@ -79,7 +79,7 @@ Datadog Terraform Resources There are three Terraform resources that you can use
     </item>
     
     <item>
-      <title>Injecting Build-Time Variables to Nested Go Packages</title>
+      <title>Injecting Build-Time Variables to Nested Golang Packages</title>
       <link>https://dominikrys.com/posts/injecting-build-variables-nested-go/</link>
       <pubDate>Sun, 07 Nov 2021 18:32:38 +0000</pubDate>
       
