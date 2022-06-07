@@ -27,7 +27,9 @@ hugo new --kind post-bundle posts/<POST NAME SEPARATED BY DASHES>
 
 The website is deployed automatically using CI from the `main` branch.
 
-For automated local theme updates, a [Lefthook](https://github.com/evilmartians/lefthook) script is included. Run `lefthook install` to initialize it.
+### Automatically Update Theme
+
+Install [direnv](https://direnv.net/) and run `direnv allow` after cloning.
 
 ## Notes
 

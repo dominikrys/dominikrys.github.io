@@ -1,4 +1,0 @@
-pre-push:
-  commands:
-    update-themes:
-      run: git submodule update --recursive --remote
