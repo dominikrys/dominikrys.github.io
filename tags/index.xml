@@ -9,11 +9,11 @@
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 30 Mar 2022 21:37:36 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Grafana</title>
       <link>https://dominikrys.com/tags/grafana/</link>
-      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
+      <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
       
       <guid>https://dominikrys.com/tags/grafana/</guid>
       <description></description>
@@ -22,7 +22,7 @@
     <item>
       <title>Kubernetes</title>
       <link>https://dominikrys.com/tags/kubernetes/</link>
-      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
+      <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
       
       <guid>https://dominikrys.com/tags/kubernetes/</guid>
       <description></description>
@@ -31,7 +31,7 @@
     <item>
       <title>Observability</title>
       <link>https://dominikrys.com/tags/observability/</link>
-      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
+      <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
       
       <guid>https://dominikrys.com/tags/observability/</guid>
       <description></description>
@@ -40,7 +40,7 @@
     <item>
       <title>Site Reliability Engineering</title>
       <link>https://dominikrys.com/tags/site-reliability-engineering/</link>
-      <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
+      <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
       
       <guid>https://dominikrys.com/tags/site-reliability-engineering/</guid>
       <description></description>

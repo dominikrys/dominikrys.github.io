@@ -9,7 +9,16 @@
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 30 Mar 2022 21:37:36 +0100</lastBuildDate><atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate><atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Monitoring the Grafana Agent in Kubernetes</title>
+      <link>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</link>
+      <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
+      
+      <guid>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</guid>
+      <description>After deploying the Grafana Agent in a Kubernetes cluster, you&amp;rsquo;ll most likely want to monitor it to ensure that no observability data gets lost. Grafana provides a comprehensive guide on how to configure alerts for the agent, but I found it to not work for all cases. Namely, enabling agent integration didn&amp;rsquo;t enable scraping metrics of the agent itself. This could be due to running the Grafana Agent in Kubernetes, which the guide may not be targeted at, or due to configuring the agent in a manner that deviates from Grafana&amp;rsquo;s recommended way.</description>
+    </item>
+    
     <item>
       <title>Automatically Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
       <link>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</link>
@@ -188,10 +197,10 @@ Compiling srsLTE in Debug Mode Your first attempt at debugging may have been to 
     
     <item>
       <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</title>
-      <link>https://dominikrys.com/posts/secure-monitoring-solution-docker/</link>
+      <link>https://dominikrys.com/posts/monitoring-influxdb-grafana-traefik/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
       
-      <guid>https://dominikrys.com/posts/secure-monitoring-solution-docker/</guid>
+      <guid>https://dominikrys.com/posts/monitoring-influxdb-grafana-traefik/</guid>
       <description>During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
     </item>
     
@@ -202,7 +211,7 @@ Compiling srsLTE in Debug Mode Your first attempt at debugging may have been to 
       
       <guid>https://dominikrys.com/posts/monitoring-corda-nodes/</guid>
       <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
- Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
+Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
     </item>
     
     <item>
