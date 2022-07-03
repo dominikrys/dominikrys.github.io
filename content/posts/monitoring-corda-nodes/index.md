@@ -178,7 +178,3 @@ The Corda documentation is also an amazing resource:
 - [Node metrics](https://docs.corda.net/docs/corda-enterprise/node-metrics.html)
 
 - [Node monitoring and logging](https://docs.corda.net/docs/corda-enterprise/node/operating/monitoring-logging.html)
-
-**Want to learn more about building awesome blockchain applications on Corda? Be sure to visit [corda.net](http://corda.net/), check out our [community page](https://www.corda.net/community/) to learn how to connect with other Corda developers, and [sign up](https://info.r3.com/email-preferences) for one of our newsletters for the latest updates.**
-
-— Dominik Rys is a Software Engineer Intern at [R3](https://www.r3.com/), an enterprise blockchain software firm working with a global ecosystem of more than 350 participants across multiple industries from both the private and public sectors to develop on Corda, its open source blockchain platform, and Corda Enterprise, a commercial version of Corda for enterprise usage.
