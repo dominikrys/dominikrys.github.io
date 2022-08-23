@@ -11,7 +11,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate><atom:link href="https://dominikrys.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Monitoring the Grafana Agent in Kubernetes</title>
+      <title>Scraping Grafana Agent Metrics in Kubernetes</title>
       <link>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</link>
       <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
       

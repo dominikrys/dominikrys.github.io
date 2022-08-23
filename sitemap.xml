@@ -11,13 +11,13 @@
     <loc>https://dominikrys.com/tags/kubernetes/</loc>
     <lastmod>2022-07-03T10:08:23+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</loc>
-    <lastmod>2022-07-03T10:08:23+01:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/tags/observability/</loc>
     <lastmod>2022-07-03T10:08:23+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2022-07-03T10:08:23+01:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</loc>
     <lastmod>2022-07-03T10:08:23+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/site-reliability-engineering/</loc>
