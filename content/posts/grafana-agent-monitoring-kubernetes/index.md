@@ -1,10 +1,10 @@
 ---
-title: "Monitoring the Grafana Agent in Kubernetes"
+title: "Scraping Grafana Agent Metrics in Kubernetes"
 date: 2022-07-03T10:08:23+01:00
 ShowToc: true
 searchHidden: false
 cover:
-  image: "img/cover.png"
+  image: "img/cover.jpg"
   alt: "Cover"
 tags:
   - Kubernetes
