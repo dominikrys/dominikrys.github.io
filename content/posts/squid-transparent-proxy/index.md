@@ -9,7 +9,7 @@ tags:
   - iptables
 ---
 
-I've recently set up [Squid](http://www.squid-cache.org/) as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don't quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
+I've recently set up [Squid](http://www.squid-cache.org/) as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through prehistoric tutorials that don't quite work any more. In the end, I managed to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
 
 With the hopes of saving someone some time that may be embarking on a similar journey, I thought I'd write this post. We discuss HTTP transparent proxying at the start, but provide resources for allowing support for HTTPS.
 
@@ -19,7 +19,7 @@ The following instructions have been tested on Ubuntu 18.04 deployed in Azure, a
 
 This part is straightforward, so just follow the normal install procedure for your operating system/package manager. I used Ubuntu, so installing Squid was as easy as `sudo apt install squid`.
 
-Before we continue, it's worth checking if Squid is able to run at this point (which may not be the case if something is using Squid's default port, for example). It should be running after installation, which you can check with `systemctl status squid`. If squid is not running, try to fix anything at this point.
+Before we continue, it's worth checking if Squid is able to run at this point (which may not be the case if something is using Squid's default port, for example). It should be running after installation, which you can check with `systemctl status squid`. If squid is not running, you can attempt to fix its configuration in the next step.
 
 ## Configuring Squid
 
@@ -45,7 +45,7 @@ http_access allow all
 http_port 3128 intercept
 ```
 
-The `http_access` parameter should ideally be narrowed down as described in the [Squid documentation](http://www.squid-cache.org/Doc/config/http_access/), but to eliminate potential errors we will permit anything to access the proxy.
+The `http_access` parameter should ideally be narrowed down as described in the [Squid documentation](http://www.squid-cache.org/Doc/config/http_access/), but to eliminate potential errors, we will permit anything to access the proxy at this point.
 
 The `http_port` states which port Squid will listen at, for which we keep the default `3128`. We will redirect traffic to this port using `iptables` soon. `intercept` is needed to make Squid act as a transparent proxy.
 
