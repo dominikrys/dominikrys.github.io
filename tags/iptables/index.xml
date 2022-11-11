@@ -25,7 +25,7 @@
       <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
       
       <guid>https://dominikrys.com/posts/squid-transparent-proxy/</guid>
-      <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through tutorials from over 10 years ago that don&amp;rsquo;t quite work any more. After comparing this prehistoric knowledge with some supposedly up-to-date documentation, I managed to understand enough about Squid to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
+      <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through prehistoric tutorials that don&amp;rsquo;t quite work any more. In the end, I managed to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
 With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&amp;rsquo;d write this post.</description>
     </item>
     
