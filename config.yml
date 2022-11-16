@@ -92,12 +92,7 @@ params:
 
   homeInfoParams:
     Title: Hey, I'm Dom 👋🏻
-    Content: >
-      I'm a **Software Engineer** at [**GoCardless**](https://gocardless.com/).\
-
-      \
-
-      Have a look at my blog posts, my projects on [GitHub](https://github.com/dominikrys), or get in touch using the links below.
+    Content: Have a look at my blog posts, my projects on [GitHub](https://github.com/dominikrys), or get in touch using the links below.
 
   socialIcons:
     - name: GitHub
