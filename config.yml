@@ -1,6 +1,5 @@
 baseURL: "https://dominikrys.com"
 title: Dominik Rys
-paginate: 999
 theme: PaperMod
 
 enableInlineShortcodes: true
@@ -10,12 +9,21 @@ buildFuture: false
 buildExpired: false
 enableEmoji: true
 googleAnalytics: G-FZL8HVTHR8
-disqusShortname: dominikrys
-# publishDir: "public"
+
+services:
+  disqus:
+    shortname: dominikrys
+  instagram:
+    disableInlineCSS: true
+  twitter:
+    disableInlineCSS: true
 
 minify:
   disableXML: true
   # minifyOutput: true
+
+pagination:
+  pagerSize: 999
 
 languages:
   en:
@@ -55,14 +63,13 @@ params:
       computer science
     ]
 
-  # author: Dominik Rys
-  # author: ["Me", "You"] # multiple authors
+  author: Dominik Rys
 
   defaultTheme: auto
-  # disableThemeToggle: true
+  disableThemeToggle: false
   ShowShareButtons: true
   ShowReadingTime: true
-  # disableSpecial1stPost: true
+  disableSpecial1stPost: true
   displayFullLangName: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: false
@@ -168,9 +175,3 @@ privacy:
   youtube:
     disabled: false
     privacyEnhanced: true
-
-services:
-  instagram:
-    disableInlineCSS: true
-  twitter:
-    disableInlineCSS: true
