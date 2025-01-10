@@ -5,20 +5,21 @@
     <link>https://dominikrys.com/tags/rust/</link>
     <description>Recent content in Rust on Dominik Rys</description>
     <image>
+      <title>Dominik Rys</title>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 16 Jun 2021 18:56:21 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.140.2</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 16 Jun 2021 18:56:21 +0100</lastBuildDate>
+    <atom:link href="https://dominikrys.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How I Started Learning Rust</title>
       <link>https://dominikrys.com/posts/learning-rust/</link>
       <pubDate>Wed, 16 Jun 2021 18:56:21 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/learning-rust/</guid>
-      <description>I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.
-In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped.</description>
+      <description>&lt;p&gt;I wanted to learn Rust for a while. The promises of memory-safety and performance have piqued my interest and I needed to see what all the hype was about. In turn, I spent some time learning Rust on and off over the last couple of months alongside university work.&lt;/p&gt;
+&lt;p&gt;In this post, I describe how I went about learning Rust and what resources I used. I also reflect on what methods worked well and what could have possibly been skipped. I hope this will be useful to anyone that&amp;rsquo;s also curious about Rust.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

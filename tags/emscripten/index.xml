@@ -5,20 +5,21 @@
     <link>https://dominikrys.com/tags/emscripten/</link>
     <description>Recent content in Emscripten on Dominik Rys</description>
     <image>
+      <title>Dominik Rys</title>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 15 Aug 2020 16:55:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/emscripten/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.140.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 15 Aug 2020 16:55:48 +0100</lastBuildDate>
+    <atom:link href="https://dominikrys.com/tags/emscripten/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Compiling My C&#43;&#43; CHIP-8 Emulator to WebAssembly</title>
       <link>https://dominikrys.com/posts/compiling-chip8-to-wasm/</link>
       <pubDate>Sat, 15 Aug 2020 16:55:48 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/compiling-chip8-to-wasm/</guid>
-      <description>A couple of months ago I wrote a CHIP-8 emulator in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result here.
-My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running.</description>
+      <description>&lt;p&gt;A couple of months ago I wrote a &lt;a href=&#34;https://github.com/dominikrys/chip8&#34;&gt;CHIP-8 emulator&lt;/a&gt; in C++17, as I wanted to learn about emulation and expand my C++ knowledge outside of work. In this post I&amp;rsquo;ll explain how I went about compiling the emulator which was designed to run natively, to also run on the web using the magic of WebAssembly. You can try out the result &lt;strong&gt;&lt;a href=&#34;https://dominikrys.com/chip8&#34;&gt;here&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;My main motivation for getting the emulator working on the web was that in its current state, it took some effort to get it up and running. I could send someone the pre-compiled binary or give building instructions, but those aren&amp;rsquo;t guaranteed to work on every platform. Ideally, I wanted a solution that can be hosted on the web, and I recently heard about this cool new &amp;ldquo;WebAssembly&amp;rdquo; which seemed perfect for the job.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

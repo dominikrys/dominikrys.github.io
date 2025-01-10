@@ -5,59 +5,53 @@
     <link>https://dominikrys.com/tags/security/</link>
     <description>Recent content in Security on Dominik Rys</description>
     <image>
+      <title>Dominik Rys</title>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 09 Jul 2021 15:36:55 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.140.2</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 09 Jul 2021 15:36:55 +0100</lastBuildDate>
+    <atom:link href="https://dominikrys.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Executing Stream Cipher Attacks on IP Packets</title>
       <link>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</link>
       <pubDate>Fri, 09 Jul 2021 15:36:55 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/stream-cipher-attacks-on-ip/</guid>
-      <description>For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;.
-The attack is possible due to a specification flaw in LTE standards, where IP packets are not integrity protected. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data.</description>
+      <description>&lt;p&gt;For part of my bachelor&amp;rsquo;s dissertation, I implemented and executed a bit-flipping attack on encrypted IP packets in LTE networks. The attack was first documented by David Rupprecht et al. in their academic paper &lt;a href=&#34;https://alter-attack.net/&#34;&gt;&amp;ldquo;Breaking LTE on Layer Two&amp;rdquo;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The attack is possible due to a specification flaw in LTE standards, where IP packets are &lt;strong&gt;not integrity protected&lt;/strong&gt;. Therefore, a man-in-the-middle (MITM) attacker can modify the packets and the receiver will decrypt them successfully since it can&amp;rsquo;t verify the authenticity of the data. This kind of attack is not specific to LTE networks, however, and can be executed in different environments.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>How to Disable UDP Checksum Validation in Linux</title>
       <link>https://dominikrys.com/posts/disable-udp-checksum-validation/</link>
       <pubDate>Thu, 20 May 2021 12:37:22 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/disable-udp-checksum-validation/</guid>
-      <description>I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top Google results suggest disabling checksum offloading, which doesn&amp;rsquo;t disable checksum validation. Another result mentions a solution from within application source code, which you may not have access to or be able to modify.</description>
+      <description>&lt;p&gt;I recently needed to disable the validation of UDP checksums of incoming packets on a Linux machine for a security project. To my surprise, there weren&amp;rsquo;t any satisfactory solutions that I could easily find online related to this. The top Google results suggest &lt;a href=&#34;https://www.linuxquestions.org/questions/linux-networking-3/help-needed-disabling-tcp-udp-checksum-offloading-in-debian-880233/&#34;&gt;disabling checksum offloading&lt;/a&gt;, which doesn&amp;rsquo;t disable checksum validation. Another result mentions &lt;a href=&#34;https://linux-tips.com/t/how-to-disable-udp-checksum-control-in-kernel/362&#34;&gt;a solution from within application source code&lt;/a&gt;, which you may not have access to or be able to modify.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>How to Transparently Proxy IP Packets With Spoofed Destinations</title>
       <link>https://dominikrys.com/posts/transparently-proxy-spoofed-ip/</link>
       <pubDate>Sat, 17 Apr 2021 10:44:53 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/transparently-proxy-spoofed-ip/</guid>
-      <description>I&amp;rsquo;ve recently worked on a security project which required me to transparently proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is not the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply. The diagram above shows what we want to achieve.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently worked on a security project which required me to transparently proxy IP packets that have had their destination IPs spoofed. By this, I mean that the destination IP in an IP packet is &lt;strong&gt;not&lt;/strong&gt; the IP of the destination which a DNS request would correctly resolve. For example, this could be due to a DNS query being spoofed and sending an IP address of another destination in reply. The diagram above shows what we want to achieve.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Configuring Squid as a Transparent Proxy</title>
       <link>https://dominikrys.com/posts/squid-transparent-proxy/</link>
       <pubDate>Sat, 10 Apr 2021 10:08:45 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/squid-transparent-proxy/</guid>
-      <description>I&amp;rsquo;ve recently set up Squid as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through prehistoric tutorials that don&amp;rsquo;t quite work any more. In the end, I managed to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.
-With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&amp;rsquo;d write this post.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently set up &lt;a href=&#34;http://www.squid-cache.org/&#34;&gt;Squid&lt;/a&gt; as a transparent proxy for a security project. What should have been relatively straightforward had me browsing through prehistoric tutorials that don&amp;rsquo;t quite work any more. In the end, I managed to get a minimal transparent proxy configuration on a modern version of Linux hosted in the cloud.&lt;/p&gt;
+&lt;p&gt;With the hopes of saving someone some time that may be embarking on a similar journey, I thought I&amp;rsquo;d write this post. We discuss HTTP transparent proxying at the start, but provide resources for allowing support for HTTPS.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>How to Debug srsLTE</title>
       <link>https://dominikrys.com/posts/debug-srslte/</link>
       <pubDate>Sat, 13 Feb 2021 10:34:48 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/debug-srslte/</guid>
-      <description>I&amp;rsquo;ve recently been working extensively with srsLTE for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.
-I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).
-Compiling srsLTE in Debug Mode Your first attempt at debugging may have been to compile with the Debug CMake flag, and then executing the binaries using GDB or another debugger:</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently been working extensively with &lt;a href=&#34;https://github.com/srsLTE/srsLTE&#34;&gt;srsLTE&lt;/a&gt; for my bachelor&amp;rsquo;s dissertation. So far, the greatest difficulty has been debugging the software. In this short post, I will describe various ways I found that srsLTE can be debugged, and any pitfalls that come with them.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll assume you know how to debug ordinary C/C++ programs (I&amp;rsquo;ll patiently wait here if you need to have a look into that).&lt;/p&gt;
+&lt;h2 id=&#34;compiling-srslte-in-debug-mode&#34;&gt;Compiling srsLTE in Debug Mode&lt;/h2&gt;
+&lt;p&gt;Your first attempt at debugging may have been to compile with the &lt;code&gt;Debug&lt;/code&gt; CMake flag, and then executing the binaries using GDB or another debugger:&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

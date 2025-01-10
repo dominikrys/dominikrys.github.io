@@ -5,88 +5,81 @@
     <link>https://dominikrys.com/tags/site-reliability-engineering/</link>
     <description>Recent content in Site Reliability Engineering on Dominik Rys</description>
     <image>
+      <title>Dominik Rys</title>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/site-reliability-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.140.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate>
+    <atom:link href="https://dominikrys.com/tags/site-reliability-engineering/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Scraping Grafana Agent Metrics in Kubernetes</title>
       <link>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</link>
       <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</guid>
-      <description>After deploying the Grafana Agent in a Kubernetes cluster, you&amp;rsquo;ll most likely want to monitor it to ensure that no observability data gets lost. Grafana provides a comprehensive guide on how to configure alerts for the agent, but I found it to not work for all cases. Namely, enabling agent integration didn&amp;rsquo;t enable scraping metrics of the agent itself. This could be due to running the Grafana Agent in Kubernetes, which the guide may not be targeted at, or due to configuring the agent in a manner that deviates from Grafana&amp;rsquo;s recommended way.</description>
+      <description>&lt;p&gt;After deploying the &lt;a href=&#34;https://github.com/grafana/agent&#34;&gt;Grafana Agent&lt;/a&gt; in a Kubernetes cluster, you&amp;rsquo;ll most likely want to monitor it to ensure that no observability data gets lost. Grafana provides a &lt;a href=&#34;https://grafana.com/docs/grafana-cloud/agent/agent_monitoring/&#34;&gt;comprehensive guide&lt;/a&gt; on how to configure alerts for the agent, but I found it to not work for all cases. Namely, enabling agent integration didn&amp;rsquo;t enable scraping metrics of the agent itself. This could be due to running the Grafana Agent in Kubernetes, which the guide may not be targeted at, or due to configuring the agent in a manner that deviates from Grafana&amp;rsquo;s recommended way.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Automatically Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
       <link>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</link>
       <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</guid>
-      <description>Configuring the Grafana Agent to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.</description>
+      <description>&lt;p&gt;Configuring the &lt;a href=&#34;https://github.com/grafana/agent/&#34;&gt;Grafana Agent&lt;/a&gt; to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>HashiCorp Certified: Terraform Associate Course Review</title>
       <link>https://dominikrys.com/posts/terraform-course-review/</link>
       <pubDate>Mon, 27 Dec 2021 10:38:04 +0000</pubDate>
-      
       <guid>https://dominikrys.com/posts/terraform-course-review/</guid>
-      <description>I&amp;rsquo;ve recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn&amp;rsquo;t particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.
-After some initial looking around, I found Zeal Vora&amp;rsquo;s &amp;lsquo;HashiCorp Certified: Terraform Associate&amp;rsquo; course on Udemy to be well-regarded.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently been working with Terraform a lot at work. However, I was never taught properly how it works. I jumped straight into the code and figured things out, which wasn&amp;rsquo;t particularly difficult. Nevertheless, I was curious as to what I was missing and how I could set Terraform up myself in a new project. Therefore, I looked at how I could learn Terraform on my own.&lt;/p&gt;
+&lt;p&gt;After some initial looking around, I found &lt;a href=&#34;https://www.reddit.com/r/Terraform/comments/jfzerz/comment/g9nio4h/?utm_source=share&amp;amp;utm_medium=web2x&amp;amp;context=3&#34;&gt;Zeal Vora&amp;rsquo;s &amp;lsquo;HashiCorp Certified: Terraform Associate&amp;rsquo; course&lt;/a&gt; on Udemy to be well-regarded. Now, I&amp;rsquo;m not a fan of courses. I&amp;rsquo;d much rather get stuck into a project of my own and avoid the hand-holding that most courses offer. In the case of Terraform though, since I didn&amp;rsquo;t have deploying any complicated infrastructure in mind, completing a course seemed like the right approach. The instructor of the course also seemed credible, seeing as he&amp;rsquo;s released many courses on Cloud Engineering topics and works as a Cloud Security Consultant.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Mapping Google Groups to Kibana Roles</title>
       <link>https://dominikrys.com/posts/mapping-google-groups-kibana/</link>
       <pubDate>Mon, 20 Dec 2021 15:05:10 +0000</pubDate>
-      
       <guid>https://dominikrys.com/posts/mapping-google-groups-kibana/</guid>
-      <description>I&amp;rsquo;ve recently configured authentication for the Elastic Stack. To take some of the burden off managing permissions manually, we wanted to map Google Groups to Kibana roles, since we manage authentication to most of our systems using Google Groups.
-Having followed Elastic&amp;rsquo;s documentation on setting up Google OIDC authentication, however, I found that this task is not so easy, as Google OIDC doesn&amp;rsquo;t return group memberships in the JWT that the application receives.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently configured authentication for the Elastic Stack. To take some of the burden off managing permissions manually, we wanted to map Google Groups to Kibana roles, since we manage authentication to most of our systems using Google Groups.&lt;/p&gt;
+&lt;p&gt;Having followed &lt;a href=&#34;https://www.elastic.co/guide/en/cloud/current/ec-securing-clusters-oidc-op.html&#34;&gt;Elastic&amp;rsquo;s documentation on setting up Google OIDC authentication&lt;/a&gt;, however, I found that this task is not so easy, as &lt;a href=&#34;https://discuss.elastic.co/t/google-oidc-sso-with-mapping-google-groups-onto-kibana-roles/271762&#34;&gt;Google OIDC doesn&amp;rsquo;t return group memberships in the JWT that the application receives&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Guide to Creating Alerts from Logs in Kibana</title>
       <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
       <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
-      
       <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>
-      <description>I&amp;rsquo;ve recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren&amp;rsquo;t particularly well documented in Elastic&amp;rsquo;s documentation. I&amp;rsquo;ll explain my findings in this post.
-Types of Kibana Alerts Rules These used to be called Kibana Alerts (for some reason Elastic has done a lot of renaming over the years), and in most cases I found these to be the best choice.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren&amp;rsquo;t particularly well documented in Elastic&amp;rsquo;s documentation. I&amp;rsquo;ll explain my findings in this post.&lt;/p&gt;
+&lt;h2 id=&#34;types-of-kibana-alerts&#34;&gt;Types of Kibana Alerts&lt;/h2&gt;
+&lt;h3 id=&#34;rules&#34;&gt;Rules&lt;/h3&gt;
+&lt;p&gt;These used to be called Kibana Alerts (for some reason Elastic has done a lot of renaming over the years), and in most cases I found these to be the best choice. These can be found by navigating to &lt;strong&gt;Stack Management&lt;/strong&gt; &amp;gt; &lt;strong&gt;Rules and Connectors&lt;/strong&gt; in Kibana.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Caveats to Creating Datadog Log Metrics in Terraform</title>
       <link>https://dominikrys.com/posts/datadog-log-metrics-terraform/</link>
       <pubDate>Sun, 14 Nov 2021 09:52:58 +0000</pubDate>
-      
       <guid>https://dominikrys.com/posts/datadog-log-metrics-terraform/</guid>
-      <description>In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.
-This post assumes that you have a basic configuration for Datadog in Terraform already. If you don&amp;rsquo;t, Datadog&amp;rsquo;s post on managing Datadog with Terraform is a good starting point.
-Datadog Terraform Resources There are three Terraform resources that you can use to configure log metrics in Datadog:</description>
+      <description>&lt;p&gt;In this post, I give an overview of how to create Datadog Log Metrics in Terraform. Having had done this recently, I encountered a couple of caveats that warranted documenting. Hopefully it will help others that encountered similar issues.&lt;/p&gt;
+&lt;p&gt;This post assumes that you have a basic configuration for Datadog in Terraform already. If you don&amp;rsquo;t, &lt;a href=&#34;https://www.datadoghq.com/blog/managing-datadog-with-terraform/&#34;&gt;Datadog&amp;rsquo;s post on managing Datadog with Terraform&lt;/a&gt; is a good starting point.&lt;/p&gt;
+&lt;h2 id=&#34;datadog-terraform-resources&#34;&gt;Datadog Terraform Resources&lt;/h2&gt;
+&lt;p&gt;There are three Terraform resources that you can use to configure log metrics in Datadog:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</title>
       <link>https://dominikrys.com/posts/monitoring-influxdb-grafana-traefik/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/monitoring-influxdb-grafana-traefik/</guid>
-      <description>During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
+      <description>&lt;p&gt;During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out &lt;a href=&#34;https://dominikrys.com/posts/monitoring-corda-nodes/&#34; title=&#34;Monitoring Corda Nodes&#34;&gt;here&lt;/a&gt;. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with &lt;a href=&#34;https://grafana.com/&#34;&gt;Grafana&lt;/a&gt; and &lt;a href=&#34;https://www.influxdata.com/products/influxdb/&#34;&gt;InfluxDB&lt;/a&gt; as the front-end and time-series database, respectively.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</title>
       <link>https://dominikrys.com/posts/monitoring-corda-nodes/</link>
       <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/monitoring-corda-nodes/</guid>
-      <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
-Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;This post is also hosted on the &lt;a href=&#34;https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/&#34;&gt;Corda Blog&lt;/a&gt;.&lt;/strong&gt; The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a &lt;a href=&#34;https://docs.corda.net/docs/corda-enterprise/performance-testing/toc-tree.html&#34;&gt;performance testing suite&lt;/a&gt; that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

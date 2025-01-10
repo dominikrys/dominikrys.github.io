@@ -5,28 +5,27 @@
     <link>https://dominikrys.com/tags/kubernetes/</link>
     <description>Recent content in Kubernetes on Dominik Rys</description>
     <image>
+      <title>Dominik Rys</title>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.140.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate>
+    <atom:link href="https://dominikrys.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Scraping Grafana Agent Metrics in Kubernetes</title>
       <link>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</link>
       <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</guid>
-      <description>After deploying the Grafana Agent in a Kubernetes cluster, you&amp;rsquo;ll most likely want to monitor it to ensure that no observability data gets lost. Grafana provides a comprehensive guide on how to configure alerts for the agent, but I found it to not work for all cases. Namely, enabling agent integration didn&amp;rsquo;t enable scraping metrics of the agent itself. This could be due to running the Grafana Agent in Kubernetes, which the guide may not be targeted at, or due to configuring the agent in a manner that deviates from Grafana&amp;rsquo;s recommended way.</description>
+      <description>&lt;p&gt;After deploying the &lt;a href=&#34;https://github.com/grafana/agent&#34;&gt;Grafana Agent&lt;/a&gt; in a Kubernetes cluster, you&amp;rsquo;ll most likely want to monitor it to ensure that no observability data gets lost. Grafana provides a &lt;a href=&#34;https://grafana.com/docs/grafana-cloud/agent/agent_monitoring/&#34;&gt;comprehensive guide&lt;/a&gt; on how to configure alerts for the agent, but I found it to not work for all cases. Namely, enabling agent integration didn&amp;rsquo;t enable scraping metrics of the agent itself. This could be due to running the Grafana Agent in Kubernetes, which the guide may not be targeted at, or due to configuring the agent in a manner that deviates from Grafana&amp;rsquo;s recommended way.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Automatically Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
       <link>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</link>
       <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</guid>
-      <description>Configuring the Grafana Agent to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.</description>
+      <description>&lt;p&gt;Configuring the &lt;a href=&#34;https://github.com/grafana/agent/&#34;&gt;Grafana Agent&lt;/a&gt; to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

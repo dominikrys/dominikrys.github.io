@@ -5,29 +5,31 @@
     <link>https://dominikrys.com/tags/influxdb/</link>
     <description>Recent content in InfluxDB on Dominik Rys</description>
     <image>
+      <title>Dominik Rys</title>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 01 Dec 2020 12:51:48 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.140.2</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Dec 2020 12:51:48 +0100</lastBuildDate>
+    <atom:link href="https://dominikrys.com/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Setting up a TLS-Secured Monitoring Solution in Docker using InfluxDB, Grafana, and Traefik</title>
       <link>https://dominikrys.com/posts/monitoring-influxdb-grafana-traefik/</link>
       <pubDate>Tue, 01 Dec 2020 12:51:48 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/monitoring-influxdb-grafana-traefik/</guid>
-      <description>During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out here. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with Grafana and InfluxDB as the front-end and time-series database, respectively.</description>
+      <description>&lt;p&gt;During my last internship, I&amp;rsquo;ve been tasked with designing and deploying infrastructure for monitoring a cluster of machines that were used for performance testing. I wrote a blog post detailing high-level choices about it which you can check out &lt;a href=&#34;https://dominikrys.com/posts/monitoring-corda-nodes/&#34; title=&#34;Monitoring Corda Nodes&#34;&gt;here&lt;/a&gt;. The post also includes justifications for why I chose to deploy everything in Docker, and why I chose to work with &lt;a href=&#34;https://grafana.com/&#34;&gt;Grafana&lt;/a&gt; and &lt;a href=&#34;https://www.influxdata.com/products/influxdb/&#34;&gt;InfluxDB&lt;/a&gt; as the front-end and time-series database, respectively.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Monitoring Corda Nodes Using Grafana, InfluxDB, and Telegraf</title>
       <link>https://dominikrys.com/posts/monitoring-corda-nodes/</link>
       <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/monitoring-corda-nodes/</guid>
-      <description>This post is also hosted on the Corda Blog. The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.
-Intro Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a performance testing suite that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;This post is also hosted on the &lt;a href=&#34;https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/&#34;&gt;Corda Blog&lt;/a&gt;.&lt;/strong&gt; The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a &lt;a href=&#34;https://docs.corda.net/docs/corda-enterprise/performance-testing/toc-tree.html&#34;&gt;performance testing suite&lt;/a&gt; that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

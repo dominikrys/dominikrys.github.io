@@ -5,48 +5,45 @@
     <link>https://dominikrys.com/tags/observability/</link>
     <description>Recent content in Observability on Dominik Rys</description>
     <image>
+      <title>Dominik Rys</title>
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate><atom:link href="https://dominikrys.com/tags/observability/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.140.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate>
+    <atom:link href="https://dominikrys.com/tags/observability/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Scraping Grafana Agent Metrics in Kubernetes</title>
       <link>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</link>
       <pubDate>Sun, 03 Jul 2022 10:08:23 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</guid>
-      <description>After deploying the Grafana Agent in a Kubernetes cluster, you&amp;rsquo;ll most likely want to monitor it to ensure that no observability data gets lost. Grafana provides a comprehensive guide on how to configure alerts for the agent, but I found it to not work for all cases. Namely, enabling agent integration didn&amp;rsquo;t enable scraping metrics of the agent itself. This could be due to running the Grafana Agent in Kubernetes, which the guide may not be targeted at, or due to configuring the agent in a manner that deviates from Grafana&amp;rsquo;s recommended way.</description>
+      <description>&lt;p&gt;After deploying the &lt;a href=&#34;https://github.com/grafana/agent&#34;&gt;Grafana Agent&lt;/a&gt; in a Kubernetes cluster, you&amp;rsquo;ll most likely want to monitor it to ensure that no observability data gets lost. Grafana provides a &lt;a href=&#34;https://grafana.com/docs/grafana-cloud/agent/agent_monitoring/&#34;&gt;comprehensive guide&lt;/a&gt; on how to configure alerts for the agent, but I found it to not work for all cases. Namely, enabling agent integration didn&amp;rsquo;t enable scraping metrics of the agent itself. This could be due to running the Grafana Agent in Kubernetes, which the guide may not be targeted at, or due to configuring the agent in a manner that deviates from Grafana&amp;rsquo;s recommended way.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Automatically Generating a Grafana Agent Configuration for a Kubernetes Cluster</title>
       <link>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</link>
       <pubDate>Wed, 30 Mar 2022 21:37:36 +0100</pubDate>
-      
       <guid>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</guid>
-      <description>Configuring the Grafana Agent to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.</description>
+      <description>&lt;p&gt;Configuring the &lt;a href=&#34;https://github.com/grafana/agent/&#34;&gt;Grafana Agent&lt;/a&gt; to collect metrics from nodes in a Kubernetes cluster can be quite a daunting task. Manually configuring scrape jobs for all the pods running in your cluster can be a laborious undertaking that is not maintainable in the long run, especially as new services are added. In this post, I describe a way to generate a Grafana Agent configuration for a Kubernetes cluster using the Grafana Agent Operator.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Mapping Google Groups to Kibana Roles</title>
       <link>https://dominikrys.com/posts/mapping-google-groups-kibana/</link>
       <pubDate>Mon, 20 Dec 2021 15:05:10 +0000</pubDate>
-      
       <guid>https://dominikrys.com/posts/mapping-google-groups-kibana/</guid>
-      <description>I&amp;rsquo;ve recently configured authentication for the Elastic Stack. To take some of the burden off managing permissions manually, we wanted to map Google Groups to Kibana roles, since we manage authentication to most of our systems using Google Groups.
-Having followed Elastic&amp;rsquo;s documentation on setting up Google OIDC authentication, however, I found that this task is not so easy, as Google OIDC doesn&amp;rsquo;t return group memberships in the JWT that the application receives.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently configured authentication for the Elastic Stack. To take some of the burden off managing permissions manually, we wanted to map Google Groups to Kibana roles, since we manage authentication to most of our systems using Google Groups.&lt;/p&gt;
+&lt;p&gt;Having followed &lt;a href=&#34;https://www.elastic.co/guide/en/cloud/current/ec-securing-clusters-oidc-op.html&#34;&gt;Elastic&amp;rsquo;s documentation on setting up Google OIDC authentication&lt;/a&gt;, however, I found that this task is not so easy, as &lt;a href=&#34;https://discuss.elastic.co/t/google-oidc-sso-with-mapping-google-groups-onto-kibana-roles/271762&#34;&gt;Google OIDC doesn&amp;rsquo;t return group memberships in the JWT that the application receives&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Guide to Creating Alerts from Logs in Kibana</title>
       <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
       <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
-      
       <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>
-      <description>I&amp;rsquo;ve recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren&amp;rsquo;t particularly well documented in Elastic&amp;rsquo;s documentation. I&amp;rsquo;ll explain my findings in this post.
-Types of Kibana Alerts Rules These used to be called Kibana Alerts (for some reason Elastic has done a lot of renaming over the years), and in most cases I found these to be the best choice.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently deployed the Elastic Stack and set up sending logs to it. To automate certain checks, I then wanted to set up some alerts based on the logs. However, I found that there is several ways that this can be set up in Kibana. Each way has its shortcomings and pre-requisites, which aren&amp;rsquo;t particularly well documented in Elastic&amp;rsquo;s documentation. I&amp;rsquo;ll explain my findings in this post.&lt;/p&gt;
+&lt;h2 id=&#34;types-of-kibana-alerts&#34;&gt;Types of Kibana Alerts&lt;/h2&gt;
+&lt;h3 id=&#34;rules&#34;&gt;Rules&lt;/h3&gt;
+&lt;p&gt;These used to be called Kibana Alerts (for some reason Elastic has done a lot of renaming over the years), and in most cases I found these to be the best choice. These can be found by navigating to &lt;strong&gt;Stack Management&lt;/strong&gt; &amp;gt; &lt;strong&gt;Rules and Connectors&lt;/strong&gt; in Kibana.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
