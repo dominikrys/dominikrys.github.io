@@ -63,8 +63,6 @@ params:
       computer science
     ]
 
-  author: Dominik Rys
-
   defaultTheme: auto
   disableThemeToggle: false
   ShowShareButtons: true
