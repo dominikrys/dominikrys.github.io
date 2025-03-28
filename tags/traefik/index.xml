@@ -9,7 +9,7 @@
       <url>https://dominikrys.com/android-chrome-512x512.png</url>
       <link>https://dominikrys.com/android-chrome-512x512.png</link>
     </image>
-    <generator>Hugo -- 0.140.2</generator>
+    <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
     <lastBuildDate>Tue, 01 Dec 2020 12:51:48 +0100</lastBuildDate>
     <atom:link href="https://dominikrys.com/tags/traefik/index.xml" rel="self" type="application/rss+xml" />
@@ -26,8 +26,7 @@
       <pubDate>Mon, 21 Sep 2020 16:52:48 +0100</pubDate>
       <guid>https://dominikrys.com/posts/monitoring-corda-nodes/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;This post is also hosted on the &lt;a href=&#34;https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/&#34;&gt;Corda Blog&lt;/a&gt;.&lt;/strong&gt; The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;This post is also hosted on the &lt;a href=&#34;https://www.corda.net/blog/monitoring-corda-nodes-using-grafana-influxdb-and-telegraf/&#34;&gt;Corda Blog&lt;/a&gt;.&lt;/strong&gt; The main goal behind this post was to provide an easily accessible high-level overview on monitoring Corda nodes. It also showcases part of what I&amp;rsquo;ve done during my summer internship at R3.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
 &lt;p&gt;Here at R3, we have a cluster of Corda nodes that we use for performance testing. We have developed a &lt;a href=&#34;https://docs.corda.net/docs/corda-enterprise/performance-testing/toc-tree.html&#34;&gt;performance testing suite&lt;/a&gt; that enables us to establish baseline numbers, quantify improvements from new features, and identify regressions.&lt;/p&gt;</description>
     </item>
