@@ -2,8 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://dominikrys.com/tags/bigquery/</loc>
+    <lastmod>2025-03-27T15:15:07+00:00</lastmod>
+  </url><url>
     <loc>https://dominikrys.com/</loc>
-    <lastmod>2022-07-03T10:08:23+01:00</lastmod>
+    <lastmod>2025-03-27T15:15:07+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/finops/</loc>
+    <lastmod>2025-03-27T15:15:07+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/gcp/</loc>
+    <lastmod>2025-03-27T15:15:07+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/how-we-saved-3-5m-in-bigquery-costs-on-deleting-inactive-user-data/</loc>
+    <lastmod>2025-03-27T15:15:07+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/posts/</loc>
+    <lastmod>2025-03-27T15:15:07+00:00</lastmod>
+  </url><url>
+    <loc>https://dominikrys.com/tags/</loc>
+    <lastmod>2025-03-27T15:15:07+00:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/grafana/</loc>
     <lastmod>2022-07-03T10:08:23+01:00</lastmod>
@@ -14,16 +32,10 @@
     <loc>https://dominikrys.com/tags/observability/</loc>
     <lastmod>2022-07-03T10:08:23+01:00</lastmod>
   </url><url>
-    <loc>https://dominikrys.com/posts/</loc>
-    <lastmod>2022-07-03T10:08:23+01:00</lastmod>
-  </url><url>
     <loc>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</loc>
     <lastmod>2022-07-03T10:08:23+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/tags/site-reliability-engineering/</loc>
-    <lastmod>2022-07-03T10:08:23+01:00</lastmod>
-  </url><url>
-    <loc>https://dominikrys.com/tags/</loc>
     <lastmod>2022-07-03T10:08:23+01:00</lastmod>
   </url><url>
     <loc>https://dominikrys.com/posts/grafana-agent-config-kubernetes/</loc>

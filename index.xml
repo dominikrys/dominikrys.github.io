@@ -11,8 +11,17 @@
     </image>
     <generator>Hugo -- 0.145.0</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 03 Jul 2022 10:08:23 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 27 Mar 2025 15:15:07 +0000</lastBuildDate>
     <atom:link href="https://dominikrys.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How We Saved $3.5M in BigQuery Costs on Deleting Inactive User Data</title>
+      <link>https://dominikrys.com/posts/how-we-saved-3-5m-in-bigquery-costs-on-deleting-inactive-user-data/</link>
+      <pubDate>Thu, 27 Mar 2025 15:15:07 +0000</pubDate>
+      <guid>https://dominikrys.com/posts/how-we-saved-3-5m-in-bigquery-costs-on-deleting-inactive-user-data/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;This post was also posted on the &lt;a href=&#34;https://medium.com/gocardless-tech/how-we-saved-3-5m-in-bigquery-costs-on-deleting-inactive-user-data-8d0ebbd012ee&#34;&gt;GoCardless Tech blog&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;GoCardless was founded 13 years ago. Over this time, we’ve had hundreds of thousands of merchants create accounts with us and actively use our product. However, we’ve also accumulated a large number of inactive accounts over this time, leaving a lot of their data across our systems. At GoCardless we take our data responsibilities seriously, so we decided to remove this data, reducing the impact of any potential data breaches.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Scraping Grafana Agent Metrics in Kubernetes</title>
       <link>https://dominikrys.com/posts/grafana-agent-monitoring-kubernetes/</link>
