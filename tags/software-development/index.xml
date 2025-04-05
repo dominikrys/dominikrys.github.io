@@ -21,7 +21,7 @@
       <description>&lt;p&gt;I&amp;rsquo;ve recently been working on a Node.js project in TypeScript and bundling its dependencies using &lt;a href=&#34;https://browserify.org/&#34;&gt;Browserify&lt;/a&gt;. To increase the speed of iteration, I wanted to automatically reload the tab with my web app whenever I made code changes, which would entail recompiling the TypeScript code into JavaScript. However, I couldn&amp;rsquo;t find a good guide on how to achieve this online. In the end, I managed to figure it out by bolting some tools together - with no JavaScript task runner such as &lt;a href=&#34;https://gulpjs.com/&#34;&gt;Gulp&lt;/a&gt; or &lt;a href=&#34;https://gruntjs.com/&#34;&gt;Grunt&lt;/a&gt; needed!&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Guide to Creating Alerts from Logs in Kibana</title>
+      <title>Creating Alerts from Logs in Kibana</title>
       <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
       <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
       <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>

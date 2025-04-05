@@ -36,7 +36,7 @@
 &lt;p&gt;Having followed &lt;a href=&#34;https://www.elastic.co/guide/en/cloud/current/ec-securing-clusters-oidc-op.html&#34;&gt;Elastic&amp;rsquo;s documentation on setting up Google OIDC authentication&lt;/a&gt;, however, I found that this task is not so easy, as &lt;a href=&#34;https://discuss.elastic.co/t/google-oidc-sso-with-mapping-google-groups-onto-kibana-roles/271762&#34;&gt;Google OIDC doesn&amp;rsquo;t return group memberships in the JWT that the application receives&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Guide to Creating Alerts from Logs in Kibana</title>
+      <title>Creating Alerts from Logs in Kibana</title>
       <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
       <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
       <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>

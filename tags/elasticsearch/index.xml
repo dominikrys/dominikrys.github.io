@@ -14,7 +14,7 @@
     <lastBuildDate>Sat, 18 Dec 2021 12:35:54 +0000</lastBuildDate>
     <atom:link href="https://dominikrys.com/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Guide to Creating Alerts from Logs in Kibana</title>
+      <title>Creating Alerts from Logs in Kibana</title>
       <link>https://dominikrys.com/posts/kibana-log-alerts/</link>
       <pubDate>Sat, 18 Dec 2021 12:35:54 +0000</pubDate>
       <guid>https://dominikrys.com/posts/kibana-log-alerts/</guid>
